@@ -1,0 +1,782 @@
+[d] 17-09-25 07:09:12 @ Module was booted too
+
+[i] 17-09-25 07:09:12 @ Cala was booted...
+
+[d] 17-09-25 07:09:12 @ Loading module: db
+
+[d] 17-09-25 07:09:12 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:12 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:12 @ Module was booted too
+
+[e] 17-09-25 07:09:12 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:12 @ Loading module: users
+
+[d] 17-09-25 07:09:12 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:12 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:12 @ Module was booted too
+
+[d] 17-09-25 07:09:12 @ Loading user
+
+[d] 17-09-25 07:09:12 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:12 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:12 @ Loading in path: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:12 @ Including file: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:12 @ Module was booted too
+
+[i] 17-09-25 07:09:12 @ Cala was booted...
+
+[d] 17-09-25 07:09:12 @ Finished! Memory used: Mb0.603232<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:43 @ Module was booted too
+
+[i] 17-09-25 07:09:43 @ Cala was booted...
+
+[d] 17-09-25 07:09:43 @ Loading module: db
+
+[d] 17-09-25 07:09:43 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:43 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:43 @ Module was booted too
+
+[e] 17-09-25 07:09:43 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:43 @ Loading module: users
+
+[d] 17-09-25 07:09:43 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:43 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:43 @ Module was booted too
+
+[d] 17-09-25 07:09:43 @ Loading user
+
+[d] 17-09-25 07:09:43 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:43 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:43 @ Loading in path: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:43 @ Including file: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:43 @ Module was booted too
+
+[i] 17-09-25 07:09:43 @ Cala was booted...
+
+[d] 17-09-25 07:09:43 @ Finished! Memory used: Mb0.514984<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:34 @ Module was booted too
+
+[i] 17-09-25 07:09:34 @ Cala was booted...
+
+[d] 17-09-25 07:09:34 @ Loading module: db
+
+[d] 17-09-25 07:09:34 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:34 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:34 @ Module was booted too
+
+[e] 17-09-25 07:09:34 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:34 @ Loading module: users
+
+[d] 17-09-25 07:09:34 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:34 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:34 @ Module was booted too
+
+[d] 17-09-25 07:09:34 @ Loading user
+
+[d] 17-09-25 07:09:34 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:34 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:34 @ Loading in path: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:34 @ Including file: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:34 @ Module was booted too
+
+[i] 17-09-25 07:09:34 @ Cala was booted...
+
+[d] 17-09-25 07:09:34 @ Finished! Memory used: Mb0.376704<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:58 @ Module was booted too
+
+[i] 17-09-25 07:09:58 @ Cala was booted...
+
+[d] 17-09-25 07:09:58 @ Loading module: db
+
+[d] 17-09-25 07:09:58 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:58 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:58 @ Module was booted too
+
+[e] 17-09-25 07:09:58 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:58 @ Loading module: users
+
+[d] 17-09-25 07:09:58 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:58 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:58 @ Module was booted too
+
+[d] 17-09-25 07:09:58 @ Loading user
+
+[d] 17-09-25 07:09:58 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:58 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:58 @ Loading in path: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:58 @ Including file: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:58 @ Module was booted too
+
+[i] 17-09-25 07:09:58 @ Cala was booted...
+
+[d] 17-09-25 07:09:58 @ Finished! Memory used: Mb0.376704<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:59 @ Module was booted too
+
+[i] 17-09-25 07:09:59 @ Cala was booted...
+
+[d] 17-09-25 07:09:59 @ Loading module: db
+
+[d] 17-09-25 07:09:59 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:59 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:59 @ Module was booted too
+
+[e] 17-09-25 07:09:59 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:59 @ Loading module: users
+
+[d] 17-09-25 07:09:59 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:59 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:59 @ Module was booted too
+
+[d] 17-09-25 07:09:59 @ Loading user
+
+[d] 17-09-25 07:09:59 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:59 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:59 @ Loading in path: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:59 @ Including file: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:59 @ Module was booted too
+
+[i] 17-09-25 07:09:59 @ Cala was booted...
+
+[d] 17-09-25 07:09:59 @ Finished! Memory used: Mb0.378144<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:17 @ Module was booted too
+
+[i] 17-09-25 07:09:17 @ Cala was booted...
+
+[d] 17-09-25 07:09:17 @ Loading module: db
+
+[d] 17-09-25 07:09:17 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:17 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:17 @ Module was booted too
+
+[e] 17-09-25 07:09:17 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:17 @ Loading module: users
+
+[d] 17-09-25 07:09:17 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:17 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:17 @ Module was booted too
+
+[d] 17-09-25 07:09:17 @ Loading user
+
+[d] 17-09-25 07:09:17 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:17 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:17 @ Loading in path: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:17 @ Including file: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:17 @ Module was booted too
+
+[i] 17-09-25 07:09:17 @ Cala was booted...
+
+[d] 17-09-25 07:09:17 @ Finished! Memory used: Mb0.376704<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:07 @ Module was booted too
+
+[i] 17-09-25 07:09:07 @ Cala was booted...
+
+[d] 17-09-25 07:09:07 @ Loading module: db
+
+[d] 17-09-25 07:09:07 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:07 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:07 @ Module was booted too
+
+[e] 17-09-25 07:09:07 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:07 @ Loading module: users
+
+[d] 17-09-25 07:09:07 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:07 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:07 @ Module was booted too
+
+[d] 17-09-25 07:09:07 @ Loading user
+
+[d] 17-09-25 07:09:07 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:07 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:07 @ Loading in path: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:07 @ Including file: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:07 @ Module was booted too
+
+[i] 17-09-25 07:09:07 @ Cala was booted...
+
+[d] 17-09-25 07:09:07 @ Finished! Memory used: Mb0.377576<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:09 @ Module was booted too
+
+[i] 17-09-25 07:09:09 @ Cala was booted...
+
+[d] 17-09-25 07:09:09 @ Loading module: db
+
+[d] 17-09-25 07:09:09 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:09 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:09 @ Module was booted too
+
+[e] 17-09-25 07:09:09 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:09 @ Loading module: users
+
+[d] 17-09-25 07:09:09 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:09 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:09 @ Module was booted too
+
+[d] 17-09-25 07:09:09 @ Loading user
+
+[d] 17-09-25 07:09:09 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:09 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:09 @ Loading in path: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:09 @ Including file: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:09 @ Module was booted too
+
+[i] 17-09-25 07:09:09 @ Cala was booted...
+
+[d] 17-09-25 07:09:09 @ Finished! Memory used: Mb0.377752<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:32 @ Module was booted too
+
+[i] 17-09-25 07:09:32 @ Cala was booted...
+
+[d] 17-09-25 07:09:32 @ Loading module: db
+
+[d] 17-09-25 07:09:32 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:32 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:32 @ Module was booted too
+
+[e] 17-09-25 07:09:32 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:32 @ Loading module: users
+
+[d] 17-09-25 07:09:32 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:32 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:32 @ Module was booted too
+
+[d] 17-09-25 07:09:32 @ Loading user
+
+[d] 17-09-25 07:09:32 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:32 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:32 @ Loading in path: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:32 @ Including file: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:32 @ Module was booted too
+
+[i] 17-09-25 07:09:32 @ Cala was booted...
+
+[d] 17-09-25 07:09:32 @ Finished! Memory used: Mb0.377752<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:14 @ Module was booted too
+
+[i] 17-09-25 07:09:14 @ Cala was booted...
+
+[d] 17-09-25 07:09:14 @ Loading module: db
+
+[d] 17-09-25 07:09:14 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:14 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:14 @ Module was booted too
+
+[e] 17-09-25 07:09:14 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:14 @ Loading module: users
+
+[d] 17-09-25 07:09:14 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:14 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:14 @ Module was booted too
+
+[d] 17-09-25 07:09:14 @ Loading user
+
+[d] 17-09-25 07:09:14 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:14 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:14 @ Loading in path: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:14 @ Including file: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:14 @ Module was booted too
+
+[i] 17-09-25 07:09:14 @ Cala was booted...
+
+[d] 17-09-25 07:09:14 @ Finished! Memory used: Mb0.377752<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:15 @ Module was booted too
+
+[i] 17-09-25 07:09:15 @ Cala was booted...
+
+[d] 17-09-25 07:09:15 @ Loading module: db
+
+[d] 17-09-25 07:09:15 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:15 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:15 @ Module was booted too
+
+[e] 17-09-25 07:09:15 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:15 @ Loading module: users
+
+[d] 17-09-25 07:09:15 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:15 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:15 @ Module was booted too
+
+[d] 17-09-25 07:09:15 @ Loading user
+
+[d] 17-09-25 07:09:15 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:15 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:15 @ Loading in path: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:15 @ Including file: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:15 @ Module was booted too
+
+[i] 17-09-25 07:09:15 @ Cala was booted...
+
+[d] 17-09-25 07:09:15 @ Finished! Memory used: Mb0.377752<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:58 @ Module was booted too
+
+[i] 17-09-25 07:09:58 @ Cala was booted...
+
+[d] 17-09-25 07:09:58 @ Loading module: db
+
+[d] 17-09-25 07:09:58 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:58 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:58 @ Module was booted too
+
+[e] 17-09-25 07:09:58 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:58 @ Loading module: users
+
+[d] 17-09-25 07:09:58 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:58 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:58 @ Module was booted too
+
+[d] 17-09-25 07:09:58 @ Loading user
+
+[d] 17-09-25 07:09:58 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:58 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:58 @ Loading in path: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:58 @ Including file: ../api/modules/cala/module.php
+
+[d] 17-09-25 07:09:58 @ Module was booted too
+
+[i] 17-09-25 07:09:58 @ Cala was booted...
+
+[d] 17-09-25 07:09:58 @ Finished! Memory used: Mb0.377576<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:40 @ Module was booted too
+
+[i] 17-09-25 07:09:40 @ Cala was booted...
+
+[d] 17-09-25 07:09:40 @ Loading module: db
+
+[d] 17-09-25 07:09:40 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:40 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:40 @ Module was booted too
+
+[e] 17-09-25 07:09:40 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:40 @ Loading module: users
+
+[d] 17-09-25 07:09:40 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:40 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:40 @ Module was booted too
+
+[d] 17-09-25 07:09:40 @ Loading user
+
+[d] 17-09-25 07:09:40 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:40 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:40 @ Loading in path: ../api/contrib/ejemplo/module.php
+
+[d] 17-09-25 07:09:40 @ Including file: ../api/contrib/ejemplo/module.php
+
+[d] 17-09-25 07:09:40 @ Module was booted too
+
+[d] 17-09-25 07:09:40 @ Function found
+
+[d] 17-09-25 07:09:40 @ Looking for path: hola
+
+[d] 17-09-25 07:09:40 @ Found path: hola
+
+[d] 17-09-25 07:09:40 @ Loading in path: ../api/contrib/ejemplo/ejemplo.php
+
+[d] 17-09-25 07:09:40 @ Including file: ../api/contrib/ejemplo/ejemplo.php
+
+[d] 17-09-25 07:09:40 @ Module was booted too
+
+[d] 17-09-25 07:09:40 @ Found function: module_hola
+
+[d] 17-09-25 07:09:40 @ Finished! Memory used: Mb0.51476<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:10 @ Module was booted too
+
+[i] 17-09-25 07:09:10 @ Cala was booted...
+
+[d] 17-09-25 07:09:10 @ Loading module: db
+
+[d] 17-09-25 07:09:10 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:10 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:10 @ Module was booted too
+
+[e] 17-09-25 07:09:10 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:10 @ Loading module: users
+
+[d] 17-09-25 07:09:10 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:10 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:10 @ Module was booted too
+
+[d] 17-09-25 07:09:10 @ Loading user
+
+[d] 17-09-25 07:09:10 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:10 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:10 @ Loading in path: ../api/contrib/ejemplo/module.php
+
+[d] 17-09-25 07:09:10 @ Including file: ../api/contrib/ejemplo/module.php
+
+[d] 17-09-25 07:09:10 @ Module was booted too
+
+[d] 17-09-25 07:09:10 @ Function found
+
+[d] 17-09-25 07:09:10 @ Looking for path: un_usuario
+
+[d] 17-09-25 07:09:10 @ Found path: un_usuario
+
+[d] 17-09-25 07:09:10 @ Missing param: apellid
+
+[d] 17-09-25 07:09:10 @ Finished! Memory used: Mb0.378368<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:29 @ Module was booted too
+
+[i] 17-09-25 07:09:29 @ Cala was booted...
+
+[d] 17-09-25 07:09:29 @ Loading module: db
+
+[d] 17-09-25 07:09:29 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:29 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:29 @ Module was booted too
+
+[e] 17-09-25 07:09:29 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:29 @ Loading module: users
+
+[d] 17-09-25 07:09:29 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:29 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:29 @ Module was booted too
+
+[d] 17-09-25 07:09:29 @ Loading user
+
+[d] 17-09-25 07:09:29 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:29 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:29 @ Loading in path: ../api/contrib/ejemplo/module.php
+
+[d] 17-09-25 07:09:29 @ Including file: ../api/contrib/ejemplo/module.php
+
+[d] 17-09-25 07:09:29 @ Module was booted too
+
+[d] 17-09-25 07:09:29 @ Function found
+
+[d] 17-09-25 07:09:29 @ Looking for path: un_usuario
+
+[d] 17-09-25 07:09:29 @ Found path: un_usuario
+
+[d] 17-09-25 07:09:29 @ Loading in path: ../api/contrib/ejemplo/file.php
+
+[d] 17-09-25 07:09:29 @ File does not exist
+
+[d] 17-09-25 07:09:29 @ Finished! Memory used: Mb0.515104<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:07 @ Module was booted too
+
+[i] 17-09-25 07:09:07 @ Cala was booted...
+
+[d] 17-09-25 07:09:07 @ Loading module: db
+
+[d] 17-09-25 07:09:07 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:07 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:07 @ Module was booted too
+
+[e] 17-09-25 07:09:07 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:07 @ Loading module: users
+
+[d] 17-09-25 07:09:07 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:07 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:07 @ Module was booted too
+
+[d] 17-09-25 07:09:07 @ Loading user
+
+[d] 17-09-25 07:09:07 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:07 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:07 @ Loading in path: ../api/contrib/ejemplo/module.php
+
+[d] 17-09-25 07:09:07 @ Including file: ../api/contrib/ejemplo/module.php
+
+[d] 17-09-25 07:09:07 @ Module was booted too
+
+[d] 17-09-25 07:09:07 @ Function found
+
+[d] 17-09-25 07:09:07 @ Looking for path: un_usuario
+
+[d] 17-09-25 07:09:07 @ Found path: un_usuario
+
+[d] 17-09-25 07:09:07 @ Loading in path: ../api/contrib/ejemplo/ejemplo.php
+
+[d] 17-09-25 07:09:07 @ Including file: ../api/contrib/ejemplo/ejemplo.php
+
+[d] 17-09-25 07:09:07 @ Module was booted too
+
+[d] 17-09-25 07:09:07 @ Found function: unUsuario
+
+[d] 17-09-25 07:09:07 @ Finished! Memory used: Mb0.515104<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:19 @ Module was booted too
+
+[i] 17-09-25 07:09:19 @ Cala was booted...
+
+[d] 17-09-25 07:09:19 @ Loading module: db
+
+[d] 17-09-25 07:09:19 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:19 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:19 @ Module was booted too
+
+[e] 17-09-25 07:09:19 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:19 @ Loading module: users
+
+[d] 17-09-25 07:09:19 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:19 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:19 @ Module was booted too
+
+[d] 17-09-25 07:09:19 @ Loading user
+
+[d] 17-09-25 07:09:19 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:19 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:19 @ Loading in path: ../api/contrib/ejemplo/module.php
+
+[d] 17-09-25 07:09:19 @ Including file: ../api/contrib/ejemplo/module.php
+
+[d] 17-09-25 07:09:19 @ Module was booted too
+
+[d] 17-09-25 07:09:19 @ Function found
+
+[d] 17-09-25 07:09:19 @ Looking for path: un_usuario
+
+[d] 17-09-25 07:09:19 @ Found path: un_usuario
+
+[d] 17-09-25 07:09:19 @ Loading in path: ../api/contrib/ejemplo/ejemplo.php
+
+[d] 17-09-25 07:09:19 @ Including file: ../api/contrib/ejemplo/ejemplo.php
+
+[d] 17-09-25 07:09:19 @ Module was booted too
+
+[d] 17-09-25 07:09:19 @ Found function: unUsuario
+
+[d] 17-09-25 07:09:19 @ Finished! Memory used: Mb0.512496<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+[d] 17-09-25 07:09:28 @ Module was booted too
+
+[i] 17-09-25 07:09:28 @ Cala was booted...
+
+[d] 17-09-25 07:09:28 @ Loading module: db
+
+[d] 17-09-25 07:09:28 @ Loading in path: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:28 @ Including file: ../api/modules/db/module.php
+
+[d] 17-09-25 07:09:28 @ Module was booted too
+
+[e] 17-09-25 07:09:28 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:28 @ Loading module: users
+
+[d] 17-09-25 07:09:28 @ Loading in path: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:28 @ Including file: ../api/modules/users/module.php
+
+[d] 17-09-25 07:09:28 @ Module was booted too
+
+[d] 17-09-25 07:09:28 @ Loading user
+
+[d] 17-09-25 07:09:28 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+
+[e] 17-09-25 07:09:28 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+
+[d] 17-09-25 07:09:28 @ Loading in path: ../api/contrib/ejemplo/module.php
+
+[d] 17-09-25 07:09:28 @ Including file: ../api/contrib/ejemplo/module.php
+
+[d] 17-09-25 07:09:28 @ Module was booted too
+
+[d] 17-09-25 07:09:28 @ Function found
+
+[d] 17-09-25 07:09:28 @ Looking for path: un_usuario
+
+[d] 17-09-25 07:09:28 @ Found path: un_usuario
+
+[d] 17-09-25 07:09:28 @ Loading in path: ../api/contrib/ejemplo/ejemplo.php
+
+[d] 17-09-25 07:09:28 @ Including file: ../api/contrib/ejemplo/ejemplo.php
+
+[d] 17-09-25 07:09:28 @ Module was booted too
+
+[d] 17-09-25 07:09:28 @ Found function: unUsuario
+
+[d] 17-09-25 07:09:28 @ Finished! Memory used: Mb0.512496<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
