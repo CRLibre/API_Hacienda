@@ -59,7 +59,7 @@ function db_Connect(){
 	if($dbConn->connect_error){
 		grace_error("Connection failed: " . $dbConn->connect_error);
 	}else{
-		$dbConn->set_charset("utf8");
+		$dbConn->set_charset("utf8mb4");
 		grace_debug("Conneted to Db");
 	}
 
