@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `cala_dev_01`
@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS `conversations` (
   `idUser` int(11) unsigned NOT NULL,
   `idRecipient` int(11) unsigned NOT NULL,
   `timestamp` int(11) unsigned NOT NULL,
-  `subject` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -42,14 +42,14 @@ CREATE TABLE IF NOT EXISTS `conversations` (
 
 CREATE TABLE IF NOT EXISTS `files` (
   `idFile` int(10) unsigned NOT NULL,
-  `md5` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `md5` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` int(11) unsigned NOT NULL,
   `size` int(11) unsigned NOT NULL,
   `idUser` int(11) unsigned NOT NULL,
-  `downloadCode` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `fileType` varchar(25) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `downloadCode` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fileType` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -60,9 +60,9 @@ CREATE TABLE IF NOT EXISTS `files` (
 CREATE TABLE IF NOT EXISTS `lestatz_domains` (
   `idDomain` int(10) unsigned NOT NULL,
   `idUser` int(10) unsigned NOT NULL,
-  `domain` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `domain` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total` int(10) unsigned NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='A list of domains per user';
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A list of domains per user';
 
 -- --------------------------------------------------------
 
@@ -73,10 +73,10 @@ CREATE TABLE IF NOT EXISTS `lestatz_domains` (
 CREATE TABLE IF NOT EXISTS `lestatz_goals` (
   `idGoal` int(10) unsigned NOT NULL,
   `idUser` int(10) unsigned NOT NULL,
-  `goal` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `goal` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total` int(10) unsigned NOT NULL,
   `idDomain` int(10) unsigned NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='A list of goals per user';
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A list of goals per user';
 
 -- --------------------------------------------------------
 
@@ -87,10 +87,10 @@ CREATE TABLE IF NOT EXISTS `lestatz_goals` (
 CREATE TABLE IF NOT EXISTS `lestatz_refs` (
   `idRef` int(10) unsigned NOT NULL,
   `idUser` int(10) unsigned NOT NULL,
-  `ref` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `ref` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total` int(10) unsigned NOT NULL,
   `idDomain` int(10) unsigned NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='A list of refs per user';
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A list of refs per user';
 
 -- --------------------------------------------------------
 
@@ -124,14 +124,14 @@ CREATE TABLE IF NOT EXISTS `lestatz_visit_log` (
 CREATE TABLE IF NOT EXISTS `msgs` (
   `idMsg` int(11) unsigned NOT NULL,
   `timestamp` int(11) unsigned NOT NULL,
-  `ip` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `ip` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `idSender` int(11) unsigned NOT NULL,
   `idRecipient` int(11) unsigned NOT NULL,
-  `text` text COLLATE utf8_unicode_ci NOT NULL,
+  `text` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `channel` int(11) NOT NULL,
   `attachments` int(11) unsigned NOT NULL,
   `idConversation` int(11) unsigned NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -142,10 +142,10 @@ CREATE TABLE IF NOT EXISTS `msgs` (
 CREATE TABLE IF NOT EXISTS `sessions` (
   `idSession` int(11) unsigned NOT NULL,
   `idUser` int(11) unsigned NOT NULL,
-  `sessionKey` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `ip` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `sessionKey` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastAccess` int(10) unsigned NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -155,18 +155,18 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 
 CREATE TABLE IF NOT EXISTS `users` (
   `idUser` int(11) unsigned NOT NULL,
-  `fullName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `userName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `about` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `country` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
-  `status` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
+  `fullName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `about` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` int(11) unsigned NOT NULL,
   `lastAccess` int(11) unsigned NOT NULL,
-  `pwd` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `avatar` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `settings` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Any and all settings you would like to set'
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `pwd` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `settings` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Any and all settings you would like to set'
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables

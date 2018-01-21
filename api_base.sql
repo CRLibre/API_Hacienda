@@ -31,10 +31,10 @@ CREATE TABLE `conversations` (
   `idUser` int(11) UNSIGNED NOT NULL,
   `idRecipient` int(11) UNSIGNED NOT NULL,
   `timestamp` int(11) UNSIGNED NOT NULL,
-  `subject` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleteMe` int(11) NOT NULL,
   `deleteMe2` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -44,15 +44,15 @@ CREATE TABLE `conversations` (
 
 CREATE TABLE `files` (
   `idFile` int(10) UNSIGNED NOT NULL,
-  `md5` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `md5` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` int(11) UNSIGNED NOT NULL,
   `size` int(11) UNSIGNED NOT NULL,
   `idUser` int(11) UNSIGNED NOT NULL,
-  `downloadCode` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `fileType` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `type` varchar(25) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `downloadCode` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fileType` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -63,14 +63,14 @@ CREATE TABLE `files` (
 CREATE TABLE `msgs` (
   `idMsg` int(11) UNSIGNED NOT NULL,
   `timestamp` int(11) UNSIGNED NOT NULL,
-  `ip` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `ip` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `idSender` int(11) UNSIGNED NOT NULL,
   `idRecipient` int(11) UNSIGNED NOT NULL,
-  `text` text COLLATE utf8_unicode_ci NOT NULL,
+  `text` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `channel` int(11) NOT NULL,
   `attachments` int(11) UNSIGNED NOT NULL,
   `idConversation` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -81,10 +81,10 @@ CREATE TABLE `msgs` (
 CREATE TABLE `sessions` (
   `idSession` int(11) UNSIGNED NOT NULL,
   `idUser` int(11) UNSIGNED NOT NULL,
-  `sessionKey` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `ip` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `sessionKey` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastAccess` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -94,18 +94,18 @@ CREATE TABLE `sessions` (
 
 CREATE TABLE `users` (
   `idUser` int(11) UNSIGNED NOT NULL,
-  `fullName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `userName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `about` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `country` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
-  `status` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
+  `fullName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `about` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` int(11) UNSIGNED NOT NULL,
   `lastAccess` int(11) UNSIGNED NOT NULL,
-  `pwd` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `avatar` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `settings` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Any and all settings you would like to set'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `pwd` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `settings` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Any and all settings you would like to set'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
