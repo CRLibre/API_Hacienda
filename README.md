@@ -1,3 +1,23 @@
+## Sobre CRLibre
+Somos una comunidad de individuos y organizaciones que voluntariamente unimos esfuerzos para colaborar y compartir conocimiento, crear software libre para resolver problemas que enfrentamos en nuestra realidad en Costa Rica.
+
+
+En este repositorio estamos creando un **API abierto** y componentes de software para simplificar el proceso de la **Factura Electrónica** requerido por el Ministerio de Hacienda de Costa Rica.
+
+En repositorios adicionales estaremos colaborando con elementos similares
+
+### Conversemos
+* Póngase en contacto con los otros miembros voluntarios de la comunidad.
+   * [Grupo de Whatsapp de CRLibre.org](https://chat.whatsapp.com/ED2JK9IkDnu2UzEpyjZDeN)
+   * [Grupo de Facebook CRLibre](https://www.facebook.com/groups/105812240170199/)
+
+## Cómo colaborar
+Ver archivo [CONTRIBUTING.md](CONTRIBUTING.md) para más información
+
+## Sobre este API
+
+**Trabajo en proceso [lo estamos creando en conjunto](CONTRIBUTING.md)**
+
 Esta es un API en PHP, la idea de esto es poder realizar módulos sobre una base que maneja ya diferentes aspectos como la conexión a bases de datos y usuarios.
 
 
