@@ -29,6 +29,6 @@ if(isset($_GET['w'])){
         $_POST[$key] = $val;   
         grace_debug("Adding to post: $key => $val");
     }
-	params_set('w', $_POST);
+	params_set('w', $_POST); 
 }
 $r = boot_itUp();
