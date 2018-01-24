@@ -36,7 +36,7 @@ Para hacer módulos, se realizan en la carpeta api/contrib/mi-modulo
 
 Hay uno de ejemplo que se llama 'ejemplo'
 
-Dentro de la carpeta del módulo, tiene que haber un archivo que se llame module.php, en este se define la estructura de nuestro módulo.
+Dentro de la carpeta del módulo, tiene que haber un archivo que se llame module.php, en este se define la estructura de nuestro módulo, la funcion function ejemplo_init() hace referencia a la siguiente estructura MODULO_init(), si el modulo se llama GetDate la funcion init debe tener el nombre GetDate_init().
 
 
 En esta hay 2 llamadas diferentes a modo de ejemplo, la primera no requere ningún valor y nos devuelve un "hola"
