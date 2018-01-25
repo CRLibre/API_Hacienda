@@ -17,7 +17,7 @@
 /**
  * Boot up procedure
  */
-function ejemplo_bootMeUp(){
+function token_bootMeUp(){
 	// Just booting up
 }
 
@@ -31,20 +31,31 @@ function token_init(){
 	$paths = array(
 		array(
 			'r' => 'gettoken',
-			'action' => 'gettoken',
+			'action' => 'token',
 			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',
+			'access_params' => 'accessName',			
+			'params' => array(
+				array("key" => "url", "def" => "", "req" => true),
+				array("key" => "grant_type", "def" => "", "req" => true),
+				array("key" => "client_id", "def" => "", "req" => true),
+				array("key" => "client_secret", "def" => "", "req" => false),			
+				array("key" => "username", "def" => "", "req" => true),
+				array("key" => "password", "def" => "", "req" => true)				
+			),			
 			'file' => 'mhToken.php'
 		),
 		array(
-			'r' => 'refreshToken',
-			'action' => 'refreshToken',
+			'r' => 'refresh',
+			'action' => 'token',
 			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',
+			'access_params' => 'accessName',	
 			'params' => array(
-				array("key" => "nombre", "def" => "", "req" => true),
-				array("key" => "apellido", "def" => "", "req" => true)
-			),	
+				array("key" => "url", "def" => "", "req" => true),
+				array("key" => "grant_type", "def" => "", "req" => true),
+				array("key" => "client_id", "def" => "", "req" => true),
+				array("key" => "client_secret", "def" => "", "req" => false),			
+				array("key" => "refresh_token", "def" => "", "req" => true)
+			),			
 			'file' => 'mhToken.php'
 		)
 	);
