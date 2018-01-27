@@ -33,7 +33,7 @@ function MODULE_NAME_init(){
 			'r' => '',
 			'action' => '',
 			'access' => 'users_openAccess', 
-			'access_params' => 'accessName'
+			'access_params' => 'accessName',
 			'params' => array(array("key" => "", "def" => "", "req" => true)),
 			'file' => 'file.php'
 		)
