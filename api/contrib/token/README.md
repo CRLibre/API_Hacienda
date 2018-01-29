@@ -10,14 +10,16 @@ client_secret:en blanco
 username: usuario en contribuyende
 password: contraseña del contribuyente
 
+
 Ejemplo en Get http://localhost/API_Hacienda/www/api.php seria la URL donde se ubique el API
 http://localhost/API_Hacienda/www/api.php?r=gettoken&w=token&url=https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token&grant_type=password&client_id=api-stag&username=cpf-07-0232-0717@stag.comprobanteselectronicos.go.cr&password=N%26%404%2Bp%5BH-e%5B%2B%23%24DcOP%409
 Tambien se puede hacer por Post
 //
+
 Refrescar token
 W : token
 r : refresh
-url", "def" =
+url =
 grant_type:refresh_token
 client_id:api-stag
 client_secret:
