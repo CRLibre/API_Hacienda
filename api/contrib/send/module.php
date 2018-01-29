@@ -34,9 +34,6 @@ function send_init(){
 			'action' => 'send',
 			'access' => 'users_openAccess', 
 			'access_params' => 'accessName',			
-			'params' => array(
-				array("key" => "url", "def" => "", "req" => true),
-			),			
 			'file' => 'send.php'
 		)
 	);

@@ -40,7 +40,7 @@ function token_init(){
 				array("key" => "client_id", "def" => "", "req" => true),
 				array("key" => "client_secret", "def" => "", "req" => false),			
 				array("key" => "username", "def" => "", "req" => true),
-                                    array("key" => "password", "def" => "", "req" => true)				
+                                array("key" => "password", "def" => "", "req" => true)				
 			),			
 			'file' => 'mhToken.php'
 		),

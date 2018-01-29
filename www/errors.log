@@ -10799,3 +10799,323 @@
 [d] 18-01-28 07:01:52 @ Module was booted too
 [d] 18-01-28 07:01:52 @ Found function: consutar
 [d] 18-01-28 07:01:52 @ Finished! Memory used: Mb0.302744<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[d] 18-01-28 08:01:23 @ Booting up
+[d] 18-01-28 08:01:23 @ Loading all core modules
+[d] 18-01-28 08:01:23 @ Loading module: cala
+[d] 18-01-28 08:01:23 @ Loading in path: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:23 @ Including file: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:23 @ Module was booted too
+[i] 18-01-28 08:01:23 @ Cala was booted...
+[d] 18-01-28 08:01:23 @ Loading module: db
+[d] 18-01-28 08:01:23 @ Loading in path: ../api/modules/db/module.php
+[d] 18-01-28 08:01:23 @ Including file: ../api/modules/db/module.php
+[d] 18-01-28 08:01:23 @ Module was booted too
+[e] 18-01-28 08:01:26 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:26 @ Loading module: users
+[d] 18-01-28 08:01:26 @ Loading in path: ../api/modules/users/module.php
+[d] 18-01-28 08:01:26 @ Including file: ../api/modules/users/module.php
+[d] 18-01-28 08:01:26 @ Module was booted too
+[d] 18-01-28 08:01:26 @ Loading user
+[d] 18-01-28 08:01:26 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+[e] 18-01-28 08:01:26 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:26 @ Loading in path: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:26 @ Including file: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:26 @ Module was booted too
+[i] 18-01-28 08:01:26 @ Cala was booted...
+[d] 18-01-28 08:01:26 @ Finished! Memory used: Mb0.2996<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[d] 18-01-28 08:01:01 @ Booting up
+[d] 18-01-28 08:01:01 @ Loading all core modules
+[d] 18-01-28 08:01:01 @ Loading module: cala
+[d] 18-01-28 08:01:01 @ Loading in path: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:01 @ Including file: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:01 @ Module was booted too
+[i] 18-01-28 08:01:01 @ Cala was booted...
+[d] 18-01-28 08:01:01 @ Loading module: db
+[d] 18-01-28 08:01:01 @ Loading in path: ../api/modules/db/module.php
+[d] 18-01-28 08:01:01 @ Including file: ../api/modules/db/module.php
+[d] 18-01-28 08:01:01 @ Module was booted too
+[e] 18-01-28 08:01:03 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:03 @ Loading module: users
+[d] 18-01-28 08:01:03 @ Loading in path: ../api/modules/users/module.php
+[d] 18-01-28 08:01:03 @ Including file: ../api/modules/users/module.php
+[d] 18-01-28 08:01:03 @ Module was booted too
+[d] 18-01-28 08:01:03 @ Loading user
+[d] 18-01-28 08:01:03 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+[e] 18-01-28 08:01:03 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:03 @ Loading in path: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:03 @ Including file: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:03 @ Module was booted too
+[i] 18-01-28 08:01:03 @ Cala was booted...
+[d] 18-01-28 08:01:03 @ Finished! Memory used: Mb0.300528<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[d] 18-01-28 08:01:36 @ Booting up
+[d] 18-01-28 08:01:36 @ Loading all core modules
+[d] 18-01-28 08:01:36 @ Loading module: cala
+[d] 18-01-28 08:01:36 @ Loading in path: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:36 @ Including file: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:36 @ Module was booted too
+[i] 18-01-28 08:01:36 @ Cala was booted...
+[d] 18-01-28 08:01:36 @ Loading module: db
+[d] 18-01-28 08:01:36 @ Loading in path: ../api/modules/db/module.php
+[d] 18-01-28 08:01:36 @ Including file: ../api/modules/db/module.php
+[d] 18-01-28 08:01:36 @ Module was booted too
+[e] 18-01-28 08:01:38 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:38 @ Loading module: users
+[d] 18-01-28 08:01:38 @ Loading in path: ../api/modules/users/module.php
+[d] 18-01-28 08:01:38 @ Including file: ../api/modules/users/module.php
+[d] 18-01-28 08:01:38 @ Module was booted too
+[d] 18-01-28 08:01:38 @ Loading user
+[d] 18-01-28 08:01:38 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+[e] 18-01-28 08:01:38 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:38 @ Loading in path: ../api/contrib/token/module.php
+[d] 18-01-28 08:01:38 @ Including file: ../api/contrib/token/module.php
+[d] 18-01-28 08:01:38 @ Module was booted too
+[d] 18-01-28 08:01:38 @ Function found
+[d] 18-01-28 08:01:38 @ Looking for path: gettoken
+[d] 18-01-28 08:01:38 @ Found path: gettoken
+[d] 18-01-28 08:01:38 @ Missing param: client_secret
+[d] 18-01-28 08:01:38 @ Using default
+[d] 18-01-28 08:01:38 @ Loading in path: ../api/contrib/token/mhToken.php
+[d] 18-01-28 08:01:38 @ Including file: ../api/contrib/token/mhToken.php
+[d] 18-01-28 08:01:38 @ Module was booted too
+[d] 18-01-28 08:01:38 @ Found function: token
+[d] 18-01-28 08:01:40 @ Finished! Memory used: Mb0.301416<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[d] 18-01-28 08:01:01 @ Booting up
+[d] 18-01-28 08:01:01 @ Loading all core modules
+[d] 18-01-28 08:01:01 @ Loading module: cala
+[d] 18-01-28 08:01:01 @ Loading in path: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:01 @ Including file: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:01 @ Module was booted too
+[i] 18-01-28 08:01:01 @ Cala was booted...
+[d] 18-01-28 08:01:01 @ Loading module: db
+[d] 18-01-28 08:01:01 @ Loading in path: ../api/modules/db/module.php
+[d] 18-01-28 08:01:01 @ Including file: ../api/modules/db/module.php
+[d] 18-01-28 08:01:01 @ Module was booted too
+[e] 18-01-28 08:01:03 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:03 @ Loading module: users
+[d] 18-01-28 08:01:03 @ Loading in path: ../api/modules/users/module.php
+[d] 18-01-28 08:01:03 @ Including file: ../api/modules/users/module.php
+[d] 18-01-28 08:01:03 @ Module was booted too
+[d] 18-01-28 08:01:03 @ Loading user
+[d] 18-01-28 08:01:03 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+[e] 18-01-28 08:01:03 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:03 @ Loading in path: ../api/contrib/token/module.php
+[d] 18-01-28 08:01:03 @ Including file: ../api/contrib/token/module.php
+[d] 18-01-28 08:01:03 @ Module was booted too
+[d] 18-01-28 08:01:03 @ Function found
+[d] 18-01-28 08:01:03 @ Looking for path: gettoken
+[d] 18-01-28 08:01:03 @ Found path: gettoken
+[d] 18-01-28 08:01:03 @ Missing param: client_secret
+[d] 18-01-28 08:01:03 @ Using default
+[d] 18-01-28 08:01:03 @ Loading in path: ../api/contrib/token/mhToken.php
+[d] 18-01-28 08:01:03 @ Including file: ../api/contrib/token/mhToken.php
+[d] 18-01-28 08:01:03 @ Module was booted too
+[d] 18-01-28 08:01:03 @ Found function: token
+[d] 18-01-28 08:01:06 @ Finished! Memory used: Mb0.301576<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[d] 18-01-28 08:01:15 @ Booting up
+[d] 18-01-28 08:01:15 @ Loading all core modules
+[d] 18-01-28 08:01:15 @ Loading module: cala
+[d] 18-01-28 08:01:15 @ Loading in path: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:15 @ Including file: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:15 @ Module was booted too
+[i] 18-01-28 08:01:15 @ Cala was booted...
+[d] 18-01-28 08:01:15 @ Loading module: db
+[d] 18-01-28 08:01:15 @ Loading in path: ../api/modules/db/module.php
+[d] 18-01-28 08:01:15 @ Including file: ../api/modules/db/module.php
+[d] 18-01-28 08:01:15 @ Module was booted too
+[e] 18-01-28 08:01:18 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:18 @ Loading module: users
+[d] 18-01-28 08:01:18 @ Loading in path: ../api/modules/users/module.php
+[d] 18-01-28 08:01:18 @ Including file: ../api/modules/users/module.php
+[d] 18-01-28 08:01:18 @ Module was booted too
+[d] 18-01-28 08:01:18 @ Loading user
+[d] 18-01-28 08:01:18 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+[e] 18-01-28 08:01:18 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:18 @ Loading in path: ../api/contrib/token/module.php
+[d] 18-01-28 08:01:18 @ Including file: ../api/contrib/token/module.php
+[d] 18-01-28 08:01:18 @ Module was booted too
+[d] 18-01-28 08:01:18 @ Function found
+[d] 18-01-28 08:01:18 @ Looking for path: gettoken
+[d] 18-01-28 08:01:18 @ Found path: gettoken
+[d] 18-01-28 08:01:18 @ Missing param: client_secret
+[d] 18-01-28 08:01:18 @ Using default
+[d] 18-01-28 08:01:18 @ Loading in path: ../api/contrib/token/mhToken.php
+[d] 18-01-28 08:01:18 @ Including file: ../api/contrib/token/mhToken.php
+[d] 18-01-28 08:01:18 @ Module was booted too
+[d] 18-01-28 08:01:18 @ Found function: token
+[d] 18-01-28 08:01:20 @ Finished! Memory used: Mb0.301416<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[d] 18-01-28 08:01:43 @ Booting up
+[d] 18-01-28 08:01:43 @ Loading all core modules
+[d] 18-01-28 08:01:43 @ Loading module: cala
+[d] 18-01-28 08:01:43 @ Loading in path: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:43 @ Including file: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:43 @ Module was booted too
+[i] 18-01-28 08:01:43 @ Cala was booted...
+[d] 18-01-28 08:01:43 @ Loading module: db
+[d] 18-01-28 08:01:43 @ Loading in path: ../api/modules/db/module.php
+[d] 18-01-28 08:01:43 @ Including file: ../api/modules/db/module.php
+[d] 18-01-28 08:01:43 @ Module was booted too
+[e] 18-01-28 08:01:46 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:46 @ Loading module: users
+[d] 18-01-28 08:01:46 @ Loading in path: ../api/modules/users/module.php
+[d] 18-01-28 08:01:46 @ Including file: ../api/modules/users/module.php
+[d] 18-01-28 08:01:46 @ Module was booted too
+[d] 18-01-28 08:01:46 @ Loading user
+[d] 18-01-28 08:01:46 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+[e] 18-01-28 08:01:46 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:46 @ Loading in path: ../api/contrib/send/module.php
+[d] 18-01-28 08:01:46 @ Including file: ../api/contrib/send/module.php
+[d] 18-01-28 08:01:46 @ Module was booted too
+[d] 18-01-28 08:01:46 @ Function found
+[d] 18-01-28 08:01:46 @ Looking for path: json
+[d] 18-01-28 08:01:46 @ Found path: json
+[d] 18-01-28 08:01:46 @ Loading in path: ../api/contrib/send/send.php
+[d] 18-01-28 08:01:46 @ Including file: ../api/contrib/send/send.php
+[d] 18-01-28 08:01:46 @ Module was booted too
+[d] 18-01-28 08:01:46 @ Found function: send
+[d] 18-01-28 08:01:46 @ Finished! Memory used: Mb0.313656<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[d] 18-01-28 08:01:09 @ Booting up
+[d] 18-01-28 08:01:09 @ Loading all core modules
+[d] 18-01-28 08:01:09 @ Loading module: cala
+[d] 18-01-28 08:01:09 @ Loading in path: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:09 @ Including file: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:09 @ Module was booted too
+[i] 18-01-28 08:01:09 @ Cala was booted...
+[d] 18-01-28 08:01:09 @ Loading module: db
+[d] 18-01-28 08:01:09 @ Loading in path: ../api/modules/db/module.php
+[d] 18-01-28 08:01:09 @ Including file: ../api/modules/db/module.php
+[d] 18-01-28 08:01:09 @ Module was booted too
+[e] 18-01-28 08:01:12 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:12 @ Loading module: users
+[d] 18-01-28 08:01:12 @ Loading in path: ../api/modules/users/module.php
+[d] 18-01-28 08:01:12 @ Including file: ../api/modules/users/module.php
+[d] 18-01-28 08:01:12 @ Module was booted too
+[d] 18-01-28 08:01:12 @ Loading user
+[d] 18-01-28 08:01:12 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+[e] 18-01-28 08:01:12 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:12 @ Loading in path: ../api/contrib/send/module.php
+[d] 18-01-28 08:01:12 @ Including file: ../api/contrib/send/module.php
+[d] 18-01-28 08:01:12 @ Module was booted too
+[d] 18-01-28 08:01:12 @ Function found
+[d] 18-01-28 08:01:12 @ Looking for path: json
+[d] 18-01-28 08:01:12 @ Found path: json
+[d] 18-01-28 08:01:12 @ Loading in path: ../api/contrib/send/send.php
+[d] 18-01-28 08:01:12 @ Including file: ../api/contrib/send/send.php
+[d] 18-01-28 08:01:12 @ Module was booted too
+[d] 18-01-28 08:01:12 @ Found function: send
+[d] 18-01-28 08:01:12 @ Finished! Memory used: Mb0.31252<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[d] 18-01-28 08:01:37 @ Booting up
+[d] 18-01-28 08:01:37 @ Loading all core modules
+[d] 18-01-28 08:01:37 @ Loading module: cala
+[d] 18-01-28 08:01:37 @ Loading in path: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:37 @ Including file: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:37 @ Module was booted too
+[i] 18-01-28 08:01:37 @ Cala was booted...
+[d] 18-01-28 08:01:37 @ Loading module: db
+[d] 18-01-28 08:01:37 @ Loading in path: ../api/modules/db/module.php
+[d] 18-01-28 08:01:37 @ Including file: ../api/modules/db/module.php
+[d] 18-01-28 08:01:37 @ Module was booted too
+[e] 18-01-28 08:01:39 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:39 @ Loading module: users
+[d] 18-01-28 08:01:39 @ Loading in path: ../api/modules/users/module.php
+[d] 18-01-28 08:01:39 @ Including file: ../api/modules/users/module.php
+[d] 18-01-28 08:01:39 @ Module was booted too
+[d] 18-01-28 08:01:39 @ Loading user
+[d] 18-01-28 08:01:39 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+[e] 18-01-28 08:01:39 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:39 @ Loading in path: ../api/contrib/token/module.php
+[d] 18-01-28 08:01:39 @ Including file: ../api/contrib/token/module.php
+[d] 18-01-28 08:01:39 @ Module was booted too
+[d] 18-01-28 08:01:39 @ Function found
+[d] 18-01-28 08:01:39 @ Looking for path: gettoken
+[d] 18-01-28 08:01:39 @ Found path: gettoken
+[d] 18-01-28 08:01:40 @ Missing param: client_secret
+[d] 18-01-28 08:01:40 @ Using default
+[d] 18-01-28 08:01:40 @ Loading in path: ../api/contrib/token/mhToken.php
+[d] 18-01-28 08:01:40 @ Including file: ../api/contrib/token/mhToken.php
+[d] 18-01-28 08:01:40 @ Module was booted too
+[d] 18-01-28 08:01:40 @ Found function: token
+[d] 18-01-28 08:01:41 @ Finished! Memory used: Mb0.303376<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[d] 18-01-28 08:01:53 @ Booting up
+[d] 18-01-28 08:01:53 @ Loading all core modules
+[d] 18-01-28 08:01:53 @ Loading module: cala
+[d] 18-01-28 08:01:53 @ Loading in path: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:53 @ Including file: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:53 @ Module was booted too
+[i] 18-01-28 08:01:53 @ Cala was booted...
+[d] 18-01-28 08:01:53 @ Loading module: db
+[d] 18-01-28 08:01:53 @ Loading in path: ../api/modules/db/module.php
+[d] 18-01-28 08:01:53 @ Including file: ../api/modules/db/module.php
+[d] 18-01-28 08:01:53 @ Module was booted too
+[e] 18-01-28 08:01:55 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:55 @ Loading module: users
+[d] 18-01-28 08:01:55 @ Loading in path: ../api/modules/users/module.php
+[d] 18-01-28 08:01:55 @ Including file: ../api/modules/users/module.php
+[d] 18-01-28 08:01:55 @ Module was booted too
+[d] 18-01-28 08:01:55 @ Loading user
+[d] 18-01-28 08:01:55 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+[e] 18-01-28 08:01:55 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:55 @ Loading in path: ../api/contrib/token/module.php
+[d] 18-01-28 08:01:55 @ Including file: ../api/contrib/token/module.php
+[d] 18-01-28 08:01:55 @ Module was booted too
+[d] 18-01-28 08:01:55 @ Function found
+[d] 18-01-28 08:01:55 @ Looking for path: gettoken
+[d] 18-01-28 08:01:55 @ Found path: gettoken
+[d] 18-01-28 08:01:55 @ Missing param: client_secret
+[d] 18-01-28 08:01:55 @ Using default
+[d] 18-01-28 08:01:55 @ Loading in path: ../api/contrib/token/mhToken.php
+[d] 18-01-28 08:01:55 @ Including file: ../api/contrib/token/mhToken.php
+[d] 18-01-28 08:01:55 @ Module was booted too
+[d] 18-01-28 08:01:55 @ Found function: token
+[d] 18-01-28 08:01:57 @ Finished! Memory used: Mb0.302656<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[d] 18-01-28 08:01:55 @ Booting up
+[d] 18-01-28 08:01:55 @ Loading all core modules
+[d] 18-01-28 08:01:55 @ Loading module: cala
+[d] 18-01-28 08:01:55 @ Loading in path: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:55 @ Including file: ../api/modules/cala/module.php
+[d] 18-01-28 08:01:55 @ Module was booted too
+[i] 18-01-28 08:01:55 @ Cala was booted...
+[d] 18-01-28 08:01:55 @ Loading module: db
+[d] 18-01-28 08:01:55 @ Loading in path: ../api/modules/db/module.php
+[d] 18-01-28 08:01:55 @ Including file: ../api/modules/db/module.php
+[d] 18-01-28 08:01:55 @ Module was booted too
+[e] 18-01-28 08:01:57 @ Connection failed: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:57 @ Loading module: users
+[d] 18-01-28 08:01:57 @ Loading in path: ../api/modules/users/module.php
+[d] 18-01-28 08:01:57 @ Including file: ../api/modules/users/module.php
+[d] 18-01-28 08:01:57 @ Module was booted too
+[d] 18-01-28 08:01:57 @ Loading user
+[d] 18-01-28 08:01:57 @ SELECT *
+	FROM users
+	 WHERE userName = ''
+[e] 18-01-28 08:01:57 @ DB Connection error: php_network_getaddresses: getaddrinfo failed: Host desconocido. 
+[d] 18-01-28 08:01:57 @ Loading in path: ../api/contrib/token/module.php
+[d] 18-01-28 08:01:57 @ Including file: ../api/contrib/token/module.php
+[d] 18-01-28 08:01:57 @ Module was booted too
+[d] 18-01-28 08:01:57 @ Function found
+[d] 18-01-28 08:01:57 @ Looking for path: refresh
+[d] 18-01-28 08:01:57 @ Found path: refresh
+[d] 18-01-28 08:01:57 @ Missing param: client_secret
+[d] 18-01-28 08:01:57 @ Using default
+[d] 18-01-28 08:01:57 @ Loading in path: ../api/contrib/token/mhToken.php
+[d] 18-01-28 08:01:57 @ Including file: ../api/contrib/token/mhToken.php
+[d] 18-01-28 08:01:57 @ Module was booted too
+[d] 18-01-28 08:01:57 @ Found function: token
+[d] 18-01-28 08:01:59 @ Finished! Memory used: Mb0.309704<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
