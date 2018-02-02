@@ -39,6 +39,7 @@ function clave_init(){
                                 array("key" => "cedula", "def" => "", "req" => true),
                                 array("key" => "codigoPais", "def" => "", "req" => true),
                                 array("key" => "consecutivo", "def" => "", "req" => true),
+                            array("key" => "situacion", "def" => "", "req" => true),
                             array("key" => "codigoSeguridad", "def" => "", "req" => true)
 			),			
 			'file' => 'clave.php'

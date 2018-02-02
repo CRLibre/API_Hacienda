@@ -16,10 +16,10 @@ function getClave(){
         //-----------------------------------------------//
         $value;
         switch ($tipoCedula) {
-        case '01': //fisico
+        case 'fisico': //fisico
         $value = "000".$cedula;
         break;
-        case '02': // juridico
+        case 'juridico': // juridico
         $value = "00".$cedula;
         break;
        }
