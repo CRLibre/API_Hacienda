@@ -17,7 +17,7 @@
 /**
  * Boot up procedure
  */
-function signXML_bootMeUp(){
+function clave_bootMeUp(){
 	// Just booting up
 }
 
@@ -25,23 +25,26 @@ function signXML_bootMeUp(){
  * Init function
  */
 
-function signXML_init(){    
+
+function clave_init(){
+
 	$paths = array(
 		array(
-			'r' => 'sign',
-			'action' => 'sign',
+			'r' => 'clave',
+			'action' => 'getClave',
 			'access' => 'users_openAccess', 
 			'access_params' => 'accessName',			
 			'params' => array(
-				array("key" => "p12Url", "def" => "", "req" => true),
-				array("key" => "pinP12", "def" => "", "req" => true),
-				array("key" => "inXmlUrl", "def" => "", "req" => false),			
-				array("key" => "outXmlUrl", "def" => "", "req" => true)
+				array("key" => "tipoCedula", "def" => "", "req" => true),
+                                array("key" => "cedula", "def" => "", "req" => true),
+                                array("key" => "codigoPais", "def" => "", "req" => true),
+                                array("key" => "consecutivo", "def" => "", "req" => true),
+                            array("key" => "codigoSeguridad", "def" => "", "req" => true)
 			),			
-			'file' => 'sign.php'
+			'file' => 'clave.php'
 		)
-	);
-        
+            );
+
 	return $paths;
 }
 
