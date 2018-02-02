@@ -37,7 +37,7 @@ function getClave(){
             case 'contingencia': // juridico
             $situacion=2;
             break;
-            case 'sin internet': //dimex
+            case 'sininternet': //dimex
             $situacion=3;
             break;
        }
