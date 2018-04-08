@@ -111,7 +111,7 @@ function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSi
     # List of allowed files
     if($ext == false){
         grace_debug("Using default allowed extentions");
-        $ext = conf_get("allowedExt", "files", "jpg,png,gif,p12,xml");
+        $ext = conf_get("allowedExt", "files", "jpg,png,gif,P12,XML,Xml,p12,xml");
     }
 
     # Maximum allowed size
