@@ -1,13 +1,20 @@
 <?php
 /**
- * Firmado para Costa Rica xades EPES
- * Este archivo contiene el proceso de firma en PHP de acuerdo a las especificaciones de Hacienda
- * @version 1.0.0
- * @author  José Carlos Aguilar Vásquez carlos_a40@hotmail.com   jcaguilar40@gmail.com
- * Favor si  este archivo llega a tu pc sin consentimiento expreso del autor infringirias en derecho de autor
- * No podrá alterar ninguna parte del programa
- * comunicate por correo ya que hacer esta libreria me demando esfuerzo, investigación y po los tanto creo merecer una colaborción ya que de esto vivo
- 
+ * Copyright (C) <2017>  <José Carlos Aguilar Vásquez>
+
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+
  */
 class Firmadocr {
   const POLITICA_FIRMA = array(
@@ -22,7 +29,7 @@ class Firmadocr {
   private $cerROOT = NULL;
   private $cerINTERMEDIO = NULL;
   
-  public function retC14DigestSha1($strcadena){
+  public function retC14DigestSha256($strcadena){
 	$strcadena = str_replace("\r", "", str_replace("\n", "", $strcadena));
 	$d1p = new DOMDocument('1.0','UTF-8');
 	$d1p->loadXML($strcadena);
@@ -33,9 +40,7 @@ class Firmadocr {
    
   
   public function firmar($certificadop12, $clavecertificado,$xmlsinfirma,$xmlfirmado) {
-      
 	if (!$pfx = file_get_contents($certificadop12)) {
-            
 		echo "Error: No se puede leer el fichero del certificado o no existe en la ruta especificada\n";
 		exit;
 	}
@@ -73,17 +78,11 @@ class Firmadocr {
   public function insertaFirma($xml) {
     if (is_null($this->publicKey) || is_null($this->privateKey)) return $xml;
 	//canoniza todo el documento  para el digest
-	$d = new DOMDocument('1.0','UTF-8');
+	$d = new DOMDocument('1.0');
 	$d->loadXML($xml);
 	$canonizadoreal=$d->C14N(); 
 	
-    // Definir los namespace para los diferentes nodos
-    $xmlns= 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
-	'xmlns:fe="http://www.dian.gov.co/contratos/facturaelectronica/v1" ' .
-    'xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"';
-					
-
-	 $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" '.
+ 	 $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" '.
 	 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
 	 'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
 	 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
@@ -100,12 +99,8 @@ class Firmadocr {
 	'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
 	'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
 	
-
-	//date_default_timezone_set("America/Costa_Rica");
-	//$signTime1='2018-01-30T17:16:42-06:00';
-	//$signTime1 = date('Y-m-d\TH:i:s.vT:00');
 	$signTime1 = date('Y-m-d\TH:i:s-06:00');
-	
+
 
     $certData   = openssl_x509_parse($this->publicKey);
     $certDigest =base64_encode(openssl_x509_fingerprint($this->publicKey, "sha256", true));
@@ -118,7 +113,7 @@ class Firmadocr {
 
     $prop = '<xades:SignedProperties Id="' . $this->SignedProperties .  '">' .
       '<xades:SignedSignatureProperties>'.
-		  '<xades:SigningTime>' .  $signTime1 . '</xades:SigningTime>' .     
+		  '<xades:SigningTime>' .  $signTime1 . '</xades:SigningTime>' .
 		  '<xades:SigningCertificate>'.
 			  '<xades:Cert>'.
 				  '<xades:CertDigest>' .
@@ -173,11 +168,11 @@ class Firmadocr {
 
 	
 	$aconop=str_replace('<xades:SignedProperties', '<xades:SignedProperties ' . $xmnls_signedprops, $prop);
-	$propDigest=$this->retC14DigestSha1($aconop);
+	$propDigest=$this->retC14DigestSha256($aconop);
 
 	
 	$keyinfo_para_hash1=str_replace('<ds:KeyInfo', '<ds:KeyInfo ' . $xmlns_keyinfo, $kInfo);
-	$kInfoDigest=$this->retC14DigestSha1($keyinfo_para_hash1);
+	$kInfoDigest=$this->retC14DigestSha256($keyinfo_para_hash1);
 
     
 	
@@ -215,9 +210,7 @@ class Firmadocr {
     $signatureResult = "";
     $algo = "SHA256";
 
-
 	openssl_sign($signaturePayload, $signatureResult, $this->privateKey,$algo);
-	
 	$signatureResult = base64_encode($signatureResult);
 
     $sig = '<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="' . $this->signatureID . '">'. 
