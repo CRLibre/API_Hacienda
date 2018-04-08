@@ -2,8 +2,9 @@
 
 function encode(){
 
-$str = params_get("xml");
+$str = file_get_contents(params_get("xml"));
 $result = base64_encode($str);
 		return $result;	
+
 }
 ?>

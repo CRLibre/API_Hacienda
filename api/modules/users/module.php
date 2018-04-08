@@ -650,6 +650,7 @@ function _users_register($userDets){
 			users_hash($userDets['pwd']),
 			$userDets['avatar']
 		);
+		
 	db_query($q, 0);
 }
 

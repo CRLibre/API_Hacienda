@@ -54,7 +54,12 @@ function files_init(){
 			'r' => 'files_view_file',
 			'action' => 'files_viewPublic',
 			'access' => "users_openAccess"
-		)
+		),
+        array(
+            'r' => 'upload',
+            'action' => 'files_upload',
+            'access' => "users_openAccess"
+        )
 	);
 	return $paths;
 }
@@ -106,7 +111,7 @@ function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSi
     # List of allowed files
     if($ext == false){
         grace_debug("Using default allowed extentions");
-        $ext = conf_get("allowedExt", "files", "jpg,png,gif");
+        $ext = conf_get("allowedExt", "files", "jpg,png,gif,p12,xml");
     }
 
     # Maximum allowed size
