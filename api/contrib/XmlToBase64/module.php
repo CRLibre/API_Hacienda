@@ -35,9 +35,9 @@ function XmlToBase64_init(){
 			'access' => 'users_openAccess', 
 			'access_params' => 'accessName',			
 			'params' => array(
-				array("key" => "xml", "def" => "", "req" => true)
+				array("key" => "downloadCode", "def" => "", "req" => true)
 			),			
-			'file' => 'XmlToBase64.php'
+			'file' => 'xmlToBase64.php'
 		)
             );
 

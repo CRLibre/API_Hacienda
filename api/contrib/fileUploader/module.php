@@ -17,7 +17,7 @@
 /**
  * Boot up procedure
  */
-function certif_bootMeUp(){
+function fileUploader_bootMeUp(){
 	// Just booting up
 }
 
@@ -26,7 +26,7 @@ function certif_bootMeUp(){
  */
 
 
-function certif_init(){
+function fileUploader_init(){
 
 	$paths = array(
 		array(
@@ -40,6 +40,13 @@ function certif_init(){
 		array(
 			'r' => 'subir_certif',
 			'action' => 'uploadCert',
+			'access' => 'users_loggedIn', 
+			'access_params' => 'accessName',
+			'file' => 'uploader.php'
+		),
+            array(
+			'r' => 'subir_xml',
+			'action' => 'uploadXml',
 			'access' => 'users_loggedIn', 
 			'access_params' => 'accessName',
 			'file' => 'uploader.php'
@@ -67,7 +74,7 @@ function certif_init(){
 /**
  * Get the perms for this module
  */
-function certif_access(){
+function fileUploader_access(){
 
 	$perms = array(
 		array(

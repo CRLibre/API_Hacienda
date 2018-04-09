@@ -10,3 +10,10 @@ function uploadCert(){
     return $dets;
 
 }
+
+function uploadXml(){
+    modules_loader("files");
+    $dets = files_upload("hacienda", false, "xml");
+    return $dets;
+
+}
