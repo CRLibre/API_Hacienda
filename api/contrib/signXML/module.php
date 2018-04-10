@@ -28,15 +28,16 @@ function signXML_bootMeUp(){
 function signXML_init(){    
 	$paths = array(
 		array(
-			'r' => 'sign',
-			'action' => 'sign',
+			'r' => 'signFE',
+			'action' => 'signFE',
 			'access' => 'users_openAccess', 
 			'access_params' => 'accessName',			
 			'params' => array(
 				array("key" => "p12Url", "def" => "", "req" => true),
 				array("key" => "pinP12", "def" => "", "req" => true),
 				array("key" => "inXmlUrl", "def" => "", "req" => false),			
-				array("key" => "outXmlUrl", "def" => "", "req" => true)
+				array("key" => "outXmlUrl", "def" => "", "req" => true),
+				array("key" => "tipodoc", "def" => "", "req" => true)
 			),			
 			'file' => 'sign.php'
 		)
