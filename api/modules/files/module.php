@@ -83,12 +83,19 @@ return $paths;
  * @return 
  **/
 function filesGetUrl($codigo=''){
+    /**
+     * Esta funcion se puede llamar desde GET POST si se envian los siguientes parametros
+     * w=files
+     * r=filesGetUrl
+     * downloadCode=codigo de descarga del file
+     * Tambien se puede llamar desde un metodo de la siguiente manera:
+     * modules_loader("files");       <-- Esta funcion importa el modulo
+     * filesGetUrl('codigo');  <------------ esta funcion retorna el URL del file codigo es el downloadCode de la db
+     **/
    if ($codigo ==''){
        $codigo=params_get('downloadCode','');
    }
-   
    $q= sprintf("SELECT * FROM files WHERE downloadCode = '%s'", $codigo);    
-   
     $file = db_query($q, 1);
     if($file != ERROR_DB_NO_RESULTS_FOUND){       
         $filePath=files_createPath($file->idUser, $file->type) . $file->name;
