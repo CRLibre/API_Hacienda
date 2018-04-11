@@ -17,7 +17,7 @@
 /**
  * Boot up procedure
  */
-function token_bootMeUp(){
+function clave_bootMeUp(){
 	// Just booting up
 }
 
@@ -26,39 +26,25 @@ function token_bootMeUp(){
  */
 
 
-function token_init(){
+function clave_init(){
 
 	$paths = array(
 		array(
-			'r' => 'gettoken',
-			'action' => 'token',
+			'r' => 'clave',
+			'action' => 'getClave',
 			'access' => 'users_openAccess', 
 			'access_params' => 'accessName',			
 			'params' => array(
-				array("key" => "url", "def" => "", "req" => true),
-				array("key" => "grant_type", "def" => "", "req" => true),
-				array("key" => "client_id", "def" => "", "req" => true),
-				array("key" => "client_secret", "def" => "", "req" => false),			
-				array("key" => "username", "def" => "", "req" => true),
-                                array("key" => "password", "def" => "", "req" => true)				
+				array("key" => "tipoCedula", "def" => "", "req" => true),
+                                array("key" => "cedula", "def" => "", "req" => true),
+                                array("key" => "codigoPais", "def" => "", "req" => true),
+                                array("key" => "consecutivo", "def" => "", "req" => true),
+                            array("key" => "situacion", "def" => "", "req" => true),
+                            array("key" => "codigoSeguridad", "def" => "", "req" => true)
 			),			
-			'file' => 'mhToken.php'
-		),
-		array(
-			'r' => 'refresh',
-			'action' => 'token',
-			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',	
-			'params' => array(
-				array("key" => "url", "def" => "", "req" => true),
-				array("key" => "grant_type", "def" => "", "req" => true),
-				array("key" => "client_id", "def" => "", "req" => true),
-				array("key" => "client_secret", "def" => "", "req" => false),			
-				array("key" => "refresh_token", "def" => "", "req" => true)
-			),			
-			'file' => 'mhToken.php'
+			'file' => 'clave.php'
 		)
-	);
+            );
 
 	return $paths;
 }

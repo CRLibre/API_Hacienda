@@ -17,7 +17,7 @@
 /**
  * Boot up procedure
  */
-function token_bootMeUp(){
+function fileUploader_bootMeUp(){
 	// Just booting up
 }
 
@@ -26,37 +26,37 @@ function token_bootMeUp(){
  */
 
 
-function token_init(){
+function fileUploader_init(){
 
 	$paths = array(
 		array(
-			'r' => 'gettoken',
-			'action' => 'token',
+			'r' => '',
+			'action' => '',
 			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',			
-			'params' => array(
-				array("key" => "url", "def" => "", "req" => true),
-				array("key" => "grant_type", "def" => "", "req" => true),
-				array("key" => "client_id", "def" => "", "req" => true),
-				array("key" => "client_secret", "def" => "", "req" => false),			
-				array("key" => "username", "def" => "", "req" => true),
-                                array("key" => "password", "def" => "", "req" => true)				
-			),			
-			'file' => 'mhToken.php'
+			'access_params' => 'accessName',
+			'params' => array(array("key" => "", "def" => "", "req" => true)),
+			'file' => 'file.php'
 		),
 		array(
-			'r' => 'refresh',
-			'action' => 'token',
+			'r' => 'subir_certif',
+			'action' => 'uploadCert',
+			'access' => 'users_loggedIn', 
+			'access_params' => 'accessName',
+			'file' => 'uploader.php'
+		),
+            array(
+			'r' => 'subir_xml',
+			'action' => 'uploadXml',
+			'access' => 'users_loggedIn', 
+			'access_params' => 'accessName',
+			'file' => 'uploader.php'
+		),
+		array(
+			'r' => 'test',
+			'action' => 'doTest',
 			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',	
-			'params' => array(
-				array("key" => "url", "def" => "", "req" => true),
-				array("key" => "grant_type", "def" => "", "req" => true),
-				array("key" => "client_id", "def" => "", "req" => true),
-				array("key" => "client_secret", "def" => "", "req" => false),			
-				array("key" => "refresh_token", "def" => "", "req" => true)
-			),			
-			'file' => 'mhToken.php'
+			'access_params' => 'accessName',
+			'file' => 'uploader.php'
 		)
 	);
 
@@ -74,7 +74,7 @@ function token_init(){
 /**
  * Get the perms for this module
  */
-function MODULENAME_access(){
+function fileUploader_access(){
 
 	$perms = array(
 		array(

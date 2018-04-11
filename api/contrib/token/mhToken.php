@@ -1,8 +1,7 @@
 <?php
 
 function token(){
- 
-	//GET URL from Post
+	//GET URL from Post    
 	$url = params_get("url"); 
 	$data;
 	//Get Data from Post
@@ -15,7 +14,7 @@ function token(){
 				    'username' => params_get("username"),
 				    'password' => params_get("password")     
 					);
-		} 
+	} 
 	else if (params_get("grant_type")=="refresh_token") {
 			$data = array(
 					    'client_id' => params_get("client_id"),
@@ -37,7 +36,7 @@ function token(){
 		$result = file_get_contents($url, false, $context);
 		$ar = json_decode($result);
 
-		return ($ar);	
+		return $ar;	
 }
 
 ?>

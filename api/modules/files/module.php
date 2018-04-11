@@ -50,13 +50,28 @@ function files_bootMeUp(){
  */
 function files_init(){
 	$paths = array(
-		array(
-			'r' => 'files_view_file',
-			'action' => 'files_viewPublic',
-			'access' => "users_openAccess"
-		)
-	);
-	return $paths;
+		
+        array(
+            'r' => 'filesGetUrl',
+            'action' => 'filesGetUrl',
+            'access' => "users_openAccess" ,
+            'params' => array(
+                array("key" => "downloadCode", "def" => "", "req" => true)
+                )
+        ),
+        array(
+            'r' => 'files_view_file',
+            'action' => 'files_viewPublic',
+            'access' => "users_openAccess"
+		),
+        array(
+            'r' => 'upload',
+            'action' => 'files_upload',
+            'access' => "users_openAccess"
+        )
+            
+	);        
+return $paths;
 }
 
 /**
@@ -67,6 +82,22 @@ function files_init(){
  *
  * @return 
  **/
+function filesGetUrl($codigo=''){
+   if ($codigo ==''){
+       $codigo=params_get('downloadCode','');
+   }
+   
+   $q= sprintf("SELECT * FROM files WHERE downloadCode = '%s'", $codigo);    
+   
+    $file = db_query($q, 1);
+    if($file != ERROR_DB_NO_RESULTS_FOUND){       
+        $filePath=files_createPath($file->idUser, $file->type) . $file->name;
+        return $filePath;
+    }
+    return false;
+    
+}
+
 function files_createPath($idUser, $type){
 	return sprintf('%s%s/%s/', conf_get('basePath', 'files', '/'), $idUser, $type);
 }
@@ -106,7 +137,7 @@ function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSi
     # List of allowed files
     if($ext == false){
         grace_debug("Using default allowed extentions");
-        $ext = conf_get("allowedExt", "files", "jpg,png,gif");
+        $ext = conf_get("allowedExt", "files", "jpg,png,gif,P12,XML,Xml,p12,xml");
     }
 
     # Maximum allowed size
@@ -176,25 +207,26 @@ function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSi
 
     # Try to upload the file
     if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFile)){
-
+        $downloadCode=files_createDownloadCode($finalName, $user->idUser);
         $idFile = files_Save(
             array('md5' => md5($_FILES["fileToUpload"]["tmp_name"]),
             'name' => $finalName,
             'timestamp' => time(),
             'size' => $_FILES["fileToUpload"]["size"],
             'idUser' => $user->idUser,
-            'downloadCode' => files_createDownloadCode($finalName, $user->idUser),
+            'downloadCode' => $downloadCode,
             'fileType' => "",
             'type' => $type
         ));
 
-        return array('idFile' => $idFile, 'name' => $finalName, 'fullPath' => $targetFile);
+        return array('idFile' => $idFile, 'name' => $finalName, 'downloadCode' => $downloadCode);
 
     }else{
         return ERROR_FILES_UPLOAD_ERROR;
     }
 
 }
+
 
 /**
  * @bried Saves a file in the db
@@ -241,6 +273,7 @@ function files_load($idFile){
     return false;
 
 }
+
 
 /**
     * @brief Present private files to other people

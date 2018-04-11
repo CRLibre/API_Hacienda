@@ -17,7 +17,7 @@
 /**
  * Boot up procedure
  */
-function token_bootMeUp(){
+function send_bootMeUp(){
 	// Just booting up
 }
 
@@ -26,40 +26,28 @@ function token_bootMeUp(){
  */
 
 
-function token_init(){
-
+function send_init(){
+    
 	$paths = array(
 		array(
-			'r' => 'gettoken',
-			'action' => 'token',
+			'r' => 'json',
+			'action' => 'send',
 			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',			
-			'params' => array(
-				array("key" => "url", "def" => "", "req" => true),
-				array("key" => "grant_type", "def" => "", "req" => true),
-				array("key" => "client_id", "def" => "", "req" => true),
-				array("key" => "client_secret", "def" => "", "req" => false),			
-				array("key" => "username", "def" => "", "req" => true),
-                                array("key" => "password", "def" => "", "req" => true)				
-			),			
-			'file' => 'mhToken.php'
-		),
-		array(
-			'r' => 'refresh',
-			'action' => 'token',
-			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',	
-			'params' => array(
-				array("key" => "url", "def" => "", "req" => true),
-				array("key" => "grant_type", "def" => "", "req" => true),
-				array("key" => "client_id", "def" => "", "req" => true),
-				array("key" => "client_secret", "def" => "", "req" => false),			
-				array("key" => "refresh_token", "def" => "", "req" => true)
-			),			
-			'file' => 'mhToken.php'
-		)
-	);
-
+			'access_params' => 'accessName',
+                        'params' => array(
+				array("key" => "token", "def" => "", "req" => true),                    
+                                array("key" => "clave", "def" => "", "req" => true),
+                                array("key" => "fecha", "def" => "", "req" => true),
+                                array("key" => "emi_tipoIdentificacion", "def" => "", "req" => true),
+				array("key" => "emi_numeroIdentificacion", "def" => "", "req" => false),			
+				array("key" => "recp_tipoIdentificacion", "def" => "", "req" => true),
+                                array("key" => "recp_numeroIdentificacion", "def" => "", "req" => true),
+                                array("key" => "comprobanteXml", "def" => "", "req" => true)),           
+			'file' => 'send.php'
+                     )
+                    );
+                      
+              
 	return $paths;
 }
 

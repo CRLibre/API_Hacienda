@@ -10,6 +10,10 @@ include_once("modules.php");
 include_once("conf.php");
 include_once("tools.php");
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> tomerge
 /** @defgroup Constants
  *  @{
  */
