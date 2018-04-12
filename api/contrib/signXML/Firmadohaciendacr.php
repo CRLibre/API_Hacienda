@@ -82,13 +82,21 @@ class Firmadocr {
         $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" ';
         $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" ';
     } elseif ($this->tipoDoc == '02'){
-        $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" ';
-        $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" ';
-        $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" ';
-    } elseif ($this->tipoDoc == '03'){
         $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaDebitoElectronica" ';
         $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaDebitoElectronica" ';
         $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaDebitoElectronica" ';
+    } elseif ($this->tipoDoc == '03'){
+        $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" ';
+        $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" ';
+        $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" ';
+    } elseif ($this->tipoDoc == '04'){
+        $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" ';
+        $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" ';
+        $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" ';
+    } elseif ($this->tipoDoc == '05' || $this->tipoDoc == '06' || $this->tipoDoc == '07'){
+        $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor" ';
+        $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor" ';
+        $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor" ';
     }
     $xmlns= 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
             'xmlns:fe="http://www.dian.gov.co/contratos/facturaelectronica/v1" ' .
@@ -236,11 +244,17 @@ class Firmadocr {
         $buscar = '</FacturaElectronica>';
         $remplazar = $sig."</FacturaElectronica>";
     } elseif ($this->tipoDoc == '02'){
-        $buscar = '</NotaCreditoElectronica>';
-        $remplazar = $sig."</NotaCreditoElectronica>";
-    } elseif ($this->tipoDoc == '03'){
         $buscar = '</NotaDebitoElectronica>';
         $remplazar = $sig."</NotaDebitoElectronica>";
+    } elseif ($this->tipoDoc == '03'){
+        $buscar = '</NotaCreditoElectronica>';
+        $remplazar = $sig."</NotaCreditoElectronica>";
+    } elseif ($this->tipoDoc == '04'){
+    	$buscar = '</TiqueteElectronico>';
+        $remplazar = $sig."</TiqueteElectronico>";
+    } elseif ($this->tipoDoc == '05' || $this->tipoDoc == '06' || $this->tipoDoc == '07'){
+    	$buscar = '</MensajeReceptor>';
+        $remplazar = $sig."</MensajeReceptor>";
     }
   	$pos = strrpos($xml, $buscar);
     if($pos !== false){
