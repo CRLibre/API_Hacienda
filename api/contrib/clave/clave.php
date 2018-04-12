@@ -10,10 +10,11 @@
      * consecutivo=  Cedula de persona fisica o juridico
      * situacion=  Cedula de persona fisica o juridico
      * codigoSeguridad=  Cedula de persona fisica o juridico
+     * tipoDocumento=   Esto es los tipos de 
      *          
      * Tambien se puede llamar desde un metodo de la siguiente manera:
      * modules_loader("clave");       <-- Esta funcion importa el modulo
-     * getClave($tipoCedula = "", $cedula = "", $situacion = "", $codigoPais = "", $consecutivo = "", $codigoSeguridad = "")  <------------ esta funcion retorna la clave
+     * getClave($tipoDocumento="",$tipoCedula = "", $cedula = "", $situacion = "", $codigoPais = "", $consecutivo = "", $codigoSeguridad = "")  <------------ esta funcion retorna la clave
      **/
 
      /*
@@ -104,7 +105,11 @@ function getClave($tipoDocumento="",$tipoCedula = "", $cedula = "", $situacion =
     //-----------------------------------------------//     
     //Crea la clave 
     $clave = $codigoPais . $dia . $mes . $ano . $identificacion . $consecutivoFinal . $situacion . $codigoSeguridad;
-    return $clave;
+    $arrayResp = array(
+    "clave" => "$clave",
+    "consecutivo" => "$consecutivoFinal",
+);
+    return $arrayResp;
 }
 
 ?>
