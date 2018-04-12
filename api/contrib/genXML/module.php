@@ -17,8 +17,9 @@
 /**
  * Boot up procedure
  */
-function hacienda_bootMeUp(){
+function genXML_bootMeUp(){
 	// Just booting up
+    
 }
 
 /**
@@ -26,41 +27,14 @@ function hacienda_bootMeUp(){
  */
 
 
-function hacienda_init(){
+function genXML_init(){
 
+    
+    
 	$paths = array(
-		array(
-			'r' => 'get_token',
-			'action' => 'token',
-			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',			
-			'params' => array(
-				array("key" => "url", "def" => "", "req" => true),
-				array("key" => "grant_type", "def" => "", "req" => true),
-				array("key" => "client_id", "def" => "", "req" => true),
-				array("key" => "client_secret", "def" => "", "req" => false),			
-				array("key" => "username", "def" => "", "req" => true),
-				array("key" => "password", "def" => "", "req" => true)				
-			),			
-			'file' => 'hacienda.php'
-		),
-		array(
-			'r' => 'refresh_token',
-			'action' => 'token',
-			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',	
-			'params' => array(
-				array("key" => "url", "def" => "", "req" => true),
-				array("key" => "grant_type", "def" => "", "req" => true),
-				array("key" => "client_id", "def" => "", "req" => true),
-				array("key" => "client_secret", "def" => "", "req" => false),			
-				array("key" => "refresh_token", "def" => "", "req" => true)
-			),			
-			'file' => 'hacienda.php'
-		),
         array(
-			'r' => 'gen_xml',
-			'action' => 'XMLGenerator',
+			'r' => 'gen_xml_fe',
+			'action' => 'genXMLFe',
 			'access' => 'users_openAccess', 
 			'access_params' => 'accessName',	
 			'params' => array(
@@ -70,6 +44,7 @@ function hacienda_init(){
                 array("key" => "emisor_nombre", "def" => "", "req" => true),
                 array("key" => "emisor_tipo_indetif", "def" => "", "req" => true),
                 array("key" => "emisor_num_identif", "def" => "", "req" => true),
+                array("key" => "nombre_comercial", "def" => "", "req" => true),
                 array("key" => "emisor_provincia", "def" => "", "req" => true),
                 array("key" => "emisor_canton", "def" => "", "req" => true),
                 array("key" => "emisor_distrito", "def" => "", "req" => true),
@@ -108,18 +83,17 @@ function hacienda_init(){
                 array("key" => "total_ventas_neta", "def" => "", "req" => true),
                 array("key" => "total_impuestos", "def" => "", "req" => true),
                 array("key" => "total_comprobante", "def" => "", "req" => true),
-                array("key" => "num_res", "def" => "", "req" => true),
-                array("key" => "fecha_res", "def" => "", "req" => true),
-                array("key" => "detalles", "def" => "", "req" => true)
+                array("key" => "otros", "def" => "", "req" => true),
+                array("key" => "detalles", "def" => "", "req" => true),
 			),			
-			'file' => 'hacienda.php'
+			'file' => 'genXML.php'
 		),
 		array(
 			'r' => 'test',
 			'action' => 'test',
 			'access' => 'users_openAccess', 
 			'access_params' => 'accessName',				
-			'file' => 'hacienda.php'
+			'file' => 'genXML.php'
 		)
 	);
 
