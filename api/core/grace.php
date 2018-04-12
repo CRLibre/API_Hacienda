@@ -36,7 +36,7 @@ function _grace_talk($msg, $who = 'info'){
 		# Format the message
 		$msg = sprintf("[%s] %s @ %s", $who, date('y-m-d h:m:s', time()), $msg) . "\n";
 		//echo "$msg" . ($who == 'a' ? "" : "\n" . "<br />");
-		error_log($msg, 3, "errors.log");
+		//error_log($msg, 3, "errors.log");
 		# Add the message to the debug pool if you want me to store them in a file
 		if(conf_get('logPath', 'grace', '') != '' && $who != 'a'){
 			$grace_logMsgs[] = $msg;
