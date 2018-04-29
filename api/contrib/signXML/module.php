@@ -35,8 +35,7 @@ function signXML_init(){
 			'params' => array(
 				array("key" => "p12Url", "def" => "", "req" => true),
 				array("key" => "pinP12", "def" => "", "req" => true),
-				array("key" => "inXmlUrl", "def" => "", "req" => false),			
-				array("key" => "outXmlUrl", "def" => "", "req" => true),
+				array("key" => "inXml", "def" => "", "req" => false),							
 				array("key" => "tipodoc", "def" => "", "req" => true)
 			),			
 			'file' => 'sign.php'

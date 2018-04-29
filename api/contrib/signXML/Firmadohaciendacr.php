@@ -33,7 +33,7 @@ class Firmadocr {
   
    
   
-  public function firmar($certificadop12, $clavecertificado,$xmlsinfirma,$xmlfirmado,$tipodoc) {
+  public function firmar($certificadop12, $clavecertificado,$xmlsinfirma,$tipodoc) {
 	if (!$pfx = file_get_contents($certificadop12)) {
 		echo "Error: No se puede leer el fichero del certificado o no existe en la ruta especificada\n";
 		exit;
@@ -60,9 +60,9 @@ class Firmadocr {
 	$this->SignedProperties	= "SignedProperties-".$this->signatureID;
 
     $this->tipoDoc = $tipodoc;
-	$xml1 = file_get_contents($xmlsinfirma);
+	$xml1 = base64_decode($xmlsinfirma);
 	$xml1 = $this->insertaFirma($xml1);
-	return file_put_contents($xmlfirmado, $xml1);
+	return base64_encode($xml1);
   }
   /**
    * Función que Inserta la firma e
