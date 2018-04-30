@@ -1,7 +1,7 @@
 #About
 This is the base module, use it in order to start you own modules.
 
-#Steps
+###Steps
 *Open config.ini and replace the values
 *open module.php and replace MODULENAME with the name of your module
 

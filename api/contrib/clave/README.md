@@ -1,11 +1,32 @@
-# Modulo para encode en base 64 el xml
+### Modulo para encode en base 64 el xml
+:shipit:
+##Funcion para generar clave
 
-Se envia 
-w = XmlToBase64
-r = encode
-xml = el String XML
- 
+     * Esta funcion se puede llamar desde GET POST si se envian los siguientes parametros
+     * w=clave
+     * r=getClave
+     * tipoCedula=   fisico o juridico
+     * cedula=  Cedula de persona fisica o juridico
+     * codigoPais=  Cedula de persona fisica o juridico
+     * consecutivo=  Cedula de persona fisica o juridico
+     * situacion=  Cedula de persona fisica o juridico
+     * codigoSeguridad=  Cedula de persona fisica o juridico
+     * tipoDocumento=   Esto es los tipos de 
+     *          
+     * Tambien se puede llamar desde un metodo de la siguiente manera:
+     * modules_loader("clave");       <-- Esta funcion importa el modulo
+     * getClave($tipoDocumento="",$tipoCedula = "", $cedula = "", $situacion = "", $codigoPais = "", $consecutivo = "", $codigoSeguridad = "")  <------------ esta funcion retorna la clave
 
+        Tipo de comprobante o documento asociado Código
+        Factura electrónica 01
+        Nota de débito electrónica 02
+        Nota de crédito electrónica 03
+        Tiquete Electrónico 04
+        Confirmación de aceptación del comprobante electrónico 05
+        Confirmación de aceptación parcial del comprobante
+        electrónico
+        06
+        Confirmación de rechazo del comprobante electrónico 07
 
 
 
