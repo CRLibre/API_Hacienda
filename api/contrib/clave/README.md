@@ -6,12 +6,12 @@
      * w=clave
      * r=getClave
      * tipoCedula=   fisico o juridico
-     * cedula=  Cedula de persona fisica o juridico
-     * codigoPais=  Cedula de persona fisica o juridico
-     * consecutivo=  Cedula de persona fisica o juridico
-     * situacion=  Cedula de persona fisica o juridico
-     * codigoSeguridad=  Cedula de persona fisica o juridico
-     * tipoDocumento=   Esto es los tipos de 
+     * cedula=  Numero de Cedula
+     * codigoPais=  506
+     * consecutivo=  codigo de 10 numeros
+     * situacion=  nomal contingencia sininternet
+     * codigoSeguridad=  codigo de 8 numeros
+     * tipoDocumento=  FE ND NC TE CCE CPCE RCE
      *          
      * Tambien se puede llamar desde un metodo de la siguiente manera:
      * modules_loader("clave");       <-- Esta funcion importa el modulo
