@@ -180,17 +180,12 @@ function genXMLFe(){
     </FacturaElectronica>';
 
 
-    $name = md5(microtime() . $clave . $consecutivo) . ".xml";
-
-    $xmlFolder = realpath(dirname(__FILE__));
-    $xmlFolder .= "/tmpXML/$name";
-    
-    $dom = new DomDocument();
-    $dom->preseveWhiteSpace = FALSE;
-    $dom->loadXML($xmlString);
-    $dom->save($xmlFolder);
-    
-    return $xmlString;
+$arrayResp = array(
+    "clave" => "$clave",
+    "xml" => base64_encode($xmlString)
+);
+    return $arrayResp;
+     
 }
 
 
