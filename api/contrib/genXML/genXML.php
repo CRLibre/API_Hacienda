@@ -181,7 +181,7 @@ function genXMLFe(){
 
 
 $arrayResp = array(
-    "clave" => "$clave",
+    "clave" => $clave,
     "xml" => base64_encode($xmlString)
 );
     return $arrayResp;
