@@ -9,7 +9,7 @@ function users_logMeOut(){
 
 	users_destroySession();
 	params_set('sessionKey', 'longGone');
-	return SUCCESS_ALL_GOOD;
+	return 'good bye';
 
 }
 

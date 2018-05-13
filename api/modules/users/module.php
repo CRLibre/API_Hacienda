@@ -170,6 +170,7 @@ function users_init(){
 				array("key" => "userName",  "def" => "", "req" => true)
 			),
 		),
+            
 
 		# Update profile
 		# @return Success or fail
@@ -451,7 +452,7 @@ function users_confirmSessionKey(){
         $user->idUser
     );
 
-	$r = db_query($q, 1);
+	$r = db_query($q, 0);
 
 	if($r == ERROR_DB_NO_RESULTS_FOUND){
 		grace_debug("No results found");
