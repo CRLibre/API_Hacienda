@@ -36,8 +36,12 @@ $mensaje = json_encode($datos);
 
         $respuesta = curl_exec($curl);  
         $status= curl_getinfo($curl,CURLINFO_HTTP_CODE);
+            $arrayResp = array(
+            "Status" => $status,   
+            "text"=> explode("\n",$respuesta)
+            );
 	curl_close($curl);
-        return $respuesta ."Esto". $statuss;
+        return $arrayResp;
 };
 
 
@@ -79,7 +83,11 @@ $mensaje = json_encode($datos);
 
         $respuesta = curl_exec($curl);  
         $status= curl_getinfo($curl,CURLINFO_HTTP_CODE);
+            $arrayResp = array(
+            "Status" => $status,    
+             "text"=> explode("\n",$respuesta)
+            );
 	curl_close($curl);
-        return $respuesta ."Esto". $statuss;
+        return $arrayResp;
 };
 ?>
