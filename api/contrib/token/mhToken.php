@@ -1,8 +1,13 @@
 <?php
 
 function token(){
-	//GET URL from Post    
-	$url = params_get("url"); 
+	
+	$url;
+        if (params_get("client_id")=='api-stag'){
+            $url = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token"; 
+        }else if (params_get("client_id")=='api-prod'){
+            $url = "	https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-prod/protocol/openid-connect/token"; 
+        }
 	$data;
 	//Get Data from Post
 	if (params_get("grant_type")=="password") {

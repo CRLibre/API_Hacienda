@@ -35,7 +35,6 @@ function token_init(){
 			'access' => 'users_openAccess', 
 			'access_params' => 'accessName',			
 			'params' => array(
-				array("key" => "url", "def" => "", "req" => true),
 				array("key" => "grant_type", "def" => "", "req" => true),
 				array("key" => "client_id", "def" => "", "req" => true),
 				array("key" => "client_secret", "def" => "", "req" => false),			
@@ -50,7 +49,6 @@ function token_init(){
 			'access' => 'users_openAccess', 
 			'access_params' => 'accessName',	
 			'params' => array(
-				array("key" => "url", "def" => "", "req" => true),
 				array("key" => "grant_type", "def" => "", "req" => true),
 				array("key" => "client_id", "def" => "", "req" => true),
 				array("key" => "client_secret", "def" => "", "req" => false),			
