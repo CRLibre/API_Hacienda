@@ -11,6 +11,7 @@ En repositorios adicionales estaremos colaborando con elementos similares
 * Colaborando con un [*pull resquest*](https://github.com/CRLibre/API_Hacienda/pulls)
 * Documentando
   * Documentación del API en el wiki: https://github.com/CRLibre/API_Hacienda/wiki
+      * Whatsapp: Contacta a @marnylopez via Whatsapp (link abajo)
   * Documentación técnica general de la Factura Electrónica en Costa Rica
     * repo: https://github.com/CRLibre/docs-fe-hacienda-cr
     * wiki: https://github.com/CRLibre/docs-fe-hacienda-cr/wiki
