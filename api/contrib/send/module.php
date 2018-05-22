@@ -45,7 +45,7 @@ function send_init(){
                                 array("key" => "comprobanteXml", "def" => "", "req" => true)),           
 			'file' => 'send.php'
                      ),
-            array(
+                     array(
 			'r' => 'sendMensaje',
 			'action' => 'sendMensaje',
 			'access' => 'users_openAccess', 
@@ -62,8 +62,21 @@ function send_init(){
                                 array("key" => "comprobanteXml", "def" => "", "req" => true)),           
                       'file' => 'send.php'
                      
+                ),
+                array(
+			'r' => 'sendTE',
+			'action' => 'sendTE',
+			'access' => 'users_openAccess', 
+			'access_params' => 'accessName',
+                        'params' => array(
+				array("key" => "token", "def" => "", "req" => true),                    
+                                array("key" => "clave", "def" => "", "req" => true),
+                                array("key" => "fecha", "def" => "", "req" => true),
+                                array("key" => "emi_tipoIdentificacion", "def" => "", "req" => true),
+				array("key" => "emi_numeroIdentificacion", "def" => "", "req" => false),			
+                                array("key" => "comprobanteXml", "def" => "", "req" => true)),           
+                      'file' => 'send.php'
                 )
-            
                     );
                       
               
