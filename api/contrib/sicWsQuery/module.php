@@ -17,7 +17,7 @@
 /**
  * Boot up procedure
  */
-function ejemplo_bootMeUp(){
+function sicWsQuery_bootMeUp(){
 	// Just booting up
 }
 
@@ -36,13 +36,13 @@ function sicWsQuery_init(){
 			'access_params' => 'accessName',
 			'params' => array(
 				array("key" => "origen", "def" => "", "req" => true),
-				array("key" => "cedula", "def" => "", "req" => true),
-				array("key" => "ape1", "def" => "", "req" => true),
-				array("key" => "ape2", "def" => "", "req" => true),
-				array("key" => "nomb1", "def" => "", "req" => true),
-				array("key" => "nomb2", "def" => "", "req" => true),
-				array("key" => "razon", "def" => "", "req" => true),
-				array("key" => "Concatenado", "def" => "", "req" => true)
+				array("key" => "cedula", "def" => "", "req" => false),
+				array("key" => "ape1", "def" => "", "req" => false),
+				array("key" => "ape2", "def" => "", "req" => false),
+				array("key" => "nomb1", "def" => "", "req" => false),
+				array("key" => "nomb2", "def" => "", "req" => false),
+				array("key" => "razon", "def" => "", "req" => false),
+				array("key" => "Concatenado", "def" => "", "req" => false)
 			),	
 			'file' => 'sicWsQuery.php'
 		)
