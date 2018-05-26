@@ -22,13 +22,13 @@ function token(){
 		if($client_id == ''){
 			return "El parametro Client ID es requerido";	
 		}
-		if($grant_type == ''){
+		else if($grant_type == ''){
 			return "El parametro Grant Type es requerido";	
 		}
-		if($username == ''){
+		else if($username == ''){
 			return "El parametro Username es requerido";	
 		}
-		if($password == ''){
+		else if($password == ''){
 			return "El parametro Password es requerido";	
 		}
 				
@@ -49,12 +49,11 @@ function token(){
 		//Validation
 		if($client_id == ''){
 			return "El parametro Client ID es requerido";	
-		}
-		
-		if($grant_type == ''){
+		}	
+		else if($grant_type == ''){
 			return "El parametro Grant Type es requerido";	
 		}
-		if($refresh_token == ''){
+		else if($refresh_token == ''){
 			return "El parametro Refresh Token es requerido";	
 		}
 
