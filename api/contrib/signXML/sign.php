@@ -8,29 +8,35 @@ function signFE() {
     $inXml = params_get('inXml');
     $tipoDoc = params_get('tipodoc');
     $tipoDocumento;
-    switch ($tipoDoc) {
-        case 'FE': //Factura Electronica
-            $tipoDocumento = "01";
-            break;
-        case 'ND': // Nota de Debito
-            $tipoDocumento = "02";
-            break;
-        case 'NC': // Nota de Credito
-            $tipoDocumento = "03";
-            break;
-        case 'TE': // Tiquete Electronico
-            $tipoDocumento = "04";
-            break;
-        case 'CCE': // Confirmacion Comprabante Electronico
-            $tipoDocumento = "05";
-            break;
-        case 'CPCE': // Confirmacion Parcial Comprbante Electronico
-            $tipoDocumento = "06";
-            break;
-        case 'RCE': // Rechazo Comprobante Electronico
-            $tipoDocumento = "07";
-            break;
+    $tipos = array("FE", "ND", "NC", "TE","CCE","CPCE","RCE");
+    if (in_array($tipoDoc, $tipos)) {
+        switch ($tipoDoc) {
+            case 'FE': //Factura Electronica
+                $tipoDocumento = "01";
+                break;
+            case 'ND': // Nota de Debito
+                $tipoDocumento = "02";
+                break;
+            case 'NC': // Nota de Credito
+                $tipoDocumento = "03";
+                break;
+            case 'TE': // Tiquete Electronico
+                $tipoDocumento = "04";
+                break;
+            case 'CCE': // Confirmacion Comprabante Electronico
+                $tipoDocumento = "05";
+                break;
+            case 'CPCE': // Confirmacion Parcial Comprbante Electronico
+                $tipoDocumento = "06";
+                break;
+            case 'RCE': // Rechazo Comprobante Electronico
+                $tipoDocumento = "07";
+                break;
+        }
+    } else {
+        return "No se encuentra tipo de documento";
     }
+
 
     $fac = new Firmadocr();
     //$inXmlUrl debe de ser en Base64 
