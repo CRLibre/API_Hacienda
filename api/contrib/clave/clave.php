@@ -48,30 +48,99 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
     $dia = date('d');
     $mes = date('m');
     $ano = date('y');
+    
+    
+    //Validamos el parametro de cedula    
+    if ($cedula == "" && strlen($cedula) == 0) {
+        return "El valor cedula no debe ser vacio";
+    } else if (!ctype_digit($cedula)) {
+                 return "El valor cedula no es numeral";
+        }
+    
+    
+        //Validamos el parametro de cedula    
+    if ($codigoPais == "" && strlen($codigoPais) == 0) {
+        return "El valor codigoPais no debe ser vacio";
+    } else if (!ctype_digit($codigoPais)) {
+                 return "El valor codigoPais no es numeral";
+        }
+    
 
-    //Validamos que venga el parametro de sucurnal
+    //Validamos que venga el parametro de sucursal
+    
     if ($sucursal == "" && strlen($sucursal) == 0) {
         $sucursal = "001";
-    } else if (strlen($sucursal) != 3 && $sucursal != 0) {
+    } else if (ctype_digit($sucursal)) {
+
+        if (strlen($sucursal) < 3) {
+            $sucursal = str_pad($sucursal, 3, "0", STR_PAD_LEFT);
+        } else if (strlen($sucursal) != 3 && $sucursal != 0) {
             $arrayResp = array(
                 "error" => "Error en sucursal",
                 "razon" => "el tamaño es diferente de 3 digitos"
             );
             return $arrayResp;
+        }
+    }else {
+        return "El valor sucursal no es numeral";
     }
-    
 
+
+    
+    
     //Validamos que venga el parametro de terminal
-    if ( $terminal == "" && strlen($terminal) == 0 ) {
+    if ($terminal == "" && strlen($terminal) == 0) {
         $terminal = "00001";
-    } else if (strlen($terminal) != 5 && $terminal != 0) {
+    } else if (ctype_digit($terminal)) {
+
+        if (strlen($terminal) < 5) {
+            $terminal = str_pad($terminal, 5, "0", STR_PAD_LEFT);
+        } else if (strlen($terminal) != 5 && $terminal != 0) {
             $arrayResp = array(
                 "error" => "Error en terminal",
-                "razon" => "el tamaño la terminal es diferente de 5 digitos"
+                "razon" => "el tamaño es diferente de 5 digitos"
             );
             return $arrayResp;
         }
+    }else {
+        return "El valor terminal no es numeral";
+    }
     
+    
+    
+
+//Validamos el consecutivo
+    
+    
+    if ($consecutivo == "" && strlen($consecutivo) == 0) {
+        return "El consecutivo no puede ser vacio";
+    } else if (strlen($consecutivo) < 10) {
+        $consecutivo = str_pad($consecutivo, 10, "0", STR_PAD_LEFT);
+    } else if (strlen($consecutivo) != 10 && $consecutivo != 0) {
+        $arrayResp = array(
+            "error" => "Error en consecutivo",
+            "razon" => "el tamaño consecutivo es diferente de 10 digitos"
+        );
+        return $arrayResp;
+    }
+
+
+//Validamos el codigoSeguridad
+    
+    
+    if ($codigoSeguridad == "" && strlen($codigoSeguridad) == 0) {
+        return "El consecutivo no puede ser vacio";
+    } else if (strlen($codigoSeguridad) < 8) {
+        $codigoSeguridad = str_pad($codigoSeguridad, 8, "0", STR_PAD_LEFT);
+    } else if (strlen($codigoSeguridad) != 8 && $codigoSeguridad != 0) {
+        $arrayResp = array(
+            "error" => "Error en codigo Seguridad",
+            "razon" => "el tamaño codigo Seguridad es diferente de 8 digitos"
+        );
+        return $arrayResp;
+    }
+
+
 
     $tipoDoc = params_get('tipoDocumento');
 
@@ -108,6 +177,7 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
     $consecutivoFinal = $sucursal . $terminal . $tipoDocumento . $consecutivo;
     //-----------------------------------------------//
     //Numero de Cedula + el indice identificador
+
     $identificacion;
     $cedulas = array("fisico", "juridico");
     if (in_array($tipoCedula, $cedulas)) {
@@ -146,6 +216,7 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
     }
 
     //-----------------------------------------------//     
+    
     //Crea la clave 
     $clave = $codigoPais . $dia . $mes . $ano . $identificacion . $consecutivoFinal . $situacion . $codigoSeguridad;
     $arrayResp = array(
