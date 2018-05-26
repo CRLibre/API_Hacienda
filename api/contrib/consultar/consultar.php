@@ -3,9 +3,16 @@
 function consutar(){
 
 $curl = curl_init();
-
+$clave=params_get('clave');
+ //Validamos que venga el parametro de sucursal
+    
+    if ($clave == "" && strlen($clave) == 0) {
+        return "El valor codigoPais no debe ser vacio";
+    }
+    
+    
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/".params_get('clave'),
+  CURLOPT_URL => "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/".$clave,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
