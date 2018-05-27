@@ -1,7 +1,7 @@
 <?php
 /** @file module.php
- * A brief file description.
- * A more elaborated file description.
+ * Módulo de Ejemplo del API
+ * Ver uso en https://github.com/CRLibre/API_Hacienda/wiki/Primera-petici%C3%B3n-al-API
  */
 
 /** \addtogroup Core 
