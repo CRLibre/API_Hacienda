@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 
+<?php
 /*
 # Copyright 2018 Moritz von Schweinitz
 # Published under the GNU Affero General Public License
@@ -11,7 +12,6 @@
 */
 
 
-<?php
         include __DIR__.'/../contrib/signXML/Firmadohaciendacr.php';
 
         $cert = $argv[1];
