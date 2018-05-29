@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 
+/*
 # Copyright 2018 Moritz von Schweinitz
 # Published under the GNU Affero General Public License
 # https://www.gnu.org/licenses/agpl-3.0.en.html
@@ -7,6 +8,8 @@
 
 # TODOs:
 # - if no xmlIN and/or xmlOut arguments are given, read/write to STDIN/STDOUT.
+*/
+
 
 <?php
         include __DIR__.'/../contrib/signXML/Firmadohaciendacr.php';
