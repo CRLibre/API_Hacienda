@@ -49,27 +49,27 @@
         if (preg_match('/\<FacturaElectronica/',$xmlIn))
         {
             $doctype = '01';
-            fwrite(STDERR,  "Tipo: ($doctype) FE\n");
+            fwrite(STDERR,  "Tipo:\t($doctype) FE\n");
         }
         else if (preg_match('/\<NotaDebitoElectronica/',$xmlIn))
         {
             $doctype = '02';
-            fwrite(STDERR,  "Tipo: ($doctype) ND\n");
+            fwrite(STDERR,  "Tipo:\t($doctype) ND\n");
         }
         else if (preg_match('/\<NotaCreditoElectronica/',$xmlIn))
         {
             $doctype = '03';
-            fwrite(STDERR,  "Tipo: ($doctype) NC\n");
+            fwrite(STDERR,  "Tipo:\t($doctype) NC\n");
         }
         else if (preg_match('/\<TiqueteElectronico/',$xmlIn))
         {
             $doctype = "04";
-            fwrite(STDERR,  "Tipo: ($doctype) TE\n");
+            fwrite(STDERR,  "Tipo:\t($doctype) TE\n");
         }
         else if (preg_match('/\<MensajeReceptor/',$xmlIn))
         {
             $doctype = "05";
-            fwrite(STDERR,  "Tipo: ($doctype) MR\n");
+            fwrite(STDERR,  "Tipo:\t($doctype) MR\n");
         }
         else
         {
