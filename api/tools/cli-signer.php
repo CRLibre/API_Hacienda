@@ -1,4 +1,12 @@
-#!/usr/local/bin/php
+#!/usr/bin/env php
+
+# Copyright 2018 Moritz von Schweinitz
+# Published under the GNU Affero General Public License
+# https://www.gnu.org/licenses/agpl-3.0.en.html
+# For the project https://github.com/CRLibre/API_Hacienda
+
+# TODOs:
+# - if no xmlIN and/or xmlOut arguments are given, read/write to STDIN/STDOUT.
 
 <?php
         include '../contrib/signXML/Firmadohaciendacr.php';
@@ -22,10 +30,10 @@
 
 
         $signer = new Firmadocr();
-        echo "P12:\t" . $cert . "\n";
+        fwrite(STDERR, "P12:\t" . $cert . "\n");
 #        echo "PIN: " . $pin .  "\n";
-        echo "In:\t" . $xmlIn . "\n";
-        echo "Out:\t" . $xmlOut . "\n";
+        fwrite(STDERR, "In:\t" . $xmlIn . "\n");
+        fwrite(STDERR, "Out:\t" . $xmlOut . "\n");
 
         $xmlIn = file_get_contents( $xmlIn );
 
