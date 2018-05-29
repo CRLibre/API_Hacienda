@@ -6,8 +6,15 @@
         $cert = $argv[1];
         $pin = $argv[2];
         $xmlIn = $argv[3];
+        
         $xmlOut = $argv[4];
         $doctype = $argv[5];
+        
+        if ( not file_exists( $xmlIn ) )
+        {
+                die("Infile '$xmlIn' doesn't exist\n");
+        }
+
 
         if ( $doctype != '01' and $doctype != '02' and $doctyp != '03' and $doctype != '04' and $doctype != '05'  )
         {
