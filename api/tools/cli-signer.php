@@ -10,7 +10,7 @@
         $xmlOut = $argv[4];
         $doctype = $argv[5];
         
-        if ( not file_exists( $xmlIn ) )
+        if ( ! file_exists( $xmlIn ) )
         {
                 die("Infile '$xmlIn' doesn't exist\n");
         }
