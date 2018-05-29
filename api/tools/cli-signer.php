@@ -10,7 +10,7 @@
 # TODOs:
 # - if no xmlIN and/or xmlOut arguments are given, read/write to STDIN/STDOUT.
 */
-
+        date_default_timezone_set("America/Costa_Rica");
 
         include __DIR__.'/../contrib/signXML/Firmadohaciendacr.php';
 
