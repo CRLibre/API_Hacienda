@@ -9,7 +9,7 @@
 # - if no xmlIN and/or xmlOut arguments are given, read/write to STDIN/STDOUT.
 
 <?php
-        include __DIR__.'../contrib/signXML/Firmadohaciendacr.php';
+        include __DIR__.'/../contrib/signXML/Firmadohaciendacr.php';
 
         $cert = $argv[1];
         $pin = $argv[2];
