@@ -18,5 +18,5 @@ En repositorios adicionales estaremos colaborando con elementos similares
 
 ### Conversemos
 * Póngase en contacto con los otros miembros voluntarios de la comunidad.
-   * [Grupo de Whatsapp de CRLibre.org](https://chat.whatsapp.com/ED2JK9IkDnu2UzEpyjZDeN)
+   * [Grupos de Chat de CRLibre.org](https://crlibre.org/chats/)
    * [Grupo de Facebook CRLibre](https://www.facebook.com/groups/105812240170199/)
