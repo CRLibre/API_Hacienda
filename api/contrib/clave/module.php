@@ -27,7 +27,7 @@ function clave_init() {
     $paths = array(
         array(
             'r' => 'clave',
-            'action' => 'getClave',
+            'action' => 'clave',
             'access' => 'users_openAccess',
             'access_params' => 'accessName',
             'params' => array(
