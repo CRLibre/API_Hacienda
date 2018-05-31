@@ -72,7 +72,7 @@ function boot_initThisPath(){
 		grace_debug("Function found");
 		$response = tools_proccesPath(call_user_func($f));
 	}else{
-		$response = ERROR_BAD_REQUEST;
+		$response = "Function not found";
 	}
 	tools_reply($response);
 }
