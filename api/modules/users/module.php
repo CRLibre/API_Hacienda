@@ -318,6 +318,11 @@ function users_logMeIn() {
         // Create a token
         grace_debug("Able to login");
         return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName);
+    }else if($user->pwd == md5_hash(params_get('pwd', ''))){
+        // Create a token
+        grace_debug("Able to login");
+        return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName);
+        
     } else {
         
         grace_debug(sprintf("Not able to login %s | %s", $user->pwd, users_hash(params_get('pwd', ''))));
@@ -364,6 +369,9 @@ function users_deshash($pwd) {
     grace_debug("Inicio Encriptacion 4");  
     modules_loader("crypto","crypto.php");    
     return crypto_desencrypt($pwd);
+}
+function md5_hash($pwd){
+	return md5($pwd);
 }
 
 /**
