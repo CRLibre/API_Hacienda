@@ -9,14 +9,20 @@ global $config;
 #
 #####################################################################################
 # Database name
-$config['db']['name'] = "crlibre_dbuser";
+$config['db']['name'] = "crlibre_api_demo";
 # Database password
 //$config['db']['pwd'] = "g[H6gmrn6pb1";
 $config['db']['pwd'] = 'S3syyZNw7woqFrm';
 # Database user name
-$config['db']['user'] = "crlibre_api_user";
+$config['db']['user'] = "crlibre_api_demo";
 # Database host
 $config['db']['host'] = "localhost";
+##############################################################################
+#
+# Crypto Keys
+#
+##############################################################################
+$config['crypto']['key'] = "LkWfgWGQ/XhSd+ML13PEJsuecTHUPs9quAWGs1fMC9o=";
 
 ##############################################################################
 #
@@ -48,9 +54,9 @@ $config['users']['sessionLifetime'] = 1000;
 
 
 # List of core modules
-$config['modules']['core']     = array('cala', 'db', 'users', 'files', 'geoloc', 'wirez');
+$config['modules']['core']     = array('cala','db', 'users', 'files', 'geoloc', 'wirez', 'crypto');
 # List of core modules to load always, you can overide this list
-$config['modules']['coreLoad'] = array('cala', 'db', 'users');
+$config['modules']['coreLoad'] = array('cala', 'db', 'users', 'crypto');
 
 # Core modules location
 $config['modules']['corePath']    = $config['modules']['coreInstall'] . "modules/";
