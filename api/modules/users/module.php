@@ -39,9 +39,8 @@ define('ERROR_USERS_NO_TOKEN', '-302');
  * Boot up procedure
  */
 function users_bootMeUp() {
-    
+
     users_loadCurrentUser();
-    
 }
 
 /**
@@ -314,18 +313,17 @@ function users_logMeIn() {
         $user = users_load(array('userName' => $userName));
     }
 
-    if (users_deshash($user->pwd) == params_get('pwd', '')) {
+    if (password_verify(params_get('pwd', ''), users_deshash($user->pwd))) {
         // Create a token
         grace_debug("Able to login");
         return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName);
-    }else if($user->pwd == md5_hash(params_get('pwd', ''))){
+    } else if ($user->pwd == md5_hash(params_get('pwd', ''))) {
         // Create a token
         grace_debug("Able to login");
         return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName);
-        
     } else {
-        
-        grace_debug(sprintf("Not able to login %s | %s", $user->pwd, users_hash(params_get('pwd', ''))));
+
+        grace_debug(sprintf("Not able to login %s | %s", params_get('pwd', ''), users_deshash($user->pwd)));
         return ERROR_USERS_WRONG_LOGIN_INFO;
     }
 }
@@ -343,10 +341,9 @@ function users_createBasic() {
  * Generates a session key
  */
 function users_generateSessionKey($idUser) {
-    
-    grace_debug("Inicio Encriptacion 1");
-    modules_loader("crypto","crypto.php");    
-    $sessionKey = crypto_encrypt(time() * rand(0, 1000));
+
+    modules_loader("crypto", "crypto.php");
+    $sessionKey = crypto_encrypt(password_hash(time() * rand(0, 1000)));
 
     $q = sprintf("INSERT INTO sessions (idUser, sessionKey, ip, lastAccess) "
             . "VALUES('%s', '%s', '%s', '%s')", $idUser, $sessionKey, $_SERVER['REMOTE_ADDR'], time());
@@ -360,18 +357,25 @@ function users_generateSessionKey($idUser) {
  * Generates a user hash (for passwords mostly)
  * @todo Use php's function
  */
-function users_hash($pwd) {  
-    grace_debug("Inicio Encriptacion 2");  
-    modules_loader("crypto","crypto.php");    
-    return crypto_encrypt($pwd);
+function users_hash($pwd) {
+    modules_loader("crypto", "crypto.php");
+    $options = array(
+        'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+        'cost' => 12,
+    );
+    $hashPass = password_hash($pwd, PASSWORD_BCRYPT, $options);
+    $rsp = base64_encode(crypto_encrypt($hashPass));
+    return $rsp;
 }
-function users_deshash($pwd) {  
-    grace_debug("Inicio Encriptacion 4");  
-    modules_loader("crypto","crypto.php");    
+
+function users_deshash($pwd) {
+    $pwd = base64_decode($pwd);
+    modules_loader("crypto", "crypto.php");
     return crypto_desencrypt($pwd);
 }
-function md5_hash($pwd){
-	return md5($pwd);
+
+function md5_hash($pwd) {
+    return md5($pwd);
 }
 
 /**
@@ -458,7 +462,7 @@ function users_confirmSessionKey() {
         return false;
     } else {
         # Lets confirm the time frame
-        if ((time() - $r->lastAccess) > conf_get('sessionLifetime', 'users', 3600)) {
+        if ((time() - $r->lastAccess) < conf_get('sessionLifetime', 'users', 3600)) {
             grace_debug("User last access is to old");
             return false;
         }
@@ -724,10 +728,9 @@ function users_recoverPwd() {
     tools_loadLibrary('mailer.php');
 
     # Generate a new temporary password
-    
-    grace_debug("Inicio Encriptacion 3");
-    modules_loader("crypto","crypto.php");    
-    $user->pwd = substr(crypto_encrypt(rand(0, 1000) + time()), 0, 6);
+
+    modules_loader("crypto", "crypto.php");
+    $user->pwd = substr(crypto_encrypt(password_hash(rand(0, 1000) + time()), 0, 6));
 
     grace_debug("New tmp pwd: " . $user->pwd);
 
