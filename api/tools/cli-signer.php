@@ -75,7 +75,7 @@
         {
         }
 
-        if ( $doctype != '01' and $doctype != '02' and $doctyp != '03' and $doctype != '04' and $doctype != '05'  )
+        if ( $doctype != '01' and $doctype != '02' and $doctype != '03' and $doctype != '04' and $doctype != '05'  )
         {
                 #die("Usage: cli-signer.php <archivo.p12> <claveP12> <xml_sin_firmar> <tipodoc>\n");
                 die("Usage: cli-signer.php <archivo.p12> <claveP12> <xml_sin_firma> <xml_con_firma>\n(xml_sin_firma y/o xml_con_firma puede ser '-' para STDIN o STDOUT, respetivamente)");
