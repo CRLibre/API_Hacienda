@@ -42,7 +42,9 @@ function send_init(){
 				array("key" => "emi_numeroIdentificacion", "def" => "", "req" => false),			
 				array("key" => "recp_tipoIdentificacion", "def" => "", "req" => true),
                                 array("key" => "recp_numeroIdentificacion", "def" => "", "req" => true),
-                                array("key" => "comprobanteXml", "def" => "", "req" => true)),           
+                                array("key" => "comprobanteXml", "def" => "", "req" => true),
+                                array("key" => "client_id", "def" => "", "req" => true)
+                            ),           
 			'file' => 'send.php'
                      ),
                      array(
@@ -59,7 +61,9 @@ function send_init(){
 				array("key" => "recp_tipoIdentificacion", "def" => "", "req" => true),
                                 array("key" => "recp_numeroIdentificacion", "def" => "", "req" => true),
                                 array("key" => "consecutivoReceptor", "def" => "", "req" => true),           
-                                array("key" => "comprobanteXml", "def" => "", "req" => true)),           
+                                array("key" => "comprobanteXml", "def" => "", "req" => true),
+                                array("key" => "client_id", "def" => "", "req" => true)
+                            ),           
                       'file' => 'send.php'
                      
                 ),
@@ -74,7 +78,9 @@ function send_init(){
                                 array("key" => "fecha", "def" => "", "req" => true),
                                 array("key" => "emi_tipoIdentificacion", "def" => "", "req" => true),
 				array("key" => "emi_numeroIdentificacion", "def" => "", "req" => false),			
-                                array("key" => "comprobanteXml", "def" => "", "req" => true)),           
+                                array("key" => "comprobanteXml", "def" => "", "req" => true),
+                                array("key" => "client_id", "def" => "", "req" => true)
+                            ),           
                       'file' => 'send.php'
                 )
                     );
