@@ -11,9 +11,10 @@ function consutar() {
     }
     
     $url;
-    if (params_get("client_id") == 'api-stag') {
+    $apiTo = params_get("client_id");
+    if ($apiTo == 'api-stag') {
         $url = "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/";
-    } else if (params_get("client_id") == 'api-prod') {
+    } else if ($apiTo == 'api-prod') {
         $url = "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/";
     }
 
@@ -42,7 +43,7 @@ function consutar() {
     if ($err) {
         echo "cURL Error #:" . $err;
     } else {
-        $responseT = json_decode($response);
+        $responseT = json_decode($response);                 
         return $responseT;
     }
 }
