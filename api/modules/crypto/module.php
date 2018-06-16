@@ -27,6 +27,12 @@ function crypto_init(){
 				array("key" => "textDesEncrypt", "def" => "0", "req" => false)
 			),
 			'file' => 'crypto.php'
+		),
+		array(
+			'r' => 'makeKey',
+			'action' => 'makeKey256',
+			'access' => 'users_openAccess',
+			'file' => 'crypto.php'
 		)
 	);
 	return $paths;
