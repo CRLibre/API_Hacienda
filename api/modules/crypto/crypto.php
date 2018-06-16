@@ -9,11 +9,13 @@
 //Esto toma la configuracion de los settings.php del www
 $key = conf_get('key', 'crypto');
 
+function makeKey256(){
+    return base64_encode(openssl_random_pseudo_bytes(32));
+}
 function crypto_encrypt($data = '') {
     if ($data == '') {
         $data = params_get('textEncrypt', '');
-    }
-    
+    }    
     // se retira el base64 del key
     $encryption_key = base64_decode($key);
     // Se genera un vetor inicial para el proceso
