@@ -288,7 +288,11 @@ function users_registerNew() {
         return users_logMeIn();
     } else {
         grace_debug("This user already exists");
-        return ERROR_USERS_EXISTS;
+                    $arrayResp = array(
+                "code" => ERROR_USERS_EXISTS,
+                "status" => "usuario ya existe"
+            );
+            return $arrayResp;
     }
 }
 
@@ -359,8 +363,9 @@ function users_generateSessionKey($idUser) {
  */
 function users_hash($pwd) {
     modules_loader("crypto", "crypto.php");
+    grace_debug("antes de opciones");
     $options = array(
-        'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+        'salt' => random_bytes(22),
         'cost' => 12,
     );
     $hashPass = password_hash($pwd, PASSWORD_BCRYPT, $options);
@@ -447,22 +452,20 @@ function users_confirmSessionKey() {
     global $user;
 
     grace_debug("Confirm the session for this user");
-
     $q = sprintf("SELECT *
         FROM sessions
         WHERE sessionKey = '%s'
         AND ip = '%s'
         AND idUser = '%s'", params_get('sessionKey', ''), $_SERVER['REMOTE_ADDR'], $user->idUser
     );
-
-    $r = db_query($q, 0);
+    $r = db_query($q, 1);
 
     if ($r == ERROR_DB_NO_RESULTS_FOUND) {
         grace_debug("No results found");
         return false;
     } else {
-        # Lets confirm the time frame
-        if ((time() - $r->lastAccess) < conf_get('sessionLifetime', 'users', 3600)) {
+        # Lets confirm the time frame		
+	if ((time() - $r->lastAccess) > conf_get('sessionLifetime', 'users')) {	
             grace_debug("User last access is to old");
             return false;
         }
@@ -515,7 +518,11 @@ function users_updateProfile() {
     if ($user->userName != $dets['userName']) {
         $newUserByName = users_load(array('userName' => $dets['userName']));
         if ($newUserByName->idUser != 0) {
-            return ERROR_USERS_EXISTS;
+            $arrayResp = array(
+                "code" => ERROR_USERS_EXISTS,
+                "status" => "usuario ya existe"
+            );
+            return $arrayResp;
         }
     }
 
@@ -524,17 +531,28 @@ function users_updateProfile() {
         grace_debug("Requested a new email");
         $newUserByEmail = users_load(array('email' => $dets['email']));
         if ($newUserByEmail->idUser != 0) {
-            return ERROR_USERS_EXISTS;
+            $arrayResp = array(
+                "code" => ERROR_USERS_EXISTS,
+                "status" => "usuario ya existe"
+            );
+            return $arrayResp;
         }
     }
 
     $r = _users_update($dets);
 
     if ($r == 0) {
-        return ERROR_ERROR;
+        $arrayResp = array(
+            "code" => ERROR_ERROR,
+            "status" => "error registrando"
+        );
+        return $arrayResp;
     }
-
-    return SUCCESS_ALL_GOOD;
+    $arrayResp = array(
+        "code" => SUCCESS_ALL_GOOD,
+        "status" => "registrado con exito"
+    );
+    return $arrayResp;
 }
 
 /**
@@ -631,7 +649,6 @@ function _users_register($userDets) {
     $q = sprintf("INSERT INTO users (fullName, userName, email, about, country, status, timestamp, lastAccess, pwd, avatar)
 		VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $userDets['fullName'], $userDets['userName'], $userDets['email'], addslashes($userDets['about']), $userDets['country'], $userDets['status'], $userDets['timestamp'], $userDets['lastAccess'], users_hash($userDets['pwd']), $userDets['avatar']
     );
-
     db_query($q, 0);
 }
 
