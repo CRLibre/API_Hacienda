@@ -12,6 +12,7 @@ $key = conf_get('key', 'crypto');
 function makeKey256(){
     return base64_encode(openssl_random_pseudo_bytes(32));
 }
+
 function crypto_encrypt($data = '') {
     if ($data == '') {
         $data = params_get('textEncrypt', '');
