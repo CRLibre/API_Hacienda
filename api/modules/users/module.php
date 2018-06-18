@@ -363,7 +363,7 @@ function users_generateSessionKey($idUser) {
  */
 function users_hash($pwd) {
     modules_loader("crypto", "crypto.php");
-    grace_debug("antes de opciones");
+    
     $options = array(
         'salt' => random_bytes(22),
         'cost' => 12,
