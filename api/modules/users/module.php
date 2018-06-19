@@ -364,16 +364,13 @@ function users_generateSessionKey($idUser) {
  * @todo Use php's function
  */
 function users_hash($pwd) {
-    grace_debug("antes del import modulo");
     modules_loader("crypto", "crypto.php");
-    grace_debug("antes de la validacion de version");
     $salt;
     if (version_compare(PHP_VERSION, '7.0', '<')) {
         $salt = mcrypt_create_iv(22, MCRYPT_DEV_URANDOM);
     } else {
         $salt = random_bytes(22);
     }
-    grace_debug("despues de la validacion");
     $options = array(
         'salt' => $salt,
         'cost' => 12,
@@ -385,7 +382,6 @@ function users_hash($pwd) {
 
 function users_deshash($pwd) {
     $pwd = base64_decode($pwd);
-    grace_debug("Lellego al users_deshash");
     modules_loader("crypto", "crypto.php");
     return crypto_desencrypt($pwd);
 }
