@@ -288,11 +288,11 @@ function users_registerNew() {
         return users_logMeIn();
     } else {
         grace_debug("This user already exists");
-                    $arrayResp = array(
-                "code" => ERROR_USERS_EXISTS,
-                "status" => "usuario ya existe"
-            );
-            return $arrayResp;
+        $arrayResp = array(
+            "code" => ERROR_USERS_EXISTS,
+            "status" => "usuario ya existe"
+        );
+        return $arrayResp;
     }
 }
 
@@ -345,7 +345,9 @@ function users_createBasic() {
  * Generates a session key
  */
 function users_generateSessionKey($idUser) {
-
+    $q = sprintf("delete from sessions where idUser='".$idUser."' and ip='".$_SERVER['REMOTE_ADDR']."'");
+    db_query($q, 0);
+    
     modules_loader("crypto", "crypto.php");
     $sessionKey = crypto_encrypt(password_hash(time() * rand(0, 1000)));
 
@@ -362,10 +364,18 @@ function users_generateSessionKey($idUser) {
  * @todo Use php's function
  */
 function users_hash($pwd) {
+    grace_debug("antes del import modulo");
     modules_loader("crypto", "crypto.php");
-    
+    grace_debug("antes de la validacion de version");
+    $salt;
+    if (version_compare(PHP_VERSION, '7.0', '<')) {
+        $salt = mcrypt_create_iv(22, MCRYPT_DEV_URANDOM);
+    } else {
+        $salt = random_bytes(22);
+    }
+    grace_debug("despues de la validacion");
     $options = array(
-        'salt' => random_bytes(22),
+        'salt' => $salt,
         'cost' => 12,
     );
     $hashPass = password_hash($pwd, PASSWORD_BCRYPT, $options);
@@ -375,6 +385,7 @@ function users_hash($pwd) {
 
 function users_deshash($pwd) {
     $pwd = base64_decode($pwd);
+    grace_debug("Lellego al users_deshash");
     modules_loader("crypto", "crypto.php");
     return crypto_desencrypt($pwd);
 }
@@ -403,8 +414,8 @@ function users_load($by = array()) {
     $where = trim(str_replace("- AND", " WHERE", $where), ',');
 
     $q = sprintf("SELECT *
-	FROM users
-	%s", $where);
+    FROM users
+    %s", $where);
 
     $user = db_query($q, 1);
 
@@ -464,8 +475,8 @@ function users_confirmSessionKey() {
         grace_debug("No results found");
         return false;
     } else {
-        # Lets confirm the time frame		
-	if ((time() - $r->lastAccess) > conf_get('sessionLifetime', 'users')) {	
+        # Lets confirm the time frame       
+        if ((time() - $r->lastAccess) > conf_get('sessionLifetime', 'users')) {
             grace_debug("User last access is to old");
             return false;
         }
@@ -584,16 +595,16 @@ function _users_update($dets) {
     $newDets = array_replace((array) $user, $dets);
 
     $q = sprintf("UPDATE users SET `fullName` = '%s',
-		`userName` = '%s',
-		`email` = '%s',
-		`about` = '%s',
-		`country` = '%s',
-		`status` = '%s',
-		`timestamp` = '%s',
-		`lastAccess` = '%s',
-		`pwd` = %s,
-		`avatar` = '%s'
-		WHERE `idUser` = %s", addslashes($newDets['fullName']), users_cleanName($newDets['userName']), $newDets['email'], addslashes($newDets['about']), $newDets['country'], $newDets['status'], $newDets['timestamp'], $newDets['lastAccess'], $newDets['pwd'], $newDets['avatar'], $newDets['idUser']
+        `userName` = '%s',
+        `email` = '%s',
+        `about` = '%s',
+        `country` = '%s',
+        `status` = '%s',
+        `timestamp` = '%s',
+        `lastAccess` = '%s',
+        `pwd` = %s,
+        `avatar` = '%s'
+        WHERE `idUser` = %s", addslashes($newDets['fullName']), users_cleanName($newDets['userName']), $newDets['email'], addslashes($newDets['about']), $newDets['country'], $newDets['status'], $newDets['timestamp'], $newDets['lastAccess'], $newDets['pwd'], $newDets['avatar'], $newDets['idUser']
     );
 
     return db_query($q, 0);
@@ -647,7 +658,7 @@ function users_personalBgUpload() {
  */
 function _users_register($userDets) {
     $q = sprintf("INSERT INTO users (fullName, userName, email, about, country, status, timestamp, lastAccess, pwd, avatar)
-		VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $userDets['fullName'], $userDets['userName'], $userDets['email'], addslashes($userDets['about']), $userDets['country'], $userDets['status'], $userDets['timestamp'], $userDets['lastAccess'], users_hash($userDets['pwd']), $userDets['avatar']
+        VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $userDets['fullName'], $userDets['userName'], $userDets['email'], addslashes($userDets['about']), $userDets['country'], $userDets['status'], $userDets['timestamp'], $userDets['lastAccess'], users_hash($userDets['pwd']), $userDets['avatar']
     );
     db_query($q, 0);
 }
