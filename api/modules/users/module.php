@@ -281,7 +281,6 @@ function users_registerNew() {
                     "avatar" => 0
                 )
         );
-
         # Load the user and log it in
         $user = users_loadByName(params_get('userName'));
 
