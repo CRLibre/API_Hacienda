@@ -42,30 +42,39 @@ function sicWsQuery() {
         return str_replace('"', '\'', $e->getMessage());
     }
     $soap_response = $data->ObtenerDatosResult->any;
-    $fileXML = str_replace('"', '\'', $soap_response);
-    $fileXMLFinal = str_replace('<xs:schema xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="NewDataSet">
-    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Table" msdata:UseCurrentLocale="true">
-        <xs:complexType>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element name="Table">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="CEDULA" type="xs:string" minOccurs="0"/>
-                            <xs:element name="APELLIDO1" type="xs:string" minOccurs="0"/>
-                            <xs:element name="APELLIDO2" type="xs:string" minOccurs="0"/>
-                            <xs:element name="NOMBRE1" type="xs:string" minOccurs="0"/>
-                            <xs:element name="NOMBRE2" type="xs:string" minOccurs="0"/>
-                            <xs:element name="ADM" type="xs:string" minOccurs="0"/>
-                            <xs:element name="ORI" type="xs:string" minOccurs="0"/>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
-            </xs:choice>
-        </xs:complexType>
-    </xs:element>
-</xs:schema>', '<?xml version="1.0"  encoding="UTF-8"?>', $fileXML);
-    $fileXML+='</xml>';
-    
-   
-    return $fileXMLFinal;
+    // Remove namespaces
+    $xml = str_replace(array("diffgr:", "msdata:"), '', $soap_response);
+    // Wrap into root element to make it standard XML
+    $xml = "<package>" . $xml . "</package>";
+
+    // Parse with SimpleXML - probably there're much better ways
+    $datos = simplexml_load_string($xml);
+    $array = array();
+    $cantidad = count($datos->diffgram->DocumentElement->Table);
+
+    for ($i = 0; $i < $cantidad; $i++) {
+        if (params_get('origen') == "Fisico") {
+            array_push($array, array(
+                "TIPO" => params_get('origen'),
+                "CEDULA" =>  rtrim($datos->diffgram->DocumentElement->Table[$i]->CEDULA),
+                "APELLIDO1" =>  rtrim( $datos->diffgram->DocumentElement->Table[$i]->APELLIDO1),
+                "APELLIDO2" =>  rtrim( $datos->diffgram->DocumentElement->Table[$i]->APELLIDO2),
+                "NOMBRE1" =>  rtrim($datos->diffgram->DocumentElement->Table[$i]->NOMBRE1),
+                "NOMBRE2" =>  rtrim($datos->diffgram->DocumentElement->Table[$i]->NOMBRE2),
+                "ADM" =>  rtrim($datos->diffgram->DocumentElement->Table[$i]->ADM),
+                "ORI" =>  rtrim($datos->diffgram->DocumentElement->Table[$i]->ORI)
+                    )
+            );
+        } else if (params_get('origen') == "Juridico") {
+
+            array_push($array, array(
+                "TIPO" => params_get('origen'),
+                "CEDULA" =>  rtrim($datos->diffgram->DocumentElement->Table[$i]->CEDULA),
+                "NOMBRE" => rtrim($datos->diffgram->DocumentElement->Table[$i]->NOMBRE),
+                "ADM" =>  rtrim( $datos->diffgram->DocumentElement->Table[$i]->ADM),
+                "ORI" =>  rtrim( $datos->diffgram->DocumentElement->Table[$i]->ORI)
+            ));
+        }
+    }
+    return $array;
 }
