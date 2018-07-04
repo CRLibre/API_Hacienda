@@ -21,9 +21,10 @@ Nota
 * nomb2
 * razon
 * Concatenado
-#Ejemplo consulta Juridico
+
+### Ejemplo consulta Juridico
 http://api-demo.crlibre.org/api.php?w=sicWsQuery&r=sicWsQuery&origen=Juridico&razon=comglo
-#Consulta Fisico
+### Consulta Fisico
 Los parametros que se envian son los que no esten en blanco, por lo que permite combinaciones.
 Este puede enviar los siguientes parametros:
 * origen
