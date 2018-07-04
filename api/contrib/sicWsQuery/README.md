@@ -33,4 +33,5 @@ Este puede enviar los siguientes parametros:
 * ape2
 * nomb1
 * nomb2
+
 http://api-demo.crlibre.org/api.php?w=sicWsQuery&r=sicWsQuery&origen=Fisico&nomb1=walner
