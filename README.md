@@ -29,11 +29,11 @@ La que se llama api la idea es ubicarla en un lugar en donde no sea accesible, o
 La que se llama www contiene un archivo de configuración, en donde se modifican aspectos como la conexión a base de datos, nombre del sitio y muy importante, la ubicación de en donde se encontrará el resto de cosas o bien, la carpeta api.
 
 ## Requerimientos minimos
-•	Php > 5.5.0
-•	MySQL o Mariadb
-•	Instalación librería curl
-•	Instalación php-xml
-•	Openssl
+* Php > 5.5.0
+* MySQL o Mariadb
+* Instalación librería curl
+* Instalación php-xml
+* Openssl
 
 ### Necesitas mas informacion? [Visita el Wiki del API](https://github.com/CRLibre/API_Hacienda/wiki "Wiki CRLibre API_Hacienda")
 
