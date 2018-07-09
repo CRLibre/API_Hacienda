@@ -48,26 +48,26 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
     $dia = date('d');
     $mes = date('m');
     $ano = date('y');
-    
-    
+
+
     //Validamos el parametro de cedula    
     if ($cedula == "" && strlen($cedula) == 0) {
         return "El valor cedula no debe ser vacio";
     } else if (!ctype_digit($cedula)) {
-                 return "El valor cedula no es numeral";
-        }
-    
-    
-        //Validamos el parametro de cedula    
+        return "El valor cedula no es numeral";
+    }
+
+
+    //Validamos el parametro de cedula    
     if ($codigoPais == "" && strlen($codigoPais) == 0) {
         return "El valor codigoPais no debe ser vacio";
     } else if (!ctype_digit($codigoPais)) {
-                 return "El valor codigoPais no es numeral";
-        }
-    
+        return "El valor codigoPais no es numeral";
+    }
+
 
     //Validamos que venga el parametro de sucursal
-    
+
     if ($sucursal == "" && strlen($sucursal) == 0) {
         $sucursal = "001";
     } else if (ctype_digit($sucursal)) {
@@ -81,13 +81,13 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
             );
             return $arrayResp;
         }
-    }else {
+    } else {
         return "El valor sucursal no es numeral";
     }
 
 
-    
-    
+
+
     //Validamos que venga el parametro de terminal
     if ($terminal == "" && strlen($terminal) == 0) {
         $terminal = "00001";
@@ -102,16 +102,16 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
             );
             return $arrayResp;
         }
-    }else {
+    } else {
         return "El valor terminal no es numeral";
     }
-    
-    
-    
+
+
+
 
 //Validamos el consecutivo
-    
-    
+
+
     if ($consecutivo == "" && strlen($consecutivo) == 0) {
         return "El consecutivo no puede ser vacio";
     } else if (strlen($consecutivo) < 10) {
@@ -126,8 +126,8 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
 
 
 //Validamos el codigoSeguridad
-    
-    
+
+
     if ($codigoSeguridad == "" && strlen($codigoSeguridad) == 0) {
         return "El consecutivo no puede ser vacio";
     } else if (strlen($codigoSeguridad) < 8) {
@@ -179,13 +179,26 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
     //Numero de Cedula + el indice identificador
 
     $identificacion;
-    $cedulas = array("fisico", "juridico");
+    $cedulas = array("fisico", "juridico", "dimex", "nite");
     if (in_array($tipoCedula, $cedulas)) {
         switch ($tipoCedula) {
-            case 'fisico': //fisico
+            case 'fisico': //fisico se agregan 3 ceros para completar los 12 caracteres
                 $identificacion = "000" . $cedula;
                 break;
-            case 'juridico': // juridico
+            case 'juridico': // juridico se agregan 2 ceros para completar los 12 caracteres
+                $identificacion = "00" . $cedula;
+                break;
+            case 'dimex': // dimex puede ser de 11 0 12 caracteres
+                if (strlen($cedula) == 11) {
+                    //En caso de ser 11 caracteres se le agrega un 0
+                    $identificacion = "0" . $cedula;
+                }else if(strlen($cedula) == 12){
+                    $identificacion =$cedula;
+                }else{
+                    return "dimex incorrecto";
+                }
+                break;
+            case 'nite': // nite se agregan 2 ceros para completar los 12 caracteres
                 $identificacion = "00" . $cedula;
                 break;
         }
@@ -216,7 +229,6 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
     }
 
     //-----------------------------------------------//     
-    
     //Crea la clave 
     $clave = $codigoPais . $dia . $mes . $ano . $identificacion . $consecutivoFinal . $situacion . $codigoSeguridad;
     $arrayResp = array(
