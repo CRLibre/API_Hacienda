@@ -1,7 +1,9 @@
 <?php
+
 /* * ************************************************** */
 /* Funcion para generar XML                          */
 /* * ************************************************** */
+
 function genXMLFe() {
     //datos contribuyente
     $clave = params_get("clave");
@@ -13,7 +15,7 @@ function genXMLFe() {
     $emisorNumIdentif = params_get("emisor_num_identif");
     $nombreComercial = params_get("nombre_comercial");
     $emisorProv = params_get("emisor_provincia");
-    $meisorCanton = params_get("emisor_canton");
+    $emisorCanton = params_get("emisor_canton");
     $emisorDistrito = params_get("emisor_distrito");
     $emisorBarrio = params_get("emisor_barrio");
     $emisorOtrasSenas = params_get("emisor_otras_senas");
@@ -68,45 +70,89 @@ function genXMLFe() {
                 <Tipo>' . $emisorTipoIdentif . '</Tipo>
                 <Numero>' . $emisorNumIdentif . '</Numero>
             </Identificacion>
-            <NombreComercial>' . $nombreComercial . '</NombreComercial>
+            <NombreComercial>' . $nombreComercial . '</NombreComercial>';
+
+
+    if ($emisorProv == '' or $emisorCanton == '' or $emisorDistrito == '' or $emisorBarrio == '' or $emisorOtrasSenas == '') {
+        
+    } else {
+        $xmlString .= '
             <Ubicacion>
                 <Provincia>' . $emisorProv . '</Provincia>
-                <Canton>' . $meisorCanton . '</Canton>
+                <Canton>' . $emisorCanton . '</Canton>
                 <Distrito>' . $emisorDistrito . '</Distrito>
                 <Barrio>' . $emisorBarrio . '</Barrio>
                 <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
-            </Ubicacion>
+            </Ubicacion>';
+    }
+
+
+
+    if ($emisorCodPaisTel == '' or $emisorTel == '') {
+        
+    } else {
+        $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
                 <NumTelefono>' . $emisorTel . '</NumTelefono>
-            </Telefono>
+            </Telefono>';
+    }
+    if ($emisorCodPaisFax == '' or $emisorFax == '') {
+        
+    } else {
+        $xmlString .= '
             <Fax>
                 <CodigoPais>' . $emisorCodPaisFax . '</CodigoPais>
                 <NumTelefono>' . $emisorFax . '</NumTelefono>
-            </Fax>
-            <CorreoElectronico>' . $emisorEmail . '</CorreoElectronico>
+            </Fax>';
+    }
+
+
+    $xmlString .= '<CorreoElectronico>' . $emisorEmail . '</CorreoElectronico>
         </Emisor>
         <Receptor>
             <Nombre>' . $receptorNombre . '</Nombre>
             <Identificacion>
                 <Tipo>' . $receptorTipoIdentif . '</Tipo>
                 <Numero>' . $recenprotNumIdentif . '</Numero>
-            </Identificacion>
-            <Ubicacion>
-                <Provincia>' . $receptorProvincia . '</Provincia>
-                <Canton>' . $receptorCanton . '</Canton>
-                <Distrito>' . $receptorDistrito . '</Distrito>
-                <Barrio>' . $receptorBarrio . '</Barrio>
-                <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
-            </Ubicacion>
-            <Telefono>
-                <CodigoPais>' . $receptorCodPaisTel . '</CodigoPais>
-                <NumTelefono>' . $receptorTel . '</NumTelefono>
-            </Telefono>
-            <Fax>
-                <CodigoPais>' . $receptorCodPaisFax . '</CodigoPais>
-                <NumTelefono>' . $receptorFax . '</NumTelefono>
-            </Fax>
+            </Identificacion>';
+
+
+    if ($receptorProvincia == '' or $receptorCanton == '' or $receptorDistrito == '' or $receptorBarrio == '' or $receptorOtrasSenas == '') {
+        
+    } else {
+        
+       $xmlString .= '<Ubicacion>
+                             <Provincia>' . $receptorProvincia . '</Provincia>
+                            <Canton>' . $receptorCanton . '</Canton>
+                            <Distrito>' . $receptorDistrito . '</Distrito>
+                            <Barrio>' . $receptorBarrio . '</Barrio>
+                            <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
+                    </Ubicacion>';
+    }
+
+    if ($receptorCodPaisTel == '' or $receptorTel == '') {
+        
+    } else {
+
+        
+     $xmlString .= '<Telefono>
+                              <CodigoPais>' . $receptorCodPaisTel . '</CodigoPais>
+                              <NumTelefono>' . $receptorTel . '</NumTelefono>
+                    </Telefono>';
+    }
+
+    if ($receptorCodPaisFax == '' or $receptorFax == '') {
+        
+    } else {
+        $xmlString .= '<Fax>
+                              <CodigoPais>' . $receptorCodPaisFax . '</CodigoPais>
+                             <NumTelefono>' . $receptorFax . '</NumTelefono>
+                    </Fax>';
+    }
+
+
+    $xmlString .= '
             <CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>
         </Receptor>
         <CondicionVenta>' . $condVenta . '</CondicionVenta>
@@ -115,11 +161,11 @@ function genXMLFe() {
         <DetalleServicio>
         ';
     //cant - unidad medida - detalle - precio unitario - monto total - subtotal - monto total linea - Monto desc -Naturaleza Desc - Impuesto : Codigo / Tarifa / Monto
-    
+
     /* EJEMPLO DE DETALLES
       {
-        "1":["1","Sp","Honorarios","100000","100000","100000","100000","1000","Pronto pago",{"Imp": [{"cod": 122,"tarifa": 1,"monto": 100},{"cod": 133,"tarifa": 1,"monto": 1300}]}],
-        "2":["1","Sp","Honorarios","100000","100000","100000","100000"]
+      "1":["1","Sp","Honorarios","100000","100000","100000","100000","1000","Pronto pago",{"Imp": [{"cod": 122,"tarifa": 1,"monto": 100},{"cod": 133,"tarifa": 1,"monto": 1300}]}],
+      "2":["1","Sp","Honorarios","100000","100000","100000","100000"]
       }
      */
     $l = 1;
@@ -130,7 +176,9 @@ function genXMLFe() {
                   <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
                   <Detalle>' . $d->detalle . '</Detalle>
                   <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
-                  <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
+                  <MontoTotal>' . $d->montoTotal . '</MontoTotal>
+                  <SubTotal>' . $d->subtotal . '</SubTotal>';
+
         if (isset($d->montoDescuento) && $d->montoDescuento != "") {
             $xmlString .= '<MontoDescuento>' . $d->montoDescuento . '</MontoDescuento>';
         }
@@ -138,13 +186,12 @@ function genXMLFe() {
             $xmlString .= '<NaturalezaDescuento>' . $d->naturalezaDescuento . '</NaturalezaDescuento>';
         }
         if (isset($d->impuesto) && $d->impuesto != "") {
-            foreach($d->impuesto as $i)
-            {
+            foreach ($d->impuesto as $i) {
                 $xmlString .= '<Impuesto>
                 <Codigo>' . $i->codigo . '</Codigo>
                 <Tarifa>' . $i->tarifa . '</Tarifa>
                 <Monto>' . $i->monto . '</Monto>';
-                if(isset($i->exoneracion) && $i->exoneracion!=""){
+                if (isset($i->exoneracion) && $i->exoneracion != "") {
                     $xmlString .= '
                     <Exoneracion>
                         <TipoDocumento>' . $i->exoneracion->tipoDocumento . '</TipoDocumento>
@@ -159,8 +206,8 @@ function genXMLFe() {
                 $xmlString .= '</Impuesto>';
             }
         }
-        $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>
-        <MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
+
+        $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
     }
@@ -192,8 +239,9 @@ function genXMLFe() {
         "clave" => $clave,
         "xml" => base64_encode($xmlString)
     );
-    return $xmlString;
+    return $arrayResp;
 }
+
 function genXMLNC() {
     //datos contribuyente
     $clave = params_get("clave");
@@ -205,7 +253,7 @@ function genXMLNC() {
     $emisorNumIdentif = params_get("emisor_num_identif");
     $nombreComercial = params_get("nombre_comercial");
     $emisorProv = params_get("emisor_provincia");
-    $meisorCanton = params_get("emisor_canton");
+    $emisorCanton = params_get("emisor_canton");
     $emisorDistrito = params_get("emisor_distrito");
     $emisorBarrio = params_get("emisor_barrio");
     $emisorOtrasSenas = params_get("emisor_otras_senas");
@@ -261,61 +309,104 @@ function genXMLNC() {
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
     <FechaEmision>' . $fechaEmision . '</FechaEmision>
     <Emisor>
-        <Nombre>' . $emisorNombre . '</Nombre>
-        <Identificacion>
-            <Tipo>' . $emisorTipoIdentif . '</Tipo>
-            <Numero>' . $emisorNumIdentif . '</Numero>
-        </Identificacion>
-        <NombreComercial>' . $nombreComercial . '</NombreComercial>
-        <Ubicacion>
-            <Provincia>' . $emisorProv . '</Provincia>
-            <Canton>' . $meisorCanton . '</Canton>
-            <Distrito>' . $emisorDistrito . '</Distrito>
-            <Barrio>' . $emisorBarrio . '</Barrio>
-            <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
-        </Ubicacion>
-        <Telefono>
-            <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
-            <NumTelefono>' . $emisorTel . '</NumTelefono>
-        </Telefono>
-        <Fax>
-            <CodigoPais>' . $emisorCodPaisFax . '</CodigoPais>
-            <NumTelefono>' . $emisorFax . '</NumTelefono>
-        </Fax>
-        <CorreoElectronico>' . $emisorEmail . '</CorreoElectronico>
-    </Emisor>
-    <Receptor>
-        <Nombre>' . $receptorNombre . '</Nombre>
-        <Identificacion>
-            <Tipo>' . $receptorTipoIdentif . '</Tipo>
-            <Numero>' . $recenprotNumIdentif . '</Numero>
-        </Identificacion>
-        <NombreComercial/>
-        <Ubicacion>
-            <Provincia>' . $receptorProvincia . '</Provincia>
-            <Canton>' . $receptorCanton . '</Canton>
-            <Distrito>' . $receptorDistrito . '</Distrito>
-            <Barrio>' . $receptorBarrio . '</Barrio>
-            <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
-        </Ubicacion>
-        <Telefono>
-            <CodigoPais>' . $receptorCodPaisTel . '</CodigoPais>
-            <NumTelefono>' . $receptorTel . '</NumTelefono>
-        </Telefono>
-        <Fax>
-            <CodigoPais>' . $receptorCodPaisFax . '</CodigoPais>
-            <NumTelefono>' . $receptorFax . '</NumTelefono>
-        </Fax>
-        <CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>
-    </Receptor>
+            <Nombre>' . $emisorNombre . '</Nombre>
+            <Identificacion>
+                <Tipo>' . $emisorTipoIdentif . '</Tipo>
+                <Numero>' . $emisorNumIdentif . '</Numero>
+            </Identificacion>
+            <NombreComercial>' . $nombreComercial . '</NombreComercial>';
+
+
+    if ($emisorProv == '' or $emisorCanton == '' or $emisorDistrito == '' or $emisorBarrio == '' or $emisorOtrasSenas == '') {
+        
+    } else {
+        $xmlString .= '
+            <Ubicacion>
+                <Provincia>' . $emisorProv . '</Provincia>
+                <Canton>' . $emisorCanton . '</Canton>
+                <Distrito>' . $emisorDistrito . '</Distrito>
+                <Barrio>' . $emisorBarrio . '</Barrio>
+                <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
+            </Ubicacion>';
+    }
+
+
+
+    if ($emisorCodPaisTel == '' or $emisorTel == '') {
+        
+    } else {
+        $xmlString .= '
+            <Telefono>
+                <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
+                <NumTelefono>' . $emisorTel . '</NumTelefono>
+            </Telefono>';
+    }
+    if ($emisorCodPaisFax == '' or $emisorFax == '') {
+        
+    } else {
+        $xmlString .= '
+            <Fax>
+                <CodigoPais>' . $emisorCodPaisFax . '</CodigoPais>
+                <NumTelefono>' . $emisorFax . '</NumTelefono>
+            </Fax>';
+    }
+
+
+    $xmlString .= '<CorreoElectronico>' . $emisorEmail . '</CorreoElectronico>
+        </Emisor>
+        <Receptor>
+            <Nombre>' . $receptorNombre . '</Nombre>
+            <Identificacion>
+                <Tipo>' . $receptorTipoIdentif . '</Tipo>
+                <Numero>' . $recenprotNumIdentif . '</Numero>
+            </Identificacion>';
+
+
+    if ($receptorProvincia == '' or $receptorCanton == '' or $receptorDistrito == '' or $receptorBarrio == '' or $receptorOtrasSenas == '') {
+        
+    } else {
+        $xmlString .= '
+                     <Ubicacion>
+                             <Provincia>' . $receptorProvincia . '</Provincia>
+                            <Canton>' . $receptorCanton . '</Canton>
+                            <Distrito>' . $receptorDistrito . '</Distrito>
+                            <Barrio>' . $receptorBarrio . '</Barrio>
+                            <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
+                    </Ubicacion>';
+    }
+
+    if ($receptorCodPaisTel == '' or $receptorTel == '') {
+        
+    } else {
+        $xmlString .= '
+                     <Telefono>
+                              <CodigoPais>' . $receptorCodPaisTel . '</CodigoPais>
+                              <NumTelefono>' . $receptorTel . '</NumTelefono>
+                    </Telefono>';
+    }
+
+    if ($receptorCodPaisFax == '' or $receptorFax == '') {
+        
+    } else {
+        $xmlString .= '
+                     <Fax>
+                              <CodigoPais>' . $receptorCodPaisFax . '</CodigoPais>
+                             <NumTelefono>' . $receptorFax . '</NumTelefono>
+                    </Fax>';
+    }
+
+
+    $xmlString .= '
+            <CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>
+        </Receptor>
     <CondicionVenta>' . $condVenta . '</CondicionVenta>
     <PlazoCredito>' . $plazoCredito . '</PlazoCredito>
     <MedioPago>' . $medioPago . '</MedioPago>
     <DetalleServicio>';
     /* EJEMPLO DE DETALLES
       {
-        "1":["1","Sp","Honorarios","100000","100000","100000","100000","1000","Pronto pago",{"Imp": [{"cod": 122,"tarifa": 1,"monto": 100},{"cod": 133,"tarifa": 1,"monto": 1300}]}],
-        "2":["1","Sp","Honorarios","100000","100000","100000","100000"]
+      "1":["1","Sp","Honorarios","100000","100000","100000","100000","1000","Pronto pago",{"Imp": [{"cod": 122,"tarifa": 1,"monto": 100},{"cod": 133,"tarifa": 1,"monto": 1300}]}],
+      "2":["1","Sp","Honorarios","100000","100000","100000","100000"]
       }
      */
     $l = 1;
@@ -326,7 +417,8 @@ function genXMLNC() {
                   <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
                   <Detalle>' . $d->detalle . '</Detalle>
                   <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
-                  <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
+                  <MontoTotal>' . $d->montoTotal . '</MontoTotal>
+                  <SubTotal>' . $d->subtotal . '</SubTotal>';
         if (isset($d->montoDescuento) && $d->montoDescuento != "") {
             $xmlString .= '<MontoDescuento>' . $d->montoDescuento . '</MontoDescuento>';
         }
@@ -334,13 +426,12 @@ function genXMLNC() {
             $xmlString .= '<NaturalezaDescuento>' . $d->naturalezaDescuento . '</NaturalezaDescuento>';
         }
         if (isset($d->impuesto) && $d->impuesto != "") {
-            foreach($d->impuesto as $i)
-            {
+            foreach ($d->impuesto as $i) {
                 $xmlString .= '<Impuesto>
                 <Codigo>' . $i->codigo . '</Codigo>
                 <Tarifa>' . $i->tarifa . '</Tarifa>
                 <Monto>' . $i->monto . '</Monto>';
-                if(isset($i->exoneracion) && $i->exoneracion!=""){
+                if (isset($i->exoneracion) && $i->exoneracion != "") {
                     $xmlString .= '<Exoneracion>
                         <TipoDocumento>' . $i->exoneracion->tipoDocumento . '</TipoDocumento>
                         <NumeroDocumento>' . $i->exoneracion->numeroDocumento . '</NumeroDocumento>
@@ -354,8 +445,7 @@ function genXMLNC() {
                 $xmlString .= '</Impuesto>';
             }
         }
-        $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>
-        <MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
+        $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
     }
@@ -396,6 +486,7 @@ function genXMLNC() {
     );
     return $arrayResp;
 }
+
 function genXMLND() {
 //datos contribuyente
     $clave = params_get("clave");
@@ -407,7 +498,7 @@ function genXMLND() {
     $emisorNumIdentif = params_get("emisor_num_identif");
     $nombreComercial = params_get("nombre_comercial");
     $emisorProv = params_get("emisor_provincia");
-    $meisorCanton = params_get("emisor_canton");
+    $emisorCanton = params_get("emisor_canton");
     $emisorDistrito = params_get("emisor_distrito");
     $emisorBarrio = params_get("emisor_barrio");
     $emisorOtrasSenas = params_get("emisor_otras_senas");
@@ -461,61 +552,107 @@ function genXMLND() {
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
     <FechaEmision>' . $fechaEmision . '</FechaEmision>
     <Emisor>
-        <Nombre>' . $emisorNombre . '</Nombre>
-        <Identificacion>
-            <Tipo>' . $emisorTipoIdentif . '</Tipo>
-            <Numero>' . $emisorNumIdentif . '</Numero>
-        </Identificacion>
-        <NombreComercial>' . $nombreComercial . '</NombreComercial>
-        <Ubicacion>
-            <Provincia>' . $emisorProv . '</Provincia>
-            <Canton>' . $meisorCanton . '</Canton>
-            <Distrito>' . $emisorDistrito . '</Distrito>
-            <Barrio>' . $emisorBarrio . '</Barrio>
-            <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
-        </Ubicacion>
-        <Telefono>
-            <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
-            <NumTelefono>' . $emisorTel . '</NumTelefono>
-        </Telefono>
-        <Fax>
-            <CodigoPais>' . $emisorCodPaisFax . '</CodigoPais>
-            <NumTelefono>' . $emisorFax . '</NumTelefono>
-        </Fax>
-        <CorreoElectronico>' . $emisorEmail . '</CorreoElectronico>
-    </Emisor>
-    <Receptor>
-        <Nombre>' . $receptorNombre . '</Nombre>
-        <Identificacion>
-            <Tipo>' . $receptorTipoIdentif . '</Tipo>
-            <Numero>' . $recenprotNumIdentif . '</Numero>
-        </Identificacion>
-        <Ubicacion>
-            <Provincia>' . $receptorProvincia . '</Provincia>
-            <Canton>' . $receptorCanton . '</Canton>
-            <Distrito>' . $receptorDistrito . '</Distrito>
-            <Barrio>' . $receptorBarrio . '</Barrio>
-            <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
-        </Ubicacion>
-        <Telefono>
-            <CodigoPais>' . $receptorCodPaisTel . '</CodigoPais>
-            <NumTelefono>' . $receptorTel . '</NumTelefono>
-        </Telefono>
-        <Fax>
-            <CodigoPais>' . $receptorCodPaisFax . '</CodigoPais>
-            <NumTelefono>' . $receptorFax . '</NumTelefono>
-        </Fax>
-        <CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>
-    </Receptor>
+            <Nombre>' . $emisorNombre . '</Nombre>
+            <Identificacion>
+                <Tipo>' . $emisorTipoIdentif . '</Tipo>
+                <Numero>' . $emisorNumIdentif . '</Numero>
+            </Identificacion>
+            <NombreComercial>' . $nombreComercial . '</NombreComercial>';
+
+
+    if ($emisorProv == '' or $emisorCanton == '' or $emisorDistrito == '' or $emisorBarrio == '' or $emisorOtrasSenas == '') {
+        
+    } else {
+        $xmlString .= '
+            <Ubicacion>
+                <Provincia>' . $emisorProv . '</Provincia>
+                <Canton>' . $emisorCanton . '</Canton>
+                <Distrito>' . $emisorDistrito . '</Distrito>
+                <Barrio>' . $emisorBarrio . '</Barrio>
+                <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
+            </Ubicacion>';
+    }
+
+
+
+    if ($emisorCodPaisTel == '' or $emisorTel == '') {
+        
+    } else {
+        $xmlString .= '
+            <Telefono>
+                <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
+                <NumTelefono>' . $emisorTel . '</NumTelefono>
+            </Telefono>';
+    }
+    if ($emisorCodPaisFax == '' or $emisorFax == '') {
+        
+    } else {
+
+        $xmlString .= '
+            <Fax>
+                <CodigoPais>' . $emisorCodPaisFax . '</CodigoPais>
+                <NumTelefono>' . $emisorFax . '</NumTelefono>
+            </Fax>';
+    }
+
+
+    $xmlString .= '<CorreoElectronico>' . $emisorEmail . '</CorreoElectronico>
+        </Emisor>
+        <Receptor>
+            <Nombre>' . $receptorNombre . '</Nombre>
+            <Identificacion>
+                <Tipo>' . $receptorTipoIdentif . '</Tipo>
+                <Numero>' . $recenprotNumIdentif . '</Numero>
+            </Identificacion>';
+
+
+    if ($receptorProvincia == '' or $receptorCanton == '' or $receptorDistrito == '' or $receptorBarrio == '' or $receptorOtrasSenas != '') {
+        
+    } else {
+        $xmlString .= '
+                     <Ubicacion>
+                             <Provincia>' . $receptorProvincia . '</Provincia>
+                            <Canton>' . $receptorCanton . '</Canton>
+                            <Distrito>' . $receptorDistrito . '</Distrito>
+                            <Barrio>' . $receptorBarrio . '</Barrio>
+                            <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
+                    </Ubicacion>';
+    }
+
+    if ($receptorCodPaisTel == '' or $receptorTel == '') {
+        
+    } else {
+        $xmlString .= '
+                     <Telefono>
+                              <CodigoPais>' . $receptorCodPaisTel . '</CodigoPais>
+                              <NumTelefono>' . $receptorTel . '</NumTelefono>
+                    </Telefono>';
+    }
+
+    if ($receptorCodPaisFax == '' or $receptorFax == '') {
+        
+    } else {
+        $xmlString .= '
+                     <Fax>
+                              <CodigoPais>' . $receptorCodPaisFax . '</CodigoPais>
+                             <NumTelefono>' . $receptorFax . '</NumTelefono>
+                    </Fax>';
+    }
+
+
+    $xmlString .= '
+            
+            <CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>
+        </Receptor>
     <CondicionVenta>' . $condVenta . '</CondicionVenta>
     <PlazoCredito>' . $plazoCredito . '</PlazoCredito>
     <MedioPago>' . $medioPago . '</MedioPago>
     <DetalleServicio>';
-    
+
     /* EJEMPLO DE DETALLES
       {
-        "1":["1","Sp","Honorarios","100000","100000","100000","100000","1000","Pronto pago",{"Imp": [{"cod": 122,"tarifa": 1,"monto": 100},{"cod": 133,"tarifa": 1,"monto": 1300}]}],
-        "2":["1","Sp","Honorarios","100000","100000","100000","100000"]
+      "1":["1","Sp","Honorarios","100000","100000","100000","100000","1000","Pronto pago",{"Imp": [{"cod": 122,"tarifa": 1,"monto": 100},{"cod": 133,"tarifa": 1,"monto": 1300}]}],
+      "2":["1","Sp","Honorarios","100000","100000","100000","100000"]
       }
      */
     $l = 1;
@@ -526,7 +663,8 @@ function genXMLND() {
                   <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
                   <Detalle>' . $d->detalle . '</Detalle>
                   <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
-                  <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
+                  <MontoTotal>' . $d->montoTotal . '</MontoTotal>
+                  <SubTotal>' . $d->subtotal . '</SubTotal>';
         if (isset($d->montoDescuento) && $d->montoDescuento != "") {
             $xmlString .= '<MontoDescuento>' . $d->montoDescuento . '</MontoDescuento>';
         }
@@ -534,13 +672,12 @@ function genXMLND() {
             $xmlString .= '<NaturalezaDescuento>' . $d->naturalezaDescuento . '</NaturalezaDescuento>';
         }
         if (isset($d->impuesto) && $d->impuesto != "") {
-            foreach($d->impuesto as $i)
-            {
+            foreach ($d->impuesto as $i) {
                 $xmlString .= '<Impuesto>
                 <Codigo>' . $i->codigo . '</Codigo>
                 <Tarifa>' . $i->tarifa . '</Tarifa>
                 <Monto>' . $i->monto . '</Monto>';
-                if(isset($i->exoneracion) && $i->exoneracion!=""){
+                if (isset($i->exoneracion) && $i->exoneracion != "") {
                     $xmlString .= '<Exoneracion>
                         <TipoDocumento>' . $i->exoneracion->tipoDocumento . '</TipoDocumento>
                         <NumeroDocumento>' . $i->exoneracion->numeroDocumento . '</NumeroDocumento>
@@ -554,8 +691,7 @@ function genXMLND() {
                 $xmlString .= '</Impuesto>';
             }
         }
-        $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>
-        <MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
+        $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
     }
@@ -596,10 +732,13 @@ function genXMLND() {
     );
     return $arrayResp;
 }
+
 /* * ************************************************** */
 /* Funcion de prueba                                 */
 /* * ************************************************** */
+
 function test() {
     return "Esto es un test";
 }
+
 ?>
