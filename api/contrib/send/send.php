@@ -47,6 +47,13 @@ function send() {
 }
 
 function sendMensaje() {
+	$url;
+	$apiTo = params_get("client_id");
+	if ($apiTo == 'api-stag') {
+	    $url = "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/";
+	} else if ($apiTo == 'api-prod') {
+	    $url = "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/";
+	}
     $datos = array(
         'clave' => params_get('clave'),
         'fecha' => params_get("fecha"),
