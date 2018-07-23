@@ -5,11 +5,10 @@
 /* * ************************************************** */
 
 function genXMLMr() {
-    //return "foo";
     $clave = params_get("clave");                                           //d{50,50}
     //datos vendedor=emisor
     $numeroCedulaEmisor = params_get("numero_cedula_emisor");               //d{12,12} cedula fisica,juridica,NITE,DIMEX
-    //return $numeroCedulaEmisor;
+    $numeroCedulaEmisor = str_pad($numeroCedulaEmisor, 12, "0", STR_PAD_LEFT);
     //datos mensaje receptor
     $fechaEmisionDoc = params_get("fecha_emision_doc");                            //fecha de emision de la confirmacion
     $mensaje = params_get("mensaje");                                       //1/Aceptado, 2/Aceptado Parcialmente, 3/Rechazado
@@ -19,7 +18,8 @@ function genXMLMr() {
     $numeroConsecutivoReceptor = params_get("numero_consecutivo_receptor"); //d{20,20} numeracion consecutiva de los mensajes de confirmacion
     //datos comprador=receptor
     $numeroCedulaReceptor = params_get("numero_cedula_receptor");           //d{12,12}cedula fisica,juridica,NITE,DIMEX del comprador
-    
+    $numeroCedulaReceptor = str_pad($numeroCedulaReceptor, 12, "0", STR_PAD_LEFT);
+
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <MensajeReceptor xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor MensajeReceptor_4.2.xsd">
         <Clave>' . $clave . '</Clave>
