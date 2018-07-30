@@ -30,12 +30,12 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 
 ## Requerimientos minimos
 * Php > 5.5.0
-* MySQL o Mariadb
+* MySQL o MariaDB
 * Instalación librería curl
 * Instalación php-xml
 * Openssl
 
-### Necesitas mas informacion? [Visita el Wiki del API](https://github.com/CRLibre/API_Hacienda/wiki "Wiki CRLibre API_Hacienda")
+### Necesitas más información? [Visita el Wiki del API](https://github.com/CRLibre/API_Hacienda/wiki "Wiki CRLibre API_Hacienda")
 
 ----------------------------------------------
 
