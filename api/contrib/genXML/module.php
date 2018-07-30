@@ -24,8 +24,6 @@ function genXML_bootMeUp() {
  */
 function genXML_init() {
 
-
-
     $paths = array(
                 array(
             'r' => 'gen_xml_mr',                                                            // Mensaje de aceptacion o rechazo de los documentos electronicos por parte del obligado tributario
