@@ -31,7 +31,7 @@ define('ERROR_USERS_EXISTS', '-304');
 define('SUCCESS_USERS_BG_EXISTS', '301');
 
 //! No secret token or not a valid token
-define('ERROR_USERS_NO_TOKEN', '-305');
+define('ERROR_USERS_NO_TOKEN', '-302');
 
 /** @} */
 
@@ -39,6 +39,7 @@ define('ERROR_USERS_NO_TOKEN', '-305');
  * Boot up procedure
  */
 function users_bootMeUp() {
+
     users_loadCurrentUser();
 }
 
@@ -46,7 +47,6 @@ function users_bootMeUp() {
  * Loads the current user
  */
 function users_loadCurrentUser() {
-    
     global $user;
     # If I am running on emebed mode I don't have any users, so I will just load it from the session
     $user = users_load(array('userName' => params_get('iam', '')));
@@ -281,15 +281,17 @@ function users_registerNew() {
                     "avatar" => 0
                 )
         );
-
-        # Load the user and log it in   
+        # Load the user and log it in
         $user = users_loadByName(params_get('userName'));
 
         return users_logMeIn();
     } else {
         grace_debug("This user already exists");
-        grace_debug("This is only a test");
-        return ERROR_USERS_EXISTS;
+        $arrayResp = array(
+            "code" => ERROR_USERS_EXISTS,
+            "status" => "usuario ya existe"
+        );
+        return $arrayResp;
     }
 }
 
@@ -333,7 +335,9 @@ function users_logMeIn() {
  * Create a basic empty user
  */
 function users_createBasic() {
-    return (object) array('idUser' => 0, 'pwd' => '');
+
+    $user = (object) array('idUser' => 0, 'pwd' => '');
+    return $user;
 }
 
 /**
@@ -344,8 +348,7 @@ function users_generateSessionKey($idUser) {
     db_query($q, 0);
     
     modules_loader("crypto", "crypto.php");
-    $key = conf_get('key', 'crypto');
-    $sessionKey = crypto_encrypt(time() * rand(0, 1000));
+    $sessionKey = crypto_encrypt(password_hash(time() * rand(0, 1000)));
 
     $q = sprintf("INSERT INTO sessions (idUser, sessionKey, ip, lastAccess) "
             . "VALUES('%s', '%s', '%s', '%s')", $idUser, $sessionKey, $_SERVER['REMOTE_ADDR'], time());
@@ -361,9 +364,7 @@ function users_generateSessionKey($idUser) {
  */
 function users_hash($pwd) {
     modules_loader("crypto", "crypto.php");
-    
     $salt;
-    
     if (version_compare(PHP_VERSION, '7.0', '<')) {
         $salt = mcrypt_create_iv(22, MCRYPT_DEV_URANDOM);
     } else {
@@ -411,10 +412,8 @@ function users_load($by = array()) {
     FROM users
     %s", $where);
 
-    $q .= " AND `status` > 0 ";
-    
     $user = db_query($q, 1);
-    
+
     # If no user found or erros
     if ($user == ERROR_DB_NO_RESULTS_FOUND || $user == ERROR_DB_ERROR) {
         grace_debug("Unable to locate user");
@@ -471,14 +470,10 @@ function users_confirmSessionKey() {
         grace_debug("No results found");
         return false;
     } else {
-        # Lets confirm the time frame   
-        if(conf_get('sessionLifetime', 'users') != -1){
-            if ((time() - $r->lastAccess) > conf_get('sessionLifetime', 'users')) {
-                grace_debug("User last access is to old");
-                return false;
-            }
-        }else{
-            grace_debug("The user still here :)");
+        # Lets confirm the time frame       
+        if ((time() - $r->lastAccess) > conf_get('sessionLifetime', 'users')) {
+            grace_debug("User last access is to old");
+            return false;
         }
         return $r->idUser;
     }
@@ -529,7 +524,11 @@ function users_updateProfile() {
     if ($user->userName != $dets['userName']) {
         $newUserByName = users_load(array('userName' => $dets['userName']));
         if ($newUserByName->idUser != 0) {
-            return ERROR_USERS_EXISTS;
+            $arrayResp = array(
+                "code" => ERROR_USERS_EXISTS,
+                "status" => "usuario ya existe"
+            );
+            return $arrayResp;
         }
     }
 
@@ -538,16 +537,28 @@ function users_updateProfile() {
         grace_debug("Requested a new email");
         $newUserByEmail = users_load(array('email' => $dets['email']));
         if ($newUserByEmail->idUser != 0) {
-            return ERROR_USERS_EXISTS;
+            $arrayResp = array(
+                "code" => ERROR_USERS_EXISTS,
+                "status" => "usuario ya existe"
+            );
+            return $arrayResp;
         }
     }
 
     $r = _users_update($dets);
 
     if ($r == 0) {
-        return ERROR_ERROR;
+        $arrayResp = array(
+            "code" => ERROR_ERROR,
+            "status" => "error registrando"
+        );
+        return $arrayResp;
     }
-    return SUCCESS_ALL_GOOD;
+    $arrayResp = array(
+        "code" => SUCCESS_ALL_GOOD,
+        "status" => "registrado con exito"
+    );
+    return $arrayResp;
 }
 
 /**
@@ -555,7 +566,10 @@ function users_updateProfile() {
  * # @todo create a validation tool for this
  */
 function users_cleanName($name) {
-    return trim($name);
+
+    $name = trim($name);
+
+    return $name;
 }
 
 /**
@@ -647,6 +661,7 @@ function _users_register($userDets) {
 # Create a basic empty user
 
 function _userCreateBasic() {
+
     $theUser = (object) array('idUser' => 0, 'pwd' => '');
     return $theUser;
 }

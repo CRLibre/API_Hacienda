@@ -36,21 +36,10 @@ function _tools_reply($response){
 
 function tools_returnJson($response, $addHeaders = true){
 	if($addHeaders && conf_get('mode', 'core', 'web') != 'cli'){
-		tools_addHeaders();
+		header('Content-Type: text/html; charset=utf-8');
+		header('Content-Type: application/json');
 	}
 	return json_encode($response);
-}
-
-function tools_addHeaders(){
-    @header('Content-Type: text/html; charset=utf-8');
-    @header('Content-Type: application/json');
-    
-    if(conf_get('cors', 'core', true)){
-        /*CORS to the app access*/
-        @header('Access-Control-Allow-Origin: *');
-        @header('Access-Control-Allow-Headers: Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With');
-        @header('Access-Control-Allow-Methods: GET, PUT, POST');
-    }
 }
 
 /**
@@ -79,11 +68,13 @@ function tools_proccesPath($paths){
 				grace_debug("Found function: " . $p['action']);
 				$response = call_user_func($p['action']);
 				return $response;
+			}else{
+				return ERROR_BAD_REQUEST;
 			}
 		}
 	}
 	grace_debug("Path not found?");
-	return ERROR_FUNCTION_NOT_FOUND;
+	return "Function not found";
 }
 
 /**
