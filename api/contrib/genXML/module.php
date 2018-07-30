@@ -28,6 +28,24 @@ function genXML_init() {
 
     $paths = array(
         array(
+            'r' => 'gen_xml_mr',                                                            // Mensaje de aceptacion o rechazo de los documentos electronicos por parte del obligado tributario
+            'action' => 'genXMLMr',
+            'access' => 'users_openAccess',
+            'access_params' => 'accessName',
+            'params' => array(
+                array("key" => "clave", "def" => "", "req" => true),                        // d{50,50} equivale a clave en FE
+                array("key" => "numero_cedula_emisor", "def" => "", "req" => true),         // d{12,12} equivale a emisor_num_identif en FE
+                array("key" => "fecha_emision_doc", "def" => "", "req" => true),            // YYYY-MM-DDThh:mm:ss-06:00 ej: 2018-05-13T15:30:00-06:00
+                array("key" => "mensaje", "def" => "", "req" => true),                      // 1/Aceptado, 2/Aceptado Parcialmente, 3/Rechazado
+                array("key" => "detalle_mensaje", "def" => "", "req" => false),             // s80
+                array("key" => "monto_total_impuesto", "def" => "", "req" => false),        // d18,5 equivale a total_impuestos en FE
+                array("key" => "total_factura", "def" => "", "req" => true),                // d18,5 equivale a total_comprobante en FE
+                array("key" => "numero_cedula_receptor", "def" => "", "req" => true),       // d{12,12} equivale a receptor_num_identif en FE
+                array("key" => "numero_consecutivo_receptor", "def" => "", "req" => true)   // d{20,20} numeracion consecutiva de los mensajes de confirmacion
+            ),
+            'file' => 'genXML.php'
+        ),
+        array(
             'r' => 'gen_xml_fe',
             'action' => 'genXMLFe',
             'access' => 'users_openAccess',
