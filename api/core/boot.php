@@ -1,7 +1,5 @@
 <?php
 
-define('CALA_VERSION', 0.1);
-
 /**
  * @page
  */
@@ -23,15 +21,6 @@ define('ERROR_BAD_REQUEST', -1);
 //! Some generic error, if no real error happened, but nothing was found or the process did not go as espected
 define('ERROR_ERROR', -2);
 
-//! If the w is not setted, there is no module to load
-define('ERROR_MODULE_UNDEFINED', -3);
-
-//! If the w is setted, but module not found
-define('ERROR_MODULE_NOT_FOUND', -4);
-
-//! If the w is not setted, there is no module to load
-define('ERROR_FUNCTION_NOT_FOUND', -5);
-
 //! ALl is good
 define('SUCCESS_ALL_GOOD', 1);
 
@@ -45,7 +34,7 @@ define('CLI_MODE', false);
  */
 function boot_itUp($mode = 'web'){
 
-	grace_debug("Booting up V:" . CALA_VERSION);
+	grace_debug("Booting up");
 
 	# Load all core modules
 	# @todo Call the current requested module first in case it wants to change the core modules to be loaded
@@ -80,16 +69,12 @@ function boot_initThisPath(){
 	$f = preg_replace("/[\n\r\f]+/m", "", params_get('w', 'core') . "_init");
 
 	if(function_exists($f)){
-        
 		grace_debug("Function found");
 		$response = tools_proccesPath(call_user_func($f));
-        
-	}else if(params_get("w", "--") == "--"){
-		$response = ERROR_MODULE_UNDEFINED;
-    }else{
-        $response = ERROR_MODULE_NOT_FOUND;
+	}else{
+		$response = "Module not found";
 	}
-	return tools_reply($response);
+	tools_reply($response);
 }
 
 /**
@@ -101,7 +86,7 @@ function boot_loadAllCoreModules(){
     grace_debug("Loading all core modules");
 
     foreach(conf_get('coreLoad', 'modules') as $module){
-        grace_debug("Loading module: >>(" . $module . ")<<");
+        grace_debug("Loading module: " . $module);
         modules_loader($module);
     }
 }
@@ -112,3 +97,5 @@ function boot_loadAllCoreModules(){
 function boot_loadBootModules(){
     //Todo
 }
+
+

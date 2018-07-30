@@ -60,8 +60,9 @@ function db_Connect(){
 		grace_error("Connection failed: " . $dbConn->connect_error);
 	}else{
 		$dbConn->set_charset("utf8mb4");
-		grace_debug("Connected to Db");
+		grace_debug("Conneted to Db");
 	}
+
 }
 
 /**
@@ -76,34 +77,38 @@ function db_query($q, $return = 1){
 	grace_debug($q);
 
     if(db_allGood() === true){
+    
+	$r = $dbConn->query($q);
 
-	   $r = $dbConn->query($q);
-	   $result = array();
-        
-	   if($dbConn->error){
-           
-		  $result = ERROR_DB_ERROR;
-		  grace_error($dbConn->error);
-           
-	   }else{
-           if($dbConn->affected_rows > 0){
-               if($return > 0){
-                   while($row = $r->fetch_object()){
-                       $result[] = $row;
-				    }
-				    # If you just need one result
-				    if($return == 1){
-					   $result = $result[0];
-				    }
-               }else{
-                   $result = $dbConn->affected_rows;
-               }
-           }else{
-               $result = ERROR_DB_NO_RESULTS_FOUND;
-           }
-           return $result;
-       }
+	$result = array();
+
+	if($dbConn->error){
+
+		$result = ERROR_DB_ERROR;
+
+		grace_error($dbConn->error);
+
+	}else{
+
+		if($dbConn->affected_rows > 0){
+			if($return > 0){
+				while($row = $r->fetch_object()){
+					$result[] = $row;
+				}
+				# If you just need one result
+				if($return == 1){
+					$result = $result[0];
+				}
+			}else{
+				$result = $dbConn->affected_rows;
+			}
+		}else{
+			$result = ERROR_DB_NO_RESULTS_FOUND;
+		}
+        return $result;
+	}
     }else{
         return ERROR_DB_NOT_CONNECTED;
     }
 }
+
