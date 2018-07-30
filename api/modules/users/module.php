@@ -344,9 +344,9 @@ function users_createBasic() {
  * Generates a session key
  */
 function users_generateSessionKey($idUser) {
-    $q = sprintf("delete from sessions where idUser='".$idUser."' and ip='".$_SERVER['REMOTE_ADDR']."'");
+    $q = sprintf("delete from sessions where idUser='" . $idUser . "' and ip='" . $_SERVER['REMOTE_ADDR'] . "'");
     db_query($q, 0);
-    
+
     modules_loader("crypto", "crypto.php");
     $sessionKey = crypto_encrypt(password_hash(time() * rand(0, 1000)));
 
@@ -470,12 +470,14 @@ function users_confirmSessionKey() {
         grace_debug("No results found");
         return false;
     } else {
-        # Lets confirm the time frame       
-        if ((time() - $r->lastAccess) > conf_get('sessionLifetime', 'users')) {
-            grace_debug("User last access is to old");
-            return false;
+        # Lets confirm the time frame   
+        if (conf_get('sessionLifetime', 'users') != -1) {
+            if ((time() - $r->lastAccess) > conf_get('sessionLifetime', 'users')) {
+                grace_debug("User last access is to old");
+                return false;
+            }
+            return $r->idUser;
         }
-        return $r->idUser;
     }
 }
 
