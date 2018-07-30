@@ -32,16 +32,26 @@ function _grace_talk($msg, $who = 'info') {
     global $grace_logMsgs;
 
     if (GRACE_PRINT_ALL) {
+        $fileName = conf_get('logPath', 'grace', '');
+        $txtName = date('y_m_d_h', time()) . "_errors.log";
         # Format the message
         $msg = sprintf("[%s] %s @ %s", $who, date('y-m-d h:m:s', time()), $msg) . "\n";
-        //echo "$msg" . ($who == 'a' ? "" : "\n" . "<br />");
-        if (!file_exists(conf_get('coreInstall', 'modules') . "errors/")) {
-            mkdir(conf_get('coreInstall', 'modules') . "errors/", 0777, true);
+        
+        if(conf_get('display', 'grace', false)){            
+            echo $msg . ($who == 'a' ? "" : "\n" . "<br />");
         }
-        error_log($msg, 3, conf_get('coreInstall', 'modules') . "errors/" . date('y_m_d_h', time()) . "_errors.log");
-        # Add the message to the debug pool if you want me to store them in a file
-        if (conf_get('logPath', 'grace', '') != '' && $who != 'a') {
-            $grace_logMsgs[] = $msg;
+        
+        if(conf_get('errors', 'grace', false)){
+            if(!file_exists($fileName)){
+                mkdir($fileName, 0777, true);
+                touch($fileName . $txtName);
+            }
+            
+            error_log($msg, 3, $fileName . $txtName);
+            # Add the message to the debug pool if you want me to store them in a file
+            if (conf_get('logPath', 'grace', '') != '' && $who != 'a') {
+                $grace_logMsgs[] = $msg;
+            }
         }
     }
 }
@@ -54,24 +64,26 @@ function grace_storeLog() {
     global $grace_logMsgs;
 
     # Add the last message
-    grace_debug("Finished! Memory used: Mb" . (memory_get_peak_usage() / 1000000) . "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    grace_debug("Finished! Memory used: Mb" . (memory_get_peak_usage() / 1000000) . "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
     # Do I have a place to store them?
     $fileName = conf_get('logPath', 'grace', '');
 
-    if ($fileName != '') {
+    if(conf_get('debug', 'grace', false)){
+        if ($fileName != '') {
 
-        # Create a new file every hour
-        $fileName = $fileName . "wirez_" . date('y_m_d_h', time()) . ".txt";
+            # Create a new file every hour
+            $fileName = $fileName . "CalAPI_log_" . date('y_m_d_h', time()) . ".txt";
 
-        # Merge arrays to make them readable
-        $grace_logMsgs = implode("\n", $grace_logMsgs) . "\n";
+            # Merge arrays to make them readable
+            $grace_logMsgs = implode("\n", $grace_logMsgs) . "\n";
 
-        //Open a connection
-        $fp = fopen($fileName, 'a');
-        if ($fp) {
-            fwrite($fp, $grace_logMsgs);
-            fclose($fp);
+            //Open a connection
+            $fp = fopen($fileName, 'a');
+            if ($fp) {
+                fwrite($fp, $grace_logMsgs);
+                fclose($fp);
+            }
         }
     }
 }
