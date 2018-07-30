@@ -21,10 +21,9 @@ Ver archivo [CONTRIBUTING.md](CONTRIBUTING.md) para más información
 
 Esta es un API en PHP, la idea de esto es poder realizar módulos sobre una base que maneja ya diferentes aspectos como la conexión a bases de datos y usuarios.
 
-
 Se encuentran 2 carpetas, una que se llama api y otra que se llama www
 
-La que se llama api la idea es ubicarla en un lugar en donde no sea accesible, o bien, que no sea en el public_html
+La que se llama api, debe ser ubicarla en un lugar en donde no sea accesible, o bien, que no sea en el public_html
 
 La que se llama www contiene un archivo de configuración, en donde se modifican aspectos como la conexión a base de datos, nombre del sitio y muy importante, la ubicación de en donde se encontrará el resto de cosas o bien, la carpeta api.
 
