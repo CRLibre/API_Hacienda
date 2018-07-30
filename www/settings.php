@@ -44,7 +44,9 @@ $config['core']['siteName'] = 'MySite';
 $config['core']['host'] = "mySite.com";
 
 # Time in seconds for the lifetime of a session, after this time, the user must
-# log back in
+# log back in, if you dont want to use the session life set the value in -1, li this
+#  $config['users']['sessionLifetime'] = -1;
+
 $config['users']['sessionLifetime'] = 1000;
 
 /*******************************************************************************
