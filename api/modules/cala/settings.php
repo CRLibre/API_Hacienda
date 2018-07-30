@@ -71,15 +71,6 @@ $config['core']['cli'] = false;
 
 #####################################################################################
 #
-# Grace: Only touch if you need to debug
-#
-#####################################################################################
-# Where do you want me to store the logs? USE TRAILING SLASH!
-# If false I will not store them
-$config['grace']['logPath'] = $config['modules']['coreInstall'] . "logs/";
-
-#####################################################################################
-#
 # Files, Uploads and such
 #
 #####################################################################################

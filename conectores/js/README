@@ -1,0 +1,11 @@
+ * Cala Framework: To make your life simpler
+ *
+ * Copyright (c) 2018 CRLibre
+ * License: MIT - CalaApi
+ * Include this AT THE BOTTOM of your pages, that is all you need to do.
+
+
+Para utlizar el js, es necesario que el mismo se encuentre incluido dentro de su proyecto. 
+
+Lo único que se necesita es modificar esta variable calaApi_url e indicar en donde se encuentra su api.php. Este api.php debe estar en una carpeta visible al mundo.
+
