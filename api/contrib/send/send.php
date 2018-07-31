@@ -1,28 +1,49 @@
 <?php
 
-
-
 function send() {
-	$url;
-	$apiTo = params_get("client_id");
-	if ($apiTo == 'api-stag') {
-	    $url = "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/";
-	} else if ($apiTo == 'api-prod') {
-	    $url = "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/";
-	}
-    $datos = array(
-        'clave' => params_get('clave'),
-        'fecha' => params_get("fecha"),
-        'emisor' => array(
-            'tipoIdentificacion' => params_get("emi_tipoIdentificacion"),
-            'numeroIdentificacion' => params_get("emi_numeroIdentificacion")
-        ),
-        'receptor' => array(
-            'tipoIdentificacion' => params_get("recp_tipoIdentificacion"),
-            'numeroIdentificacion' => params_get("recp_numeroIdentificacion")
-        ),
-        'comprobanteXml' => params_get("comprobanteXml")
-    );
+    $url;
+    $datos;
+    $apiTo = params_get("client_id");
+    if ($apiTo == 'api-stag') {
+        $url = "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/";
+    } else if ($apiTo == 'api-prod') {
+        $url = "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/";
+    }
+
+    /*
+     * Variables a enviar a Hacienda
+     * Si recp_tipoIdentificacion o recp_numeroIdentificacion
+     * estan sin nada no se le envia a hacienda
+     * en caso de que los 2 tengan datos se envian a hacienda
+     */
+
+    if (params_get("recp_tipoIdentificacion") = "" or params_get("recp_numeroIdentificacion") = "") {
+        $datos = array(
+            'clave' => params_get('clave'),
+            'fecha' => params_get("fecha"),
+            'emisor' => array(
+                'tipoIdentificacion' => params_get("emi_tipoIdentificacion"),
+                'numeroIdentificacion' => params_get("emi_numeroIdentificacion")
+            ),
+            'comprobanteXml' => params_get("comprobanteXml")
+        );
+    } else {
+        $datos = array(
+            'clave' => params_get('clave'),
+            'fecha' => params_get("fecha"),
+            'emisor' => array(
+                'tipoIdentificacion' => params_get("emi_tipoIdentificacion"),
+                'numeroIdentificacion' => params_get("emi_numeroIdentificacion")
+            ),
+            'receptor' => array(
+                'tipoIdentificacion' => params_get("recp_tipoIdentificacion"),
+                'numeroIdentificacion' => params_get("recp_numeroIdentificacion")
+            ),
+            'comprobanteXml' => params_get("comprobanteXml")
+        );
+    }
+
+
 //$datosJ= http_build_query($datos);
     $mensaje = json_encode($datos);
     $header = array(
@@ -47,13 +68,14 @@ function send() {
 }
 
 function sendMensaje() {
-	$url;
-	$apiTo = params_get("client_id");
-	if ($apiTo == 'api-stag') {
-	    $url = "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/";
-	} else if ($apiTo == 'api-prod') {
-	    $url = "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/";
-	}
+    $url;
+    $apiTo = params_get("client_id");
+    if ($apiTo == 'api-stag') {
+        $url = "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/";
+    } else if ($apiTo == 'api-prod') {
+        $url = "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/";
+    }
+    
     $datos = array(
         'clave' => params_get('clave'),
         'fecha' => params_get("fecha"),
@@ -98,13 +120,13 @@ function sendMensaje() {
 }
 
 function sendTE() {
-	$url;
-	$apiTo = params_get("client_id");
-	if ($apiTo == 'api-stag') {
-	    $url = "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/";
-	} else if ($apiTo == 'api-prod') {
-	    $url = "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/";
-	}
+    $url;
+    $apiTo = params_get("client_id");
+    if ($apiTo == 'api-stag') {
+        $url = "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/";
+    } else if ($apiTo == 'api-prod') {
+        $url = "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/";
+    }
 
     $datos = array(
         'clave' => params_get('clave'),
@@ -143,4 +165,5 @@ function sendTE() {
     curl_close($curl);
     return $arrayResp;
 }
+
 ?>
