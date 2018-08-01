@@ -17,8 +17,8 @@ function token() {
         $grant_type = params_get("grant_type");
         $username = params_get("username");
         $password = params_get("password");
-        
         //Validation
+        
         if ($client_id == '') {
             return "El parametro Client ID es requerido";
         } else if ($grant_type == '') {
@@ -59,7 +59,7 @@ function token() {
             'refresh_token' => $refresh_token
         );
     }
-
+    
     //Making the options
     $options = array(
         'http' => array(
@@ -70,9 +70,9 @@ function token() {
     );
     $context = stream_context_create($options);
     $result = file_get_contents($url, false, $context);
-    $ar = json_decode($result);
-
-    return $ar;
+    $args = json_decode($result);
+    
+    return $args;
 }
 
 ?>
