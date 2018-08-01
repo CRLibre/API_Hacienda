@@ -278,7 +278,8 @@ function users_registerNew() {
                     "timestamp" => time(),
                     "lastAccess" => time(),
                     "pwd" => params_get('pwd', ''),
-                    "avatar" => 0
+                    "avatar" => 0,
+                    "settings" =>'NULL' 
                 )
         );
         # Load the user and log it in
@@ -344,7 +345,7 @@ function users_createBasic() {
  * Generates a session key
  */
 function users_generateSessionKey($idUser) {
-    $q = sprintf("delete from sessions where idUser='" . $idUser . "' and ip='" . $_SERVER['REMOTE_ADDR'] . "'");
+    $q = sprintf("delete from sessions where idUser='" . $idUser . "'");
     db_query($q, 0);
 
     modules_loader("crypto", "crypto.php");
@@ -654,8 +655,8 @@ function users_personalBgUpload() {
  * Helper function to actually create a new user and register it in the db
  */
 function _users_register($userDets) {
-    $q = sprintf("INSERT INTO users (fullName, userName, email, about, country, status, timestamp, lastAccess, pwd, avatar)
-        VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $userDets['fullName'], $userDets['userName'], $userDets['email'], addslashes($userDets['about']), $userDets['country'], $userDets['status'], $userDets['timestamp'], $userDets['lastAccess'], users_hash($userDets['pwd']), $userDets['avatar']
+    $q = sprintf("INSERT INTO users (fullName, userName, email, about, country, status, timestamp, lastAccess, pwd, avatar,settings)
+        VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $userDets['fullName'], $userDets['userName'], $userDets['email'], addslashes($userDets['about']), $userDets['country'], $userDets['status'], $userDets['timestamp'], $userDets['lastAccess'], users_hash($userDets['pwd']), $userDets['avatar'],$userDets['settings']
     );
     db_query($q, 0);
 }
