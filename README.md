@@ -34,6 +34,10 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 * Instalación php-xml
 * Openssl
 
+### Información acerca de la instalación y uso del API
+
+Encuentra toda la información unificada en el documento [Step by Step del API](https://crlibre.org/wp-content/uploads/2018/07/Documento-API-Instalacion-CRLibre.docx)
+
 ### Necesitas más información? [Visita el Wiki del API](https://github.com/CRLibre/API_Hacienda/wiki "Wiki CRLibre API_Hacienda")
 
 ----------------------------------------------
