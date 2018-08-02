@@ -279,7 +279,7 @@ function users_registerNew() {
                     "lastAccess" => time(),
                     "pwd" => params_get('pwd', ''),
                     "avatar" => 0,
-                    "settings" =>'NULL' 
+                    "settings" => 'NULL'
                 )
         );
         # Load the user and log it in
@@ -368,13 +368,17 @@ function users_hash($pwd) {
     $salt;
     if (version_compare(PHP_VERSION, '7.0', '<')) {
         $salt = mcrypt_create_iv(22, MCRYPT_DEV_URANDOM);
+        $options = array(
+            'salt' => $salt,
+            'cost' => 12
+        );
     } else {
         $salt = random_bytes(22);
+        $options = array(            
+            'cost' => 12
+        );
     }
-    $options = array(
-        'salt' => $salt,
-        'cost' => 12,
-    );
+
     $hashPass = password_hash($pwd, PASSWORD_BCRYPT, $options);
     $rsp = base64_encode(crypto_encrypt($hashPass));
     return $rsp;
@@ -656,7 +660,7 @@ function users_personalBgUpload() {
  */
 function _users_register($userDets) {
     $q = sprintf("INSERT INTO users (fullName, userName, email, about, country, status, timestamp, lastAccess, pwd, avatar,settings)
-        VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $userDets['fullName'], $userDets['userName'], $userDets['email'], addslashes($userDets['about']), $userDets['country'], $userDets['status'], $userDets['timestamp'], $userDets['lastAccess'], users_hash($userDets['pwd']), $userDets['avatar'],$userDets['settings']
+        VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $userDets['fullName'], $userDets['userName'], $userDets['email'], addslashes($userDets['about']), $userDets['country'], $userDets['status'], $userDets['timestamp'], $userDets['lastAccess'], users_hash($userDets['pwd']), $userDets['avatar'], $userDets['settings']
     );
     db_query($q, 0);
 }
