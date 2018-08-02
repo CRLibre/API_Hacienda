@@ -364,6 +364,8 @@ function users_generateSessionKey($idUser) {
  * @todo Use php's function
  */
 function users_hash($pwd) {
+    // Turn off all error reporting
+    error_reporting(0);
     modules_loader("crypto", "crypto.php");
     $salt;
     if (version_compare(PHP_VERSION, '7.0', '<')) {
@@ -374,7 +376,7 @@ function users_hash($pwd) {
         );
     } else {
         $salt = random_bytes(22);
-        $options = array(            
+        $options = array(
             'cost' => 12
         );
     }
@@ -385,6 +387,7 @@ function users_hash($pwd) {
 }
 
 function users_deshash($pwd) {
+    
     $pwd = base64_decode($pwd);
     modules_loader("crypto", "crypto.php");
     return crypto_desencrypt($pwd);
