@@ -18,19 +18,19 @@ Para la [implementación de la Factura Electrónica](https://www.hacienda.go.cr/
 
 **Trabajo en proceso [lo estamos creando en conjunto](CONTRIBUTING.md)**
 
-Esta es un API en PHP, la idea de esto es poder realizar módulos sobre una base que maneja ya diferentes aspectos como la conexión a bases de datos y usuarios.
+Esta es un API en PHP, la idea de esto es poder realizar módulos sobre una base que maneja ya diferentes aspectos como la conexión a bases de datos y usuarios, está basado en [CalaAPI](https://github.com/CRLibre/CalaAPI)
 
 Se encuentran 2 directorios, un que se llama api y otro que se llama www
 
-La que se llama api, debe ser ubicarla en un lugar en donde no sea accesible, o bien, que no sea en el public_html
+La que se llama API, debe ser ubicarla en un lugar en donde no sea accesible, o bien, que no sea en el public_html
 
 La que se llama www contiene un archivo de configuración, en donde se modifican aspectos como la conexión a base de datos, nombre del sitio y muy importante, la ubicación de en donde se encontrará el resto de cosas o bien, la carpeta api.
 
 ## Requerimientos minimos
 * PHP > 5.5.0
 * MySQL o MariaDB
-* Instalación librería curl
-* Instalación php-xml
+* [cURL](http://php.net/manual/en/book.curl.php)
+* [php-xml](http://php.net/manual/en/book.simplexml.php)
 * Openssl
 
 ### Uso del API
