@@ -19,8 +19,8 @@ function consutar() {
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
-	CURLOPT_SSL_VERIFYHOST => 0,
-	CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_SSL_VERIFYPEER => 0,
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "GET",
@@ -32,13 +32,19 @@ function consutar() {
         ),
     ));
     $response = curl_exec($curl);
+    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     $err = curl_error($curl);
     curl_close($curl);
     if ($err) {
-        return "cURL Error #:" . $err;
+        $arrayResp = array(
+            "Status" => $status,
+            "to" => $apiTo,
+            "text" => $err
+        );
+        return $arrayResp;
     } else {
-        $responseT = json_decode($response);
-        return $responseT;
+         $response=   json_decode($response);
+        return $response;
     }
 }
 
