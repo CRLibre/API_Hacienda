@@ -9,12 +9,12 @@ global $config;
 #
 #####################################################################################
 # Database name
-$config['db']['name'] = "crlibre_api_demo";
+$config['db']['name'] = "crlibreapi";
 # Database password
 //$config['db']['pwd'] = "g[H6gmrn6pb1";
-$config['db']['pwd'] = 'S3syyZNw7woqFrm';
+$config['db']['pwd'] = 'root';
 # Database user name
-$config['db']['user'] = "crlibre_api_demo";
+$config['db']['user'] = "root";
 # Database host
 $config['db']['host'] = "localhost";
 ##############################################################################
