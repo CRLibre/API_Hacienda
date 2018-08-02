@@ -95,8 +95,8 @@ function genXML_init() {
                 array("key" => "total_ventas_neta", "def" => "", "req" => true),
                 array("key" => "total_impuestos", "def" => "", "req" => true),
                 array("key" => "total_comprobante", "def" => "", "req" => true),
-                array("key" => "otros", "def" => "", "req" => true),
-                array("key" => "otrosType", "def" => "", "req" => true),
+                array("key" => "otros", "def" => "", "req" => false),
+                array("key" => "otrosType", "def" => "", "req" => false),
                 array("key" => "detalles", "def" => "", "req" => true),
             ),
             'file' => 'genXML.php'
