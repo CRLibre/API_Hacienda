@@ -33,8 +33,10 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 * [php-xml](http://php.net/manual/en/book.simplexml.php)
 * Openssl
 
+
 ### Uso del API
 * Ver y colaborar documentación en [wiki del API](https://github.com/CRLibre/API_Hacienda/wiki "Wiki CRLibre API_Hacienda")
+* Documento [Step by Step del API](https://crlibre.org/wp-content/uploads/2018/07/Documento-API-Instalacion-CRLibre.docx) para migrar al wiki.
 
 #### Primeros Pasos
 * [Primera petición al API](https://github.com/CRLibre/API_Hacienda/wiki/Primera-petici%C3%B3n-al-API)
