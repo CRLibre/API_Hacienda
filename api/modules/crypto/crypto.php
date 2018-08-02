@@ -7,13 +7,14 @@
   Se inicializa el vector para encriptar y desencriptar
  */
 //Esto toma la configuracion de los settings.php del www
-$key = conf_get('key', 'crypto');
+
 
 function makeKey256(){
     return base64_encode(openssl_random_pseudo_bytes(32));
 }
 
 function crypto_encrypt($data = '') {
+    $key = conf_get('key', 'crypto');
     if ($data == '') {
         $data = params_get('textEncrypt', '');
     }    
@@ -30,6 +31,7 @@ function crypto_encrypt($data = '') {
 }
 
 function crypto_desencrypt($data = '') {    
+    $key = conf_get('key', 'crypto');
     if ($data == '') {
         $data = params_get('textDesEncrypt', '');
     }
