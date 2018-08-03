@@ -36,7 +36,7 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 
 ### Uso del API
 * Ver y colaborar documentación en [wiki del API](https://github.com/CRLibre/API_Hacienda/wiki "Wiki CRLibre API_Hacienda")
-* Documento [Step by Step del API](https://crlibre.org/wp-content/uploads/2018/07/Documento-API-Instalacion-CRLibre.docx) para migrar al wiki.
+* Documento [Step by Step del API](https://crlibre.org/wp-content/uploads/2018/08/586abf6db6fc1117b60b2753-280x124.png) para migrar al wiki.
 
 #### Primeros Pasos
 * [Primera petición al API](https://github.com/CRLibre/API_Hacienda/wiki/Primera-petici%C3%B3n-al-API)
@@ -51,15 +51,19 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 * Creación de Clave para los XML de Factura Electrónica
 * Creación de Clave para Nota de Crédito
 * Creación de Clave para Nota de Débito
+* Creación de Clave para Tiquete Electronico
 * Creación de clave para Mensaje Aceptación (Aceptación total, Parcialmente y Rechazo)
 * Creación de xml Factura Electrónica
 * Creación de xml Nota de Crédito
 * Creación de xml Nota de Debito
+* Creación de xml Tiquete Electronico
+* Creación de xml Mensaje Aceptacion
 * Firmado del xml Factura Electrónica
 * Firmado del xml Nota de Crédito
 * Firmado del xml Nota de Debito
+* Firmado del xml Tiquete Electronico
 * Firmado del xml Mensaje de Aceptación (Pendiente solucionar error)
 * Envió a Hacienda del xml de Factura Electrónica, Notas de Crédito, Notas de Debito
+* Envió a Hacienda del xml de Tiquete Electronico
 * Envió a Hacienda del xml de Mensaje Aceptación (Aceptación total, Parcialmente y Rechazo)
 * Consulta de estado de los comprobantes
-
