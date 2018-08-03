@@ -62,7 +62,7 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 * Firmado del xml Nota de Crédito
 * Firmado del xml Nota de Debito
 * Firmado del xml Tiquete Electronico
-* Firmado del xml Mensaje de Aceptación (Pendiente solucionar error)
+* Firmado del xml Mensaje de Aceptación
 * Envió a Hacienda del xml de Factura Electrónica, Notas de Crédito, Notas de Debito
 * Envió a Hacienda del xml de Tiquete Electronico
 * Envió a Hacienda del xml de Mensaje Aceptación (Aceptación total, Parcialmente y Rechazo)
