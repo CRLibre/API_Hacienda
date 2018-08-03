@@ -234,7 +234,7 @@ function genXMLFe() {
         <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
         <FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
         </Normativa>';
-    if ($otrosType == '' or $otrosType == '') {
+    if ($otros == '' or $otrosType == '') {
         
     } else {
         $tipos = array("Otros", "OtroTexto", "OtroContenido");
@@ -500,7 +500,7 @@ function genXMLNC() {
         <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
         <FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
     </Normativa>';
-         if ($otrosType == '' or $otrosType == '') {
+         if ($otros == '' or $otrosType == '') {
         
     } else {
         $tipos = array("Otros", "OtroTexto", "OtroContenido");
@@ -767,7 +767,7 @@ function genXMLND() {
         <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
         <FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
     </Normativa>';
-    if ($otrosType == '' or $otrosType == '') {
+    if ($otros == '' or $otrosType == '') {
         
     } else {
         $tipos = array("Otros", "OtroTexto", "OtroContenido");
@@ -973,7 +973,7 @@ function genXMLTE() {
         <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
         <FechaResolucion>20-02-2017 13:22:22</FechaResolucion>
     </Normativa>';
-    if ($otrosType == '' or $otrosType == '') {
+    if ($otros == '' or $otrosType == '') {
         
     } else {
         $tipos = array("Otros", "OtroTexto", "OtroContenido");
