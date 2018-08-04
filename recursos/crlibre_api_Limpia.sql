@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.6
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 08-04-2018 a las 17:32:50
--- Versión del servidor: 10.2.14-MariaDB-log
--- Versión de PHP: 5.6.30
+-- Servidor: localhost
+-- Tiempo de generación: 03-08-2018 a las 23:23:28
+-- Versión del servidor: 10.2.11-MariaDB
+-- Versión de PHP: 7.0.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `crlibre_api_demo`
+-- Base de datos: `crlibreapi`
 --
 
 -- --------------------------------------------------------
@@ -121,6 +121,149 @@ CREATE TABLE `lestatz_visit_log` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `marter_logs`
+--
+
+CREATE TABLE `marter_logs` (
+  `idLog` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `master_certi`
+--
+
+CREATE TABLE `master_certi` (
+  `idCerti` int(11) NOT NULL,
+  `hambiente` int(11) NOT NULL,
+  `usuario` int(11) NOT NULL,
+  `pass` int(11) NOT NULL,
+  `pinCerti` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `master_claves`
+--
+
+CREATE TABLE `master_claves` (
+  `idClave` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `master_companyusers`
+--
+
+CREATE TABLE `master_companyusers` (
+  `idUser` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `master_comprobantes`
+--
+
+CREATE TABLE `master_comprobantes` (
+  `idComprobante` int(11) NOT NULL,
+  `idComprobanteReferencia` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `tipoDocumento` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `xmlEnviadoBase64` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `respuestaMHBase64` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fechaCreacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `idReceptor` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabala de los comprobantes electronicos';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `master_emisores`
+--
+
+CREATE TABLE `master_emisores` (
+  `idUser` int(11) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cedula` int(15) NOT NULL,
+  `tipoCedula` int(10) NOT NULL,
+  `razonSocial` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `direccion` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `correo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefono` int(15) NOT NULL,
+  `provincia` int(11) NOT NULL,
+  `canton` int(11) NOT NULL,
+  `distrito` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `master_inventario`
+--
+
+CREATE TABLE `master_inventario` (
+  `idProducto` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `master_permission`
+--
+
+CREATE TABLE `master_permission` (
+  `idCompanyUser` int(11) NOT NULL,
+  `idRol` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `master_receptores`
+--
+
+CREATE TABLE `master_receptores` (
+  `idReceptor` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cedula` int(15) NOT NULL,
+  `razonSocial` int(50) NOT NULL,
+  `tipoCedula` int(10) NOT NULL,
+  `direccion` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `correo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefono` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `master_rol`
+--
+
+CREATE TABLE `master_rol` (
+  `idRol` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `master_sqlupgrade`
+--
+
+CREATE TABLE `master_sqlupgrade` (
+  `idSQL` int(11) NOT NULL,
+  `versionAPI` double NOT NULL,
+  `SQL` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `msgs`
 --
 
@@ -135,73 +278,6 @@ CREATE TABLE `msgs` (
   `attachments` int(11) UNSIGNED NOT NULL,
   `idConversation` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `msgs`
---
-
-INSERT INTO `msgs` (`idMsg`, `timestamp`, `ip`, `idSender`, `idRecipient`, `text`, `channel`, `attachments`, `idConversation`) VALUES
-(1, 1429227759, '192.168.43.164', 1, 2, 'va uno nuevo', 0, 0, 0),
-(2, 1429227772, '192.168.43.164', 2, 1, 'nicer dicer!', 0, 0, 0),
-(3, 1429233896, '192.168.43.164', 1, 2, 'y el ultimo', 0, 0, 0),
-(4, 1429234012, '192.168.43.164', 1, 2, 'id', 0, 0, 0),
-(5, 1429274092, '192.168.43.164', 1, 2, 'aeoahu', 0, 0, 0),
-(6, 1429274093, '192.168.43.164', 1, 2, 'aeou', 0, 0, 0),
-(7, 1429274093, '192.168.43.164', 1, 2, 'oeu', 0, 0, 0),
-(8, 1429274093, '192.168.43.164', 1, 2, 'u', 0, 0, 0),
-(9, 1429274094, '192.168.43.164', 1, 2, 'au', 0, 0, 0),
-(10, 1429274094, '192.168.43.164', 1, 2, 'u', 0, 0, 0),
-(11, 1429274094, '192.168.43.164', 1, 2, 'eu', 0, 0, 0),
-(12, 1429274095, '192.168.43.164', 1, 2, 'ue', 0, 0, 0),
-(13, 1429274095, '192.168.43.164', 1, 2, 'eu', 0, 0, 0),
-(14, 1429274095, '192.168.43.164', 1, 2, 'u', 0, 0, 0),
-(15, 1429274095, '192.168.43.164', 1, 2, 'eu', 0, 0, 0),
-(16, 1429274096, '192.168.43.164', 1, 2, '', 0, 0, 0),
-(17, 1429274096, '192.168.43.164', 1, 2, 'u', 0, 0, 0),
-(18, 1429274096, '192.168.43.164', 1, 2, 'ao', 0, 0, 0),
-(19, 1429274097, '192.168.43.164', 1, 2, 'aouaoeu', 0, 0, 0),
-(20, 1429274218, '192.168.43.164', 1, 2, 'b', 0, 0, 0),
-(21, 1429274219, '192.168.43.164', 1, 2, 'c', 0, 0, 0),
-(22, 1429274220, '192.168.43.164', 1, 2, 'd', 0, 0, 0),
-(23, 1429274223, '192.168.43.164', 1, 2, 'a si, comprendo', 0, 0, 0),
-(24, 1429274226, '192.168.43.164', 1, 2, 'bien bien bien', 0, 0, 0),
-(25, 1429274555, '192.168.43.164', 1, 2, 'este deberÃ­a tener titulo', 0, 0, 1),
-(26, 1429275906, '192.168.43.164', 1, 2, 'uno', 0, 0, 1),
-(27, 1429275907, '192.168.43.164', 1, 2, 'dos', 0, 0, 1),
-(28, 1429275908, '192.168.43.164', 1, 2, 'tres', 0, 0, 1),
-(29, 1429414895, '192.168.43.164', 2, 0, 'nthunaho', 0, 0, 1),
-(30, 1429414914, '192.168.43.164', 2, 1, 'nthunaho', 0, 0, 1),
-(31, 1429414926, '192.168.43.164', 2, 1, 'nanu nanu', 0, 0, 1),
-(32, 1429415017, '192.168.43.164', 2, 1, 'del mar', 0, 0, 2),
-(33, 1429415302, '192.168.43.164', 2, 1, 'aeua', 0, 0, 2),
-(34, 1429415337, '192.168.43.164', 2, 1, 'nthnth', 0, 0, 2),
-(35, 1429415351, '192.168.43.164', 2, 1, 'nhstnh', 0, 0, 2),
-(36, 1429415368, '192.168.43.164', 2, 1, 'sth', 0, 0, 2),
-(37, 1429415368, '192.168.43.164', 2, 1, '', 0, 0, 2),
-(38, 1429415372, '192.168.43.164', 2, 1, 'tttt', 0, 0, 2),
-(39, 1429415435, '192.168.43.164', 2, 1, 'snnn\\', 0, 0, 2),
-(40, 1429415509, '192.168.43.164', 2, 1, 'aonuth', 0, 0, 2),
-(41, 1429415516, '192.168.43.164', 2, 1, 'aoeu', 0, 0, 2),
-(42, 1429415532, '192.168.43.164', 2, 1, 'uaeou', 0, 0, 2),
-(43, 1429415560, '192.168.43.164', 2, 1, 'naeohu', 0, 0, 2),
-(44, 1429415563, '192.168.43.164', 2, 1, 'uno', 0, 0, 2),
-(45, 1429415576, '192.168.43.164', 2, 1, 'mas', 0, 0, 2),
-(46, 1429416009, '192.168.43.164', 2, 1, 'tons', 0, 0, 2),
-(47, 1429416013, '192.168.43.164', 2, 1, 'que bien :)', 0, 0, 2),
-(48, 1429416019, '192.168.43.164', 2, 1, 'vea bb', 0, 0, 2),
-(49, 1429420265, '192.168.43.164', 2, 1, 'hola ?', 0, 0, 2),
-(50, 1429420268, '192.168.43.164', 2, 1, 'tnahseosutah', 0, 0, 2),
-(51, 1429420269, '192.168.43.164', 2, 1, 'aoeu', 0, 0, 2),
-(52, 1429420269, '192.168.43.164', 2, 1, 'oaeu', 0, 0, 2),
-(53, 1429420269, '192.168.43.164', 2, 1, 'oaeu', 0, 0, 2),
-(54, 1429420270, '192.168.43.164', 2, 1, 'uaou', 0, 0, 2),
-(55, 1429420270, '192.168.43.164', 2, 1, 'u', 0, 0, 2),
-(56, 1429420270, '192.168.43.164', 2, 1, 'ae', 0, 0, 2),
-(57, 1429420379, '192.168.43.164', 2, 1, 'nicer dicer!', 0, 0, 2),
-(58, 1429448743, '192.168.43.164', 2, 1, 'aeonuh', 0, 0, 2),
-(59, 1429456372, '192.168.43.164', 2, 1, 'funciona?', 0, 0, 2),
-(60, 1429456377, '192.168.43.164', 2, 1, 'si seÃ±or!!!', 0, 0, 2),
-(61, 1429536336, '192.168.43.164', 2, 1, 'hello', 0, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -243,7 +319,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUser`, `fullName`, `userName`, `email`, `about`, `country`, `status`, `timestamp`, `lastAccess`, `pwd`, `avatar`, `settings`) VALUES
-(1, 'root', 'root', 'a', 'I am me', 'crc', '1', 1429235768, 1523223130, '202cb962ac59075b964b07152d234b70', '', '');
+(1, 'root', 'root', 'a', 'I am me', 'crc', '1', 1429235768, 1533013704, '202cb962ac59075b964b07152d234b70', '', '');
 
 --
 -- Índices para tablas volcadas
@@ -280,6 +356,60 @@ ALTER TABLE `lestatz_goals`
 --
 ALTER TABLE `lestatz_refs`
   ADD PRIMARY KEY (`idRef`);
+
+--
+-- Indices de la tabla `marter_logs`
+--
+ALTER TABLE `marter_logs`
+  ADD PRIMARY KEY (`idLog`);
+
+--
+-- Indices de la tabla `master_certi`
+--
+ALTER TABLE `master_certi`
+  ADD PRIMARY KEY (`idCerti`);
+
+--
+-- Indices de la tabla `master_claves`
+--
+ALTER TABLE `master_claves`
+  ADD PRIMARY KEY (`idClave`);
+
+--
+-- Indices de la tabla `master_companyusers`
+--
+ALTER TABLE `master_companyusers`
+  ADD PRIMARY KEY (`idUser`);
+
+--
+-- Indices de la tabla `master_comprobantes`
+--
+ALTER TABLE `master_comprobantes`
+  ADD PRIMARY KEY (`idComprobante`);
+
+--
+-- Indices de la tabla `master_inventario`
+--
+ALTER TABLE `master_inventario`
+  ADD PRIMARY KEY (`idProducto`);
+
+--
+-- Indices de la tabla `master_receptores`
+--
+ALTER TABLE `master_receptores`
+  ADD PRIMARY KEY (`idReceptor`);
+
+--
+-- Indices de la tabla `master_rol`
+--
+ALTER TABLE `master_rol`
+  ADD PRIMARY KEY (`idRol`);
+
+--
+-- Indices de la tabla `master_sqlupgrade`
+--
+ALTER TABLE `master_sqlupgrade`
+  ADD PRIMARY KEY (`idSQL`);
 
 --
 -- Indices de la tabla `msgs`
@@ -320,7 +450,7 @@ ALTER TABLE `conversations`
 -- AUTO_INCREMENT de la tabla `files`
 --
 ALTER TABLE `files`
-  MODIFY `idFile` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idFile` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT de la tabla `lestatz_domains`
@@ -341,6 +471,60 @@ ALTER TABLE `lestatz_refs`
   MODIFY `idRef` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `marter_logs`
+--
+ALTER TABLE `marter_logs`
+  MODIFY `idLog` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `master_certi`
+--
+ALTER TABLE `master_certi`
+  MODIFY `idCerti` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `master_claves`
+--
+ALTER TABLE `master_claves`
+  MODIFY `idClave` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `master_companyusers`
+--
+ALTER TABLE `master_companyusers`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `master_comprobantes`
+--
+ALTER TABLE `master_comprobantes`
+  MODIFY `idComprobante` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `master_inventario`
+--
+ALTER TABLE `master_inventario`
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `master_receptores`
+--
+ALTER TABLE `master_receptores`
+  MODIFY `idReceptor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `master_rol`
+--
+ALTER TABLE `master_rol`
+  MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `master_sqlupgrade`
+--
+ALTER TABLE `master_sqlupgrade`
+  MODIFY `idSQL` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `msgs`
 --
 ALTER TABLE `msgs`
@@ -356,7 +540,7 @@ ALTER TABLE `sessions`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `idUser` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `idUser` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -17,8 +17,8 @@ function token() {
         $grant_type = params_get("grant_type");
         $username = params_get("username");
         $password = params_get("password");
-        
         //Validation
+
         if ($client_id == '') {
             return "El parametro Client ID es requerido";
         } else if ($grant_type == '') {
@@ -60,19 +60,30 @@ function token() {
         );
     }
 
-    //Making the options
-    $options = array(
-        'http' => array(
-            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-            'method' => 'POST',
-            'content' => http_build_query($data)
-        )
-    );
-    $context = stream_context_create($options);
-    $result = file_get_contents($url, false, $context);
-    $ar = json_decode($result);
-
-    return $ar;
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_HEADER, true);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_HEADER, 'Content-Type: application/x-www-form-urlencoded');
+    $data = http_build_query($data);
+    //$data = rtrim($data, '&');
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    grace_debug("JSON: ".$data);
+    $respuesta = curl_exec($curl);
+    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $err = json_decode(curl_error($curl));
+    curl_close($curl);
+    if ($err) {
+        $arrayResp = array(
+            "Status" => $status,
+            "text" => $err
+        );
+        return $arrayResp;
+    } else {       
+        return json_decode($respuesta);
+    }
 }
 
 ?>

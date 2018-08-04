@@ -31,7 +31,9 @@
 
  */
 
-function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacion = "", $codigoPais = "", $consecutivo = "", $codigoSeguridad = "") {
+function getClave($tipoDocumento = "", $tipoCedula = "", 
+        $cedula = "", $situacion = "", $codigoPais = "", 
+        $consecutivo = "", $codigoSeguridad = "") {
 
     if ($tipoCedula == '' or $tipoDocumento = "" or $cedula = '' or $situacion = '' or $codigoPais = '' or $consecutivo = '' or $codigoSeguridad = '') {
         //-----------------------------------------------//

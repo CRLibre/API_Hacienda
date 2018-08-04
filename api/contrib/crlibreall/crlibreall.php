@@ -1,6 +1,7 @@
 <?php
 
 function allFE() {
+    modules_loader("clave");
 
     
 }
