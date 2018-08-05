@@ -17,7 +17,7 @@
 /**
  * Boot up procedure
  */
-function consultar_bootMeUp(){
+function sicWsQuery_bootMeUp(){
 	// Just booting up
 }
 
@@ -26,21 +26,25 @@ function consultar_bootMeUp(){
  */
 
 
-function consultar_init(){
+function sicWsQuery_init(){
 
 	$paths = array(
 		array(
-			'r' => 'consultarCom',
-			'action' => 'consutar',
+			'r' => 'sicWsQuery',
+			'action' => 'sicWsQuery',
 			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',			
+			'access_params' => 'accessName',
 			'params' => array(
-				array("key" => "clave", "def" => "", "req" => true),
-				array("key" => "token", "def" => "", "req" => true),		
-				array("key" => "client_id", "def" => "", "req" => true)		
-							
-			),			
-			'file' => 'consultar.php'
+				array("key" => "origen", "def" => "", "req" => true),
+				array("key" => "cedula", "def" => "", "req" => false),
+				array("key" => "ape1", "def" => "", "req" => false),
+				array("key" => "ape2", "def" => "", "req" => false),
+				array("key" => "nomb1", "def" => "", "req" => false),
+				array("key" => "nomb2", "def" => "", "req" => false),
+				array("key" => "razon", "def" => "", "req" => false),
+				array("key" => "Concatenado", "def" => "", "req" => false)
+			),	
+			'file' => 'sicWsQuery.php'
 		)
 	);
 

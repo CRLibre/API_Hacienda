@@ -1,98 +1,70 @@
 ## Sobre CRLibre
 Somos una comunidad de individuos y organizaciones que voluntariamente unimos esfuerzos para colaborar y compartir conocimiento, crear software libre para resolver problemas que enfrentamos en nuestra realidad en Costa Rica.
 
+En este repositorio estamos creando un [API](https://es.wikipedia.org/wiki/Interfaz_de_programaci%C3%B3n_de_aplicaciones "Interfaz de programación de aplicaciones, del inglés Application Programming Interface es un conjunto de subrutinas, funciones y procedimientos que ofrece una pieza de software para ser utilizado por otro software") **[libre](https://es.wikipedia.org/wiki/Software_libre "El software libre es todo programa informático cuyo código fuente puede ser estudiado, modificado, y utilizado libremente con cualquier fin y redistribuido con o sin cambios o mejoras")** y componentes de software para simplificar el proceso de la **Factura Electrónica** requerido por el Ministerio de Hacienda de Costa Rica.
 
-En este repositorio estamos creando un **API abierto** y componentes de software para simplificar el proceso de la **Factura Electrónica** requerido por el Ministerio de Hacienda de Costa Rica.
+### ¿Por qué un API para conectarse a los del Ministerio de Hacienda?
+Para la [implementación de la Factura Electrónica](https://www.hacienda.go.cr/contenido/14350-factura-electronica), el Ministerio de Hacienda puso a disposición [documentación técnica e interfaces de programación sofisticados](https://tribunet.hacienda.go.cr/FormatosYEstructurasXML.jsp) que muchos programadores encuentran difíciles de comprender y utilizar. Nuestro objetivo es crear un software que simplifique el proceso a desarrolladores de cumplir con las [resoluciones del Ministerio](https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4.2/ResolucionComprobantesElectronicosDGT-R-48-2016_4.2.pdf), de forma más ágil, desde cualquier lenguaje de programación y sin depender de intermediarios al poder instalar esta pieza de [software libre](https://es.wikipedia.org/wiki/Software_libre) en un servidor propio manteniendo control de sus datos sensibles.
 
-En repositorios adicionales estaremos colaborando con elementos similares
-
-### Conversemos
-* Póngase en contacto con los otros miembros voluntarios de la comunidad.
-   * [Sistema de Preguntas y Respuestas de la Comunidad](https://crlibre.org/qa/)
-   * [Grupo de Whatsapp de CRLibre.org](https://chat.whatsapp.com/ED2JK9IkDnu2UzEpyjZDeN)
-   * [Grupo de Facebook CRLibre](https://www.facebook.com/groups/105812240170199/)
 
 ## Cómo colaborar
-Ver archivo [CONTRIBUTING.md](CONTRIBUTING.md) para más información
+
+* Póngase en contacto con los otros miembros voluntarios de la comunidad.
+   * [Sistema de Preguntas y Respuestas de la Comunidad](https://crlibre.org/qa/)
+   * [Grupos de CHAT de CRLibre.org](https://crlibre.org/chats/)
+   * [Grupo de Facebook CRLibre](https://www.facebook.com/groups/105812240170199/)
 
 ## Sobre este API
 
 **Trabajo en proceso [lo estamos creando en conjunto](CONTRIBUTING.md)**
 
-Esta es un API en PHP, la idea de esto es poder realizar módulos sobre una base que maneja ya diferentes aspectos como la conexión a bases de datos y usuarios.
-
+Esta es una API en PHP, la idea de esto es poder realizar módulos sobre una base que maneja ya diferentes aspectos como la conexión a bases de datos y usuarios, está basado en [CalaAPI](https://github.com/CRLibre/CalaAPI)
 
 Se encuentran 2 carpetas, una que se llama api y otra que se llama www
 
-La que se llama api la idea es ubicarla en un lugar en donde no sea accesible, o bien, que no sea en el public_html
+La que se llama api la idea es ubicarla en un lugar en donde no sea accesible, o bien, que no sea en el "document root" (ejemplo: public_html)
 
 La que se llama www contiene un archivo de configuración, en donde se modifican aspectos como la conexión a base de datos, nombre del sitio y muy importante, la ubicación de en donde se encontrará el resto de cosas o bien, la carpeta api.
 
+## Requerimientos mínimos
 
-### Necesitas mas informacion? [Visita el Wiki del API](https://github.com/CRLibre/API_Hacienda/wiki "Wiki CRLibre API_Hacienda")
+=======
+* PHP > 5.5.0
+* MySQL o MariaDB
+* [cURL](http://php.net/manual/en/book.curl.php)
+* [php-xml](http://php.net/manual/en/book.simplexml.php)
+* OpenSSL
 
-----------------------------------------------
+### Uso del API
+* Ver y colaborar documentación en [wiki del API](https://github.com/CRLibre/API_Hacienda/wiki "Wiki CRLibre API_Hacienda")
+* Documento [Step by Step del API](https://crlibre.org/wp-content/uploads/2018/08/586abf6db6fc1117b60b2753-280x124.png) para migrar al wiki.
 
+#### Primeros Pasos
+* [Primera petición al API](https://github.com/CRLibre/API_Hacienda/wiki/Primera-petici%C3%B3n-al-API)
+* [Uso de Módulos del API](https://github.com/CRLibre/API_Hacienda/wiki/Uso-de-M%C3%B3dulos-del-API)
+* [Creación de Usuario](https://github.com/CRLibre/API_Hacienda/wiki/Creaci%C3%B3n-de-Usuario)
+* [Login y Logout del API](https://github.com/CRLibre/API_Hacienda/wiki/Login-y-Logout-del-API)
 
-Para hacer módulos, se realizan en la carpeta api/contrib/mi-modulo
-
-Hay uno de ejemplo que se llama 'ejemplo'
-
-Dentro de la carpeta del módulo, tiene que haber un archivo que se llame module.php, en este se define la estructura de nuestro módulo, la funcion function ejemplo_init() hace referencia a la siguiente estructura MODULO_init(), si el modulo se llama GetDate la funcion init debe tener el nombre GetDate_init().
-
-
-En esta hay 2 llamadas diferentes a modo de ejemplo, la primera no requere ningún valor y nos devuelve un "hola"
-
-Este es un ejemplo de cómo se haría la llamada a la primera función
-
-http://localhost/api.php?w=ejemplo&r=hola
-
-
-En donde w = módulo al que ocupamos / r = cual función ocupamos
-En este caso ocupamos w=ejemplo y r=hola
-
-La respuesta debería ser similar a esto:
-
-{"resp":"hola :)"}
-
-http://localhost/api.php?w=ejemplo&r=un_usuario&nombre=Juan&apellido=Perez
-
-En la segunda llamada ya es necesario que se envíen 2 parámetros que serán utilizados por la función. Estos están declarados en el menú del módulo cómo mandatorios.
-
-El resultado debería dar algo similar a:
-
-{"resp":"Juan, Perez"}
-
-
----------------------------------------------
-
-
-Todos los resultados están contenidos bajo la variable resp y todos son en json.
-
-
-Cada bloque del menú del módulo, está compuesto por una estructura similar a esta
-
-array(
-			'r' => 'un_usuario',
-			'action' => 'unUsuario',
-			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',
-			'params' => array(
-				array("key" => "nombre", "def" => "", "req" => true),
-				array("key" => "apellido", "def" => "", "req" => true)
-			),	
-			'file' => 'ejemplo.php'
-		)
-
-
--En donde el primero es el nombre de request que vamos a usar
--Función en php que se va a ejecutar
--El tipo de acceso con el que se cuenta
--Si se va a acceder por medio del mobre de la función (este no se toca)
--Los parámetros que son necesarios recibir
--La ubicación de la función a llamar
-
-De tal manera, nuestro múdulo puede estar conformadio por diferentes archivos en PHP, y estas direcciones se definen en el menú. De esta manera solamente se incluirán los módulos necesarios para cada ejecución y se omiten el resto.
-
-
-
+#### Uso de los módulos del API
+* Upload del certificado o llave criptográfica
+* Solicitud de Token
+* Solicitud de refrescar token
+* Creación de Clave para los XML de Factura Electrónica
+* Creación de Clave para Nota de Crédito
+* Creación de Clave para Nota de Débito
+* Creación de Clave para Tiquete Electronico
+* Creación de clave para Mensaje Aceptación (Aceptación total, Parcialmente y Rechazo)
+* Creación de xml Factura Electrónica
+* Creación de xml Nota de Crédito
+* Creación de xml Nota de Debito
+* Creación de xml Tiquete Electronico
+* Creación de xml Mensaje Aceptacion
+* Firmado del xml Factura Electrónica
+* Firmado del xml Nota de Crédito
+* Firmado del xml Nota de Debito
+* Firmado del xml Tiquete Electronico
+* Firmado del xml Mensaje de Aceptación
+* Envió a Hacienda del xml de Factura Electrónica, Notas de Crédito, Notas de Debito
+* Envió a Hacienda del xml de Tiquete Electronico
+* Envió a Hacienda del xml de Mensaje Aceptación (Aceptación total, Parcialmente y Rechazo)
+* Consulta de estado de los comprobantes

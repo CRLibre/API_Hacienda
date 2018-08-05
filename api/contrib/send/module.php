@@ -39,13 +39,15 @@ function send_init(){
                                 array("key" => "clave", "def" => "", "req" => true),
                                 array("key" => "fecha", "def" => "", "req" => true),
                                 array("key" => "emi_tipoIdentificacion", "def" => "", "req" => true),
-				array("key" => "emi_numeroIdentificacion", "def" => "", "req" => false),			
-				array("key" => "recp_tipoIdentificacion", "def" => "", "req" => true),
-                                array("key" => "recp_numeroIdentificacion", "def" => "", "req" => true),
-                                array("key" => "comprobanteXml", "def" => "", "req" => true)),           
+				array("key" => "emi_numeroIdentificacion", "def" => "", "req" => true),			
+				array("key" => "recp_tipoIdentificacion", "def" => "", "req" => false),
+                                array("key" => "recp_numeroIdentificacion", "def" => "", "req" => false),
+                                array("key" => "comprobanteXml", "def" => "", "req" => true),
+                                array("key" => "client_id", "def" => "", "req" => true)
+                            ),           
 			'file' => 'send.php'
                      ),
-            array(
+                     array(
 			'r' => 'sendMensaje',
 			'action' => 'sendMensaje',
 			'access' => 'users_openAccess', 
@@ -55,15 +57,32 @@ function send_init(){
                                 array("key" => "clave", "def" => "", "req" => true),
                                 array("key" => "fecha", "def" => "", "req" => true),
                                 array("key" => "emi_tipoIdentificacion", "def" => "", "req" => true),
-				array("key" => "emi_numeroIdentificacion", "def" => "", "req" => false),			
+				array("key" => "emi_numeroIdentificacion", "def" => "", "req" => true),			
 				array("key" => "recp_tipoIdentificacion", "def" => "", "req" => true),
                                 array("key" => "recp_numeroIdentificacion", "def" => "", "req" => true),
                                 array("key" => "consecutivoReceptor", "def" => "", "req" => true),           
-                                array("key" => "comprobanteXml", "def" => "", "req" => true)),           
+                                array("key" => "comprobanteXml", "def" => "", "req" => true),
+                                array("key" => "client_id", "def" => "", "req" => true)
+                            ),           
                       'file' => 'send.php'
                      
+                ),
+                array(
+			'r' => 'sendTE',
+			'action' => 'sendTE',
+			'access' => 'users_openAccess', 
+			'access_params' => 'accessName',
+                        'params' => array(
+				array("key" => "token", "def" => "", "req" => true),                    
+                                array("key" => "clave", "def" => "", "req" => true),
+                                array("key" => "fecha", "def" => "", "req" => true),
+                                array("key" => "emi_tipoIdentificacion", "def" => "", "req" => true),
+				array("key" => "emi_numeroIdentificacion", "def" => "", "req" => true),			
+                                array("key" => "comprobanteXml", "def" => "", "req" => true),
+                                array("key" => "client_id", "def" => "", "req" => true)
+                            ),           
+                      'file' => 'send.php'
                 )
-            
                     );
                       
               

@@ -15,33 +15,28 @@
 /**
  * Boot up procedure
  */
-function clave_bootMeUp() {
+function check_bootMeUp() {
     // Just booting up
 }
 
 /**
  * Init function
  */
-function clave_init() {
+function check_init() {
 
     $paths = array(
         array(
-            'r' => 'clave',
-            'action' => 'getClave',
+            'r' => 'checkxml',
+            'action' => 'check_XML',
             'access' => 'users_openAccess',
             'access_params' => 'accessName',
             'params' => array(
-                array("key" => "tipoDocumento", "def" => "", "req" => true),
-                array("key" => "tipoCedula", "def" => "", "req" => true),
-                array("key" => "cedula", "def" => "", "req" => true),
-                array("key" => "codigoPais", "def" => "", "req" => true),
-                array("key" => "consecutivo", "def" => "", "req" => true),
-                array("key" => "situacion", "def" => "", "req" => true),
-                array("key" => "terminal", "def" => "", "req" => false),
-                array("key" => "sucursal", "def" => "", "req" => false),
-                array("key" => "codigoSeguridad", "def" => "", "req" => true)
+                array("key" => "tipoDocumento", "def" => "", "req" => true)
+              //  array("key" => "tipoDocumento", "def" => "", "req" => true),                
+              //  array("key" => "formato", "def" => "", "req" => true),
+              //  array("key" => "xml", "def" => "", "req" => true)
             ),
-            'file' => 'clave.php'
+            'file' => 'check.php'
         )
     );
 
