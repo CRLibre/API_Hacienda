@@ -90,5 +90,5 @@ $config['grace']['logPath'] = $config['modules']['coreInstall'] . "logs/";
 # Maximum upload size in Mb
 $config['files']['maxUploadSize'] = 2;
 # Default allowed extensions
-$config['files']['allowedExt'] = 'jpg,png';
+$config['files']['allowedExt'] = 'jpg,png,p12,P12,.p12,.P12';
 
