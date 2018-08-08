@@ -9,7 +9,7 @@
 //Esto toma la configuracion de los settings.php del www
 
 
-function makeKey256(){
+function makeKey256() {
     return base64_encode(openssl_random_pseudo_bytes(32));
 }
 
@@ -17,7 +17,7 @@ function crypto_encrypt($data = '') {
     $key = conf_get('key', 'crypto');
     if ($data == '') {
         $data = params_get('textEncrypt', '');
-    }    
+    }
     // se retira el base64 del key
     $encryption_key = base64_decode($key);
     // Se genera un vetor inicial para el proceso
@@ -26,11 +26,12 @@ function crypto_encrypt($data = '') {
     $encrypted = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
     // ese vector es necesario guardarlo, por lo que se concatena con ::
     //se encodea a base64 para tener una sala cadena
-    $final=base64_encode($encrypted . '::' . $iv);   
+    $final = base64_encode($encrypted . '::' . $iv);
     return $final;
 }
 
-function crypto_desencrypt($data = '') {    
+function crypto_desencrypt($data = '') {
+    
     $key = conf_get('key', 'crypto');
     if ($data == '') {
         $data = params_get('textDesEncrypt', '');
@@ -40,10 +41,20 @@ function crypto_desencrypt($data = '') {
     // Para desencriptar se debe de des encodear el base64 y leer la parte despues del ::
     list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
     //una vez separado el $iv y ya tenemos el $key se procede con las desencriptacion
-    $final=openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
-    
+    $final;
+    try {
+        $final = openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
+    } catch (Exception $e) {
+        
+        $arrayResp = array(
+            "Status" => "Error occurred",
+            "text" => $e->getMessage()
+        );
+        return $arrayResp;
+    }
     return $final;
 }
-function crypto_test(){
+
+function crypto_test() {
     return ("hola");
 }
