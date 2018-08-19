@@ -316,7 +316,6 @@ function users_logMeIn() {
         grace_debug("username based login");
         $user = users_load(array('userName' => $userName));
     }
-
     if (password_verify(params_get('pwd', ''), users_deshash($user->pwd))) {
         // Create a token
         grace_debug("Able to login");
@@ -327,7 +326,7 @@ function users_logMeIn() {
         return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName);
     } else {
 
-        grace_debug(sprintf("Not able to login %s | %s", params_get('pwd', ''), users_deshash($user->pwd)));
+     //   grace_debug(sprintf("Not able to login %s | %s", params_get('pwd', ''), users_deshash($user->pwd) . " viene " . $user->pwd));
         return ERROR_USERS_WRONG_LOGIN_INFO;
     }
 }
@@ -387,7 +386,7 @@ function users_hash($pwd) {
 }
 
 function users_deshash($pwd) {
-    
+
     $pwd = base64_decode($pwd);
     modules_loader("crypto", "crypto.php");
     return crypto_desencrypt($pwd);
@@ -593,7 +592,7 @@ function _users_update($dets) {
     if (!isset($dets['pwd']) || trim($dets['pwd']) == '') {
         $dets['pwd'] = 'pwd';
     } else {
-        $dets['pwd'] = "'" . users_hash($dets['pwd']) . "'";
+        $dets['pwd'] = "'" . $dets['pwd'] . "'";
     }
 
     # Merge the current information about the user and the new information provided
@@ -738,7 +737,7 @@ function users_access($perm, $theUser = false) {
  * Generate a new temporary password for recovery
  */
 function users_recoverPwd() {
-
+    //
     global $user;
 
     # This call probably won't have the user via iam, so, I will load it
@@ -763,19 +762,20 @@ function users_recoverPwd() {
     # Generate a new temporary password
 
     modules_loader("crypto", "crypto.php");
-    $user->pwd = substr(crypto_encrypt(password_hash(rand(0, 1000) + time()), 0, 6));
+    $temp = rand(0, 1000) + time();
+    $user->pwd = users_hash($temp);
 
     grace_debug("New tmp pwd: " . $user->pwd);
 
     # Update account
-    if (_users_update((array) $user) == SUCCESS_ALL_GOOD) {
+    if (_users_update((array) $user)) {
         # Send email
         grace_debug("I will send the email");
         $resp = mailer_sendEmail(array(
             'to' => $user->email,
             'subject' => 'Recuperación de Clave ' . conf_get('siteName', 'core', 'Mi Sitio'),
-            'replyTo' => 'no-repy@' . conf_get("domain", "core", "example.net"),
-            'message' => 'Su nueva clave es: ' . $user->pwd
+            'replyTo' => 'no-repy@' . conf_get("domain", "core", "crlibre.or"),
+            'message' => 'Su nueva clave es: ' . $temp
         ));
         if ($resp == true) {
             return SUCCESS_ALL_GOOD;

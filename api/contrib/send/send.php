@@ -4,36 +4,67 @@ function send() {
     $url;
     $datos;
     $apiTo = params_get("client_id");
+
     if ($apiTo == 'api-stag') {
         $url = "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/";
     } else if ($apiTo == 'api-prod') {
         $url = "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/";
     }
-    
+
     if (params_get("recp_tipoIdentificacion") == "" or params_get("recp_numeroIdentificacion") == "") {
-        $datos = array(
-        'clave' => params_get('clave'),
-        'fecha' => params_get("fecha"),
-        'emisor' => array(
-            'tipoIdentificacion' => params_get("emi_tipoIdentificacion"),
-            'numeroIdentificacion' => params_get("emi_numeroIdentificacion")
-        ),
-        'comprobanteXml' => params_get("comprobanteXml")
-    );
-    }else{
-    $datos = array(
-        'clave' => params_get('clave'),
-        'fecha' => params_get("fecha"),
-        'emisor' => array(
-            'tipoIdentificacion' => params_get("emi_tipoIdentificacion"),
-            'numeroIdentificacion' => params_get("emi_numeroIdentificacion")
-        ),
-        'receptor' => array(
-            'tipoIdentificacion' => params_get("recp_tipoIdentificacion"),
-            'numeroIdentificacion' => params_get("recp_numeroIdentificacion")
-        ),
-        'comprobanteXml' => params_get("comprobanteXml")
-    );
+        if (params_get('callbackUrl') == "") {
+            $datos = array(
+                'clave' => params_get('clave'),
+                'fecha' => params_get("fecha"),
+                'emisor' => array(
+                    'tipoIdentificacion' => params_get("emi_tipoIdentificacion"),
+                    'numeroIdentificacion' => params_get("emi_numeroIdentificacion")
+                ),
+                'comprobanteXml' => params_get("comprobanteXml")
+            );
+        } else {
+            $datos = array(
+                'clave' => params_get('clave'),
+                'fecha' => params_get("fecha"),
+                'emisor' => array(
+                    'tipoIdentificacion' => params_get("emi_tipoIdentificacion"),
+                    'numeroIdentificacion' => params_get("emi_numeroIdentificacion")
+                ),
+                'comprobanteXml' => params_get("comprobanteXml"),
+                'callbackUrl' => params_get('callbackUrl')
+            );
+        }
+    } else {
+        if (params_get('callbackUrl') == "") {
+            $datos = array(
+                'clave' => params_get('clave'),
+                'fecha' => params_get("fecha"),
+                'emisor' => array(
+                    'tipoIdentificacion' => params_get("emi_tipoIdentificacion"),
+                    'numeroIdentificacion' => params_get("emi_numeroIdentificacion")
+                ),
+                'receptor' => array(
+                    'tipoIdentificacion' => params_get("recp_tipoIdentificacion"),
+                    'numeroIdentificacion' => params_get("recp_numeroIdentificacion")
+                ),
+                'comprobanteXml' => params_get("comprobanteXml")
+            );
+        } else {
+            $datos = array(
+                'clave' => params_get('clave'),
+                'fecha' => params_get("fecha"),
+                'emisor' => array(
+                    'tipoIdentificacion' => params_get("emi_tipoIdentificacion"),
+                    'numeroIdentificacion' => params_get("emi_numeroIdentificacion")
+                ),
+                'receptor' => array(
+                    'tipoIdentificacion' => params_get("recp_tipoIdentificacion"),
+                    'numeroIdentificacion' => params_get("recp_numeroIdentificacion")
+                ),
+                'comprobanteXml' => params_get("comprobanteXml"),
+                'callbackUrl' => params_get('callbackUrl')
+            );
+        }
     }
 //$datosJ= http_build_query($datos);
     $mensaje = json_encode($datos);
@@ -78,7 +109,7 @@ function sendMensaje() {
     } else if ($apiTo == 'api-prod') {
         $url = "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/";
     }
-    
+
     $datos = array(
         'clave' => params_get('clave'),
         'fecha' => params_get("fecha"),
@@ -90,7 +121,7 @@ function sendMensaje() {
             'tipoIdentificacion' => params_get("recp_tipoIdentificacion"),
             'numeroIdentificacion' => params_get("recp_numeroIdentificacion")
         ),
-        'consecutivoReceptor' => params_get("consecutivoReceptor"),
+        'consecutivoReceptor' => str_pad(params_get("consecutivoReceptor"), 20, "0", STR_PAD_LEFT),
         'comprobanteXml' => params_get("comprobanteXml")
     );
 

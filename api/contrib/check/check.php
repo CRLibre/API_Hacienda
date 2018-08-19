@@ -45,8 +45,7 @@ function check_XML() {
                 $xml = new DOMDocument();
                 $xml->load('fac.xml');
 
-                if (!$xml->schemaValidate('xsd/FacturaElectronica_V.4.2.xsd')) {
-                    print '<b>DOMDocument::schemaValidate() Generated Errors!</b>';
+                if (!$xml->schemaValidate('xsd/FacturaElectronica_V.4.2.xsd')) {                    
                     libxml_display_errors();
                 } else {
                     echo "validated";
