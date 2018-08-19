@@ -54,7 +54,7 @@ $config['core']['host'] = "mySite.com";
 # log back in, if you dont want to use the session life set the value in -1, li this
 #  $config['users']['sessionLifetime'] = -1;
 
-$config['users']['sessionLifetime'] = 1000;
+$config['users']['sessionLifetime'] = -1;
 
 /*******************************************************************************
  * You should not need to touch anything beyond this point
