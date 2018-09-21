@@ -1,4 +1,3 @@
-www
 api/core
 api/files
 api/insall
@@ -6,4 +5,4 @@ api/logs
 api/modules
 api/resources
 api/tools
-/nbproject/private/
+nbproject/*
