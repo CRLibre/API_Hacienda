@@ -31,9 +31,7 @@
 
  */
 
-function getClave($tipoDocumento = "", $tipoCedula = "", 
-        $cedula = "", $situacion = "", $codigoPais = "", 
-        $consecutivo = "", $codigoSeguridad = "") {
+function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacion = "", $codigoPais = "", $consecutivo = "", $codigoSeguridad = "") {
 
     if ($tipoCedula == '' or $tipoDocumento = "" or $cedula = '' or $situacion = '' or $codigoPais = '' or $consecutivo = '' or $codigoSeguridad = '') {
         //-----------------------------------------------//
@@ -181,27 +179,61 @@ function getClave($tipoDocumento = "", $tipoCedula = "",
     //Numero de Cedula + el indice identificador
 
     $identificacion;
-    $cedulas = array("fisico", "juridico", "dimex", "nite");
+    $cedulas = array("fisico", "juridico", "dimex", "nite", "01", "02", "03", "04");
     if (in_array($tipoCedula, $cedulas)) {
         switch ($tipoCedula) {
             case 'fisico': //fisico se agregan 3 ceros para completar los 12 caracteres
-                $identificacion = "000" . $cedula;
+                $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
+                break;
+            case '01': //fisico se agregan 3 ceros para completar los 12 caracteres
+                $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
                 break;
             case 'juridico': // juridico se agregan 2 ceros para completar los 12 caracteres
-                $identificacion = "00" . $cedula;
+                if (strlen($cedula) < 12) {
+                    //En caso de ser menor a 12 caracteres
+                    $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
+                } else if (strlen($cedula) === 12) {
+                    $identificacion = $cedula;
+                } else {
+                    return "cedula juridico incorrecto";
+                }
+                break;
+
+            case '02': // juridico se agregan 2 ceros para completar los 12 caracteres
+                if (strlen($cedula) < 12) {
+                    //En caso de ser menor a 12 caracteres
+                    $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
+                } else if (strlen($cedula) === 12) {
+                    $identificacion = $cedula;
+                } else {
+                    return "cedula juridico incorrecto";
+                }
                 break;
             case 'dimex': // dimex puede ser de 11 0 12 caracteres
-                if (strlen($cedula) == 11) {
-                    //En caso de ser 11 caracteres se le agrega un 0
-                    $identificacion = "0" . $cedula;
-                }else if(strlen($cedula) == 12){
-                    $identificacion =$cedula;
-                }else{
+                if (strlen($cedula) < 12) {
+                    //En caso de ser menor a 12 caracteres
+                    $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
+                } else if (strlen($cedula) == 12) {
+                    $identificacion = $cedula;
+                } else {
+                    return "dimex incorrecto";
+                }
+                break;
+            case '03': // dimex puede ser de 11 0 12 caracteres
+                if (strlen($cedula) < 12) {
+                    //En caso de ser menor a 12 caracteres
+                    $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT); 
+                } else if (strlen($cedula) == 12) {
+                    $identificacion = $cedula;
+                } else {
                     return "dimex incorrecto";
                 }
                 break;
             case 'nite': // nite se agregan 2 ceros para completar los 12 caracteres
-                $identificacion = "00" . $cedula;
+                $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
+                break;
+            case '04': // nite se agregan 2 ceros para completar los 12 caracteres
+                $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
                 break;
         }
     } else {
@@ -236,6 +268,7 @@ function getClave($tipoDocumento = "", $tipoCedula = "",
     $arrayResp = array(
         "clave" => "$clave",
         "consecutivo" => "$consecutivoFinal",
+        "length" => strlen($clave)
     );
     return $arrayResp;
 }
