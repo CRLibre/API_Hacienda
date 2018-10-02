@@ -115,11 +115,15 @@ function genXMLFe() {
         
     } else {
         $xmlString .= '<Receptor>
-            <Nombre>' . $receptorNombre . '</Nombre>
-            <Identificacion>
+            <Nombre>' . $receptorNombre . '</Nombre>';
+        if ($receptorTipoIdentif == '' or $recenprotNumIdentif == '') {
+            
+        } else {
+            $xmlString .= '<Identificacion>
                 <Tipo>' . $receptorTipoIdentif . '</Tipo>
                 <Numero>' . $recenprotNumIdentif . '</Numero>
             </Identificacion>';
+        }
 
 
         if ($receptorProvincia == '' or $receptorCanton == '' or $receptorDistrito == '' or $receptorBarrio == '' or $receptorOtrasSenas == '') {
@@ -180,7 +184,6 @@ function genXMLFe() {
                   <Detalle>' . $d->detalle . '</Detalle>
                   <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
                   <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
-
         if (isset($d->montoDescuento) && $d->montoDescuento != "") {
             $xmlString .= '<MontoDescuento>' . $d->montoDescuento . '</MontoDescuento>';
         }
@@ -374,13 +377,16 @@ function genXMLNC() {
     if ($omitir_receptor == 'true') {
         
     } else {
-        $xmlString .= '
-    <Receptor>
-        <Nombre>' . $receptorNombre . '</Nombre>
-        <Identificacion>
-            <Tipo>' . $receptorTipoIdentif . '</Tipo>
-            <Numero>' . $recenprotNumIdentif . '</Numero>
-        </Identificacion>';
+        $xmlString .= '<Receptor>
+            <Nombre>' . $receptorNombre . '</Nombre>';
+        if ($receptorTipoIdentif == '' or $recenprotNumIdentif == '') {
+            
+        } else {
+            $xmlString .= '<Identificacion>
+                <Tipo>' . $receptorTipoIdentif . '</Tipo>
+                <Numero>' . $recenprotNumIdentif . '</Numero>
+            </Identificacion>';
+        }
 
 
         if ($receptorProvincia == '' or $receptorCanton == '' or $receptorDistrito == '' or $receptorBarrio == '' or $receptorOtrasSenas == '') {
@@ -436,13 +442,12 @@ function genXMLNC() {
     $l = 1;
     foreach ($detalles as $d) {
         $xmlString .= '<LineaDetalle>
-                  <NumeroLinea>' . $l . '</NumeroLinea>
-                  <Cantidad>' . $d->cantidad . '</Cantidad>
-                  <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
-                  <Detalle>' . $d->detalle . '</Detalle>
-                  <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
-                  <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
-
+            <NumeroLinea>' . $l . '</NumeroLinea>
+            <Cantidad>' . $d->cantidad . '</Cantidad>
+            <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
+            <Detalle>' . $d->detalle . '</Detalle>
+            <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
+            <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
         if (isset($d->montoDescuento) && $d->montoDescuento != "") {
             $xmlString .= '<MontoDescuento>' . $d->montoDescuento . '</MontoDescuento>';
         }
@@ -503,7 +508,7 @@ function genXMLNC() {
         <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
         <FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
     </Normativa>';
-         if ($otros == '' or $otrosType == '') {
+    if ($otros == '' or $otrosType == '') {
         
     } else {
         $tipos = array("Otros", "OtroTexto", "OtroContenido");
@@ -642,14 +647,15 @@ function genXMLND() {
     if ($omitir_receptor == 'true') {
         
     } else {
-        $xmlString .= '
-    <Receptor>
-        <Nombre>' . $receptorNombre . '</Nombre>
-        <Identificacion>
-            <Tipo>' . $receptorTipoIdentif . '</Tipo>
-            <Numero>' . $recenprotNumIdentif . '</Numero>
-        </Identificacion>';
-
+        $xmlString .= '<Receptor>
+            <Nombre>' . $receptorNombre . '</Nombre>';
+        if ($receptorTipoIdentif == '' or $recenprotNumIdentif == '') {
+        } else {
+            $xmlString .= '<Identificacion>
+                <Tipo>' . $receptorTipoIdentif . '</Tipo>
+                <Numero>' . $recenprotNumIdentif . '</Numero>
+            </Identificacion>';
+        }
 
         if ($receptorProvincia == '' or $receptorCanton == '' or $receptorDistrito == '' or $receptorBarrio == '' or $receptorOtrasSenas != '') {
             
@@ -706,13 +712,12 @@ function genXMLND() {
     $l = 1;
     foreach ($detalles as $d) {
         $xmlString .= '<LineaDetalle>
-                  <NumeroLinea>' . $l . '</NumeroLinea>
-                  <Cantidad>' . $d->cantidad . '</Cantidad>
-                  <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
-                  <Detalle>' . $d->detalle . '</Detalle>
-                  <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
-                  <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
-
+            <NumeroLinea>' . $l . '</NumeroLinea>
+            <Cantidad>' . $d->cantidad . '</Cantidad>
+            <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
+            <Detalle>' . $d->detalle . '</Detalle>
+            <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
+            <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
         if (isset($d->montoDescuento) && $d->montoDescuento != "") {
             $xmlString .= '<MontoDescuento>' . $d->montoDescuento . '</MontoDescuento>';
         }
@@ -919,13 +924,12 @@ function genXMLTE() {
     $l = 1;
     foreach ($detalles as $d) {
         $xmlString .= '<LineaDetalle>
-                  <NumeroLinea>' . $l . '</NumeroLinea>
-                  <Cantidad>' . $d->cantidad . '</Cantidad>
-                  <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
-                  <Detalle>' . $d->detalle . '</Detalle>
-                  <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
-                  <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
-
+            <NumeroLinea>' . $l . '</NumeroLinea>
+            <Cantidad>' . $d->cantidad . '</Cantidad>
+            <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
+            <Detalle>' . $d->detalle . '</Detalle>
+            <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
+            <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
         if (isset($d->montoDescuento) && $d->montoDescuento != "") {
             $xmlString .= '<MontoDescuento>' . $d->montoDescuento . '</MontoDescuento>';
         }
@@ -1048,4 +1052,5 @@ function genXMLMr() {
 function test() {
     return "Esto es un test";
 }
+
 ?>
