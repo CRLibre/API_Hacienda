@@ -62,9 +62,9 @@ $config['core']['resourcesPath'] = $config['modules']['coreInstall'] . '/resourc
 $config['cron']['cronToken'] = 'ItIsGoodIfThisIsBigAndHasW3irDLeeT3rsAnd$ymb0lz.IniT';
 
 # List of core modules
-$config['modules']['core']     = array('cala', 'db', 'users', 'files', 'geoloc', 'wirez');
+$config['modules']['core']     = array('cala', 'db', 'users', 'files', 'geoloc', 'wirez','crypto');
 # List of core modules to load always, you can overide this list
-$config['modules']['coreLoad'] = array('cala', 'db', 'users');
+$config['modules']['coreLoad'] = array('cala', 'db', 'users','crypto');
 
 # Am I running in CLI mode?
 $config['core']['cli'] = false;
@@ -90,5 +90,5 @@ $config['grace']['logPath'] = $config['modules']['coreInstall'] . "logs/";
 # Maximum upload size in Mb
 $config['files']['maxUploadSize'] = 2;
 # Default allowed extensions
-$config['files']['allowedExt'] = 'jpg,png';
+$config['files']['allowedExt'] = 'jpg,png,p12,P12,.p12,.P12';
 

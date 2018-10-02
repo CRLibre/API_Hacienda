@@ -15,40 +15,32 @@
 /**
  * Boot up procedure
  */
-function genXML_bootMeUp() {
+function crlibreall_bootMeUp() {
     // Just booting up
 }
 
 /**
  * Init function
  */
-function genXML_init() {
-
+function crlibreall_init() {
     $paths = array(
-                array(
-            'r' => 'gen_xml_mr',                                                            // Mensaje de aceptacion o rechazo de los documentos electronicos por parte del obligado tributario
-            'action' => 'genXMLMr',
-            'access' => 'users_openAccess',
-            'access_params' => 'accessName',
-            'params' => array(
-                array("key" => "clave", "def" => "", "req" => true),                        // d{50,50} equivale a clave en FE
-                array("key" => "numero_cedula_emisor", "def" => "", "req" => true),         // d{12,12} equivale a emisor_num_identif en FE
-                array("key" => "fecha_emision_doc", "def" => "", "req" => true),            // YYYY-MM-DDThh:mm:ss-06:00 ej: 2018-05-13T15:30:00-06:00
-                array("key" => "mensaje", "def" => "", "req" => true),                      // 1/Aceptado, 2/Aceptado Parcialmente, 3/Rechazado
-                array("key" => "detalle_mensaje", "def" => "", "req" => false),             // s80
-                array("key" => "monto_total_impuesto", "def" => "", "req" => false),        // d18,5 equivale a total_impuestos en FE
-                array("key" => "total_factura", "def" => "", "req" => true),                // d18,5 equivale a total_comprobante en FE
-                array("key" => "numero_cedula_receptor", "def" => "", "req" => true),       // d{12,12} equivale a receptor_num_identif en FE
-                array("key" => "numero_consecutivo_receptor", "def" => "", "req" => true)   // d{20,20} numeracion consecutiva de los mensajes de confirmacion
-            ),
-            'file' => 'genXML.php'
-        ),
         array(
-            'r' => 'gen_xml_fe',
-            'action' => 'genXMLFe',
+            'r' => 'FE',
+            'action' => 'allFE',
             'access' => 'users_openAccess',
             'access_params' => 'accessName',
             'params' => array(
+                //Para modulo clave -> r=clave
+                array("key" => "tipoDocumento", "def" => "", "req" => true),
+                array("key" => "tipoCedula", "def" => "", "req" => true),
+                array("key" => "cedula", "def" => "", "req" => true),
+                array("key" => "codigoPais", "def" => "", "req" => true),
+                array("key" => "consecutivo", "def" => "", "req" => true),
+                array("key" => "situacion", "def" => "", "req" => true),
+                array("key" => "terminal", "def" => "", "req" => false),
+                array("key" => "sucursal", "def" => "", "req" => false),
+                array("key" => "codigoSeguridad", "def" => "", "req" => true),
+                //Para modulo genXML -> r=gen_xml_fe
                 array("key" => "clave", "def" => "", "req" => true),
                 array("key" => "consecutivo", "def" => "", "req" => true),
                 array("key" => "fecha_emision", "def" => "", "req" => true),
@@ -74,7 +66,6 @@ function genXML_init() {
                 array("key" => "receptor_canton", "def" => "", "req" => false),
                 array("key" => "receptor_distrito", "def" => "", "req" => false),
                 array("key" => "receptor_barrio", "def" => "", "req" => false),
-                array("key" => "receptor_otras_senas", "def" => "", "req" => false),
                 array("key" => "receptor_cod_pais_tel", "def" => "", "req" => false),
                 array("key" => "receptor_tel", "def" => "", "req" => false),
                 array("key" => "receptor_cod_pais_fax", "def" => "", "req" => false),
@@ -96,8 +87,7 @@ function genXML_init() {
                 array("key" => "total_ventas_neta", "def" => "", "req" => true),
                 array("key" => "total_impuestos", "def" => "", "req" => true),
                 array("key" => "total_comprobante", "def" => "", "req" => true),
-                array("key" => "otros", "def" => "", "req" => false),
-                array("key" => "otrosType", "def" => "", "req" => false),
+                array("key" => "otros", "def" => "", "req" => true),
                 array("key" => "detalles", "def" => "", "req" => true),
             ),
             'file' => 'genXML.php'
@@ -133,7 +123,6 @@ function genXML_init() {
                 array("key" => "receptor_canton", "def" => "", "req" => false),
                 array("key" => "receptor_distrito", "def" => "", "req" => false),
                 array("key" => "receptor_barrio", "def" => "", "req" => false),
-                array("key" => "receptor_otras_senas", "def" => "", "req" => false),
                 array("key" => "receptor_cod_pais_tel", "def" => "", "req" => false),
                 array("key" => "receptor_tel", "def" => "", "req" => false),
                 array("key" => "receptor_cod_pais_fax", "def" => "", "req" => false),
@@ -155,23 +144,54 @@ function genXML_init() {
                 array("key" => "total_ventas_neta", "def" => "", "req" => true),
                 array("key" => "total_impuestos", "def" => "", "req" => true),
                 array("key" => "total_comprobante", "def" => "", "req" => true),
-                array("key" => "otros", "def" => "", "req" => false),
-                array("key" => "otrosType", "def" => "", "req" => false),
+                array("key" => "otros", "def" => "", "req" => true),
                 array("key" => "detalles", "def" => "", "req" => true),
                 array("key" => "infoRefeTipoDoc", "def" => "", "req" => true),
                 array("key" => "infoRefeNumero", "def" => "", "req" => true),
                 array("key" => "infoRefeFechaEmision", "def" => "", "req" => true),
                 array("key" => "infoRefeCodigo", "def" => "", "req" => true),
-                array("key" => "infoRefeRazon", "def" => "", "req" => true)
+                array("key" => "infoRefeRazon", "def" => "", "req" => true),
+                //Para modulo signXML -> r=signFE
+                array("key" => "p12Url", "def" => "", "req" => true),
+                array("key" => "pinP12", "def" => "", "req" => true),
+                array("key" => "inXml", "def" => "", "req" => false),
+                array("key" => "tipodoc", "def" => "", "req" => true),
+                //Para modulo token -> r=gettoken
+                array("key" => "grant_type", "def" => "", "req" => true),
+                array("key" => "client_id", "def" => "", "req" => true),
+                array("key" => "client_secret", "def" => "", "req" => false),
+                array("key" => "username", "def" => "", "req" => true),
+                array("key" => "password", "def" => "", "req" => true),
+                //Para modulo send -> r=json 
+                array("key" => "token", "def" => "", "req" => true),
+                array("key" => "clave", "def" => "", "req" => true),
+                array("key" => "fecha", "def" => "", "req" => true),
+                array("key" => "emi_tipoIdentificacion", "def" => "", "req" => true),
+                array("key" => "emi_numeroIdentificacion", "def" => "", "req" => false),
+                array("key" => "recp_tipoIdentificacion", "def" => "", "req" => true),
+                array("key" => "recp_numeroIdentificacion", "def" => "", "req" => true),
+                array("key" => "comprobanteXml", "def" => "", "req" => true),
+                array("key" => "client_id", "def" => "", "req" => true)
             ),
-            'file' => 'genXML.php'
+            'file' => 'crlibreall.php'
         ),
         array(
-            'r' => 'gen_xml_nd',
-            'action' => 'genXMLND',
+            'r' => 'NC',
+            'action' => 'allNC',
             'access' => 'users_openAccess',
             'access_params' => 'accessName',
             'params' => array(
+                //Para modulo clave -> r=clave
+                array("key" => "tipoDocumento", "def" => "", "req" => true),
+                array("key" => "tipoCedula", "def" => "", "req" => true),
+                array("key" => "cedula", "def" => "", "req" => true),
+                array("key" => "codigoPais", "def" => "", "req" => true),
+                array("key" => "consecutivo", "def" => "", "req" => true),
+                array("key" => "situacion", "def" => "", "req" => true),
+                array("key" => "terminal", "def" => "", "req" => false),
+                array("key" => "sucursal", "def" => "", "req" => false),
+                array("key" => "codigoSeguridad", "def" => "", "req" => true),
+                //Para modulo genXML -> r=gen_xml_nc
                 array("key" => "clave", "def" => "", "req" => true),
                 array("key" => "consecutivo", "def" => "", "req" => true),
                 array("key" => "fecha_emision", "def" => "", "req" => true),
@@ -189,20 +209,18 @@ function genXML_init() {
                 array("key" => "emisor_cod_pais_fax", "def" => "", "req" => false),
                 array("key" => "emisor_fax", "def" => "", "req" => false),
                 array("key" => "emisor_email", "def" => "", "req" => true),
-                array("key" => "omitir_receptor", "def" => "false", "req" => false),
-                array("key" => "receptor_nombre", "def" => "", "req" => false),
-                array("key" => "receptor_tipo_identif", "def" => "", "req" => false),
-                array("key" => "receptor_num_identif", "def" => "", "req" => false),
+                array("key" => "receptor_nombre", "def" => "", "req" => true),
+                array("key" => "receptor_tipo_identif", "def" => "", "req" => true),
+                array("key" => "receptor_num_identif", "def" => "", "req" => true),
                 array("key" => "receptor_provincia", "def" => "", "req" => false),
                 array("key" => "receptor_canton", "def" => "", "req" => false),
                 array("key" => "receptor_distrito", "def" => "", "req" => false),
                 array("key" => "receptor_barrio", "def" => "", "req" => false),
-                array("key" => "receptor_otras_senas", "def" => "", "req" => false),
                 array("key" => "receptor_cod_pais_tel", "def" => "", "req" => false),
                 array("key" => "receptor_tel", "def" => "", "req" => false),
                 array("key" => "receptor_cod_pais_fax", "def" => "", "req" => false),
                 array("key" => "receptor_fax", "def" => "", "req" => false),
-                array("key" => "receptor_email", "def" => "", "req" => false),
+                array("key" => "receptor_email", "def" => "", "req" => true),
                 array("key" => "condicion_venta", "def" => "", "req" => true),
                 array("key" => "plazo_credito", "def" => "0", "req" => false),
                 array("key" => "medio_pago", "def" => "", "req" => true),
@@ -219,23 +237,54 @@ function genXML_init() {
                 array("key" => "total_ventas_neta", "def" => "", "req" => true),
                 array("key" => "total_impuestos", "def" => "", "req" => true),
                 array("key" => "total_comprobante", "def" => "", "req" => true),
-                array("key" => "otros", "def" => "", "req" => false),
-                array("key" => "otrosType", "def" => "", "req" => false),
+                array("key" => "otros", "def" => "", "req" => true),
                 array("key" => "detalles", "def" => "", "req" => true),
                 array("key" => "infoRefeTipoDoc", "def" => "", "req" => true),
                 array("key" => "infoRefeNumero", "def" => "", "req" => true),
                 array("key" => "infoRefeFechaEmision", "def" => "", "req" => true),
                 array("key" => "infoRefeCodigo", "def" => "", "req" => true),
-                array("key" => "infoRefeRazon", "def" => "", "req" => true)
+                array("key" => "infoRefeRazon", "def" => "", "req" => true),
+                //Para modulo signXML -> r=signFE
+                array("key" => "p12Url", "def" => "", "req" => true),
+                array("key" => "pinP12", "def" => "", "req" => true),
+                array("key" => "inXml", "def" => "", "req" => false),
+                array("key" => "tipodoc", "def" => "", "req" => true),
+                //Para modulo token -> r=gettoken
+                array("key" => "grant_type", "def" => "", "req" => true),
+                array("key" => "client_id", "def" => "", "req" => true),
+                array("key" => "client_secret", "def" => "", "req" => false),
+                array("key" => "username", "def" => "", "req" => true),
+                array("key" => "password", "def" => "", "req" => true),
+                //Para modulo send -> r=json 
+                array("key" => "token", "def" => "", "req" => true),
+                array("key" => "clave", "def" => "", "req" => true),
+                array("key" => "fecha", "def" => "", "req" => true),
+                array("key" => "emi_tipoIdentificacion", "def" => "", "req" => true),
+                array("key" => "emi_numeroIdentificacion", "def" => "", "req" => false),
+                array("key" => "recp_tipoIdentificacion", "def" => "", "req" => true),
+                array("key" => "recp_numeroIdentificacion", "def" => "", "req" => true),
+                array("key" => "comprobanteXml", "def" => "", "req" => true),
+                array("key" => "client_id", "def" => "", "req" => true)
             ),
-            'file' => 'genXML.php'
+            'file' => 'crlibreall.php'
         ),
         array(
-            'r' => 'gen_xml_te',
-            'action' => 'genXMLTE',
+            'r' => 'ND',
+            'action' => 'allND',
             'access' => 'users_openAccess',
             'access_params' => 'accessName',
             'params' => array(
+                //Para modulo clave -> r=clave
+                array("key" => "tipoDocumento", "def" => "", "req" => true),
+                array("key" => "tipoCedula", "def" => "", "req" => true),
+                array("key" => "cedula", "def" => "", "req" => true),
+                array("key" => "codigoPais", "def" => "", "req" => true),
+                array("key" => "consecutivo", "def" => "", "req" => true),
+                array("key" => "situacion", "def" => "", "req" => true),
+                array("key" => "terminal", "def" => "", "req" => false),
+                array("key" => "sucursal", "def" => "", "req" => false),
+                array("key" => "codigoSeguridad", "def" => "", "req" => true),
+                //Para modulo genXML -> r=gen_xml_nd
                 array("key" => "clave", "def" => "", "req" => true),
                 array("key" => "consecutivo", "def" => "", "req" => true),
                 array("key" => "fecha_emision", "def" => "", "req" => true),
@@ -253,20 +302,18 @@ function genXML_init() {
                 array("key" => "emisor_cod_pais_fax", "def" => "", "req" => false),
                 array("key" => "emisor_fax", "def" => "", "req" => false),
                 array("key" => "emisor_email", "def" => "", "req" => true),
-                array("key" => "omitir_receptor", "def" => "false", "req" => false),
-                array("key" => "receptor_nombre", "def" => "", "req" => false),
-                array("key" => "receptor_tipo_identif", "def" => "", "req" => false),
-                array("key" => "receptor_num_identif", "def" => "", "req" => false),
+                array("key" => "receptor_nombre", "def" => "", "req" => true),
+                array("key" => "receptor_tipo_identif", "def" => "", "req" => true),
+                array("key" => "receptor_num_identif", "def" => "", "req" => true),
                 array("key" => "receptor_provincia", "def" => "", "req" => false),
                 array("key" => "receptor_canton", "def" => "", "req" => false),
                 array("key" => "receptor_distrito", "def" => "", "req" => false),
                 array("key" => "receptor_barrio", "def" => "", "req" => false),
-                array("key" => "receptor_otras_senas", "def" => "", "req" => false),
                 array("key" => "receptor_cod_pais_tel", "def" => "", "req" => false),
                 array("key" => "receptor_tel", "def" => "", "req" => false),
                 array("key" => "receptor_cod_pais_fax", "def" => "", "req" => false),
                 array("key" => "receptor_fax", "def" => "", "req" => false),
-                array("key" => "receptor_email", "def" => "", "req" => false),
+                array("key" => "receptor_email", "def" => "", "req" => true),
                 array("key" => "condicion_venta", "def" => "", "req" => true),
                 array("key" => "plazo_credito", "def" => "0", "req" => false),
                 array("key" => "medio_pago", "def" => "", "req" => true),
@@ -283,18 +330,36 @@ function genXML_init() {
                 array("key" => "total_ventas_neta", "def" => "", "req" => true),
                 array("key" => "total_impuestos", "def" => "", "req" => true),
                 array("key" => "total_comprobante", "def" => "", "req" => true),
-                array("key" => "otros", "def" => "", "req" => false),
-                array("key" => "otrosType", "def" => "", "req" => false),
+                array("key" => "otros", "def" => "", "req" => true),
                 array("key" => "detalles", "def" => "", "req" => true),
+                array("key" => "infoRefeTipoDoc", "def" => "", "req" => true),
+                array("key" => "infoRefeNumero", "def" => "", "req" => true),
+                array("key" => "infoRefeFechaEmision", "def" => "", "req" => true),
+                array("key" => "infoRefeCodigo", "def" => "", "req" => true),
+                array("key" => "infoRefeRazon", "def" => "", "req" => true),
+                //Para modulo signXML -> r=signFE
+                array("key" => "p12Url", "def" => "", "req" => true),
+                array("key" => "pinP12", "def" => "", "req" => true),
+                array("key" => "inXml", "def" => "", "req" => false),
+                array("key" => "tipodoc", "def" => "", "req" => true),
+                //Para modulo token -> r=gettoken
+                array("key" => "grant_type", "def" => "", "req" => true),
+                array("key" => "client_id", "def" => "", "req" => true),
+                array("key" => "client_secret", "def" => "", "req" => false),
+                array("key" => "username", "def" => "", "req" => true),
+                array("key" => "password", "def" => "", "req" => true),
+                //Para modulo send -> r=json 
+                array("key" => "token", "def" => "", "req" => true),
+                array("key" => "clave", "def" => "", "req" => true),
+                array("key" => "fecha", "def" => "", "req" => true),
+                array("key" => "emi_tipoIdentificacion", "def" => "", "req" => true),
+                array("key" => "emi_numeroIdentificacion", "def" => "", "req" => false),
+                array("key" => "recp_tipoIdentificacion", "def" => "", "req" => true),
+                array("key" => "recp_numeroIdentificacion", "def" => "", "req" => true),
+                array("key" => "comprobanteXml", "def" => "", "req" => true),
+                array("key" => "client_id", "def" => "", "req" => true)
             ),
-            'file' => 'genXML.php'
-        ),
-        array(
-            'r' => 'test',
-            'action' => 'test',
-            'access' => 'users_openAccess',
-            'access_params' => 'accessName',
-            'file' => 'genXML.php'
+            'file' => 'crlibreall.php'
         )
     );
 

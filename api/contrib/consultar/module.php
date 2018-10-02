@@ -37,6 +37,7 @@ function consultar_init(){
 			'params' => array(
 				array("key" => "clave", "def" => "", "req" => true),
 				array("key" => "token", "def" => "", "req" => true),		
+				array("key" => "client_id", "def" => "", "req" => true)		
 							
 			),			
 			'file' => 'consultar.php'

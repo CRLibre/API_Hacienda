@@ -219,7 +219,7 @@ function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSi
                     'fileType' => "",
                     'type' => $type
         ));
-
+        
         return array('idFile' => $idFile, 'name' => $finalName, 'downloadCode' => $downloadCode);
     } else {
         return ERROR_FILES_UPLOAD_ERROR;

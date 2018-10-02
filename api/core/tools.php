@@ -74,7 +74,7 @@ function tools_proccesPath($paths){
 		}
 	}
 	grace_debug("Path not found?");
-	return ERROR_BAD_REQUEST;
+	return "Function not found";
 }
 
 /**

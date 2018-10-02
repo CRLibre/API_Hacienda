@@ -21,27 +21,25 @@ function modules_getPath($which) {
  */
 function modules_loader($which, $file = 'module.php', $boot = true) {
 
-	$path = modules_getPath($which);
+    $path = modules_getPath($which);
+    
+        grace_debug("Loading in path: " . $path . "/" . $file);
 
-	grace_debug("Loading in path: " . $path . "/" . $file);
-
-	# Load the module and the config if one exists
-	if (file_exists($path . "/" . $file)) {
-		grace_debug("Including file: " . $path . "/" . $file);
-		include_once($path . "/" . $file);
-		if (file_exists("$path/settings.php")) {
-			include_once("$path/settings.php");
-		}
-		# Boot it up!
-		if(function_exists($which . "_bootMeUp")){
-			grace_debug("Module was booted too");
-			call_user_func($which . "_bootMeUp");
-		}
-        return true;
-	} else {
-		grace_debug("File does not exist");
-        return false;
-    }
+        # Load the module and the config if one exists
+        if (file_exists($path . "/" . $file)) {
+            grace_debug("Including file: " . $path . "/" . $file);
+            include_once($path . "/" . $file);
+            if (file_exists("$path/settings.php")) {
+                include_once("$path/settings.php");
+            }
+            # Boot it up!
+            if (function_exists($which . "_bootMeUp")) {
+                grace_debug("Module was booted too");
+                call_user_func($which . "_bootMeUp");
+            }
+            return true;
+        } else {
+            grace_debug("File does not exist");
+            return "File " . $file . " not exist";
+        }
 }
-
-

@@ -47,7 +47,6 @@ function signFE() {
     //03 NC
     //04 TE
     //05 06 07 Mensaje Receptor
-
     $returnFile = $fac->firmar($p12Url, $pinP12, $inXml, $tipoDocumento);
     $arrayResp = array(
         "xmlFirmado" => $returnFile
