@@ -1,9 +1,7 @@
 <?php
-
 /* * ************************************************** */
 /* Funcion para generar XML                          */
 /* * ************************************************** */
-
 function genXMLFe() {
     //datos contribuyente
     $clave = params_get("clave");
@@ -168,11 +166,10 @@ function genXMLFe() {
         <DetalleServicio>
         ';
     //cant - unidad medida - detalle - precio unitario - monto total - subtotal - monto total linea - Monto desc -Naturaleza Desc - Impuesto : Codigo / Tarifa / Monto
-
     /* EJEMPLO DE DETALLES
       {
-      "1":["1","Sp","Honorarios","100000","100000","100000","100000","1000","Pronto pago",{"Imp": [{"cod": 122,"tarifa": 1,"monto": 100},{"cod": 133,"tarifa": 1,"monto": 1300}]}],
-      "2":["1","Sp","Honorarios","100000","100000","100000","100000"]
+        "1":["1","Sp","Honorarios","100000","100000","100000","100000","1000","Pronto pago",{"Imp": [{"cod": 122,"tarifa": 1,"monto": 100},{"cod": 133,"tarifa": 1,"monto": 1300}]}],
+        "2":["1","Sp","Honorarios","100000","100000","100000","100000"]
       }
      */
     $l = 1;
@@ -190,6 +187,7 @@ function genXMLFe() {
         if (isset($d->naturalezaDescuento) && $d->naturalezaDescuento != "") {
             $xmlString .= '<NaturalezaDescuento>' . $d->naturalezaDescuento . '</NaturalezaDescuento>';
         }
+
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
         if (isset($d->impuesto) && $d->impuesto != "") {
             foreach ($d->impuesto as $i) {
@@ -212,7 +210,6 @@ function genXMLFe() {
                 $xmlString .= '</Impuesto>';
             }
         }
-
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
@@ -256,9 +253,8 @@ function genXMLFe() {
         "clave" => $clave,
         "xml" => base64_encode($xmlString)
     );
-    return $arrayResp;
+    return $xmlString;
 }
-
 function genXMLNC() {
     //datos contribuyente
     $clave = params_get("clave");
@@ -461,6 +457,7 @@ function genXMLNC() {
                 <Codigo>' . $i->codigo . '</Codigo>
                 <Tarifa>' . $i->tarifa . '</Tarifa>
                 <Monto>' . $i->monto . '</Monto>';
+
                 if (isset($i->exoneracion) && $i->exoneracion != "") {
                     $xmlString .= '
                     <Exoneracion>
@@ -476,7 +473,6 @@ function genXMLNC() {
                 $xmlString .= '</Impuesto>';
             }
         }
-
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
@@ -529,7 +525,6 @@ function genXMLNC() {
     );
     return $arrayResp;
 }
-
 function genXMLND() {
 //datos contribuyente
     $clave = params_get("clave");
@@ -746,7 +741,6 @@ function genXMLND() {
                 $xmlString .= '</Impuesto>';
             }
         }
-
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
@@ -793,6 +787,7 @@ function genXMLND() {
     }
     $xmlString .= '
 </NotaDebitoElectronica>';
+
     $arrayResp = array(
         "clave" => $clave,
         "xml" => base64_encode($xmlString)
@@ -1044,11 +1039,9 @@ function genXMLMr() {
     );
     return $arrayResp;
 }
-
 /* * ************************************************** */
 /* Funcion de prueba                                 */
 /* * ************************************************** */
-
 function test() {
     return "Esto es un test";
 }
