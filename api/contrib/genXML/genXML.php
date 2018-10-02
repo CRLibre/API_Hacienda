@@ -253,7 +253,7 @@ function genXMLFe() {
         "clave" => $clave,
         "xml" => base64_encode($xmlString)
     );
-    return $xmlString;
+    return $arrayResp;
 }
 function genXMLNC() {
     //datos contribuyente
