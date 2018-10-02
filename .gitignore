@@ -6,5 +6,5 @@ api/modules
 api/resources
 api/tools
 nbproject/*
-build
+build/*
 *settings.php
