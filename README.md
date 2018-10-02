@@ -1,7 +1,20 @@
 ## Sobre CRLibre
 Somos una comunidad de individuos y organizaciones que voluntariamente unimos esfuerzos para colaborar y compartir conocimiento, crear software libre para resolver problemas que enfrentamos en nuestra realidad en Costa Rica.
 
+
+[![GitHub](https://img.shields.io/github/license/CRLibre/API_Hacienda.svg)](https://github.com/CRLibre/API_Hacienda/blob/master/LICENSE) 
+[![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/y/CRLibre/API_Hacienda.svg?logo=github)](https://github.com/CRLibre/API_Hacienda/commits/master) 
+[![GitHub issues](https://img.shields.io/github/issues-raw/CRLibre/API_Hacienda.svg)](https://github.com/CRLibre/API_Hacienda/issues) 
+[![GitHub issues](https://img.shields.io/github/issues-pr/CRLibre/API_Hacienda.svg)](https://github.com/CRLibre/API_Hacienda/pulls) [![Telegram @CRLibreFE](https://img.shields.io/badge/Telegram-%40CRLibreFE-blue.svg?logo=telegram)](https://crlibre.org/chats/)
+
 En este repositorio estamos creando un [API](https://es.wikipedia.org/wiki/Interfaz_de_programaci%C3%B3n_de_aplicaciones "Interfaz de programación de aplicaciones, del inglés Application Programming Interface es un conjunto de subrutinas, funciones y procedimientos que ofrece una pieza de software para ser utilizado por otro software") **[libre](https://es.wikipedia.org/wiki/Software_libre "El software libre es todo programa informático cuyo código fuente puede ser estudiado, modificado, y utilizado libremente con cualquier fin y redistribuido con o sin cambios o mejoras")** y componentes de software para simplificar el proceso de la **Factura Electrónica** requerido por el Ministerio de Hacienda de Costa Rica.
+
+#### Documentación general sobre la Factura Electrónica en Costa Rica
+De forma complementaria al proyecto de este API creamos dos repositorios relacionados con la facturación electrónica
+* Repositorio de información general del proceso de la facturación electrónica: https://github.com/CRLibre/fe-hacienda-cr-docs
+  * Allí se encuentra un [Diagrama de flujo Factura Electrónica Costa Rica
+](https://raw.githubusercontent.com/CRLibre/docs-fe-hacienda-cr/master/diagrama-flujo/Diagrama%20de%20Flujo%20para%20Factura%20Electronica%20Costa%20Rica.png)
+* Archivos y recursos comunes para cualquier proyecto https://github.com/CRLibre/fe-hacienda-cr-misc
 
 ### ¿Por qué un API para conectarse a los del Ministerio de Hacienda?
 Para la [implementación de la Factura Electrónica](https://www.hacienda.go.cr/contenido/14350-factura-electronica), el Ministerio de Hacienda puso a disposición [documentación técnica e interfaces de programación sofisticados](https://tribunet.hacienda.go.cr/FormatosYEstructurasXML.jsp) que muchos programadores encuentran difíciles de comprender y utilizar. Nuestro objetivo es crear un software que simplifique el proceso a desarrolladores de cumplir con las [resoluciones del Ministerio](https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4.2/ResolucionComprobantesElectronicosDGT-R-48-2016_4.2.pdf), de forma más ágil, desde cualquier lenguaje de programación y sin depender de intermediarios al poder instalar esta pieza de [software libre](https://es.wikipedia.org/wiki/Software_libre) en un servidor propio manteniendo control de sus datos sensibles.
@@ -28,12 +41,15 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 
 ## Requerimientos mínimos
 
-=======
 * PHP > 5.5.0
 * MySQL o MariaDB
 * [cURL](http://php.net/manual/en/book.curl.php)
 * [php-xml](http://php.net/manual/en/book.simplexml.php)
 * OpenSSL
+
+### Conectores/Clientes del API
+* Conector en .NET https://github.com/CRLibre/fe-hacienda-cr-dotnet
+* Conector en JavaScript: https://github.com/CRLibre/CalaAPI/tree/master/conectores/js
 
 ### Uso del API
 * Ver y colaborar documentación en [wiki del API](https://github.com/CRLibre/API_Hacienda/wiki "Wiki CRLibre API_Hacienda")
