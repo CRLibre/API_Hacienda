@@ -254,13 +254,9 @@ function users_loggedIn() {
  * Register a new user
  */
 function users_registerNew() {
-
     global $user;
-
     grace_debug("Register a user");
-
     $run = false;
-
     # Does this account exist?
     $newUserByName = users_load(array('userName' => params_get('userName', '')));
     $newUserByEmail = users_load(array('email' => params_get('email', '')));
@@ -319,11 +315,11 @@ function users_logMeIn() {
     if (password_verify(params_get('pwd', ''), users_deshash($user->pwd))) {
         // Create a token
         grace_debug("Able to login");
-        return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName);
+        return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName,'idUser'=>$user->idUser);
     } else if ($user->pwd == md5_hash(params_get('pwd', ''))) {
         // Create a token
         grace_debug("Able to login");
-        return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName);
+        return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName,'idUser'=>$user->idUser);
     } else {
 
      //   grace_debug(sprintf("Not able to login %s | %s", params_get('pwd', ''), users_deshash($user->pwd) . " viene " . $user->pwd));
@@ -335,7 +331,6 @@ function users_logMeIn() {
  * Create a basic empty user
  */
 function users_createBasic() {
-
     $user = (object) array('idUser' => 0, 'pwd' => '');
     return $user;
 }
@@ -592,7 +587,7 @@ function _users_update($dets) {
     if (!isset($dets['pwd']) || trim($dets['pwd']) == '') {
         $dets['pwd'] = 'pwd';
     } else {
-        $dets['pwd'] = "'" . $dets['pwd'] . "'";
+        $dets['pwd'] = "'" .users_hash($dets['pwd']) . "'";
     }
 
     # Merge the current information about the user and the new information provided
@@ -774,7 +769,7 @@ function users_recoverPwd() {
         $resp = mailer_sendEmail(array(
             'to' => $user->email,
             'subject' => 'Recuperación de Clave ' . conf_get('siteName', 'core', 'Mi Sitio'),
-            'replyTo' => 'no-repy@' . conf_get("domain", "core", "crlibre.or"),
+            'replyTo' => 'no-repy@' . conf_get("host", "core", "crlibre.or"),
             'message' => 'Su nueva clave es: ' . $temp
         ));
         if ($resp == true) {

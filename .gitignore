@@ -6,4 +6,5 @@ api/logs
 api/modules
 api/resources
 api/tools
-nbproject/*
+/nbproject/private/
+/build
