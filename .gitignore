@@ -5,4 +5,4 @@ api/logs
 api/modules
 api/resources
 api/tools
-/nbproject/private/
+nbproject/*
