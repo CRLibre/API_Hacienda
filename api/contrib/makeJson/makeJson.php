@@ -1,4 +1,4 @@
-  n nh h hb<?php
+<?php
 
 function makeFinalJson(){
     	$clave= params_get("clave");        
