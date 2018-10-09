@@ -179,8 +179,8 @@ function genXMLFe()
     // cant - unidad medida - detalle - precio unitario - monto total - subtotal - monto total linea - Monto desc -Naturaleza Desc - Impuesto : Codigo / Tarifa / Monto
     /* EJEMPLO DE DETALLES
       {
-        "1":["1","Sp","Honorarios","100000","100000","100000","100000","1000","Pronto pago",{"Imp": [{"cod": 122,"tarifa": 1,"monto": 100},{"cod": 133,"tarifa": 1,"monto": 1300}]}],
-        "2":["1","Sp","Honorarios","100000","100000","100000","100000"]
+      "1":["1","Sp","Honorarios","100000","100000","100000","100000","1000","Pronto pago",{"Imp": [{"cod": 122,"tarifa": 1,"monto": 100},{"cod": 133,"tarifa": 1,"monto": 1300}]}],
+      "2":["1","Sp","Honorarios","100000","100000","100000","100000"]
       }
      */
     $l = 1;
@@ -721,6 +721,7 @@ function genXMLND()
                              <NumTelefono>' . $receptorFax . '</NumTelefono>
                     </Fax>';
         }
+
         $xmlString .= '
             <CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>
         </Receptor>';
