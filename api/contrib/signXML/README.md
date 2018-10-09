@@ -9,8 +9,3 @@ Se enviar
                03 NC
                04 TE
                05 Mensaje Receptor
-
-
-
-
-
