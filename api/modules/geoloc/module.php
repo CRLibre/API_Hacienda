@@ -139,7 +139,7 @@ function geoloc_loadLocations()
 
     grace_debug("Looking for locations tables in: " . $citiesPath);
 
-    if(!file_exists($citiesPath))
+    if (!file_exists($citiesPath))
         return 'Missing file: ' . $blocksPath;
 
     $fileCities = file($citiesPath);
@@ -151,22 +151,22 @@ function geoloc_loadLocations()
     $c = 0;
     $cc = 0;
 
-    foreach($fileCities as $f)
+    foreach ($fileCities as $f)
     {
         # Skip first two
-        if($cc > 1)
+        if ($cc > 1)
         {
             # Fix missing values
             $ff = explode(",", $f);
-            for($a = 0; $a < 9; $a++)
+            for ($a = 0; $a < 9; $a++)
             {
-                if(!isset($ff[$a]) || $ff[$a] == NULL || $ff[$a] == "\n")
+                if (!isset($ff[$a]) || $ff[$a] == NULL || $ff[$a] == "\n")
                     $ff[$a] = 0;
             }
 
             $f = implode(",", $ff);
 
-            if($c == 0)
+            if ($c == 0)
             {
                 $q = "insert into locations (locId,country,region,city,postalCode,latitude,longitude,metroCode,areaCode) VALUES ";
                 $q2 = array();
@@ -176,7 +176,7 @@ function geoloc_loadLocations()
             $q2[] = "(" . trim($f, "\n") . ")";
 
             $c++;
-            if($c == 500)
+            if ($c == 500)
             {
                 $query = $q . implode(",", $q2) . ";";
                 //grace_absurd("\n.-");
@@ -202,7 +202,7 @@ function geoloc_loadBlocks()
 
     grace_debug("Looking for blocks tables in: " . $blocksPath);
 
-    if(!file_exists($blocksPath))
+    if (!file_exists($blocksPath))
         return 'Missing file GeoLiteCity-Blocks.csv' . $blocksPath;
 
     $fileCities = file($blocksPath);
@@ -214,9 +214,9 @@ function geoloc_loadBlocks()
     $c = 0;
     $cc = 0;
 
-    foreach($fileCities as $f)
+    foreach ($fileCities as $f)
     {
-        if($c == 0)
+        if ($c == 0)
         {
             $q = "insert into blocks (startIpNum, endIpNum, locId) VALUES ";
             $q2 = array();
@@ -227,7 +227,7 @@ function geoloc_loadBlocks()
 
         $c++;
         $cc++;
-        if($c == 500)
+        if ($c == 500)
         {
             $query = $q . implode(",", $q2) . ";";
             //grace_absurd(".-");
@@ -266,7 +266,7 @@ function _geoloc_getMeVisitorDetails($ipAddress = "")
     $result = $stmt->execute();
     $blocks = $result->fetchArray();
 
-    if($blocks)
+    if ($blocks)
     {
         return geoloc_getMeVisitorDetails(long2ip($blocks['startIpNum']));
         /*
@@ -296,11 +296,11 @@ function geoloc_getMeVisitorDetails($ipAddress = "")
     global $geoloc_dbs;
 
     # I will use the address of the current visitor if nothing is provided
-    if($ipAddress == "")
+    if ($ipAddress == "")
         $ipAddress = $_SERVER['REMOTE_ADDR'];
 
     # If you are running localhost
-    if($ipAddress == '127.0.0.1' || $ipAddress == '0.0.0.0')
+    if ($ipAddress == '127.0.0.1' || $ipAddress == '0.0.0.0')
     {
         grace_debug("From localhost, I will get a random Ip");
         return _geoloc_getMeVisitorDetails();
@@ -334,7 +334,7 @@ function geoloc_getMeVisitorDetails($ipAddress = "")
     $result = $stmt->execute();
     $blocks = $result->fetchArray();
 
-    if($blocks)
+    if ($blocks)
     {
         $q = sprintf("
             SELECT *

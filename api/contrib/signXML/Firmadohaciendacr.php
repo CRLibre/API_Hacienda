@@ -301,7 +301,7 @@ class Firmadocr
       }
 
       $pos = strrpos($xml, $buscar);
-      if($pos !== false)
+      if ($pos !== false)
         $xml = substr_replace($xml, $remplazar, $pos, strlen($buscar));
 
       return $xml;

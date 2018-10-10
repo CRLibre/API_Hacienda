@@ -11,7 +11,7 @@ function users_avatarGet()
     # Get the details about the person
     $user = users_load(array('userName' => params_get('userName', '')));
 
-    if($user->avatar == "")
+    if ($user->avatar == "")
     {
         $user->avatar = params_get('fall_back', '');
         files_presentFile($user->avatar, false);
@@ -27,7 +27,7 @@ function users_avatarGet()
 
         # Change the name according to the requested size
         $user->avatar = $avatarPath . str_replace("avatar_def", "avatar_def_" . params_get('size', '25'), $avatarDets->name);
-        if(!file_exists($user->avatar))
+        if (!file_exists($user->avatar))
             $user->avatar = params_get('fall_back', '');
     }
 
@@ -49,7 +49,7 @@ function users_avatarUpload()
 
     $dets = files_upload("avatar", "avatar_def", "jpg,png,gif");
 
-    if($dets < 0)
+    if ($dets < 0)
         return $dets;
 
     # Resize to a smaller size

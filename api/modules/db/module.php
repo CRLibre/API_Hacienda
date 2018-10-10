@@ -40,7 +40,7 @@ function db_allGood()
 {
     global $dbConn;
 
-    if($dbConn->connect_error)
+    if ($dbConn->connect_error)
     {
         grace_error("DB Connection error: " . $dbConn->connect_error);
         return $dbConn->connect_error;
@@ -57,7 +57,7 @@ function db_Connect()
     @$dbConn = new mysqli(conf_get('host', 'db'), conf_get('user', 'db'), conf_get('pwd', 'db'), conf_get('name', 'db'));
 
     # Check connection
-    if($dbConn->connect_error)
+    if ($dbConn->connect_error)
         grace_error("Connection failed: " . $dbConn->connect_error);
     else
     {
@@ -82,24 +82,24 @@ function db_query($q, $return = 1)
         $r = $dbConn->query($q);
         $result = array();
 
-        if($dbConn->error)
+        if ($dbConn->error)
         {
             $result = ERROR_DB_ERROR;
             grace_error($dbConn->error);
         }
         else
         {
-            if($dbConn->affected_rows > 0)
+            if ($dbConn->affected_rows > 0)
             {
-                if($return > 0)
+                if ($return > 0)
                 {
-                    while($row = $r->fetch_object())
+                    while ($row = $r->fetch_object())
                     {
                         $result[] = $row;
                     }
 
                     # If you just need one result
-                    if($return == 1)
+                    if ($return == 1)
                         $result = $result[0];
                 }
                 else

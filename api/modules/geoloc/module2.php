@@ -56,16 +56,16 @@ function geoloc_loadLocations()
 
     $c = 0;
     $cc = 0;
-    foreach($fileCities as $f)
+    foreach ($fileCities as $f)
     {
         # Skip first two
-        if($cc > 1)
+        if ($cc > 1)
         {
             # Fix missing values
             $ff = explode(",", $f);
-            for($a = 0; $a < 9; $a++)
+            for ($a = 0; $a < 9; $a++)
             {
-                if(!isset($ff[$a]) || $ff[$a] == NULL || $ff[$a] == "\n")
+                if (!isset($ff[$a]) || $ff[$a] == NULL || $ff[$a] == "\n")
                 {
                     //echo "missing!$a"; //	= 0;
                     $ff[$a] = 0;
@@ -74,7 +74,7 @@ function geoloc_loadLocations()
 
             $f = implode(",", $ff);
 
-            if($c == 0)
+            if ($c == 0)
             {
                 $q = "insert into locations (locId,country,region,city,postalCode,latitude,longitude,metroCode,areaCode) VALUES ";
                 $q2 = array();
@@ -84,7 +84,7 @@ function geoloc_loadLocations()
             $q2[] = "(" . trim($f, "\n") . ")";
 
             $c++;
-            if($c == 500)
+            if ($c == 500)
             {
                 $query = $q . implode(",", $q2) . ";";
                 echo "\n.-";
@@ -108,9 +108,9 @@ function geoloc_loadBlocks()
 
     $c = 0;
     $cc = 0;
-    foreach($fileCities as $f)
+    foreach ($fileCities as $f)
     {
-        if($c == 0)
+        if ($c == 0)
         {
             $q = "insert into blocks (startIpNum, endIpNum, locId) VALUES "; //" . trim($f, "\n") . ");";
             $q2 = array();
@@ -121,7 +121,7 @@ function geoloc_loadBlocks()
 
         $c++;
         $cc++;
-        if($c == 500)
+        if ($c == 500)
         {
             $query = $q . implode(",", $q2) . ";";
             echo ".-";
@@ -141,7 +141,7 @@ function geoloc_getMeVisitorDetails($ipAddress = "")
 
     $blocks['locId'] = rand(0, 1000);
 
-    if($blocks)
+    if ($blocks)
     {
         $q = sprintf("
             SELECT *
@@ -162,7 +162,7 @@ function _geoloc_getMeVisitorDetails($ipAddress = "")
     global $geoloc_dbs;
 
     # I will use the address of the current visitor if nothing is provided
-    if($ipAddress == "")
+    if ($ipAddress == "")
         $ipAddress = $_SERVER['REMOTE_ADDR'];
 
     $ipParts = explode(".", $ipAddress);
@@ -191,7 +191,7 @@ function _geoloc_getMeVisitorDetails($ipAddress = "")
     $result = $stmt->execute();
     $blocks = $result->fetchArray();
 
-    if($blocks){
+    if ($blocks){
         $q = sprintf("
             SELECT *
             FROM `locations`

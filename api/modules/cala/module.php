@@ -152,7 +152,7 @@ function cala_testInstall()
         'comment'   => ($cronToken !== true ? $allGoodMsg : $allNotGoodMsg . "You really need to change your token! ")
     );
 
-    foreach($allTests as $test => $t){
+    foreach ($allTests as $test => $t){
         $output .= sprintf("<strong>Name:</strong> %s $bl Result: %s $bl $bl", $t['name'], $t['comment']);
     }
 
