@@ -17,39 +17,38 @@
 /**
  * Boot up procedure
  */
-function ejemplo_bootMeUp(){
-	// Just booting up
+function ejemplo_bootMeUp()
+{
+    // Just booting up
 }
 
 /**
  * Init function
  */
+function ejemplo_init()
+{
+    $paths = array(
+        array(
+            'r'             => 'hola',
+            'action'        => 'module_hola',
+            'access'        => 'users_openAccess',
+            'access_params' => 'accessName',
+            'file'          => 'ejemplo.php'
+        ),
+        array(
+            'r'             => 'un_usuario',
+            'action'        => 'unUsuario',
+            'access'        => 'users_openAccess',
+            'access_params' => 'accessName',
+            'params'        => array(
+                array("key" => "nombre",    "def" => "", "req" => true),
+                array("key" => "apellido",  "def" => "", "req" => true)
+            ),
+            'file'          => 'ejemplo.php'
+        )
+    );
 
-
-function ejemplo_init(){
-
-	$paths = array(
-		array(
-			'r' => 'hola',
-			'action' => 'module_hola',
-			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',
-			'file' => 'ejemplo.php'
-		),
-		array(
-			'r' => 'un_usuario',
-			'action' => 'unUsuario',
-			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',
-			'params' => array(
-				array("key" => "nombre", "def" => "", "req" => true),
-				array("key" => "apellido", "def" => "", "req" => true)
-			),	
-			'file' => 'ejemplo.php'
-		)
-	);
-
-	return $paths;
+    return $paths;
 }
 
 
@@ -59,25 +58,24 @@ function ejemplo_init(){
 /**************************************************/
 
 
-
 /**
  * Get the perms for this module
  */
-function MODULENAME_access(){
-
-	$perms = array(
-		array(
-			# A human readable name
-			'name'        => 'Do something with this module',
-			# Something to remember what it is for
-			'description' => 'What can be achieved with this permission',
-			# Internal machine name, no spaces, no funny symbols, same rules as a variable
-			# Use yourmodule_ prefix
-			'code'        => 'mymodule_access_one',
-			# Default value in case it is not set
-			'def'        => false, //Or true, you decide
-		),
-	);
+function MODULENAME_access()
+{
+    $perms = array(
+        array(
+            # A human readable name
+            'name'        => 'Do something with this module',
+            # Something to remember what it is for
+            'description' => 'What can be achieved with this permission',
+            # Internal machine name, no spaces, no funny symbols, same rules as a variable
+            # Use yourmodule_ prefix
+            'code'        => 'mymodule_access_one',
+            # Default value in case it is not set
+            'def'         => false, // Or true, you decide
+        ),
+    );
 
 }
 

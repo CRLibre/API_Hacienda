@@ -1,61 +1,58 @@
 <?php
 
-function token() {
+function token()
+{
+    $client_id  = params_get("client_id");
+    $grant_type = params_get("grant_type");
 
-    $url;
-    if (params_get("client_id") == 'api-stag') {
-        $url = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token";
-    } else if (params_get("client_id") == 'api-prod') {
-        $url = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token";
-    }
-    $data;
-    //Get Data from Post
-    if (params_get("grant_type") == "password") {
+    $url = ($client_id == 'api-stag' ? "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token" :
+            ($client_id == 'api-prod' ? "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token" : null));
 
-        $client_id = params_get("client_id");
-        $client_secret = params_get("client_secret");
-        $grant_type = params_get("grant_type");
-        $username = params_get("username");
-        $password = params_get("password");
-        //Validation
+    $data = array();
 
-        if ($client_id == '') {
+    // Get Data from Post
+    if ($grant_type == "password")
+    {
+        $client_secret  = params_get("client_secret");
+        $username       = params_get("username");
+        $password       = params_get("password");
+
+        // Validation
+        if ($client_id == '')
             return "El parametro Client ID es requerido";
-        } else if ($grant_type == '') {
+        else if ($grant_type == '')
             return "El parametro Grant Type es requerido";
-        } else if ($username == '') {
+        else if ($username == '')
             return "El parametro Username es requerido";
-        } else if ($password == '') {
+        else if ($password == '')
             return "El parametro Password es requerido";
-        }
 
         $data = array(
-            'client_id' => $client_id,
-            'client_secret' => $client_secret,
-            'grant_type' => $grant_type,
-            'username' => $username,
-            'password' => $password
+            'client_id'         => $client_id,
+            'client_secret'     => $client_secret,
+            'grant_type'        => $grant_type,
+            'username'          => $username,
+            'password'          => $password
         );
-    } else if (params_get("grant_type") == "refresh_token") {
 
-        $client_id = params_get("client_id");
-        $client_secret = params_get("client_secret");
-        $grant_type = params_get("grant_type");
-        $refresh_token = params_get("refresh_token");
+    }
+    else if ($grant_type == "refresh_token")
+    {
+        $client_secret      = params_get("client_secret");
+        $refresh_token      = params_get("refresh_token");
 
-        //Validation
-        if ($client_id == '') {
+        // Validation
+        if ($client_id == '')
             return "El parametro Client ID es requerido";
-        } else if ($grant_type == '') {
+        else if ($grant_type == '')
             return "El parametro Grant Type es requerido";
-        } else if ($refresh_token == '') {
+        else if ($refresh_token == '')
             return "El parametro Refresh Token es requerido";
-        }
 
         $data = array(
-            'client_id' => $client_id,
+            'client_id'     => $client_id,
             'client_secret' => $client_secret,
-            'grant_type' => $grant_type,
+            'grant_type'    => $grant_type,
             'refresh_token' => $refresh_token
         );
     }
@@ -71,19 +68,23 @@ function token() {
     //$data = rtrim($data, '&');
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
     grace_debug("JSON: ".$data);
-    $respuesta = curl_exec($curl);
-    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    $err = json_decode(curl_error($curl));
+
+    $respuesta  = curl_exec($curl);
+    $status     = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $err        = json_decode(curl_error($curl));
     curl_close($curl);
-    if ($err) {
+
+    if ($err)
+    {
         $arrayResp = array(
-            "Status" => $status,
-            "text" => $err
+            "Status"    => $status,
+            "text"      => $err
         );
+
         return $arrayResp;
-    } else {       
-        return json_decode($respuesta);
     }
+    else
+        return json_decode($respuesta);
 }
 
 ?>
