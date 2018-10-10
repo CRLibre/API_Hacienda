@@ -4,7 +4,14 @@
  * The api calls receiver :)
  */
  
-include_once("settings.php");
+if (file_exists("settings.php")
+    include_once("settings.php");
+else
+{
+    echo "No se ha encontrado el archivo de configuración. Ve a la carpeta \"www\", renombra el archivo \"settings.php.dist\" a \"settings.php\" y ajusta los valores de configuración.";
+    exit;
+}
+
 $corePath = $config['modules']['coreInstall'];
 include_once($corePath . "/core/boot.php");
 
