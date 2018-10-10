@@ -10,7 +10,3 @@ emi_numeroIdentificacion : Numero de identifiacion del Receptor
 recp_tipoIdentificacion : tipo identificacion receptor
 recp_numeroIdentificacion : Numero de identifiacion del Receptor
 comprobanteXml : xml firmado y en base 64
-
-
-
-

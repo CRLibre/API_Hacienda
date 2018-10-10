@@ -1,16 +1,14 @@
 <?php
 
-function allFE() {
+function allFE()
+{
     modules_loader("clave");
-
-    
 }
 
-function allNC() {
-
-    
+function allNC()
+{
 }
-function allND() {
 
-    
+function allND()
+{
 }
