@@ -4,7 +4,7 @@
  * The api calls receiver :)
  */
  
-if (file_exists("settings.php")
+if (file_exists("settings.php"))
     include_once("settings.php");
 else
 {
