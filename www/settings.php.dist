@@ -41,6 +41,7 @@ $config['boot']['alert'] = "false";
 # same directory as the Api, but they can be placed anywhere else
 
 # The core installation: This is probably the only one you need to touch
+# IMPORTANTE: La ruta debe finalizar en "/".
 $config['modules']['coreInstall'] = "../api/";
 
 # Name of your site, Not in use really

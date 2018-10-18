@@ -13,7 +13,13 @@ else
 }
 
 $corePath = $config['modules']['coreInstall'];
-include_once($corePath . "/core/boot.php");
+if (file_exists($corePath."core/boot.php"))
+    include_once($corePath."core/boot.php");
+else
+{
+    echo "No se ha encontrado la carpeta de \"api\", por favor verifica la configuración \$config['modules']['coreInstall'] en \"settings.php\".";
+    exit;
+}
 
 /*CORS to the app access*/
 header('Access-Control-Allow-Origin: *');
