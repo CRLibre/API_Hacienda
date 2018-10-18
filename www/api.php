@@ -38,6 +38,8 @@ else if (file_get_contents("php://input") !== null)
         if (isset($datas['w']))
             params_set('w', $datas);
     }
+    else
+        die("La informacion json enviada contiene errores.");
 }
 else if (isset($argv))
 {
