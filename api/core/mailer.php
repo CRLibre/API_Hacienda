@@ -12,18 +12,18 @@
 //## to use the funtion mail() in line 32 you need install sendmail in your unix server
 //Steps for Ubuntu linux
 //1) install sendmail
-//	sudo apt-get install sendmail
+//  sudo apt-get install sendmail
 //2) config sendmail
-//	sudo sendmailconfig
+//  sudo sendmailconfig
 //3) Edit hosts file
-//	sudo nano /etc/hosts
-//		127.0.0.1 localhost su_dominio.com
+//  sudo nano /etc/hosts
+//      127.0.0.1 localhost su_dominio.com
 //4) Restart apache
-//	sudo service apache2 restart
+//  sudo service apache2 restart
 
 
-function mailer_sendEmail($info) {
-
+function mailer_sendEmail($info)
+{
     $msg .= '<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -152,24 +152,24 @@ function mailer_sendEmail($info) {
 
     </style>
     <!-- CSS Reset : END -->
-	<!-- Reset list spacing because Outlook ignores much of our inline CSS. -->
-	<!--[if mso]>
-	<style type="text/css">
-		ul,
-		ol {
-			margin: 0 !important;
-		}
-		li {
-			margin-left: 30px !important;
-		}
-		li.list-item-first {
-			margin-top: 0 !important;
-		}
-		li.list-item-last {
-			margin-bottom: 10px !important;
-		}
-	</style>
-	<![endif]-->
+    <!-- Reset list spacing because Outlook ignores much of our inline CSS. -->
+    <!--[if mso]>
+    <style type="text/css">
+        ul,
+        ol {
+            margin: 0 !important;
+        }
+        li {
+            margin-left: 30px !important;
+        }
+        li.list-item-first {
+            margin-top: 0 !important;
+        }
+        li.list-item-last {
+            margin-bottom: 10px !important;
+        }
+    </style>
+    <![endif]-->
 
     <!-- Progressive Enhancements : BEGIN -->
     <style>
@@ -179,11 +179,11 @@ function mailer_sendEmail($info) {
         .button-a {
             transition: all 100ms ease-in;
         }
-	    .button-td-primary:hover,
-	    .button-a-primary:hover {
-	        background: #555555 !important;
-	        border-color: #555555 !important;
-	    }
+        .button-td-primary:hover,
+        .button-a-primary:hover {
+            background: #555555 !important;
+            border-color: #555555 !important;
+        }
 
         /* Media Queries */
         @media screen and (max-width: 600px) {
@@ -247,13 +247,13 @@ function mailer_sendEmail($info) {
 
 </head>
 <!--
-	The email background color (#222222) is defined in three places:
-	1. body tag: for most email clients
-	2. center tag: for Gmail and Inbox mobile apps and web versions of Gmail, GSuite, Inbox, Yahoo, AOL, Libero, Comcast, freenet, Mail.ru, Orange.fr
-	3. mso conditional: For Windows 10 Mail
+    The email background color (#222222) is defined in three places:
+    1. body tag: for most email clients
+    2. center tag: for Gmail and Inbox mobile apps and web versions of Gmail, GSuite, Inbox, Yahoo, AOL, Libero, Comcast, freenet, Mail.ru, Orange.fr
+    3. mso conditional: For Windows 10 Mail
 -->
 <body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #222222;">
-	<center style="width: 100%; background-color: #f1f1f1e8;">
+    <center style="width: 100%; background-color: #f1f1f1e8;">
     <!--[if mso | IE]>
     <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #222222;">
     <tr>
@@ -269,15 +269,15 @@ function mailer_sendEmail($info) {
         <!-- Create white space after the desired preview text so email clients don’t pull other distracting text into the inbox preview. Extend as necessary. -->
         <!-- Preview Text Spacing Hack : BEGIN -->
         <div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
-	        &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+            &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
         </div>
         <!-- Preview Text Spacing Hack : END -->
 
         <!-- Email Body : BEGIN -->
         <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto;" class="email-container">
-	        <!-- Email Header : BEGIN -->
+            <!-- Email Header : BEGIN -->
      
-	        <!-- Email Header : END -->
+            <!-- Email Header : END -->
 
             <!-- Hero Image, Flush : BEGIN -->
               <tr> <td ><br></td> </tr>
@@ -296,10 +296,10 @@ function mailer_sendEmail($info) {
                             <td style="padding: 20px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                                 <h1 style="margin: 0 0 10px; font-size: 25px; line-height: 30px; color: #333333; font-weight: normal;">Su contraseña fue restaurada</h1>
                                 <p style="margin: 0 0 10px;">Si usted no realizo la restauracion, por favor escribanos al correo de soporte y con gusto le ayudaremos a ubicar la IP de la maquina remota.</p>
-								<p	style="margin: 0 0 10px;">Contraseña nueva:</p>
-                                <ul style="padding: 0; margin: 0; list-style-type: disc;">									
-									<li style="margin: 0 0 0 20px;" class="list-item-last">' . $info["message"] . '</li>
-								</ul>
+                                <p	style="margin: 0 0 10px;">Contraseña nueva:</p>
+                                <ul style="padding: 0; margin: 0; list-style-type: disc;">
+                                    <li style="margin: 0 0 0 20px;" class="list-item-last">' . $info["message"] . '</li>
+                                </ul>
                             </td>
                         </tr>
                         <tr>
@@ -310,12 +310,12 @@ function mailer_sendEmail($info) {
                                         <td class="button-td button-td-primary" style="border-radius: 4px; background: #222222;">
                                     </tr>
                                     <tr>
-	                <br>
+                    <br>
                         <br>
-	                CRLibre.org<br><span class="unstyle-auto-detected-links">una comunidad para todos!<br></span>
-	                <br><br>	                
-	            </td>
-                                    	
+                    CRLibre.org<br><span class="unstyle-auto-detected-links">una comunidad para todos!<br></span>
+                    <br><br>	                
+                </td>
+                                        
                                     </tr>
                                 </table>
                                 <!-- Button : END -->
@@ -327,40 +327,40 @@ function mailer_sendEmail($info) {
             </tr>
             <!-- 1 Column Text + Button : END -->
            
-	        <!-- Clear Spacer : BEGIN -->
-	        <tr>
-	            <td aria-hidden="true" height="40" style="font-size: 0px; line-height: 0px;">
-	                &nbsp;
-	            </td>
-	        </tr>
-	        <!-- Clear Spacer : END -->
+            <!-- Clear Spacer : BEGIN -->
+            <tr>
+                <td aria-hidden="true" height="40" style="font-size: 0px; line-height: 0px;">
+                    &nbsp;
+                </td>
+            </tr>
+            <!-- Clear Spacer : END -->
 
-	        <!-- 1 Column Text : BEGIN -->
-	       
-	        <!-- 1 Column Text : END -->
+            <!-- 1 Column Text : BEGIN -->
+           
+            <!-- 1 Column Text : END -->
 
-	    </table>
-	    <!-- Email Body : END -->
+        </table>
+        <!-- Email Body : END -->
 
-	    <!-- Email Footer : BEGIN -->
+        <!-- Email Footer : BEGIN -->
         <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto;" class="email-container">
-	        <tr>
-	            
-	        </tr>
-	    </table>
-	    <!-- Email Footer : END -->
+            <tr>
+                
+            </tr>
+        </table>
+        <!-- Email Footer : END -->
 
-	    <!-- Full Bleed Background Section : BEGIN -->
-	    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #709f2b;">
-	        <tr>
-	            <td valign="top">
-	                <div style="max-width: 600px; margin: auto;" class="email-container">
-	                    
-	                </div>
-	            </td>
-	        </tr>
-	    </table>
-	    <!-- Full Bleed Background Section : END -->
+        <!-- Full Bleed Background Section : BEGIN -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #709f2b;">
+            <tr>
+                <td valign="top">
+                    <div style="max-width: 600px; margin: auto;" class="email-container">
+                        
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <!-- Full Bleed Background Section : END -->
 
     <!--[if mso | IE]>
     </td>
