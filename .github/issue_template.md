@@ -14,6 +14,12 @@ Pasos para reproducir
 3. Scroll down to '....'
 4. See error
 
+**Sistema operativo:** *Cambiar por el S.O. (Windows, Linux, etc)*
+
+**PHP versión:** *Cambiar por versión PHP.*
+
+**MySQL versión:** *Cambiar por versión MySQL.*
+
 **Comportamiento esperado**
 Lo que debería pasar.
 
