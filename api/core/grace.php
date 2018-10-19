@@ -20,37 +20,36 @@ define('GRACE_PRINT_ERROR', true);
 //! Debug messages stored in Grace
 global $grace_logMsgs;
 
-
-
 /** @} */
 
 /**
  * I am the one who actually talks
  * DO NOT call me directly, use the other functions
  */
-function _grace_talk($msg, $who = 'info') {
+function _grace_talk($msg, $who = 'info')
+{
     global $grace_logMsgs;
 
-    if (GRACE_PRINT_ALL) {
+    if (GRACE_PRINT_ALL)
+    {
         # Format the message
         $msg = sprintf("[%s] %s @ %s", $who, date('y-m-d h:m:s', time()), $msg) . "\n";
         //echo "$msg" . ($who == 'a' ? "" : "\n" . "<br />");
-        if (!file_exists(conf_get('coreInstall', 'modules') . "errors/")) {
+        if (!file_exists(conf_get('coreInstall', 'modules') . "errors/"))
             mkdir(conf_get('coreInstall', 'modules') . "errors/", 0777, true);
-        }
+
         error_log($msg, 3, conf_get('coreInstall', 'modules') . "errors/" . date('y_m_d_h', time()) . "_errors.log");
         # Add the message to the debug pool if you want me to store them in a file
-        if (conf_get('logPath', 'grace', '') != '' && $who != 'a') {
+        if (conf_get('logPath', 'grace', '') != '' && $who != 'a')
             $grace_logMsgs[] = $msg;
-        }
     }
 }
 
 /**
  * Logs all messages in this session
  */
-function grace_storeLog() {
-
+function grace_storeLog()
+{
     global $grace_logMsgs;
 
     # Add the last message
@@ -59,8 +58,8 @@ function grace_storeLog() {
     # Do I have a place to store them?
     $fileName = conf_get('logPath', 'grace', '');
 
-    if ($fileName != '') {
-
+    if ($fileName != '')
+    {
         # Create a new file every hour
         $fileName = $fileName . "wirez_" . date('y_m_d_h', time()) . ".txt";
 
@@ -69,7 +68,8 @@ function grace_storeLog() {
 
         //Open a connection
         $fp = fopen($fileName, 'a');
-        if ($fp) {
+        if ($fp)
+        {
             fwrite($fp, $grace_logMsgs);
             fclose($fp);
         }
@@ -79,7 +79,8 @@ function grace_storeLog() {
 /**
  * Debuging messages
  */
-function grace_debug($msg) {
+function grace_debug($msg)
+{
     if (GRACE_PRINT_DEBUG == true)
         _grace_talk($msg, 'd');
 }
@@ -87,7 +88,8 @@ function grace_debug($msg) {
 /**
  * Informational messages
  */
-function grace_info($msg) {
+function grace_info($msg)
+{
     if (GRACE_PRINT_DEBUG == true)
         _grace_talk($msg, 'i');
 }
@@ -95,7 +97,8 @@ function grace_info($msg) {
 /**
  * Error messages
  */
-function grace_error($msg) {
+function grace_error($msg)
+{
     if (GRACE_PRINT_ERROR == true)
         _grace_talk($msg, 'e');
 }
@@ -104,7 +107,8 @@ function grace_error($msg) {
  * Use this if you want to send messages that are absurd, that you want to see
  * only if you REALLY need it.
  */
-function grace_absurd($msg) {
+function grace_absurd($msg)
+{
     if (GRACE_PRINT_ABSURD == true)
         _grace_talk($msg, 'a');
 }
@@ -113,8 +117,8 @@ function grace_absurd($msg) {
  * Very lightweight browser detection
  * http://us2.php.net/get_browser
  */
-function lestatz_browserInfo($agent = null) {
-
+function lestatz_browserInfo($agent = null)
+{
     // Declare known browsers to look for
     $known = array('msie', 'firefox', 'safari', 'webkit', 'opera', 'netscape', 'konqueror', 'gecko');
 
