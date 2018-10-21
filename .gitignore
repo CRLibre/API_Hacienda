@@ -4,7 +4,6 @@ api/install
 api/logs/*
 api/modules
 api/resources
-api/tools
 api/errors/*
 nbproject/*
 build/*
