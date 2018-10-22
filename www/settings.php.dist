@@ -32,6 +32,23 @@ $config['boot']['alert'] = "false";
 
 ##############################################################################
 #
+# Emails
+#
+##############################################################################
+# Options: "mail" or "smtp".
+$config['mail']['type']         = "mail";
+# Used in "mail" or "smtp"
+$config['mail']['address']      = "";       // for example: info@crlibre.org
+$config['mail']['noreply']      = "";       // Optional - for example: no-reply@crlibre.org
+# If "smtp" option is actived.
+$config['mail']['host']         = "";
+$config['mail']['username']     = "";
+$config['mail']['password']     = "";
+$config['mail']['secure']       = "tls";    // Use tls or ssl
+$config['mail']['port']         = 587;
+
+##############################################################################
+#
 # Core and Modules
 #
 ##############################################################################
