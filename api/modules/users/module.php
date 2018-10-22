@@ -810,7 +810,7 @@ function users_recoverPwd()
         $resp = mailer_sendEmail(array(
             'to'        => $user->email,
             'subject'   => 'Recuperación de Clave ' . conf_get('siteName', 'core', 'Mi Sitio'),
-            'replyTo'   => 'no-repy@' . conf_get("host", "core", "crlibre.or"),
+            'replyTo'   => conf_get('noreply', 'mail', 'no-repy@crlibre.org'),
             'message'   => 'Su nueva clave es: ' . $temp
         ));
         if ($resp == true)
