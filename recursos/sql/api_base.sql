@@ -315,13 +315,6 @@ CREATE TABLE `users` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Volcado de datos para la tabla `users`
---
-
-INSERT INTO `users` (`idUser`, `fullName`, `userName`, `email`, `about`, `country`, `status`, `timestamp`, `lastAccess`, `pwd`, `avatar`, `settings`) VALUES
-(1, 'root', 'root', 'a', 'I am me', 'crc', '1', 1429235768, 1533013704, '202cb962ac59075b964b07152d234b70', '', '');
-
---
 -- Índices para tablas volcadas
 --
 
