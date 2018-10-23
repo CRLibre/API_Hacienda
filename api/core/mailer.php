@@ -22,9 +22,9 @@
 //  sudo service apache2 restart
 
 
-function mailer_sendEmail($info)
+function GenerateBody($message)
 {
-    $msg .= '<!DOCTYPE html>
+    $msg = '<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
     <meta charset="utf-8"> <!-- utf-8 works for most cases -->
@@ -298,7 +298,7 @@ function mailer_sendEmail($info)
                                 <p style="margin: 0 0 10px;">Si usted no realizo la restauracion, por favor escribanos al correo de soporte y con gusto le ayudaremos a ubicar la IP de la maquina remota.</p>
                                 <p	style="margin: 0 0 10px;">Contraseña nueva:</p>
                                 <ul style="padding: 0; margin: 0; list-style-type: disc;">
-                                    <li style="margin: 0 0 0 20px;" class="list-item-last">' . $info["message"] . '</li>
+                                    <li style="margin: 0 0 0 20px;" class="list-item-last">' . $message . '</li>
                                 </ul>
                             </td>
                         </tr>
@@ -370,12 +370,55 @@ function mailer_sendEmail($info)
     </center>
 </body>
 </html>
-
 ';
+    return $msg;
+}
 
-    $headers = sprintf("From: %s \r\n" .
+function mailer_sendEmail($info)
+{
+    $msg = GenerateBody($info['message']);
+
+    if (conf_get('type', 'mail') == 'smtp')
+    {
+        tools_useTool('phpmailer/vendor/autoload.php');
+        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+        try
+        {
+            $mail->isSMTP();
+            $mail->SMTPAuth     = true;
+            $mail->Host         = conf_get('host',        'mail');
+            $mail->Username     = conf_get('username',    'mail');
+            $mail->Password     = conf_get('password',    'mail');
+            $mail->SMTPSecure   = conf_get('secure',      'mail');
+            $mail->Port         = conf_get('port',        'mail');
+
+            $mail->setFrom(conf_get('address', 'mail'), conf_get('siteName', 'core'));
+            $mail->addAddress($info['to']);
+
+            $noreply = conf_get('noreply', 'mail');
+            if (trim($noreply) != '')
+                $mail->addReplyTo($noreply);
+
+            $mail->isHTML();
+            $mail->Subject  = $info['subject'];
+            $mail->Body     = $msg;
+            $mail->CharSet  = 'UTF-8';
+
+            return $mail->send();
+        }
+        catch (Exception $e)
+        {
+            echo $mail->ErrorInfo;
+        }
+
+        return false;
+    }
+    else
+    {
+        $headers = sprintf("From: %s \r\n" .
             "Reply-To: %s \r\n" .
             'X-Mailer: PHP/ %s', conf_get('defaultMail', 'core', 'info@crlibre.org'), $info['replyTo'] != '' ? $info['replyTo'] : conf_get('defaultMail', 'core', 'info@crlibre.org'), phpversion());
-    $headers .= "\r\nContent-Type: text/html; charset=ISO-8859-1\r\n";
-    return mail($info['to'], $info['subject'], $msg, $headers);
+        $headers .= "\r\nContent-Type: text/html; charset=ISO-8859-1\r\n";
+        return mail($info['to'], $info['subject'], $msg, $headers);
+    }
 }

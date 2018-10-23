@@ -1,8 +1,12 @@
 ---
 name: Reporte de problema
 about: Cree un reporte de problema para ayudarnos a mejorar
-
 ---
+
+<!---
+NOTAS IMPORTANTES:
+ - Cumple con los datos solicitados en la plantilla de reportes, nos ayudará a resolver el problema.
+--->
 
 **Describa el problema** *(bug)*
 Una descripción clara de cual es el problema.
@@ -24,7 +28,7 @@ Pasos para reproducir
 Lo que debería pasar.
 
 **Capturas de pantalla o registro de bitácora**
-Si aplica, por favor adjuntar capturas o registros de logs con mensajes de error.
+Si aplica, por favor adjuntar capturas, registros de logs con mensajes de error o XML (lo puedes subir a https://gist.github.com y nos compartes el enlace).
 
 **Contexto adicional**
 Cualquier otro contexto acá.
