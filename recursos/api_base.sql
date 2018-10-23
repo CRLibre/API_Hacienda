@@ -311,7 +311,7 @@ CREATE TABLE `users` (
   `lastAccess` int(11) UNSIGNED NOT NULL,
   `pwd` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `avatar` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `settings` text COLLATE utf8mb4_unicode_ci COMMENT 'Any and all settings you would like to set',
+  `settings` text COLLATE utf8mb4_unicode_ci COMMENT 'Any and all settings you would like to set'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
