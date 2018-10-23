@@ -1,109 +1,165 @@
--- phpMyAdmin SQL Dump
--- version 4.7.6
--- https://www.phpmyadmin.net/
+-- MySQL dump 10.16  Distrib 10.1.21-MariaDB, for Win32 (AMD64)
 --
--- Servidor: localhost
--- Tiempo de generación: 03-08-2018 a las 23:23:12
--- Versión del servidor: 10.2.11-MariaDB
--- Versión de PHP: 7.0.21
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: localhost
+-- ------------------------------------------------------
+-- Server version	10.1.21-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Base de datos: `crlibreapi`
+-- Table structure for table `conversations`
 --
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `conversations`
---
-
+DROP TABLE IF EXISTS `conversations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `conversations` (
-  `idConversation` int(11) UNSIGNED NOT NULL,
-  `idUser` int(11) UNSIGNED NOT NULL,
-  `idRecipient` int(11) UNSIGNED NOT NULL,
-  `timestamp` int(11) UNSIGNED NOT NULL,
-  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `idConversation` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `idUser` int(11) unsigned NOT NULL,
+  `idRecipient` int(11) unsigned NOT NULL,
+  `timestamp` int(11) unsigned NOT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`idConversation`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `files`
+-- Dumping data for table `conversations`
 --
 
+LOCK TABLES `conversations` WRITE;
+/*!40000 ALTER TABLE `conversations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `conversations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `files`
+--
+
+DROP TABLE IF EXISTS `files`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `files` (
-  `idFile` int(10) UNSIGNED NOT NULL,
+  `idFile` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `md5` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `timestamp` int(11) UNSIGNED NOT NULL,
-  `size` int(11) UNSIGNED NOT NULL,
-  `idUser` int(11) UNSIGNED NOT NULL,
+  `timestamp` int(11) unsigned NOT NULL,
+  `size` int(11) unsigned NOT NULL,
+  `idUser` int(11) unsigned NOT NULL,
   `downloadCode` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fileType` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL
+  `type` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`idFile`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `lestatz_domains`
+-- Dumping data for table `files`
 --
 
+LOCK TABLES `files` WRITE;
+/*!40000 ALTER TABLE `files` DISABLE KEYS */;
+/*!40000 ALTER TABLE `files` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lestatz_domains`
+--
+
+DROP TABLE IF EXISTS `lestatz_domains`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lestatz_domains` (
-  `idDomain` int(10) UNSIGNED NOT NULL,
-  `idUser` int(10) UNSIGNED NOT NULL,
+  `idDomain` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idUser` int(10) unsigned NOT NULL,
   `domain` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `total` int(10) UNSIGNED NOT NULL
+  `total` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`idDomain`),
+  UNIQUE KEY `idDomain` (`idDomain`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A list of domains per user';
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `lestatz_goals`
+-- Dumping data for table `lestatz_domains`
 --
 
+LOCK TABLES `lestatz_domains` WRITE;
+/*!40000 ALTER TABLE `lestatz_domains` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lestatz_domains` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lestatz_goals`
+--
+
+DROP TABLE IF EXISTS `lestatz_goals`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lestatz_goals` (
-  `idGoal` int(10) UNSIGNED NOT NULL,
-  `idUser` int(10) UNSIGNED NOT NULL,
+  `idGoal` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idUser` int(10) unsigned NOT NULL,
   `goal` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `total` int(10) UNSIGNED NOT NULL,
-  `idDomain` int(10) UNSIGNED NOT NULL
+  `total` int(10) unsigned NOT NULL,
+  `idDomain` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`idGoal`),
+  UNIQUE KEY `idGoal` (`idGoal`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A list of goals per user';
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `lestatz_refs`
+-- Dumping data for table `lestatz_goals`
 --
 
+LOCK TABLES `lestatz_goals` WRITE;
+/*!40000 ALTER TABLE `lestatz_goals` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lestatz_goals` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lestatz_refs`
+--
+
+DROP TABLE IF EXISTS `lestatz_refs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lestatz_refs` (
-  `idRef` int(10) UNSIGNED NOT NULL,
-  `idUser` int(10) UNSIGNED NOT NULL,
+  `idRef` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idUser` int(10) unsigned NOT NULL,
   `ref` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `total` int(10) UNSIGNED NOT NULL,
-  `idDomain` int(10) UNSIGNED NOT NULL
+  `total` int(10) unsigned NOT NULL,
+  `idDomain` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`idRef`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A list of refs per user';
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `lestatz_visit_log`
+-- Dumping data for table `lestatz_refs`
 --
 
+LOCK TABLES `lestatz_refs` WRITE;
+/*!40000 ALTER TABLE `lestatz_refs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lestatz_refs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lestatz_visit_log`
+--
+
+DROP TABLE IF EXISTS `lestatz_visit_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lestatz_visit_log` (
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `timestamp` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `timestamp` int(10) unsigned NOT NULL,
   `ip` varchar(50) NOT NULL,
   `browser` varchar(15) NOT NULL,
   `lang` varchar(10) NOT NULL,
@@ -113,79 +169,150 @@ CREATE TABLE `lestatz_visit_log` (
   `page_name` varchar(250) NOT NULL,
   `referrer` varchar(250) NOT NULL,
   `country` varchar(3) NOT NULL,
-  `idRef` int(10) UNSIGNED NOT NULL COMMENT 'The refering page according to a user setting',
-  `idGoal` int(10) UNSIGNED NOT NULL COMMENT 'The goal set by the user',
+  `idRef` int(10) unsigned NOT NULL COMMENT 'The refering page according to a user setting',
+  `idGoal` int(10) unsigned NOT NULL COMMENT 'The goal set by the user',
   `coordinates` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='The main registry of visits, this can become quite big';
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `marter_logs`
+-- Dumping data for table `lestatz_visit_log`
 --
 
+LOCK TABLES `lestatz_visit_log` WRITE;
+/*!40000 ALTER TABLE `lestatz_visit_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lestatz_visit_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `marter_logs`
+--
+
+DROP TABLE IF EXISTS `marter_logs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `marter_logs` (
-  `idLog` int(11) NOT NULL
+  `idLog` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idLog`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `master_certi`
+-- Dumping data for table `marter_logs`
 --
 
+LOCK TABLES `marter_logs` WRITE;
+/*!40000 ALTER TABLE `marter_logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `marter_logs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `master_certi`
+--
+
+DROP TABLE IF EXISTS `master_certi`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `master_certi` (
-  `idCerti` int(11) NOT NULL,
+  `idCerti` int(11) NOT NULL AUTO_INCREMENT,
   `hambiente` int(11) NOT NULL,
   `usuario` int(11) NOT NULL,
   `pass` int(11) NOT NULL,
-  `pinCerti` int(11) NOT NULL
+  `pinCerti` int(11) NOT NULL,
+  PRIMARY KEY (`idCerti`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `master_claves`
+-- Dumping data for table `master_certi`
 --
 
+LOCK TABLES `master_certi` WRITE;
+/*!40000 ALTER TABLE `master_certi` DISABLE KEYS */;
+/*!40000 ALTER TABLE `master_certi` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `master_claves`
+--
+
+DROP TABLE IF EXISTS `master_claves`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `master_claves` (
-  `idClave` int(11) NOT NULL
+  `idClave` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idClave`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `master_companyusers`
+-- Dumping data for table `master_claves`
 --
 
+LOCK TABLES `master_claves` WRITE;
+/*!40000 ALTER TABLE `master_claves` DISABLE KEYS */;
+/*!40000 ALTER TABLE `master_claves` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `master_companyusers`
+--
+
+DROP TABLE IF EXISTS `master_companyusers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `master_companyusers` (
-  `idUser` int(11) NOT NULL
+  `idUser` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idUser`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `master_comprobantes`
+-- Dumping data for table `master_companyusers`
 --
 
+LOCK TABLES `master_companyusers` WRITE;
+/*!40000 ALTER TABLE `master_companyusers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `master_companyusers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `master_comprobantes`
+--
+
+DROP TABLE IF EXISTS `master_comprobantes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `master_comprobantes` (
-  `idComprobante` int(11) NOT NULL,
+  `idComprobante` int(11) NOT NULL AUTO_INCREMENT,
   `idComprobanteReferencia` int(11) NOT NULL,
   `idUser` int(11) NOT NULL,
   `tipoDocumento` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `estado` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `xmlEnviadoBase64` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `respuestaMHBase64` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fechaCreacion` timestamp NOT NULL DEFAULT current_timestamp(),
-  `idReceptor` int(11) NOT NULL
+  `fechaCreacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `idReceptor` int(11) NOT NULL,
+  PRIMARY KEY (`idComprobante`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabala de los comprobantes electronicos';
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `master_emisores`
+-- Dumping data for table `master_comprobantes`
 --
 
+LOCK TABLES `master_comprobantes` WRITE;
+/*!40000 ALTER TABLE `master_comprobantes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `master_comprobantes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `master_emisores`
+--
+
+DROP TABLE IF EXISTS `master_emisores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `master_emisores` (
   `idUser` int(11) NOT NULL,
   `nombre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -199,36 +326,70 @@ CREATE TABLE `master_emisores` (
   `canton` int(11) NOT NULL,
   `distrito` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `master_inventario`
+-- Dumping data for table `master_emisores`
 --
 
+LOCK TABLES `master_emisores` WRITE;
+/*!40000 ALTER TABLE `master_emisores` DISABLE KEYS */;
+/*!40000 ALTER TABLE `master_emisores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `master_inventario`
+--
+
+DROP TABLE IF EXISTS `master_inventario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `master_inventario` (
-  `idProducto` int(11) NOT NULL
+  `idProducto` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idProducto`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `master_permission`
+-- Dumping data for table `master_inventario`
 --
 
+LOCK TABLES `master_inventario` WRITE;
+/*!40000 ALTER TABLE `master_inventario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `master_inventario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `master_permission`
+--
+
+DROP TABLE IF EXISTS `master_permission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `master_permission` (
   `idCompanyUser` int(11) NOT NULL,
   `idRol` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `master_receptores`
+-- Dumping data for table `master_permission`
 --
 
+LOCK TABLES `master_permission` WRITE;
+/*!40000 ALTER TABLE `master_permission` DISABLE KEYS */;
+/*!40000 ALTER TABLE `master_permission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `master_receptores`
+--
+
+DROP TABLE IF EXISTS `master_receptores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `master_receptores` (
-  `idReceptor` int(11) NOT NULL,
+  `idReceptor` int(11) NOT NULL AUTO_INCREMENT,
   `idUser` int(11) NOT NULL,
   `nombre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `cedula` int(15) NOT NULL,
@@ -236,306 +397,169 @@ CREATE TABLE `master_receptores` (
   `tipoCedula` int(10) NOT NULL,
   `direccion` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
   `correo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telefono` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL
+  `telefono` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`idReceptor`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `master_rol`
+-- Dumping data for table `master_receptores`
 --
 
+LOCK TABLES `master_receptores` WRITE;
+/*!40000 ALTER TABLE `master_receptores` DISABLE KEYS */;
+/*!40000 ALTER TABLE `master_receptores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `master_rol`
+--
+
+DROP TABLE IF EXISTS `master_rol`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `master_rol` (
-  `idRol` int(11) NOT NULL
+  `idRol` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idRol`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `master_sqlupgrade`
+-- Dumping data for table `master_rol`
 --
 
+LOCK TABLES `master_rol` WRITE;
+/*!40000 ALTER TABLE `master_rol` DISABLE KEYS */;
+/*!40000 ALTER TABLE `master_rol` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `master_sqlupgrade`
+--
+
+DROP TABLE IF EXISTS `master_sqlupgrade`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `master_sqlupgrade` (
-  `idSQL` int(11) NOT NULL,
+  `idSQL` int(11) NOT NULL AUTO_INCREMENT,
   `versionAPI` double NOT NULL,
-  `SQL` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `SQL` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`idSQL`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `msgs`
+-- Dumping data for table `master_sqlupgrade`
 --
 
+LOCK TABLES `master_sqlupgrade` WRITE;
+/*!40000 ALTER TABLE `master_sqlupgrade` DISABLE KEYS */;
+/*!40000 ALTER TABLE `master_sqlupgrade` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `msgs`
+--
+
+DROP TABLE IF EXISTS `msgs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `msgs` (
-  `idMsg` int(11) UNSIGNED NOT NULL,
-  `timestamp` int(11) UNSIGNED NOT NULL,
+  `idMsg` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `timestamp` int(11) unsigned NOT NULL,
   `ip` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `idSender` int(11) UNSIGNED NOT NULL,
-  `idRecipient` int(11) UNSIGNED NOT NULL,
+  `idSender` int(11) unsigned NOT NULL,
+  `idRecipient` int(11) unsigned NOT NULL,
   `text` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `channel` int(11) NOT NULL,
-  `attachments` int(11) UNSIGNED NOT NULL,
-  `idConversation` int(11) UNSIGNED NOT NULL
+  `attachments` int(11) unsigned NOT NULL,
+  `idConversation` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`idMsg`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `sessions`
+-- Dumping data for table `msgs`
 --
 
+LOCK TABLES `msgs` WRITE;
+/*!40000 ALTER TABLE `msgs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `msgs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sessions`
+--
+
+DROP TABLE IF EXISTS `sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sessions` (
-  `idSession` int(11) UNSIGNED NOT NULL,
-  `idUser` int(11) UNSIGNED NOT NULL,
+  `idSession` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `idUser` int(11) unsigned NOT NULL,
   `sessionKey` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ip` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastAccess` int(10) UNSIGNED NOT NULL
+  `lastAccess` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`idSession`),
+  KEY `key` (`sessionKey`(191)),
+  KEY `sessionKey` (`sessionKey`(191))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `users`
+-- Dumping data for table `sessions`
 --
 
+LOCK TABLES `sessions` WRITE;
+/*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `idUser` int(11) UNSIGNED NOT NULL,
+  `idUser` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fullName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `userName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `about` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `country` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `timestamp` int(11) UNSIGNED NOT NULL,
-  `lastAccess` int(11) UNSIGNED NOT NULL,
+  `timestamp` int(11) unsigned NOT NULL,
+  `lastAccess` int(11) unsigned NOT NULL,
   `pwd` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `avatar` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `settings` text COLLATE utf8mb4_unicode_ci COMMENT 'Any and all settings you would like to set'
+  `settings` text COLLATE utf8mb4_unicode_ci COMMENT 'Any and all settings you would like to set',
+  PRIMARY KEY (`idUser`),
+  UNIQUE KEY `wire_2` (`userName`),
+  UNIQUE KEY `email` (`email`),
+  KEY `idUser` (`idUser`),
+  KEY `wire` (`userName`),
+  KEY `status` (`status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Índices para tablas volcadas
+-- Dumping data for table `users`
 --
 
---
--- Indices de la tabla `conversations`
---
-ALTER TABLE `conversations`
-  ADD PRIMARY KEY (`idConversation`);
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Indices de la tabla `files`
---
-ALTER TABLE `files`
-  ADD PRIMARY KEY (`idFile`);
-
---
--- Indices de la tabla `lestatz_domains`
---
-ALTER TABLE `lestatz_domains`
-  ADD PRIMARY KEY (`idDomain`),
-  ADD UNIQUE KEY `idDomain` (`idDomain`);
-
---
--- Indices de la tabla `lestatz_goals`
---
-ALTER TABLE `lestatz_goals`
-  ADD PRIMARY KEY (`idGoal`),
-  ADD UNIQUE KEY `idGoal` (`idGoal`);
-
---
--- Indices de la tabla `lestatz_refs`
---
-ALTER TABLE `lestatz_refs`
-  ADD PRIMARY KEY (`idRef`);
-
---
--- Indices de la tabla `marter_logs`
---
-ALTER TABLE `marter_logs`
-  ADD PRIMARY KEY (`idLog`);
-
---
--- Indices de la tabla `master_certi`
---
-ALTER TABLE `master_certi`
-  ADD PRIMARY KEY (`idCerti`);
-
---
--- Indices de la tabla `master_claves`
---
-ALTER TABLE `master_claves`
-  ADD PRIMARY KEY (`idClave`);
-
---
--- Indices de la tabla `master_companyusers`
---
-ALTER TABLE `master_companyusers`
-  ADD PRIMARY KEY (`idUser`);
-
---
--- Indices de la tabla `master_comprobantes`
---
-ALTER TABLE `master_comprobantes`
-  ADD PRIMARY KEY (`idComprobante`);
-
---
--- Indices de la tabla `master_inventario`
---
-ALTER TABLE `master_inventario`
-  ADD PRIMARY KEY (`idProducto`);
-
---
--- Indices de la tabla `master_receptores`
---
-ALTER TABLE `master_receptores`
-  ADD PRIMARY KEY (`idReceptor`);
-
---
--- Indices de la tabla `master_rol`
---
-ALTER TABLE `master_rol`
-  ADD PRIMARY KEY (`idRol`);
-
---
--- Indices de la tabla `master_sqlupgrade`
---
-ALTER TABLE `master_sqlupgrade`
-  ADD PRIMARY KEY (`idSQL`);
-
---
--- Indices de la tabla `msgs`
---
-ALTER TABLE `msgs`
-  ADD PRIMARY KEY (`idMsg`);
-
---
--- Indices de la tabla `sessions`
---
-ALTER TABLE `sessions`
-  ADD PRIMARY KEY (`idSession`),
-  ADD KEY `key` (`sessionKey`),
-  ADD KEY `sessionKey` (`sessionKey`);
-
---
--- Indices de la tabla `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`idUser`),
-  ADD UNIQUE KEY `wire_2` (`userName`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `idUser` (`idUser`),
-  ADD KEY `wire` (`userName`),
-  ADD KEY `status` (`status`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `conversations`
---
-ALTER TABLE `conversations`
-  MODIFY `idConversation` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `files`
---
-ALTER TABLE `files`
-  MODIFY `idFile` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `lestatz_domains`
---
-ALTER TABLE `lestatz_domains`
-  MODIFY `idDomain` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `lestatz_goals`
---
-ALTER TABLE `lestatz_goals`
-  MODIFY `idGoal` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `lestatz_refs`
---
-ALTER TABLE `lestatz_refs`
-  MODIFY `idRef` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `marter_logs`
---
-ALTER TABLE `marter_logs`
-  MODIFY `idLog` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `master_certi`
---
-ALTER TABLE `master_certi`
-  MODIFY `idCerti` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `master_claves`
---
-ALTER TABLE `master_claves`
-  MODIFY `idClave` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `master_companyusers`
---
-ALTER TABLE `master_companyusers`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `master_comprobantes`
---
-ALTER TABLE `master_comprobantes`
-  MODIFY `idComprobante` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `master_inventario`
---
-ALTER TABLE `master_inventario`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `master_receptores`
---
-ALTER TABLE `master_receptores`
-  MODIFY `idReceptor` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `master_rol`
---
-ALTER TABLE `master_rol`
-  MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `master_sqlupgrade`
---
-ALTER TABLE `master_sqlupgrade`
-  MODIFY `idSQL` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `msgs`
---
-ALTER TABLE `msgs`
-  MODIFY `idMsg` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `sessions`
---
-ALTER TABLE `sessions`
-  MODIFY `idSession` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `users`
---
-ALTER TABLE `users`
-  MODIFY `idUser` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-COMMIT;
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-10-23  9:07:04
