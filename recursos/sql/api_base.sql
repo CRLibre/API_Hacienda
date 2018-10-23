@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 03-08-2018 a las 23:23:28
+-- Tiempo de generación: 03-08-2018 a las 23:23:12
 -- Versión del servidor: 10.2.11-MariaDB
 -- Versión de PHP: 7.0.21
 
@@ -44,7 +44,7 @@ CREATE TABLE `conversations` (
 
 CREATE TABLE `files` (
   `idFile` int(10) UNSIGNED NOT NULL,
-  `md5` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `md5` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` int(11) UNSIGNED NOT NULL,
   `size` int(11) UNSIGNED NOT NULL,
@@ -311,15 +311,8 @@ CREATE TABLE `users` (
   `lastAccess` int(11) UNSIGNED NOT NULL,
   `pwd` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `avatar` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `settings` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Any and all settings you would like to set'
+  `settings` text COLLATE utf8mb4_unicode_ci COMMENT 'Any and all settings you would like to set'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `users`
---
-
-INSERT INTO `users` (`idUser`, `fullName`, `userName`, `email`, `about`, `country`, `status`, `timestamp`, `lastAccess`, `pwd`, `avatar`, `settings`) VALUES
-(1, 'root', 'root', 'a', 'I am me', 'crc', '1', 1429235768, 1533013704, '202cb962ac59075b964b07152d234b70', '', '');
 
 --
 -- Índices para tablas volcadas
@@ -450,25 +443,25 @@ ALTER TABLE `conversations`
 -- AUTO_INCREMENT de la tabla `files`
 --
 ALTER TABLE `files`
-  MODIFY `idFile` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `idFile` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `lestatz_domains`
 --
 ALTER TABLE `lestatz_domains`
-  MODIFY `idDomain` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idDomain` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `lestatz_goals`
 --
 ALTER TABLE `lestatz_goals`
-  MODIFY `idGoal` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idGoal` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `lestatz_refs`
 --
 ALTER TABLE `lestatz_refs`
-  MODIFY `idRef` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idRef` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `marter_logs`
@@ -528,7 +521,7 @@ ALTER TABLE `master_sqlupgrade`
 -- AUTO_INCREMENT de la tabla `msgs`
 --
 ALTER TABLE `msgs`
-  MODIFY `idMsg` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `idMsg` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `sessions`
@@ -540,7 +533,7 @@ ALTER TABLE `sessions`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `idUser` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idUser` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
