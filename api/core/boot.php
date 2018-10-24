@@ -3,6 +3,7 @@
 /**
  * @page
  */
+include_once("checks.php");
 include_once("grace.php");
 include_once("params.php");
 include_once("modules.php");
