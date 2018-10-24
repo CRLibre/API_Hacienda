@@ -1,3 +1,5 @@
+![https://crlibre.org](https://crlibre.org/wp-content/uploads/2018/03/cropped-CRLibre-Logo_15-1.png)
+
 ## Sobre CRLibre
 Somos una comunidad de individuos y organizaciones que voluntariamente unimos esfuerzos para colaborar y compartir conocimiento, crear software libre para resolver problemas que enfrentamos en nuestra realidad en Costa Rica.
 
@@ -41,11 +43,11 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 
 ## Requerimientos mínimos
 
-* PHP > 5.5.0
-* MySQL o MariaDB
+* PHP >= 5.5.0
+* MySQL o MariaDB ([MySQLi](http://php.net/manual/en/book.mysqli.php))
 * [cURL](http://php.net/manual/en/book.curl.php)
 * [php-xml](http://php.net/manual/en/book.simplexml.php)
-* OpenSSL
+* [OpenSSL](http://php.net/manual/en/book.openssl.php)
 
 ### Conectores/Clientes del API
 * Conector en .NET https://github.com/CRLibre/fe-hacienda-cr-dotnet
