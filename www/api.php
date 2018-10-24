@@ -48,7 +48,10 @@ else if (file_get_contents("php://input") !== null)
             params_set('w', $datas);
     }
     else
+    {
+        grace_error("File Content Input: ". $content);
         die("La informacion json enviada contiene errores.");
+    }
 }
 else if (isset($argv))
 {
