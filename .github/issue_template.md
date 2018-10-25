@@ -18,7 +18,7 @@ Pasos para reproducir
 3. Scroll down to '....'
 4. See error
 
-**Versión API:** *Lea como obtener la versión del API https://github.com/CRLibre/API_Hacienda/blob/master/VERSION.md*
+**Versión API:** *Lea como obtener la versión del API desde [](https://github.com/CRLibre/API_Hacienda/blob/master/VERSION.md)*
 
 **Sistema operativo:** *Cambiar por el S.O. (Windows, Linux, etc)*
 

@@ -12,26 +12,26 @@ Nota
         A manera de ejemplo, esta consulta funciona como una sentencia WHERE con condiciones OR, es decir
         se hace un filtro tomando en cuenta todos los parametros que tienen algún valor
     
-    Parametros a enviar
-* origen
-* cedula
-* ape1
-* ape2
-* nomb1
-* nomb2
-* razon
-* Concatenado
+Parametros a enviar
+- origen
+- cedula
+- ape1
+- ape2
+- nomb1
+- nomb2
+- razon
+- Concatenado
 
 ### Ejemplo consulta Juridico
 http://api-demo.crlibre.org/api.php?w=sicWsQuery&r=sicWsQuery&origen=Juridico&razon=comglo
 ### Consulta Fisico
 Los parametros que se envian son los que no esten en blanco, por lo que permite combinaciones.
 Este puede enviar los siguientes parametros:
-* origen
-* cedula
-* ape1
-* ape2
-* nomb1
-* nomb2
+- origen
+- cedula
+- ape1
+- ape2
+- nomb1
+- nomb2
 
 http://api-demo.crlibre.org/api.php?w=sicWsQuery&r=sicWsQuery&origen=Fisico&nomb1=walner

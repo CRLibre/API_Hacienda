@@ -5,18 +5,17 @@ La versión del API es indispensable para el [reporte de incidencias](https://gi
 
 Debes usar los parametros con los siguientes valores:
 
-```
+```txt
 w = version
 
 r = version
 ```
 
-Por ejemplo: https://127.0.0.1/api.php?w=version&r=version
+Por ejemplo: [](https://127.0.0.1/api.php?w=version&r=version)
 
 #
 
 En el caso de no funcionar el módulo, puedes hacerlo de los siguientes métodos:
-
 
 ### Método de descarga ZIP
 

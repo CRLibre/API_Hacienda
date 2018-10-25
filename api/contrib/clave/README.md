@@ -1,7 +1,8 @@
 ### Modulo para encode en base 64 el xml
 :shipit:
-##Funcion para generar clave
+## Funcion para generar clave
 
+```txt
      * Esta funcion se puede llamar desde GET POST si se envian los siguientes parametros
      * w=clave
      * r=getClave
@@ -27,6 +28,4 @@
         electrónico
         06
         Confirmación de rechazo del comprobante electrónico 07
-
-
-
+```
