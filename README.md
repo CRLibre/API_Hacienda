@@ -14,9 +14,9 @@ En este repositorio estamos creando un [API](https://es.wikipedia.org/wiki/Inter
 #### Documentación general sobre la Factura Electrónica en Costa Rica
 
 De forma complementaria al proyecto de este API creamos dos repositorios relacionados con la facturación electrónica
-  - Repositorio de información general del proceso de la facturación electrónica: [https://github.com/CRLibre/fe-hacienda-cr-docs](https://github.com/CRLibre/fe-hacienda-cr-docs)
+- Repositorio de información general del proceso de la facturación electrónica: [https://github.com/CRLibre/fe-hacienda-cr-docs](https://github.com/CRLibre/fe-hacienda-cr-docs)
     - Allí se encuentra un [Diagrama de flujo Factura Electrónica Costa Rica](https://raw.githubusercontent.com/CRLibre/docs-fe-hacienda-cr/master/diagrama-flujo/Diagrama%20de%20Flujo%20para%20Factura%20Electronica%20Costa%20Rica.png)
-  - Archivos y recursos comunes para cualquier proyecto [https://github.com/CRLibre/fe-hacienda-cr-misc](https://github.com/CRLibre/fe-hacienda-cr-misc)
+- Archivos y recursos comunes para cualquier proyecto [https://github.com/CRLibre/fe-hacienda-cr-misc](https://github.com/CRLibre/fe-hacienda-cr-misc)
 
 ### ¿Por qué un API para conectarse a los del Ministerio de Hacienda?
 
@@ -43,50 +43,50 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 
 ## Requerimientos mínimos
 
-  - PHP >= 5.5.0
-  - MySQL o MariaDB ([MySQLi](http://php.net/manual/en/book.mysqli.php))
-  - [cURL](http://php.net/manual/en/book.curl.php)
-  - [php-xml](http://php.net/manual/en/book.simplexml.php)
-  - [OpenSSL](http://php.net/manual/en/book.openssl.php)
+- PHP >= 5.5.0
+- MySQL o MariaDB ([MySQLi](http://php.net/manual/en/book.mysqli.php))
+- [cURL](http://php.net/manual/en/book.curl.php)
+- [php-xml](http://php.net/manual/en/book.simplexml.php)
+- [OpenSSL](http://php.net/manual/en/book.openssl.php)
 
 ### Conectores/Clientes del API
 
-  - Conector en .NET [](https://github.com/CRLibre/fe-hacienda-cr-dotnet)
-  - Conector en JavaScript: [](https://github.com/CRLibre/CalaAPI/tree/master/conectores/js)
+- Conector en .NET [https://github.com/CRLibre/fe-hacienda-cr-dotnet](https://github.com/CRLibre/fe-hacienda-cr-dotnet)
+- Conector en JavaScript: [https://github.com/CRLibre/CalaAPI/tree/master/conectores/js](https://github.com/CRLibre/CalaAPI/tree/master/conectores/js)
 
 ### Uso del API
 
-  - Ver y colaborar documentación en [wiki del API](https://github.com/CRLibre/API_Hacienda/wiki "Wiki CRLibre API_Hacienda")
-  - Documento [Step by Step del API](https://crlibre.org/wp-content/uploads/2018/08/586abf6db6fc1117b60b2753-280x124.png) para migrar al wiki.
+- Ver y colaborar documentación en [wiki del API](https://github.com/CRLibre/API_Hacienda/wiki "Wiki CRLibre API_Hacienda")
+- Documento [Step by Step del API](https://crlibre.org/wp-content/uploads/2018/08/586abf6db6fc1117b60b2753-280x124.png) para migrar al wiki.
 
 #### Primeros Pasos
 
-  - [Primera petición al API](https://github.com/CRLibre/API_Hacienda/wiki/Primera-petici%C3%B3n-al-API)
-  - [Uso de Módulos del API](https://github.com/CRLibre/API_Hacienda/wiki/Uso-de-M%C3%B3dulos-del-API)
-  - [Creación de Usuario](https://github.com/CRLibre/API_Hacienda/wiki/Creaci%C3%B3n-de-Usuario)
-  - [Login y Logout del API](https://github.com/CRLibre/API_Hacienda/wiki/Login-y-Logout-del-API)
+- [Primera petición al API](https://github.com/CRLibre/API_Hacienda/wiki/Primera-petici%C3%B3n-al-API)
+- [Uso de Módulos del API](https://github.com/CRLibre/API_Hacienda/wiki/Uso-de-M%C3%B3dulos-del-API)
+- [Creación de Usuario](https://github.com/CRLibre/API_Hacienda/wiki/Creaci%C3%B3n-de-Usuario)
+- [Login y Logout del API](https://github.com/CRLibre/API_Hacienda/wiki/Login-y-Logout-del-API)
 
 #### Uso de los módulos del API
 
-  - Upload del certificado o llave criptográfica
-  - Solicitud de Token
-  - Solicitud de refrescar token
-  - Creación de Clave para los XML de Factura Electrónica
-  - Creación de Clave para Nota de Crédito
-  - Creación de Clave para Nota de Débito
-  - Creación de Clave para Tiquete Electronico
-  - Creación de clave para Mensaje Aceptación (Aceptación total, Parcialmente y Rechazo)
-  - Creación de xml Factura Electrónica
-  - Creación de xml Nota de Crédito
-  - Creación de xml Nota de Debito
-  - Creación de xml Tiquete Electronico
-  - Creación de xml Mensaje Aceptacion
-  - Firmado del xml Factura Electrónica
-  - Firmado del xml Nota de Crédito
-  - Firmado del xml Nota de Debito
-  - Firmado del xml Tiquete Electronico
-  - Firmado del xml Mensaje de Aceptación
-  - Envió a Hacienda del xml de Factura Electrónica, Notas de Crédito, Notas de Debito
-  - Envió a Hacienda del xml de Tiquete Electronico
-  - Envió a Hacienda del xml de Mensaje Aceptación (Aceptación total, Parcialmente y Rechazo)
-  - Consulta de estado de los comprobantes
+- Upload del certificado o llave criptográfica
+- Solicitud de Token
+- Solicitud de refrescar token
+- Creación de Clave para los XML de Factura Electrónica
+- Creación de Clave para Nota de Crédito
+- Creación de Clave para Nota de Débito
+- Creación de Clave para Tiquete Electronico
+- Creación de clave para Mensaje Aceptación (Aceptación total, Parcialmente y Rechazo)
+- Creación de xml Factura Electrónica
+- Creación de xml Nota de Crédito
+- Creación de xml Nota de Debito
+- Creación de xml Tiquete Electronico
+- Creación de xml Mensaje Aceptacion
+- Firmado del xml Factura Electrónica
+- Firmado del xml Nota de Crédito
+- Firmado del xml Nota de Debito
+- Firmado del xml Tiquete Electronico
+- Firmado del xml Mensaje de Aceptación
+- Envió a Hacienda del xml de Factura Electrónica, Notas de Crédito, Notas de Debito
+- Envió a Hacienda del xml de Tiquete Electronico
+- Envió a Hacienda del xml de Mensaje Aceptación (Aceptación total, Parcialmente y Rechazo)
+- Consulta de estado de los comprobantes
