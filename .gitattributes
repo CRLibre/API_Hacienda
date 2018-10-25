@@ -5,3 +5,4 @@
 /.gitignore export-ignore
 /_config.yml export-ignore
 /CONTRIBUTING.md export-ignore
+/api/contrib/version/VERSION export-subst

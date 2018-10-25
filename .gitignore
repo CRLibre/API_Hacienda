@@ -1,7 +1,6 @@
 api/files
 api/install
 api/logs/*
-api/modules
 api/resources
 api/errors/*
 nbproject/*
