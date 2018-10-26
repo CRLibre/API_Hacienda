@@ -12,7 +12,7 @@ function version_API()
    $commit = trim($commit);
    if (strlen($commit) == 17)
    {
-       $commit = preg_replace("/init\-\d+\-g/", "", $commit);
+       $commit = preg_replace("/init\-([0-9]+)\-g/", "", $commit);
        if (strlen($commit) == 7)
             return "Version: {$commit}";
    }
