@@ -28,7 +28,7 @@
         die("Necesitas instalar las siguientes extensiones: ". join(", ", $errors));
  }
 
- // 
+ //
  CheckPHPVersion();
  CheckPHPExtensions();
 

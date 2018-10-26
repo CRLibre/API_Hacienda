@@ -31,7 +31,7 @@ function genXMLFe()
     $omitir_receptor        = params_get("omitir_receptor");
     $receptorNombre         = params_get("receptor_nombre");
     $receptorTipoIdentif    = params_get("receptor_tipo_identif");
-    $recenprotNumIdentif    = params_get("receptor_num_identif");
+    $receptorNumIdentif     = params_get("receptor_num_identif");
     $receptorProvincia      = params_get("receptor_provincia");
     $receptorCanton         = params_get("receptor_canton");
     $receptorDistrito       = params_get("receptor_distrito");
@@ -120,20 +120,20 @@ function genXMLFe()
 
         if ($receptorTipoIdentif == '05')
         {
-            if ($receptorTipoIdentif != '' &&  $recenprotNumIdentif != '')
+            if ($receptorTipoIdentif != '' &&  $receptorNumIdentif != '')
             {
                 $xmlString .= '<IdentificacionExtranjero>'
-                        . $recenprotNumIdentif 
+                        . $receptorNumIdentif 
                         . ' </IdentificacionExtranjero>';
             }
         }
         else
         {
-            if ($receptorTipoIdentif != '' &&  $recenprotNumIdentif != '')
+            if ($receptorTipoIdentif != '' &&  $receptorNumIdentif != '')
             {
                 $xmlString .= '<Identificacion>
                     <Tipo>' . $receptorTipoIdentif . '</Tipo>
-                    <Numero>' . $recenprotNumIdentif . '</Numero>
+                    <Numero>' . $receptorNumIdentif . '</Numero>
                 </Identificacion>';
             }
 
@@ -301,7 +301,7 @@ function genXMLNC()
     $omitir_receptor        = params_get("omitir_receptor");
     $receptorNombre         = params_get("receptor_nombre");
     $receptorTipoIdentif    = params_get("receptor_tipo_identif");
-    $recenprotNumIdentif    = params_get("receptor_num_identif");
+    $receptorNumIdentif     = params_get("receptor_num_identif");
     $receptorProvincia      = params_get("receptor_provincia");
     $receptorCanton         = params_get("receptor_canton");
     $receptorDistrito       = params_get("receptor_distrito");
@@ -397,20 +397,20 @@ function genXMLNC()
 
         if ($receptorTipoIdentif == '05')
         {
-            if ($receptorTipoIdentif != '' && $recenprotNumIdentif != '')
+            if ($receptorTipoIdentif != '' && $receptorNumIdentif != '')
             {
                 $xmlString .= '<IdentificacionExtranjero>'
-                        . $recenprotNumIdentif 
+                        . $receptorNumIdentif 
                         . ' </IdentificacionExtranjero>';
             }
         }
         else
         {
-            if ($receptorTipoIdentif != '' && $recenprotNumIdentif != '')
+            if ($receptorTipoIdentif != '' && $receptorNumIdentif != '')
             {
                 $xmlString .= '<Identificacion>
                     <Tipo>' . $receptorTipoIdentif . '</Tipo>
-                    <Numero>' . $recenprotNumIdentif . '</Numero>
+                    <Numero>' . $receptorNumIdentif . '</Numero>
                 </Identificacion>';
             }
 
@@ -584,7 +584,7 @@ function genXMLND()
     $omitir_receptor        = params_get("omitir_receptor");
     $receptorNombre         = params_get("receptor_nombre");
     $receptorTipoIdentif    = params_get("receptor_tipo_identif");
-    $recenprotNumIdentif    = params_get("receptor_num_identif");
+    $receptorNumIdentif     = params_get("receptor_num_identif");
     $receptorProvincia      = params_get("receptor_provincia");
     $receptorCanton         = params_get("receptor_canton");
     $receptorDistrito       = params_get("receptor_distrito");
@@ -677,20 +677,20 @@ function genXMLND()
 
         if ($receptorTipoIdentif == '05')
         {
-            if ($receptorTipoIdentif != '' &&  $recenprotNumIdentif != '')
+            if ($receptorTipoIdentif != '' &&  $receptorNumIdentif != '')
             {
                 $xmlString .= '<IdentificacionExtranjero>'
-                        . $recenprotNumIdentif 
+                        . $receptorNumIdentif 
                         . ' </IdentificacionExtranjero>';
             }
         }
         else
         {
-            if ($receptorTipoIdentif != '' && $recenprotNumIdentif != '')
+            if ($receptorTipoIdentif != '' && $receptorNumIdentif != '')
             {
                 $xmlString .= '<Identificacion>
                     <Tipo>' . $receptorTipoIdentif . '</Tipo>
-                    <Numero>' . $recenprotNumIdentif . '</Numero>
+                    <Numero>' . $receptorNumIdentif . '</Numero>
                 </Identificacion>';
             }
 
@@ -867,7 +867,7 @@ function genXMLTE()
     $omitir_receptor        = params_get("omitir_receptor");
     $receptorNombre         = params_get("receptor_nombre");
     $receptorTipoIdentif    = params_get("receptor_tipo_identif");
-    $recenprotNumIdentif    = params_get("receptor_num_identif");
+    $receptorNumIdentif     = params_get("receptor_num_identif");
     $receptorProvincia      = params_get("receptor_provincia");
     $receptorCanton         = params_get("receptor_canton");
     $receptorDistrito       = params_get("receptor_distrito");

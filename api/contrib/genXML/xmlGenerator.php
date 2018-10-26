@@ -31,7 +31,7 @@ function genXML()
     // Datos receptor
     $receptorNombre         = params_get("receptor_nombre");
     $receptorTipoIdentif    = params_get("receptor_tipo_identif");
-    $recenprotNumIdentif    = params_get("receptor_num_identif");
+    $receptorNumIdentif     = params_get("receptor_num_identif");
     $receptorProvincia      = params_get("receptor_provincia");
     $receptorCanton         = params_get("receptor_canton");
     $receptorDistrito       = params_get("receptor_distrito");
@@ -97,13 +97,13 @@ function genXML()
         'NumeroConsecutivo' => $consecutivo,
         'FechaEmision'      => $fechaEmision,
         'Emisor'            => array(
-            'Nombre' => $emisorNombre,
+            'Nombre'        => $emisorNombre,
             'Identificacion' => array(
                 'Tipo'      => $emisorTipoIdentif,
                 'Numero'    => $emisorNumIdentif,
             ),
-            'NombreComercial' => $nombreComercial,
-            'Ubicacion' => array(
+            'NombreComercial'   => $nombreComercial,
+            'Ubicacion'         => array(
                 'Provincia'     => $emisorProv,
                 'Canton'        => $meisorCanton,
                 'Distrito'      => $emisorDistrito,
@@ -123,7 +123,7 @@ function genXML()
         'CondicionVenta'    => $condVenta,
         'MedioPago'         => $medioPago,
         'DetalleServicio'   => $DetalleServicio,
-        'ResumenFactura' => array(
+        'ResumenFactura'    => array(
             'CodigoMoneda'      => $codMoneda,
             'TipoCambio'        => round($tipoCambio, 5),
             'TotalVenta'        => $TotalComprobante,
@@ -131,8 +131,8 @@ function genXML()
             'TotalComprobante'  => $TotalComprobante,
         ),
         'Normativa' => array(
-            'NumeroResolucion' => 'DGT-R-48-2016',
-            'FechaResolucion' => '20-02-2017 13:22:22',
+            'NumeroResolucion'  => 'DGT-R-48-2016',
+            'FechaResolucion'   => '20-02-2017 13:22:22',
         ),
     );
     $xmltext = array_to_xml($myArray);
