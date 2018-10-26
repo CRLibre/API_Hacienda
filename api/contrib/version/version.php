@@ -8,10 +8,14 @@
 
 function version_API()
 {
-   $commit = exec('git log --pretty="%h" -n1');
+   $commit = exec('git describe --long --match init --abbrev=7');
    $commit = trim($commit);
-   if (strlen($commit) == 7)
-       return "Version: {$commit}";
+   if (strlen($commit) == 17)
+   {
+       $commit = preg_replace("/init\-\d+\-g/", "", $commit);
+       if (strlen($commit) == 7)
+            return "Version: {$commit}";
+   }
    else if (file_exists(__DIR__ . '/VERSION'))
    {
        $commit  = file_get_contents(__DIR__ . '/VERSION');

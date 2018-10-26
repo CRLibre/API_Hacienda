@@ -25,7 +25,7 @@
      }
 
      if (count($errors) > 0)
-        die("Necesitas instalar las siguientes extensiones: ". join(", ", $errors));
+        die("Necesitas instalar las siguientes extensiones PHP: ". join(", ", $errors));
  }
 
  //
