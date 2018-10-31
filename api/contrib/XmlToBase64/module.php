@@ -17,8 +17,9 @@
 /**
  * Boot up procedure
  */
-function XmlToBase64_bootMeUp(){
-	// Just booting up
+function XmlToBase64_bootMeUp()
+{
+    // Just booting up
 }
 
 /**
@@ -26,22 +27,22 @@ function XmlToBase64_bootMeUp(){
  */
 
 
-function XmlToBase64_init(){
+function XmlToBase64_init()
+{
+    $paths = array(
+        array(
+            'r'             => 'encode',
+            'action'        => 'encode',
+            'access'        => 'users_openAccess',
+            'access_params' => 'accessName',
+            'params'        => array(
+                array("key" => "downloadCode", "def" => "", "req" => true)
+            ),
+            'file'          => 'xmlToBase64.php'
+        )
+    );
 
-	$paths = array(
-		array(
-			'r' => 'encode',
-			'action' => 'encode',
-			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',			
-			'params' => array(
-				array("key" => "downloadCode", "def" => "", "req" => true)
-			),			
-			'file' => 'xmlToBase64.php'
-		)
-            );
-
-	return $paths;
+    return $paths;
 }
 
 
@@ -51,26 +52,24 @@ function XmlToBase64_init(){
 /**************************************************/
 
 
-
 /**
  * Get the perms for this module
  */
-function MODULENAME_access(){
-
-	$perms = array(
-		array(
-			# A human readable name
-			'name'        => 'Do something with this module',
-			# Something to remember what it is for
-			'description' => 'What can be achieved with this permission',
-			# Internal machine name, no spaces, no funny symbols, same rules as a variable
-			# Use yourmodule_ prefix
-			'code'        => 'mymodule_access_one',
-			# Default value in case it is not set
-			'def'        => false, //Or true, you decide
-		),
-	);
-
+function MODULENAME_access()
+{
+    $perms = array(
+        array(
+            # A human readable name
+            'name'        => 'Do something with this module',
+            # Something to remember what it is for
+            'description' => 'What can be achieved with this permission',
+            # Internal machine name, no spaces, no funny symbols, same rules as a variable
+            # Use yourmodule_ prefix
+            'code'        => 'mymodule_access_one',
+            # Default value in case it is not set
+            'def'         => false, //Or true, you decide
+        ),
+    );
 }
 
 /**@}*/

@@ -1,0 +1,4 @@
+
+PHPMailer
+  https://github.com/PHPMailer/PHPMailer
+  Version: bded7e325b9bfc1e2ee86aca98cdf746c33b600b

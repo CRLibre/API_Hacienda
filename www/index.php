@@ -1,4 +1,4 @@
-<?php 
-  //phpinfo();  
-  echo("Up & running"); 
+<?php
+ //phpinfo();
+ echo("Up & running");
 ?>

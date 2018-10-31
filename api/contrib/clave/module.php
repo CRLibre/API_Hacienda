@@ -15,22 +15,23 @@
 /**
  * Boot up procedure
  */
-function clave_bootMeUp() {
+function clave_bootMeUp()
+{
     // Just booting up
 }
 
 /**
  * Init function
  */
-function clave_init() {
-
+function clave_init()
+{
     $paths = array(
         array(
-            'r' => 'clave',
-            'action' => 'getClave',
-            'access' => 'users_openAccess',
+            'r'             => 'clave',
+            'action'        => 'getClave',
+            'access'        => 'users_openAccess',
             'access_params' => 'accessName',
-            'params' => array(
+            'params'        => array(
                 array("key" => "tipoDocumento", "def" => "", "req" => true),
                 array("key" => "tipoCedula", "def" => "", "req" => true),
                 array("key" => "cedula", "def" => "", "req" => true),
@@ -41,7 +42,7 @@ function clave_init() {
                 array("key" => "sucursal", "def" => "", "req" => false),
                 array("key" => "codigoSeguridad", "def" => "", "req" => true)
             ),
-            'file' => 'clave.php'
+            'file'          => 'clave.php'
         )
     );
 
@@ -56,19 +57,19 @@ function clave_init() {
 /**
  * Get the perms for this module
  */
-function MODULENAME_access() {
-
+function MODULENAME_access()
+{
     $perms = array(
         array(
             # A human readable name
-            'name' => 'Do something with this module',
+            'name'          => 'Do something with this module',
             # Something to remember what it is for
-            'description' => 'What can be achieved with this permission',
+            'description'   => 'What can be achieved with this permission',
             # Internal machine name, no spaces, no funny symbols, same rules as a variable
             # Use yourmodule_ prefix
-            'code' => 'mymodule_access_one',
+            'code'          => 'mymodule_access_one',
             # Default value in case it is not set
-            'def' => false, //Or true, you decide
+            'def'           => false, //Or true, you decide
         ),
     );
 }

@@ -1,17 +1,20 @@
 <?php
 
-function signFE() {
+function signFE()
+{
     require 'Firmadohaciendacr.php';
     modules_loader("files");
-    $p12Url = filesGetUrl(params_get('p12Url'));
-    $pinP12 = params_get('pinP12');
-    $inXml = params_get('inXml');
-    $tipoDoc = params_get('tipodoc');
-    $tipoDocumento;
-    $tipos = array("FE", "ND", "NC", "TE","CCE","CPCE","RCE");
-    if (in_array($tipoDoc, $tipos)) {
-        switch ($tipoDoc) {
-            case 'FE': //Factura Electronica
+    $p12Url     = filesGetUrl(params_get('p12Url'));
+    $pinP12     = params_get('pinP12');
+    $inXml      = params_get('inXml');
+    $tipoDoc    = params_get('tipodoc');
+    $tipos      = array("FE", "ND", "NC", "TE","CCE","CPCE","RCE");
+
+    if (in_array($tipoDoc, $tipos))
+    {
+        switch ($tipoDoc)
+        {
+            case 'FE': // Factura Electronica
                 $tipoDocumento = "01";
                 break;
             case 'ND': // Nota de Debito
@@ -32,11 +35,16 @@ function signFE() {
             case 'RCE': // Rechazo Comprobante Electronico
                 $tipoDocumento = "07";
                 break;
+            default:
+                $tipoDocumento = null;
+                break;
         }
-    } else {
-        return "No se encuentra tipo de documento";
     }
+    else
+        return "No se encuentra tipo de documento";
 
+    if ($tipoDocumento == null)
+        return "El tipo de documento es nulo";
 
     $fac = new Firmadocr();
     //$inXmlUrl debe de ser en Base64 
@@ -48,7 +56,7 @@ function signFE() {
     //04 TE
     //05 06 07 Mensaje Receptor
     $returnFile = $fac->firmar($p12Url, $pinP12, $inXml, $tipoDocumento);
-    $arrayResp = array(
+    $arrayResp  = array(
         "xmlFirmado" => $returnFile
     );
 

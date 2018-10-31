@@ -3,6 +3,7 @@
 /**
  * @page
  */
+include_once("checks.php");
 include_once("grace.php");
 include_once("params.php");
 include_once("modules.php");
@@ -30,22 +31,19 @@ define('CLI_MODE', false);
 /**
  * Boot me up!
  */
-function boot_itUp($mode = 'web') {
-
+function boot_itUp($mode = 'web')
+{
     grace_debug("Booting up");
 
-    if (conf_get('alert', 'boot') == 'false') {
-        // Turn off all error reporting
-        error_reporting(0);
-    }
+    if (conf_get('alert', 'boot') == 'false')
+        error_reporting(0); // Turn off all error reporting
 
     # Load all core modules
     # @todo Call the current requested module first in case it wants to change the core modules to be loaded
     boot_loadAllCoreModules();
 
-    if ($mode == 'web') {
-        //	
-    } else {
+    if ($mode != 'web')
+    {
         // Set mode
         conf_set('mode', 'core', 'cli');
         params_cliLoadOpts(cala_init());
@@ -62,20 +60,22 @@ function boot_itUp($mode = 'web') {
 /**
  * Call the init function in the correct module
  */
-function boot_initThisPath() {
-
+function boot_initThisPath()
+{
     /** @bug Apparently post requests (at least from Java) require a 
      *  \n (breakline) in each post request parameter, which breaks everything
      *  this issue is still under investigation
      */
     $f = preg_replace("/[\n\r\f]+/m", "", params_get('w', 'core') . "_init");
 
-    if (function_exists($f)) {
+    if (function_exists($f))
+    {
         grace_debug("Function found");
         $response = tools_proccesPath(call_user_func($f));
-    } else {
-        $response = "Module not found";
     }
+    else
+        $response = "Module not found";
+
     tools_reply($response);
 }
 
@@ -83,11 +83,12 @@ function boot_initThisPath() {
  * Load all core modules
  * @bug If the called module is a core module, it will get booted twice
  */
-function boot_loadAllCoreModules() {
-
+function boot_loadAllCoreModules()
+{
     grace_debug("Loading all core modules");
 
-    foreach (conf_get('coreLoad', 'modules') as $module) {
+    foreach (conf_get('coreLoad', 'modules') as $module)
+    {
         grace_debug("Loading module: " . $module);
         modules_loader($module);
     }
@@ -96,6 +97,7 @@ function boot_loadAllCoreModules() {
 /**
  * Load boot up modules
  */
-function boot_loadBootModules() {
+function boot_loadBootModules()
+{
     //Todo
 }
