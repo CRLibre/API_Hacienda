@@ -1032,7 +1032,7 @@ function genXMLTE()
     </ResumenFactura>
     <Normativa>
         <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
-        <FechaResolucion>20-02-2017 13:22:22</FechaResolucion>
+        <FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
     </Normativa>';
     if ($otros != '' && $otrosType != '')
     {
