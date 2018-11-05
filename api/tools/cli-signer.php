@@ -2,7 +2,7 @@
 
 <?php
 /*
- * Copyright (C) 2018 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2018 CRLibre <https://crlibre.org>
  * Copyright (C) 2018 Moritz von Schweinitz
  *
  * This program is free software: you can redistribute it and/or modify
