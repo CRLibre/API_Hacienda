@@ -181,9 +181,10 @@ function genXMLFe()
                     </Fax>';
         }
 
-        $xmlString .= '
-            <CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>
-        </Receptor>';
+        if ($receptorEmail != '' )
+            $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
+
+        $xmlString .= '</Receptor>';
     }
 
     $xmlString .= '
@@ -458,9 +459,10 @@ function genXMLNC()
                     </Fax>';
         }
 
-        $xmlString .= '
-            <CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>
-        </Receptor>';
+        if ($receptorEmail != '' )
+            $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
+
+        $xmlString .= '</Receptor>';
     }
 
     $xmlString .= '
@@ -738,10 +740,10 @@ function genXMLND()
                     </Fax>';
         }
 
-        $xmlString .= '
-            <CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>
-        </Receptor>';
-    }
+        if ($receptorEmail != '' )
+            $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
+
+        $xmlString .= '</Receptor>';
 
     $xmlString .= '
     <CondicionVenta>' . $condVenta . '</CondicionVenta>
