@@ -181,7 +181,7 @@ function genXMLFe()
                     </Fax>';
         }
 
-        if ($receptorEmail != '' )
+        if ($receptorEmail != '')
             $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
 
         $xmlString .= '</Receptor>';
@@ -459,7 +459,7 @@ function genXMLNC()
                     </Fax>';
         }
 
-        if ($receptorEmail != '' )
+        if ($receptorEmail != '')
             $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
 
         $xmlString .= '</Receptor>';
@@ -740,7 +740,7 @@ function genXMLND()
                     </Fax>';
         }
 
-        if ($receptorEmail != '' )
+        if ($receptorEmail != '')
             $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
 
         $xmlString .= '</Receptor>';
