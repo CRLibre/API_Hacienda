@@ -744,6 +744,7 @@ function genXMLND()
             $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
 
         $xmlString .= '</Receptor>';
+    }
 
     $xmlString .= '
     <CondicionVenta>' . $condVenta . '</CondicionVenta>
