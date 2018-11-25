@@ -953,7 +953,7 @@ function genXMLTE()
         </Identificacion>
         <NombreComercial>' . $nombreComercial . '</NombreComercial>';
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorBarrio != '' && $emisorOtrasSenas != '')
+    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '')
     {
         $xmlString .= '
         <Ubicacion>
