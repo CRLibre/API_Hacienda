@@ -104,8 +104,7 @@ function genXMLFe()
             <Canton>' . $emisorCanton . '</Canton>
             <Distrito>' . $emisorDistrito . '</Distrito>';
         if ($emisorBarrio != '')
-            $xmlString .= '
-                <Barrio>' . $emisorBarrio . '</Barrio>';
+            $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
         $xmlString .= '
                 <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
             </Ubicacion>';
@@ -164,8 +163,7 @@ function genXMLFe()
                         <Canton>' . $receptorCanton . '</Canton>
                         <Distrito>' . $receptorDistrito . '</Distrito>';
                 if ($receptorBarrio != '')
-                    $xmlString .= '
-                        <Barrio>' . $receptorBarrio . '</Barrio>';
+                    $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
                 $xmlString .= '
                         <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
                     </Ubicacion>';
@@ -388,8 +386,7 @@ function genXMLNC()
             <Canton>' . $emisorCanton . '</Canton>
             <Distrito>' . $emisorDistrito . '</Distrito>';
         if ($emisorBarrio != '')
-            $xmlString .= '
-                <Barrio>' . $emisorBarrio . '</Barrio>';
+            $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
         $xmlString .= '
                 <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
             </Ubicacion>';
@@ -449,8 +446,7 @@ function genXMLNC()
                         <Canton>' . $receptorCanton . '</Canton>
                         <Distrito>' . $receptorDistrito . '</Distrito>';
                 if ($receptorBarrio != '')
-                    $xmlString .= '
-                        <Barrio>' . $receptorBarrio . '</Barrio>';
+                    $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
                 $xmlString .= '
                         <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
                     </Ubicacion>';
@@ -677,8 +673,7 @@ function genXMLND()
             <Canton>' . $emisorCanton . '</Canton>
             <Distrito>' . $emisorDistrito . '</Distrito>';
         if ($emisorBarrio != '')
-            $xmlString .= '
-                <Barrio>' . $emisorBarrio . '</Barrio>';
+            $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
         $xmlString .= '
                 <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
             </Ubicacion>';
@@ -737,8 +732,7 @@ function genXMLND()
                         <Canton>' . $receptorCanton . '</Canton>
                         <Distrito>' . $receptorDistrito . '</Distrito>';
                 if ($receptorBarrio != '')
-                    $xmlString .= '
-                        <Barrio>' . $receptorBarrio . '</Barrio>';
+                    $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
                 $xmlString .= '
                         <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
                     </Ubicacion>';
@@ -964,8 +958,7 @@ function genXMLTE()
             <Canton>' . $emisorCanton . '</Canton>
             <Distrito>' . $emisorDistrito . '</Distrito>';
         if ($emisorBarrio != '')
-            $xmlString .= '
-                <Barrio>' . $emisorBarrio . '</Barrio>';
+            $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
         $xmlString .= '
                 <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
             </Ubicacion>';
