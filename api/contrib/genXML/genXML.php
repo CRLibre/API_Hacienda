@@ -99,11 +99,14 @@ function genXMLFe()
     if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '')
     {
         $xmlString .= '
-            <Ubicacion>
-                <Provincia>' . $emisorProv . '</Provincia>
-                <Canton>' . $emisorCanton . '</Canton>
-                <Distrito>' . $emisorDistrito . '</Distrito>
-                <Barrio>' . $emisorBarrio . '</Barrio>
+        <Ubicacion>
+            <Provincia>' . $emisorProv . '</Provincia>
+            <Canton>' . $emisorCanton . '</Canton>
+            <Distrito>' . $emisorDistrito . '</Distrito>';
+        if ($emisorBarrio != '')
+            $xmlString .= '
+                <Barrio>' . $emisorBarrio . '</Barrio>';
+        $xmlString .= '
                 <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
             </Ubicacion>';
     }
