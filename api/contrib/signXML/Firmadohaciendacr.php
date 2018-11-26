@@ -132,12 +132,12 @@ class Firmadocr
       }
       elseif ($this->tipoDoc == '05' || $this->tipoDoc == '06' || $this->tipoDoc == '07')
       {
-          $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor"';
+          $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor" ';
           $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor" ';
           $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor" ';
       }
 
-      $xmlns= 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
+      $xmlns = 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
             'xmlns:fe="http://www.dian.gov.co/contratos/facturaelectronica/v1" ' .
             'xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"';
       $xmlns_keyinfo .= 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
@@ -209,8 +209,8 @@ class Firmadocr
       $publicPEM = str_replace("-----BEGIN CERTIFICATE-----", "", $publicPEM);
       $publicPEM = str_replace("-----END CERTIFICATE-----", "", $publicPEM);
       $publicPEM = str_replace("\r", "", str_replace("\n", "", $publicPEM));
- 
-      $kInfo = '<ds:KeyInfo Id="'.$this->KeyInfoId.'">' . 
+
+      $kInfo = '<ds:KeyInfo Id="'.$this->KeyInfoId.'">' .
                 '<ds:X509Data>'  .
                     '<ds:X509Certificate>'  . $publicPEM .'</ds:X509Certificate>' .
                 '</ds:X509Data>' .
@@ -234,17 +234,17 @@ class Firmadocr
       $sInfo = '<ds:SignedInfo>' .
         '<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />' .
         '<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />' .
-        '<ds:Reference Id="' . $this->Reference0Id . '" URI="">' . 
-        '<ds:Transforms>' . 
+        '<ds:Reference Id="' . $this->Reference0Id . '" URI="">' .
+        '<ds:Transforms>' .
         '<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />' .
-        '</ds:Transforms>' . 
+        '</ds:Transforms>' .
         '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />' .
-        '<ds:DigestValue>' . $documentDigest . '</ds:DigestValue>' . 
-        '</ds:Reference>' . 
+        '<ds:DigestValue>' . $documentDigest . '</ds:DigestValue>' .
+        '</ds:Reference>' .
         '<ds:Reference Id="'.  $this->Reference1Id . '" URI="#'.$this->KeyInfoId .'">' .
         '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />' .
-        '<ds:DigestValue>' . $kInfoDigest . '</ds:DigestValue>' . 
-        '</ds:Reference>' . 
+        '<ds:DigestValue>' . $kInfoDigest . '</ds:DigestValue>' .
+        '</ds:Reference>' .
         '<ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#' . $this->SignedProperties . '">' .
         '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />' .
         '<ds:DigestValue>' . $propDigest . '</ds:DigestValue>' .
@@ -266,9 +266,9 @@ class Firmadocr
       $signatureResult = base64_encode($signatureResult);
 
       $sig = '<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="' . $this->signatureID . '">'.
-        $sInfo . 
-        '<ds:SignatureValue Id="' . $this->signatureValue . '">' . 
-        $signatureResult .  '</ds:SignatureValue>'  . $kInfo . 
+        $sInfo .
+        '<ds:SignatureValue Id="' . $this->signatureValue . '">' .
+        $signatureResult .  '</ds:SignatureValue>'  . $kInfo .
         '<ds:Object Id="'.$this->XadesObjectId .'">'.
         '<xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Id="QualifyingProperties-012b8df6-b93e-4867-9901-83447ffce4bf" Target="#' . $this->signatureID . '">' . $prop .
         '</xades:QualifyingProperties></ds:Object></ds:Signature>';
