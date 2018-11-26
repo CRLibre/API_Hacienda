@@ -96,14 +96,16 @@ function genXMLFe()
             </Identificacion>
             <NombreComercial>' . $nombreComercial . '</NombreComercial>';
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorBarrio != '' && $emisorOtrasSenas != '')
+    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '')
     {
         $xmlString .= '
-            <Ubicacion>
-                <Provincia>' . $emisorProv . '</Provincia>
-                <Canton>' . $emisorCanton . '</Canton>
-                <Distrito>' . $emisorDistrito . '</Distrito>
-                <Barrio>' . $emisorBarrio . '</Barrio>
+        <Ubicacion>
+            <Provincia>' . $emisorProv . '</Provincia>
+            <Canton>' . $emisorCanton . '</Canton>
+            <Distrito>' . $emisorDistrito . '</Distrito>';
+        if ($emisorBarrio != '')
+            $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
+        $xmlString .= '
                 <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
             </Ubicacion>';
     }
@@ -153,14 +155,17 @@ function genXMLFe()
                 </Identificacion>';
             }
 
-            if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorBarrio != '' && $receptorOtrasSenas != '')
+            if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorOtrasSenas != '')
             {
-                $xmlString .= '<Ubicacion>
-                             <Provincia>' . $receptorProvincia . '</Provincia>
-                            <Canton>' . $receptorCanton . '</Canton>
-                            <Distrito>' . $receptorDistrito . '</Distrito>
-                            <Barrio>' . $receptorBarrio . '</Barrio>
-                            <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
+                $xmlString .= '
+                    <Ubicacion>
+                        <Provincia>' . $receptorProvincia . '</Provincia>
+                        <Canton>' . $receptorCanton . '</Canton>
+                        <Distrito>' . $receptorDistrito . '</Distrito>';
+                if ($receptorBarrio != '')
+                    $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
+                $xmlString .= '
+                        <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
                     </Ubicacion>';
             }
         }
@@ -373,16 +378,18 @@ function genXMLNC()
         <NombreComercial>' . $nombreComercial . '</NombreComercial>';
 
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorBarrio != '' && $emisorOtrasSenas != '')
+    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '')
     {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $emisorProv . '</Provincia>
             <Canton>' . $emisorCanton . '</Canton>
-            <Distrito>' . $emisorDistrito . '</Distrito>
-            <Barrio>' . $emisorBarrio . '</Barrio>
-            <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
-        </Ubicacion>';
+            <Distrito>' . $emisorDistrito . '</Distrito>';
+        if ($emisorBarrio != '')
+            $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
+        $xmlString .= '
+                <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
+            </Ubicacion>';
     }
 
     if ($emisorCodPaisTel != '' && $emisorTel != '')
@@ -431,14 +438,17 @@ function genXMLNC()
                 </Identificacion>';
             }
 
-            if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorBarrio != '' && $receptorOtrasSenas != '')
+            if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorOtrasSenas != '')
             {
-                $xmlString .= '<Ubicacion>
-                             <Provincia>' . $receptorProvincia . '</Provincia>
-                            <Canton>' . $receptorCanton . '</Canton>
-                            <Distrito>' . $receptorDistrito . '</Distrito>
-                            <Barrio>' . $receptorBarrio . '</Barrio>
-                            <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
+                $xmlString .= '
+                    <Ubicacion>
+                        <Provincia>' . $receptorProvincia . '</Provincia>
+                        <Canton>' . $receptorCanton . '</Canton>
+                        <Distrito>' . $receptorDistrito . '</Distrito>';
+                if ($receptorBarrio != '')
+                    $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
+                $xmlString .= '
+                        <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
                     </Ubicacion>';
             }
         }
@@ -655,16 +665,18 @@ function genXMLND()
         </Identificacion>
         <NombreComercial>' . $nombreComercial . '</NombreComercial>';
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorBarrio != '' && $emisorOtrasSenas != '')
+    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '')
     {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $emisorProv . '</Provincia>
             <Canton>' . $emisorCanton . '</Canton>
-            <Distrito>' . $emisorDistrito . '</Distrito>
-            <Barrio>' . $emisorBarrio . '</Barrio>
-            <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
-        </Ubicacion>';
+            <Distrito>' . $emisorDistrito . '</Distrito>';
+        if ($emisorBarrio != '')
+            $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
+        $xmlString .= '
+                <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
+            </Ubicacion>';
     }
 
     if ($emisorCodPaisTel != '' && $emisorTel != '')
@@ -712,14 +724,17 @@ function genXMLND()
                 </Identificacion>';
             }
 
-            if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorBarrio != '' && $receptorOtrasSenas != '')
+            if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorOtrasSenas != '')
             {
-                $xmlString .= '<Ubicacion>
-                             <Provincia>' . $receptorProvincia . '</Provincia>
-                            <Canton>' . $receptorCanton . '</Canton>
-                            <Distrito>' . $receptorDistrito . '</Distrito>
-                            <Barrio>' . $receptorBarrio . '</Barrio>
-                            <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
+                $xmlString .= '
+                    <Ubicacion>
+                        <Provincia>' . $receptorProvincia . '</Provincia>
+                        <Canton>' . $receptorCanton . '</Canton>
+                        <Distrito>' . $receptorDistrito . '</Distrito>';
+                if ($receptorBarrio != '')
+                    $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
+                $xmlString .= '
+                        <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
                     </Ubicacion>';
             }
         }
@@ -935,16 +950,18 @@ function genXMLTE()
         </Identificacion>
         <NombreComercial>' . $nombreComercial . '</NombreComercial>';
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorBarrio != '' && $emisorOtrasSenas != '')
+    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '')
     {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $emisorProv . '</Provincia>
             <Canton>' . $emisorCanton . '</Canton>
-            <Distrito>' . $emisorDistrito . '</Distrito>
-            <Barrio>' . $emisorBarrio . '</Barrio>
-            <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
-        </Ubicacion>';
+            <Distrito>' . $emisorDistrito . '</Distrito>';
+        if ($emisorBarrio != '')
+            $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
+        $xmlString .= '
+                <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
+            </Ubicacion>';
     }
 
     if ($emisorCodPaisTel != '' && $emisorTel != '')
