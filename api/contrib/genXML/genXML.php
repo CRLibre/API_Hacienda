@@ -1,4 +1,20 @@
 <?php
+/*
+ * Copyright (C) 2017-2018 CRLibre <https://crlibre.org>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /* * ************************************************** */
 /* Funcion para generar XML                          */
@@ -80,14 +96,16 @@ function genXMLFe()
             </Identificacion>
             <NombreComercial>' . $nombreComercial . '</NombreComercial>';
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorBarrio != '' && $emisorOtrasSenas != '')
+    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '')
     {
         $xmlString .= '
-            <Ubicacion>
-                <Provincia>' . $emisorProv . '</Provincia>
-                <Canton>' . $emisorCanton . '</Canton>
-                <Distrito>' . $emisorDistrito . '</Distrito>
-                <Barrio>' . $emisorBarrio . '</Barrio>
+        <Ubicacion>
+            <Provincia>' . $emisorProv . '</Provincia>
+            <Canton>' . $emisorCanton . '</Canton>
+            <Distrito>' . $emisorDistrito . '</Distrito>';
+        if ($emisorBarrio != '')
+            $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
+        $xmlString .= '
                 <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
             </Ubicacion>';
     }
@@ -137,14 +155,17 @@ function genXMLFe()
                 </Identificacion>';
             }
 
-            if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorBarrio != '' && $receptorOtrasSenas != '')
+            if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorOtrasSenas != '')
             {
-                $xmlString .= '<Ubicacion>
-                             <Provincia>' . $receptorProvincia . '</Provincia>
-                            <Canton>' . $receptorCanton . '</Canton>
-                            <Distrito>' . $receptorDistrito . '</Distrito>
-                            <Barrio>' . $receptorBarrio . '</Barrio>
-                            <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
+                $xmlString .= '
+                    <Ubicacion>
+                        <Provincia>' . $receptorProvincia . '</Provincia>
+                        <Canton>' . $receptorCanton . '</Canton>
+                        <Distrito>' . $receptorDistrito . '</Distrito>';
+                if ($receptorBarrio != '')
+                    $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
+                $xmlString .= '
+                        <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
                     </Ubicacion>';
             }
         }
@@ -165,9 +186,10 @@ function genXMLFe()
                     </Fax>';
         }
 
-        $xmlString .= '
-            <CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>
-        </Receptor>';
+        if ($receptorEmail != '')
+            $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
+
+        $xmlString .= '</Receptor>';
     }
 
     $xmlString .= '
@@ -356,16 +378,18 @@ function genXMLNC()
         <NombreComercial>' . $nombreComercial . '</NombreComercial>';
 
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorBarrio != '' && $emisorOtrasSenas != '')
+    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '')
     {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $emisorProv . '</Provincia>
             <Canton>' . $emisorCanton . '</Canton>
-            <Distrito>' . $emisorDistrito . '</Distrito>
-            <Barrio>' . $emisorBarrio . '</Barrio>
-            <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
-        </Ubicacion>';
+            <Distrito>' . $emisorDistrito . '</Distrito>';
+        if ($emisorBarrio != '')
+            $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
+        $xmlString .= '
+                <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
+            </Ubicacion>';
     }
 
     if ($emisorCodPaisTel != '' && $emisorTel != '')
@@ -414,14 +438,17 @@ function genXMLNC()
                 </Identificacion>';
             }
 
-            if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorBarrio != '' && $receptorOtrasSenas != '')
+            if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorOtrasSenas != '')
             {
-                $xmlString .= '<Ubicacion>
-                             <Provincia>' . $receptorProvincia . '</Provincia>
-                            <Canton>' . $receptorCanton . '</Canton>
-                            <Distrito>' . $receptorDistrito . '</Distrito>
-                            <Barrio>' . $receptorBarrio . '</Barrio>
-                            <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
+                $xmlString .= '
+                    <Ubicacion>
+                        <Provincia>' . $receptorProvincia . '</Provincia>
+                        <Canton>' . $receptorCanton . '</Canton>
+                        <Distrito>' . $receptorDistrito . '</Distrito>';
+                if ($receptorBarrio != '')
+                    $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
+                $xmlString .= '
+                        <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
                     </Ubicacion>';
             }
         }
@@ -442,9 +469,10 @@ function genXMLNC()
                     </Fax>';
         }
 
-        $xmlString .= '
-            <CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>
-        </Receptor>';
+        if ($receptorEmail != '')
+            $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
+
+        $xmlString .= '</Receptor>';
     }
 
     $xmlString .= '
@@ -637,16 +665,18 @@ function genXMLND()
         </Identificacion>
         <NombreComercial>' . $nombreComercial . '</NombreComercial>';
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorBarrio != '' && $emisorOtrasSenas != '')
+    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '')
     {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $emisorProv . '</Provincia>
             <Canton>' . $emisorCanton . '</Canton>
-            <Distrito>' . $emisorDistrito . '</Distrito>
-            <Barrio>' . $emisorBarrio . '</Barrio>
-            <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
-        </Ubicacion>';
+            <Distrito>' . $emisorDistrito . '</Distrito>';
+        if ($emisorBarrio != '')
+            $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
+        $xmlString .= '
+                <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
+            </Ubicacion>';
     }
 
     if ($emisorCodPaisTel != '' && $emisorTel != '')
@@ -694,14 +724,17 @@ function genXMLND()
                 </Identificacion>';
             }
 
-            if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorBarrio != '' && $receptorOtrasSenas != '')
+            if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorOtrasSenas != '')
             {
-                $xmlString .= '<Ubicacion>
-                             <Provincia>' . $receptorProvincia . '</Provincia>
-                            <Canton>' . $receptorCanton . '</Canton>
-                            <Distrito>' . $receptorDistrito . '</Distrito>
-                            <Barrio>' . $receptorBarrio . '</Barrio>
-                            <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
+                $xmlString .= '
+                    <Ubicacion>
+                        <Provincia>' . $receptorProvincia . '</Provincia>
+                        <Canton>' . $receptorCanton . '</Canton>
+                        <Distrito>' . $receptorDistrito . '</Distrito>';
+                if ($receptorBarrio != '')
+                    $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
+                $xmlString .= '
+                        <OtrasSenas>' . $receptorOtrasSenas . '</OtrasSenas>
                     </Ubicacion>';
             }
         }
@@ -722,9 +755,10 @@ function genXMLND()
                     </Fax>';
         }
 
-        $xmlString .= '
-            <CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>
-        </Receptor>';
+        if ($receptorEmail != '')
+            $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
+
+        $xmlString .= '</Receptor>';
     }
 
     $xmlString .= '
@@ -916,16 +950,18 @@ function genXMLTE()
         </Identificacion>
         <NombreComercial>' . $nombreComercial . '</NombreComercial>';
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorBarrio != '' && $emisorOtrasSenas != '')
+    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '')
     {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $emisorProv . '</Provincia>
             <Canton>' . $emisorCanton . '</Canton>
-            <Distrito>' . $emisorDistrito . '</Distrito>
-            <Barrio>' . $emisorBarrio . '</Barrio>
-            <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
-        </Ubicacion>';
+            <Distrito>' . $emisorDistrito . '</Distrito>';
+        if ($emisorBarrio != '')
+            $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
+        $xmlString .= '
+                <OtrasSenas>' . $emisorOtrasSenas . '</OtrasSenas>
+            </Ubicacion>';
     }
 
     if ($emisorCodPaisTel != '' && $emisorTel != '')
@@ -1032,7 +1068,7 @@ function genXMLTE()
     </ResumenFactura>
     <Normativa>
         <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
-        <FechaResolucion>20-02-2017 13:22:22</FechaResolucion>
+        <FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
     </Normativa>';
     if ($otros != '' && $otrosType != '')
     {
