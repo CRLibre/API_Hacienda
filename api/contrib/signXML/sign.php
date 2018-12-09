@@ -30,25 +30,25 @@ function signFE()
     {
         switch ($tipoDoc)
         {
-            case 'FE': // Factura Electronica
+            case 'FE': // Factura electrónica
                 $tipoDocumento = "01";
                 break;
-            case 'ND': // Nota de Debito
+            case 'ND': // Nota de débito electrónica
                 $tipoDocumento = "02";
                 break;
-            case 'NC': // Nota de Credito
+            case 'NC': // Nota de crédito electrónica
                 $tipoDocumento = "03";
                 break;
-            case 'TE': // Tiquete Electronico
+            case 'TE': // Tiquete Electrónico
                 $tipoDocumento = "04";
                 break;
-            case 'CCE': // Confirmacion Comprabante Electronico
+            case 'CCE': // Confirmación de aceptación del comprobante electrónico
                 $tipoDocumento = "05";
                 break;
-            case 'CPCE': // Confirmacion Parcial Comprbante Electronico
+            case 'CPCE': // Confirmación de aceptación parcial del comprobante electrónico
                 $tipoDocumento = "06";
                 break;
-            case 'RCE': // Rechazo Comprobante Electronico
+            case 'RCE': // Confirmación de rechazo del comprobante electrónico
                 $tipoDocumento = "07";
                 break;
             default:
@@ -57,15 +57,19 @@ function signFE()
         }
     }
     else
-        return "No se encuentra tipo de documento";
+    {
+		return "No se encuentra tipo de documento";
+    }
 
     if ($tipoDocumento == null)
-        return "El tipo de documento es nulo";
+    {
+		return "El tipo de documento es nulo";
+    }
 
     $fac = new Firmadocr();
-    //$inXmlUrl debe de ser en Base64 
+    //$inXmlUrl debe de ser en Base64
     //$p12Url es un downloadcode previamente suministrado al subir el certificado en el modulo fileUploader -> subir_certif
-    //Tipo es el tipo de documento 
+    //Tipo es el tipo de documento
     // 01 FE
     //02 ND
     //03 NC
