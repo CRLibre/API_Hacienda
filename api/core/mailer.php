@@ -299,7 +299,7 @@ function GenerateBody($message)
               <tr> <td ><br></td> </tr>
             <tr>
                 <td style="background-color: #ffffff;">
-                    <img src="https://scontent.fsyq2-1.fna.fbcdn.net/v/t1.0-9/33379063_741113822944661_9042709073681711104_n.png?_nc_cat=0&oh=9ac1b60c1f7ab20eb174b29d85a50470&oe=5C0C2666" width="600" height="" alt="alt_text" border="0" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 15px; color: #555555; margin: auto;" class="g-img">
+                    <img src="'.conf_get('compannyIMG', 'core').'" width="600" height="" alt="alt_text" border="0" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 15px; color: #555555; margin: auto;" class="g-img">
                 </td>
             </tr>
             <!-- Hero Image, Flush : END -->
@@ -326,12 +326,9 @@ function GenerateBody($message)
                                         <td class="button-td button-td-primary" style="border-radius: 4px; background: #222222;">
                                     </tr>
                                     <tr>
-                    <br>
-                        <br>
-                    CRLibre.org<br><span class="unstyle-auto-detected-links">una comunidad para todos!<br></span>
-                    <br><br>	                
-                </td>
-                                        
+                                        <br>
+                                        <br>
+                                        </td>
                                     </tr>
                                 </table>
                                 <!-- Button : END -->
