@@ -21,13 +21,13 @@
  */
 # Details about how I am going to be running
 //! Print it all in grace
-define('GRACE_PRINT_ALL', true);
+define('GRACE_PRINT_ALL', conf_get('print_all', 'debug'));
 //! Print absurd messages
-define('GRACE_PRINT_ABSURD', true);
+define('GRACE_PRINT_ABSURD', conf_get('print_absurd', 'debug'));
 //! Print debug messages
-define('GRACE_PRINT_DEBUG', true);
+define('GRACE_PRINT_DEBUG', conf_get('print_debug', 'debug'));
 //! Print error messages
-define('GRACE_PRINT_ERROR', true);
+define('GRACE_PRINT_ERROR', conf_get('print_error', 'debug'));
 
 /** @} */
 /** @ingroup GlobalVars
