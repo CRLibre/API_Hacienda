@@ -7,3 +7,4 @@ nbproject/*
 build/*
 *settings.php
 .DS_Store
+.vscode
