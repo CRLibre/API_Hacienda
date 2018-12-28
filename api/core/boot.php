@@ -20,10 +20,10 @@
  * @page
  */
 include_once("checks.php");
+include_once("conf.php");
 include_once("grace.php");
 include_once("params.php");
 include_once("modules.php");
-include_once("conf.php");
 include_once("tools.php");
 
 
@@ -78,7 +78,7 @@ function boot_itUp($mode = 'web')
  */
 function boot_initThisPath()
 {
-    /** @bug Apparently post requests (at least from Java) require a 
+    /** @bug Apparently post requests (at least from Java) require a
      *  \n (breakline) in each post request parameter, which breaks everything
      *  this issue is still under investigation
      */
