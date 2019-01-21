@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.2" vc:minVersion="1.1">
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/2008/REC-xmldsig-core-20080610/xmldsig-core-schema.xsd"/>
+	<xs:element name="MensajeReceptor">
+		<xs:annotation>
+			<xs:documentation>Mensaje de aceptacion o rechazo de los documentos electronicos por parte del obligado tributario</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Clave">
+					<xs:annotation>
+						<xs:documentation>Clave numérica del comprobante</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="\d{50,50}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NumeroCedulaEmisor">
+					<xs:annotation>
+						<xs:documentation>Número de cédula fisica/jurídica/NITE/DIMEX del vendedor</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="\d{12,12}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="FechaEmisionDoc" type="xs:dateTime">
+					<xs:annotation>
+						<xs:documentation>Fecha de emision de la confirmación</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Mensaje">
+					<xs:annotation>
+						<xs:documentation>Codigo del mensaje de respuesta. 1 aceptado, 2 aceptado parcialmente, 3 rechazado</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:enumeration value="1">
+								<xs:annotation>
+									<xs:documentation>Aceptado</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="2">
+								<xs:annotation>
+									<xs:documentation>Aceptado Parcialmente</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="3">
+								<xs:annotation>
+									<xs:documentation>Rechazado</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="DetalleMensaje" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Detalle del mensaje</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="80"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="MontoTotalImpuesto" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Monto total del impuesto, que es obligatorio si el comprobante tenga impuesto.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:totalDigits value="18"/>
+							<xs:fractionDigits value="5"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TotalFactura">
+					<xs:annotation>
+						<xs:documentation>Monto total de la factura</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:totalDigits value="18"/>
+							<xs:fractionDigits value="5"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NumeroCedulaReceptor">
+					<xs:annotation>
+						<xs:documentation>Número de cédula fisica/jurídica/NITE/DIMEX del comprador</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="\d{12,12}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NumeroConsecutivoReceptor">
+					<xs:annotation>
+						<xs:documentation>Numeración consecutiva de los mensajes de confirmación</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="\d{20,20}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="ds:Signature" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

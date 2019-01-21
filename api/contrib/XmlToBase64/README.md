@@ -4,8 +4,3 @@ Se envia
 w = XmlToBase64
 r = encode
 xml = el String XML
- 
-
-
-
-

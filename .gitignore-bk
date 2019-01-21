@@ -1,9 +1,10 @@
-www
-api/core
 api/files
-api/insall
-api/logs
-api/modules
+api/install
+api/logs/*
 api/resources
-api/tools
-/nbproject/private/
+api/errors/*
+nbproject/*
+build/*
+*settings.php
+.DS_Store
+.vscode
