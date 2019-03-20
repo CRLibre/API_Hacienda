@@ -11,3 +11,7 @@ El siguiente documento provee información de como configurar el API para que tr
 
 * Apache2 HTTP port : 8080
 * MySQL database system port: 4407
+
+The database is storing all its information in a _volume_ which does not get removed when the container gets removed. If it is required to remove saved data from the volume, please stop all the containers, and execute the following command:
+
+`docker volume prune`
