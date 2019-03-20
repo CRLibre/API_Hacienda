@@ -1,0 +1,36 @@
+version: '3.4'
+services:
+    php-apache:
+        build:
+            context: ./php-apache
+        ports:
+            - 8080:80
+            - 8443:443
+        volumes:
+                - ../www:/var/www/html:z
+                - ../api:/var/www/api:z
+        # restart: always
+        # tty: true
+        links:
+            - 'mariadb'
+        
+    mariadb:
+        image: mariadb:10.1
+        ports:
+            - 4407:3306
+        volumes:
+            - mariadb:/var/lib/mysql
+            - ../recursos/sql:/docker-entrypoint-initdb.d
+            # - ../recursos/sql:/tmp/deployment/sql
+        environment:
+            TZ: "Europe/Rome"
+            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+            MYSQL_ROOT_PASSWORD: "rootpwd"
+            MYSQL_USER: 'testuser'
+            MYSQL_PASSWORD: 'testpassword'
+            MYSQL_DATABASE: 'testdb'
+        restart: always
+        # command: [sh, -c, "mysql --user=root --host=localhost --port=4407 --password=rootpwd --database=testdb < /tmp/deployment/sql/api_base.sql"]
+        # command: [sh, -c, "mysqladmin  --user=root --host=localhost --port=4407 --password=rootpwd status"]
+volumes:
+    mariadb:
