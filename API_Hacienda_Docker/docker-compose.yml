@@ -9,8 +9,19 @@ services:
         volumes:
                 - ../www:/var/www/html:z
                 - ../api:/var/www/api:z
-        # restart: always
-        # tty: true
+        environment: 
+            CRLIBRE_API_HACIENDA_DB_NAME: 'testdb'
+            CRLIBRE_API_HACIENDA_DB_PASSWORD: 'testpassword'
+            CRLIBRE_API_HACIENDA_DB_USER: 'testuser'
+            CRLIBRE_API_HACIENDA_DB_HOST: '172.28.1.2'
+        restart: always
+        tty: true
+        networks:
+            testing_net:
+                ipv4_address: 172.28.1.1
+        # command: [sh, -c, '/bin/bash -c "source /tmp/setup.sh"']
+        # command: [sh, -c, "apache2-foreground && /bin/bash -c 'source /tmp/setup.sh'"]
+        # command: [sh, -c, " && exec /bin/bash -c 'source /tmp/setup.sh'"]
         links:
             - 'mariadb'
         
@@ -30,7 +41,17 @@ services:
             MYSQL_PASSWORD: 'testpassword'
             MYSQL_DATABASE: 'testdb'
         restart: always
+        tty: true
+        networks:
+            testing_net:
+                ipv4_address: "172.28.1.2"
         # command: [sh, -c, "mysql --user=root --host=localhost --port=4407 --password=rootpwd --database=testdb < /tmp/deployment/sql/api_base.sql"]
         # command: [sh, -c, "mysqladmin  --user=root --host=localhost --port=4407 --password=rootpwd status"]
 volumes:
     mariadb:
+networks:
+    testing_net:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.28.0.0/16
