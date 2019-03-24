@@ -3,7 +3,7 @@ MAINTAINER hmadrigal <hfmad@hotmail.com>
 LABEL version="1.0"
 LABEL description="Apache 2 / PHP"
 VOLUME [ "/data" ]
-RUN apt-get update && apt-get -y install libpng-dev curl libcurl4-openssl-dev openssl netcat
+RUN apt-get update && apt-get -y install libpng-dev curl libcurl4-openssl-dev openssl
 RUN docker-php-ext-install pdo pdo_mysql mysqli gd curl
 # RUN a2enmod rewrite
 # ADD setup.sh /tmp/
