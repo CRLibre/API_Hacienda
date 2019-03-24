@@ -6,7 +6,8 @@ VOLUME [ "/data" ]
 RUN apt-get update && apt-get -y install libpng-dev curl libcurl4-openssl-dev openssl
 RUN docker-php-ext-install pdo pdo_mysql mysqli gd curl
 # RUN a2enmod rewrite
-RUN /bin/bash -c 'service apache2 restart && exec /tmp/setup.sh && service apache2 stop'
+# ADD setup.sh /tmp/
+# RUN /bin/bash -c 'service apache2 restart && exec /tmp/setup.sh && service apache2 stop && apache2-foreground'
 
 # Option 1 for running script
 # ADD setup.sh /tmp/
@@ -14,3 +15,6 @@ RUN /bin/bash -c 'service apache2 restart && exec /tmp/setup.sh && service apach
 
 # Option 2 for running script
 # CMD /bin/bash -c 'apache2-foreground & exec /tmp/setup.sh'
+
+ADD setup.sh /tmp/
+CMD ["apache2-foreground && exec /tmp/setup.sh"]
