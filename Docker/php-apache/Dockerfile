@@ -8,6 +8,7 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli gd curl
 # RUN a2enmod rewrite
 # RUN service apache2 restart
 ADD setup.sh /tmp/
-# CMD [ "apache2-foreground && /bin/bash -c 'source /tmp/setup.sh'"]
-# CMD  /bin/bash -c 'source /tmp/setup.sh'
-# CMD [ "/bin/sh","/tmp/setup.sh" ]
+# RUN  /bin/bash -c 'source /tmp/setup.sh'
+
+CMD /bin/bash -c 'apache2-foreground & exec /tmp/setup.sh'
+# CMD  /bin/bash -c 'service apache2 restart && exec /tmp/setup.sh'
