@@ -3,7 +3,7 @@ MAINTAINER hmadrigal <hfmad@hotmail.com>
 LABEL version="1.0"
 LABEL description="Apache 2 / PHP"
 VOLUME [ "/data" ]
-RUN apt-get update && apt-get -y install libpng-dev curl libcurl4-openssl-dev openssl
+RUN apt-get update && apt-get -y install libpng-dev curl libcurl4-openssl-dev openssl netcat
 RUN docker-php-ext-install pdo pdo_mysql mysqli gd curl
 # RUN a2enmod rewrite
 # ADD setup.sh /tmp/
@@ -17,4 +17,4 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli gd curl
 # CMD /bin/bash -c 'apache2-foreground & exec /tmp/setup.sh'
 
 ADD setup.sh /tmp/
-CMD ["apache2-foreground && exec /tmp/setup.sh"]
+CMD ["/tmp/setup.sh"]
