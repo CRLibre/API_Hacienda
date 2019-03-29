@@ -14,14 +14,14 @@ services:
             CRLIBRE_API_HACIENDA_DB_PASSWORD: 'testpassword'
             CRLIBRE_API_HACIENDA_DB_USER: 'testuser'
             CRLIBRE_API_HACIENDA_DB_HOST: '172.28.1.2'
-        restart: always
-        tty: true
+        # restart: always
+        # tty: true
         networks:
-            testing_net:
+            api_hacienda_network:
                 ipv4_address: 172.28.1.1
         links:
             - 'mariadb'
-        
+        # command: [sh, -c, '/bin/bash -c "source /tmp/setup.sh"']
     mariadb:
         image: mariadb:10.1
         ports:
@@ -40,12 +40,12 @@ services:
         restart: always
         tty: true
         networks:
-            testing_net:
+            api_hacienda_network:
                 ipv4_address: "172.28.1.2"
 volumes:
     mariadb:
 networks:
-    testing_net:
+    api_hacienda_network:
         ipam:
             driver: default
             config:

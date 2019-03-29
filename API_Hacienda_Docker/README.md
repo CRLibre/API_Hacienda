@@ -7,10 +7,14 @@ El siguiente documento provee información de como configurar el API para que tr
 * `Docker version 18.09.2, build 6247962`
 * `docker-compose version 1.23.2, build 1110ad01`
 
-## Mappings
+## Files and Mappings
 
+Port mapping
 * Apache2 HTTP ports : 80 => 8080, 443 => 8443
 * MySQL database system port: 4407
+Files:
+El archivo $/www/settings.php es generado automaticamente por Docker. Reemplazando valores de conexion de base de datos y la llave criptografica. 
+Adicionalmente la llave criptografica se almacena en cryptoKey.json.
 
 El contenedor de base de datos almacena la información en un _volume_ lo que permite que despues de detenido el contenedor los datos persistan.
 
