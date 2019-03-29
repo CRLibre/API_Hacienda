@@ -19,9 +19,6 @@ services:
         networks:
             testing_net:
                 ipv4_address: 172.28.1.1
-        # command: [sh, -c, '/bin/bash -c "source /tmp/setup.sh"']
-        # command: [sh, -c, "apache2-foreground && /bin/bash -c 'source /tmp/setup.sh'"]
-        # command: [sh, -c, " && exec /bin/bash -c 'source /tmp/setup.sh'"]
         links:
             - 'mariadb'
         
@@ -45,8 +42,6 @@ services:
         networks:
             testing_net:
                 ipv4_address: "172.28.1.2"
-        # command: [sh, -c, "mysql --user=root --host=localhost --port=4407 --password=rootpwd --database=testdb < /tmp/deployment/sql/api_base.sql"]
-        # command: [sh, -c, "mysqladmin  --user=root --host=localhost --port=4407 --password=rootpwd status"]
 volumes:
     mariadb:
 networks:

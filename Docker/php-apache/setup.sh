@@ -1,27 +1,26 @@
 #!/bin/sh
-echo "Computing: /var/www/html/settings.php"
-service apache2 restart;
-# while ! nc -z 127.0.0.1 8080; do echo sleeping; sleep 1; done;
-# echo Connected!;
-echo sleeping
-sleep 5;
-jsonValue() { KEY=$1; num=$2; awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1)}}}' | tr -d '"' | sed -n ${num}p ;} 
-CRLIBRE_API_HACIENDA_CRYPTO_KEY=`curl "http://localhost:80/api.php?w=crypto&r=makeKey" | jsonValue resp`;
-service apache2 stop;
-# Generating settings.php 
-cat /var/www/html/settings.php.dist \
-| sed "s/{dbName}/${CRLIBRE_API_HACIENDA_DB_NAME}/g" \
-| sed "s/{dbPss}/${CRLIBRE_API_HACIENDA_DB_PASSWORD}/g" \
-| sed "s/{dbUser}/${CRLIBRE_API_HACIENDA_DB_USER}/g" \
-| sed "s/{dbHost}/${CRLIBRE_API_HACIENDA_DB_HOST}/g" \
-| sed "s/{cryptoKey}/${CRLIBRE_API_HACIENDA_CRYPTO_KEY}/g" \
-> /var/www/html/settings.php
+SETTINGS_FILE_PATH=/var/www/html/settings.php
+if [ ! -e "${SETTINGS_FILE_PATH}" ]; then
+    echo "Computng ${SETTINGS_FILE_PATH}";
+    echo "Starting Apache"
+    service apache2 restart;
+    jsonValue() { KEY=$1; num=$2; awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1)}}}' | tr -d '"' | sed -n ${num}p ;} 
+    echo "Retrieving CRYPTO KEY"
+    CRLIBRE_API_HACIENDA_CRYPTO_KEY=`curl "http://localhost:80/api.php?w=crypto&r=makeKey" | jsonValue resp`;
+    echo "Stopping Apache"
+    service apache2 stop;
 
-# cat /var/www/html/settings.php.dist \
-# | sed "s/{dbName}/${CRLIBRE_API_HACIENDA_DB_NAME}/g"  \
-# | sed "s/{dbPss}/${CRLIBRE_API_HACIENDA_DB_PASSWORD}/g" \ 
-# | sed "s/{dbUser}/${CRLIBRE_API_HACIENDA_DB_USER}/g" \
-# | sed "s/{dbHost}/${CRLIBRE_API_HACIENDA_DB_HOST}/g" \
-# | sed "s/{cryptoKey}/${CRLIBRE_API_HACIENDA_CRYPTO_KEY}/g" \
-# > /var/www/html/settings.php
+    # Generating settings.php 
+    echo "Generating settings.php"
+    cat /var/www/html/settings.php.dist \
+    | sed "s/{dbName}/${CRLIBRE_API_HACIENDA_DB_NAME}/g" \
+    | sed "s/{dbPss}/${CRLIBRE_API_HACIENDA_DB_PASSWORD}/g" \
+    | sed "s/{dbUser}/${CRLIBRE_API_HACIENDA_DB_USER}/g" \
+    | sed "s/{dbHost}/${CRLIBRE_API_HACIENDA_DB_HOST}/g" \
+    | sed "s/{cryptoKey}/${CRLIBRE_API_HACIENDA_CRYPTO_KEY}/g" \
+    > "${SETTINGS_FILE_PATH}"
+else
+    echo "Found ${SETTINGS_FILE_PATH}, skipping its computation";
+fi
+echo "Calling: apache2 foreground"
 /usr/local/bin/apache2-foreground 
