@@ -216,7 +216,7 @@ function genXMLFe()
                   <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
                   <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->montoDescuento) && $d->montoDescuento != "")
+        if (isset($d->montoDescuento) && $d->montoDescuento != "" && $d->montoDescuento != 0)
             $xmlString .= '<MontoDescuento>' . $d->montoDescuento . '</MontoDescuento>';
 
         if (isset($d->naturalezaDescuento) && $d->naturalezaDescuento != "")
@@ -497,7 +497,7 @@ function genXMLNC()
             <Detalle>' . $d->detalle . '</Detalle>
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
-        if (isset($d->montoDescuento) && $d->montoDescuento != "")
+        if (isset($d->montoDescuento) && $d->montoDescuento != "" && $d->montoDescuento != 0)
             $xmlString .= '<MontoDescuento>' . $d->montoDescuento . '</MontoDescuento>';
 
         if (isset($d->naturalezaDescuento) && $d->naturalezaDescuento != "")
@@ -785,7 +785,7 @@ function genXMLND()
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->montoDescuento) && $d->montoDescuento != "")
+        if (isset($d->montoDescuento) && $d->montoDescuento != "" && $d->montoDescuento != 0)
             $xmlString .= '<MontoDescuento>' . $d->montoDescuento . '</MontoDescuento>';
 
         if (isset($d->naturalezaDescuento) && $d->naturalezaDescuento != "")
@@ -1011,7 +1011,7 @@ function genXMLTE()
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->montoDescuento) && $d->montoDescuento != "")
+        if (isset($d->montoDescuento) && $d->montoDescuento != "" && $d->montoDescuento != 0)
             $xmlString .= '<MontoDescuento>' . $d->montoDescuento . '</MontoDescuento>';
 
         if (isset($d->naturalezaDescuento) && $d->naturalezaDescuento != "")
