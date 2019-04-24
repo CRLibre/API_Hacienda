@@ -37,7 +37,7 @@ $config['db']['host'] = "g8r9w9tmspbwmsyo.cbetxkdyhwsb.us-east-1.rds.amazonaws.c
 # Crypto Keys
 #
 ##############################################################################
-$config['crypto']['key'] = "3U3qhKC8hmGqxLPwaBSy3GowW47wUJp3rsQ1cFf89wk=";
+$config['crypto']['key'] = "mSBBT3H37Hnu1gcrmIIb+8q7EUusMIt0v4wcUcYh9aM=";
 ##############################################################################
 #
 # print alerts
