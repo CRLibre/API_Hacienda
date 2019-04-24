@@ -20,6 +20,9 @@
  * The api calls receiver :)
  */
 
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 // Cambiamos zona horaria a Costa Rica
 date_default_timezone_set("America/Costa_Rica");
 
