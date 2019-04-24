@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeHacienda" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeHacienda" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.2" vc:minVersion="1.1">
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/2008/REC-xmldsig-core-20080610/xmldsig-core-schema.xsd"/>
+	<xs:element name="MensajeHacienda">
+		<xs:annotation>
+			<xs:documentation>Mensaje de uso exclusivo por parte de la Direccion General de Tributación</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Clave">
+					<xs:annotation>
+						<xs:documentation>Clave numérica del comprobante</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="\d{50,50}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NombreEmisor">
+					<xs:annotation>
+						<xs:documentation>Nombre o razón social del emisor</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="80"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TipoIdentificacionEmisor" nillable="false">
+					<xs:annotation>
+						<xs:documentation>Tipo de identificacion: 01 Cedula Fisica, 02 Cedula Juridica, 03 DIMEX, 04 NITE</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="01">
+								<xs:annotation>
+									<xs:documentation>Cedula Fisica</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="02">
+								<xs:annotation>
+									<xs:documentation> Cedula Juridica</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="03">
+								<xs:annotation>
+									<xs:documentation>DIMEX</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="04">
+								<xs:annotation>
+									<xs:documentation>NITE</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NumeroCedulaEmisor">
+					<xs:annotation>
+						<xs:documentation>Número de cédula fisica/jurídica/NITE/DIMEX del emisor</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="\d{9,12}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NombreReceptor" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Nombre o razon social del receptor</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="80"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TipoIdentificacionReceptor" nillable="false" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Tipo de identificacion: 01 Cedula Fisica, 02 Cedula Juridica, 03 DIMEX, 04 NITE, 05 Otros</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="01">
+								<xs:annotation>
+									<xs:documentation>Cedula Fisica</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="02">
+								<xs:annotation>
+									<xs:documentation> Cedula Juridica</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="03">
+								<xs:annotation>
+									<xs:documentation>DIMEX</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="04">
+								<xs:annotation>
+									<xs:documentation>NITE</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="05">
+								<xs:annotation>
+									<xs:documentation>Otros</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NumeroCedulaReceptor" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Número de cédula fisica/jurídica/NITE/DIMEX del receptor</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="12"/>
+							<xs:pattern value="\d{9,12}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Mensaje">
+					<xs:annotation>
+						<xs:documentation>Codigo del mensaje de respuesta. 1 aceptado, 3 rechazado</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:enumeration value="1">
+								<xs:annotation>
+									<xs:documentation>Aceptado</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="3">
+								<xs:annotation>
+									<xs:documentation>Rechazado</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="DetalleMensaje">
+					<xs:annotation>
+						<xs:documentation>Detalle del mensaje</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string"/>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="MontoTotalImpuesto" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Monto total del impuesto, que es obligatorio si el comprobante tenga impuesto.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:totalDigits value="18"/>
+							<xs:fractionDigits value="5"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TotalFactura">
+					<xs:annotation>
+						<xs:documentation>Monto total de la factura</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:totalDigits value="18"/>
+							<xs:fractionDigits value="5"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="ds:Signature" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
