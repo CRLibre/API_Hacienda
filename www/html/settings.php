@@ -84,7 +84,7 @@ $config['mail']['port']         = 587;
 
 # The core installation: This is probably the only one you need to touch
 # IMPORTANTE: La ruta debe finalizar en "/".
-$config['modules']['coreInstall'] = "../api/";
+$config['modules']['coreInstall'] = "/api/";
 
 # Name of your site, Not in use really
 $config['core']['siteName'] = 'factura-electronica-cr-api';
