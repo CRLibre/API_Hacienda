@@ -31,7 +31,7 @@ $config['db']['pwd'] = 'wp0sm0ihyxok5tv0';
 # Database user name
 $config['db']['user'] = "b422wdbvvauk0jy9";
 # Database host
-$config['db']['host'] = "g8r9w9tmspbwmsyo.cbetxkdyhwsb.us-east-1.rds.amazonaws.com	";
+$config['db']['host'] = "g8r9w9tmspbwmsyo.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
 ##############################################################################
 #
 # Crypto Keys
