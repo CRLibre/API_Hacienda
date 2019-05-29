@@ -1,6 +1,10 @@
 <?php
 /*
  * Copyright (C) 2017-2019 CRLibre <https://crlibre.org>
+ * 
+ * Conveying Modified Source Versions
+ * Modified by: JeanCarlos Chavarria Hughes - May 2019
+ * jchavarria@imagineing.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -17,6 +21,14 @@
  */
 
 /* * ************************************************** */
+/* Constantes de validacion                             */
+/* * ************************************************** */
+$codigoActividadSize = 6;
+$emisorNombreMaxSize = 100;
+$receptorNombreMaxSize = 100;
+$receptorOtrasSenasMaxSize = 250;
+
+/* * ************************************************** */
 /* Funcion para generar XML                          */
 /* * ************************************************** */
 
@@ -24,6 +36,7 @@ function genXMLFe()
 {
     // Datos contribuyente
     $clave                  = params_get("clave");
+    $codigoActividad        = params_get("codigoActividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo            = params_get("consecutivo");
     $fechaEmision           = params_get("fecha_emision");
 
@@ -44,7 +57,7 @@ function genXMLFe()
     $emisorEmail            = params_get("emisor_email");
 
     // Datos receptor
-    $omitir_receptor        = params_get("omitir_receptor");
+    $omitir_receptor        = params_get("omitir_receptor");        // Deprecated
     $receptorNombre         = params_get("receptor_nombre");
     $receptorTipoIdentif    = params_get("receptor_tipo_identif");
     $receptorNumIdentif     = params_get("receptor_num_identif");
@@ -53,6 +66,7 @@ function genXMLFe()
     $receptorDistrito       = params_get("receptor_distrito");
     $receptorBarrio         = params_get("receptor_barrio");
     $receptorOtrasSenas     = params_get("receptor_otras_senas");
+    $receptorOtrasSenasExtranjero     = params_get("receptor_otras_senas_extranjero");
     $receptorCodPaisTel     = params_get("receptor_cod_pais_tel");
     $receptorTel            = params_get("receptor_tel");
     $receptorCodPaisFax     = params_get("receptor_cod_pais_fax");
@@ -83,9 +97,28 @@ function genXMLFe()
     $detalles = json_decode(params_get("detalles"));
     grace_debug(params_get("detalles"));
 
+    // Validate string sizes
+    if (strlen($codigoActividad) != $codigoActividadSize)
+    {
+        $error_log("codigoActividad size is: $codigoActividadSize");
+    }
+    if (strlen($emisorNombre) > $emisorNombreMaxSize)
+    {
+        $error_log("emisorNombre size is greater than $emisorNombreMaxSize");
+    }
+    if (strlen($receptorNombre) > $receptorNombreMaxSize)
+    {
+        $error_log("receptorNombre size is greater than $receptorNombreMaxSize");
+    }
+    if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
+    {
+        $error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
+    }
+
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
     <FacturaElectronica xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/FacturaElectronica_V4.3.xsd FacturaElectronica_V4.3.xsd">
         <Clave>' . $clave . '</Clave>
+        <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
         <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
         <FechaEmision>' . $fechaEmision . '</FechaEmision>
         <Emisor>
@@ -143,6 +176,12 @@ function genXMLFe()
                 $xmlString .= '<IdentificacionExtranjero>'
                         . $receptorNumIdentif 
                         . ' </IdentificacionExtranjero>';
+            }
+            if ($receptorOtrasSenasExtranjero != '' && strlen($receptorOtrasSenasExtranjero) <= 300)
+            {
+                $xmlString .= '<OtrasSenasExtranjero>'
+                        . $receptorOtrasSenasExtranjero
+                        . ' </OtrasSenasExtranjero>';
             }
         }
         else
@@ -300,6 +339,7 @@ function genXMLNC()
 {
     // Datos contribuyente
     $clave                  = params_get("clave");
+    $codigoActividad        = params_get("codigoActividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo            = params_get("consecutivo");
     $fechaEmision           = params_get("fecha_emision");
 
@@ -320,7 +360,7 @@ function genXMLNC()
     $emisorEmail            = params_get("emisor_email");
 
     // Datos receptor
-    $omitir_receptor        = params_get("omitir_receptor");
+    $omitir_receptor        = params_get("omitir_receptor");        // Deprecated
     $receptorNombre         = params_get("receptor_nombre");
     $receptorTipoIdentif    = params_get("receptor_tipo_identif");
     $receptorNumIdentif     = params_get("receptor_num_identif");
@@ -329,6 +369,7 @@ function genXMLNC()
     $receptorDistrito       = params_get("receptor_distrito");
     $receptorBarrio         = params_get("receptor_barrio");
     $receptorOtrasSenas     = params_get("receptor_otras_senas");
+    $receptorOtrasSenasExtranjero     = params_get("receptor_otras_senas_extranjero");
     $receptorCodPaisTel     = params_get("receptor_cod_pais_tel");
     $receptorTel            = params_get("receptor_tel");
     $receptorCodPaisFax     = params_get("receptor_cod_pais_fax");
@@ -364,9 +405,28 @@ function genXMLNC()
     $detalles               = json_decode(params_get("detalles"));
     //return $detalles;
 
+    // Validate string sizes
+    if (strlen($codigoActividad) != $codigoActividadSize)
+    {
+        $error_log("codigoActividad size is $codigoActividadSize")
+    }
+    if (strlen($emisorNombre) > $emisorNombreMaxSize)
+    {
+        $error_log("emisorNombre size is greater than $emisorNombreMaxSize");
+    }
+    if (strlen($receptorNombre) > $receptorNombreMaxSize)
+    {
+        $error_log("receptorNombre size is greater than $receptorNombreMaxSize");
+    }
+    if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
+    {
+        $error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
+    }
+
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
     <NotaCreditoElectronica xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/NotaCreditoElectronica_V4.3.xsd NotaCreditoElectronica_V4.3.xsd">
     <Clave>' . $clave . '</Clave>
+    <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
     <FechaEmision>' . $fechaEmision . '</FechaEmision>
     <Emisor>
@@ -426,6 +486,12 @@ function genXMLNC()
                 $xmlString .= '<IdentificacionExtranjero>'
                         . $receptorNumIdentif 
                         . ' </IdentificacionExtranjero>';
+            }
+            if ($receptorOtrasSenasExtranjero != '' && strlen($receptorOtrasSenasExtranjero) <= 300)
+            {
+                $xmlString .= '<OtrasSenasExtranjero>'
+                        . $receptorOtrasSenasExtranjero
+                        . ' </OtrasSenasExtranjero>';
             }
         }
         else
@@ -589,6 +655,7 @@ function genXMLND()
 {
     // Datos contribuyente
     $clave                  = params_get("clave");
+    $codigoActividad        = params_get("codigoActividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo            = params_get("consecutivo");
     $fechaEmision           = params_get("fecha_emision");
 
@@ -609,7 +676,7 @@ function genXMLND()
     $emisorEmail            = params_get("emisor_email");
 
     // Datos receptor
-    $omitir_receptor        = params_get("omitir_receptor");
+    $omitir_receptor        = params_get("omitir_receptor");        // Deprecated
     $receptorNombre         = params_get("receptor_nombre");
     $receptorTipoIdentif    = params_get("receptor_tipo_identif");
     $receptorNumIdentif     = params_get("receptor_num_identif");
@@ -618,6 +685,7 @@ function genXMLND()
     $receptorDistrito       = params_get("receptor_distrito");
     $receptorBarrio         = params_get("receptor_barrio");
     $receptorOtrasSenas     = params_get("receptor_otras_senas");
+    $receptorOtrasSenasExtranjero     = params_get("receptor_otras_senas_extranjero");
     $receptorCodPaisTel     = params_get("receptor_cod_pais_tel");
     $receptorTel            = params_get("receptor_tel");
     $receptorCodPaisFax     = params_get("receptor_cod_pais_fax");
@@ -652,9 +720,28 @@ function genXMLND()
     // Detalles de la compra
     $detalles               = json_decode(params_get("detalles"));
 
+    // Validate string sizes
+    if (strlen($codigoActividad) != $codigoActividadSize)
+    {
+        $error_log("codigoActividad size is $codigoActividadSize")
+    }
+    if (strlen($emisorNombre) > $emisorNombreMaxSize)
+    {
+        $error_log("emisorNombre size is greater than $emisorNombreMaxSize");
+    }
+    if (strlen($receptorNombre) > $receptorNombreMaxSize)
+    {
+        $error_log("receptorNombre size is greater than $receptorNombreMaxSize");
+    }
+    if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
+    {
+        $error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
+    }
+
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <NotaDebitoElectronica xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/NotaDebitoElectronica_V4.3.xsd NotaDebitoElectronica_V4.3.xsd">
     <Clave>' . $clave . '</Clave>
+    <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
     <FechaEmision>' . $fechaEmision . '</FechaEmision>
     <Emisor>
@@ -712,6 +799,12 @@ function genXMLND()
                 $xmlString .= '<IdentificacionExtranjero>'
                         . $receptorNumIdentif 
                         . ' </IdentificacionExtranjero>';
+            }
+            if ($receptorOtrasSenasExtranjero != '' && strlen($receptorOtrasSenasExtranjero) <= 300)
+            {
+                $xmlString .= '<OtrasSenasExtranjero>'
+                        . $receptorOtrasSenasExtranjero
+                        . ' </OtrasSenasExtranjero>';
             }
         }
         else
@@ -878,6 +971,7 @@ function genXMLTE()
 {
     // Datos contribuyente
     $clave                  = params_get("clave");
+    $codigoActividad        = params_get("codigoActividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo            = params_get("consecutivo");
     $fechaEmision           = params_get("fecha_emision");
 
@@ -898,7 +992,7 @@ function genXMLTE()
     $emisorEmail            = params_get("emisor_email");
 
     // Datos receptor
-    $omitir_receptor        = params_get("omitir_receptor");
+    $omitir_receptor        = params_get("omitir_receptor");        // Deprecated
     $receptorNombre         = params_get("receptor_nombre");
     $receptorTipoIdentif    = params_get("receptor_tipo_identif");
     $receptorNumIdentif     = params_get("receptor_num_identif");
@@ -907,6 +1001,7 @@ function genXMLTE()
     $receptorDistrito       = params_get("receptor_distrito");
     $receptorBarrio         = params_get("receptor_barrio");
     $receptorOtrasSenas     = params_get("receptor_otras_senas");
+    $receptorOtrasSenasExtranjero     = params_get("receptor_otras_senas_extranjero");
     $receptorCodPaisTel     = params_get("receptor_cod_pais_tel");
     $receptorTel            = params_get("receptor_tel");
     $receptorCodPaisFax     = params_get("receptor_cod_pais_fax");
@@ -937,9 +1032,28 @@ function genXMLTE()
     $detalles               = json_decode(params_get("detalles"));
     grace_debug(params_get("detalles"));
 
+    // Validate string sizes
+    if (strlen($codigoActividad) != $codigoActividadSize)
+    {
+        $error_log("codigoActividad size is $codigoActividadSize")
+    }
+    if (strlen($emisorNombre) > $emisorNombreMaxSize)
+    {
+        $error_log("emisorNombre size is greater than $emisorNombreMaxSize");
+    }
+    if (strlen($receptorNombre) > $receptorNombreMaxSize)
+    {
+        $error_log("receptorNombre size is greater than $receptorNombreMaxSize");
+    }
+    if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
+    {
+        $error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
+    }
+
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <TiqueteElectronico xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/tiqueteElectronico" xsi:schemaLocation="https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/TiqueteElectronico_V4.3.xsd">
     <Clave>' . $clave . '</Clave>
+    <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
     <FechaEmision>' . $fechaEmision . '</FechaEmision>
     <Emisor>
@@ -1104,12 +1218,19 @@ function genXMLMr()
     $mensaje                        = params_get("mensaje");                                    // 1 - Aceptado, 2 - Aceptado Parcialmente, 3 - Rechazado
     $detalleMensaje                 = params_get("detalle_mensaje");
     $montoTotalImpuesto             = params_get("monto_total_impuesto");                       // d18,5 opcional /obligatorio si comprobante tenga impuesto
+    $codigoActividad                = params_get("codigoActividad");                            // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $totalFactura                   = params_get("total_factura");                              // d18,5
     $numeroConsecutivoReceptor      = params_get("numero_consecutivo_receptor");                // d{20,20} numeracion consecutiva de los mensajes de confirmacion
 
     // Datos comprador = receptor
     $numeroCedulaReceptor           = params_get("numero_cedula_receptor");                     // d{12,12}cedula fisica, juridica, NITE, DIMEX del comprador
     $numeroCedulaReceptor           = str_pad($numeroCedulaReceptor, 12, "0", STR_PAD_LEFT);
+
+    // Validate string sizes
+    if (strlen($codigoActividad) != $codigoActividadSize)
+    {
+        $error_log("codigoActividad size is $codigoActividadSize")
+    }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <MensajeReceptor xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/mensajeReceptor" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/MensajeReceptor_V4.3.xsd MensajeReceptor_4.3.xsd">
@@ -1122,8 +1243,8 @@ function genXMLMr()
 
     if (!empty($montoTotalImpuesto))
         $xmlString .= '<MontoTotalImpuesto>' . $montoTotalImpuesto . '</MontoTotalImpuesto>';
-
-    $xmlString .= '<TotalFactura>' . $totalFactura . '</TotalFactura>
+    $xmlString .=     '<CodigoActividad>' . $codigoActividad . '</CodigoActividad>
+    <TotalFactura>' . $totalFactura . '</TotalFactura>
     <NumeroCedulaReceptor>' . $numeroCedulaReceptor . '</NumeroCedulaReceptor>
     <NumeroConsecutivoReceptor>' . $numeroConsecutivoReceptor . '</NumeroConsecutivoReceptor>';
 
