@@ -97,7 +97,6 @@ function genXMLFe()
     $detalles = json_decode(params_get("detalles"));
     grace_debug(params_get("detalles"));
 
-<<<<<<< Updated upstream
     // Validate string sizes
     if (strlen($codigoActividad) != $codigoActividadSize)
     {
