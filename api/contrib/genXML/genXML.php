@@ -97,6 +97,7 @@ function genXMLFe()
     $detalles = json_decode(params_get("detalles"));
     grace_debug(params_get("detalles"));
 
+<<<<<<< Updated upstream
     // Validate string sizes
     if (strlen($codigoActividad) != $codigoActividadSize)
     {
@@ -116,7 +117,10 @@ function genXMLFe()
     }
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
-    <FacturaElectronica xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronica">
+    <FacturaElectronica
+    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronica"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Clave>' . $clave . '</Clave>
         <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
         <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
@@ -424,7 +428,10 @@ function genXMLNC()
     }
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
-    <NotaCreditoElectronica xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/notaCreditoElectronica">
+    <NotaCreditoElectronica
+    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/notaCreditoElectronica"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
     <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
@@ -739,7 +746,10 @@ function genXMLND()
     }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
-    <NotaDebitoElectronica xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/notaDebitoElectronica">
+    <NotaDebitoElectronica
+    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/notaDebitoElectronica"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
     <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
@@ -1051,7 +1061,10 @@ function genXMLTE()
     }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
-    <TiqueteElectronico xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/tiqueteElectronico " xsi:schemaLocation="https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/TiqueteElectronico_V4.3.xsd">
+    <TiqueteElectronico
+    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/tiqueteElectronico"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
     <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
@@ -1233,7 +1246,10 @@ function genXMLMr()
     }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
-    <MensajeReceptor xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/mensajeReceptor" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/MensajeReceptor_V4.3.xsd MensajeReceptor_4.3.xsd">
+    <MensajeReceptor
+    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/mensajeReceptor"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
     <NumeroCedulaEmisor>' . $numeroCedulaEmisor . '</NumeroCedulaEmisor>
     <FechaEmisionDoc>' . $fechaEmisionDoc . '</FechaEmisionDoc>
