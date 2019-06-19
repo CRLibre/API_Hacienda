@@ -1,7 +1,7 @@
+www/settings.php
 *.AppleDouble
 *.DS_Store
 **/*.AppleDouble
 .gitsecret/keys/random_seed
 !*.secret
-
 random_seed
