@@ -35,66 +35,66 @@ $receptorOtrasSenasMaxSize = 250;
 function genXMLFe()
 {
     // Datos contribuyente
-    $clave                  = params_get("clave");
-    $codigoActividad        = params_get("codigoActividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
-    $consecutivo            = params_get("consecutivo");
-    $fechaEmision           = params_get("fecha_emision");
-
-    // Datos emisor
-    $emisorNombre           = params_get("emisor_nombre");
-    $emisorTipoIdentif      = params_get("emisor_tipo_indetif");
-    $emisorNumIdentif       = params_get("emisor_num_identif");
-    $nombreComercial        = params_get("nombre_comercial");
-    $emisorProv             = params_get("emisor_provincia");
-    $emisorCanton           = params_get("emisor_canton");
-    $emisorDistrito         = params_get("emisor_distrito");
-    $emisorBarrio           = params_get("emisor_barrio");
-    $emisorOtrasSenas       = params_get("emisor_otras_senas");
-    $emisorCodPaisTel       = params_get("emisor_cod_pais_tel");
-    $emisorTel              = params_get("emisor_tel");
-    $emisorCodPaisFax       = params_get("emisor_cod_pais_fax");
-    $emisorFax              = params_get("emisor_fax");
-    $emisorEmail            = params_get("emisor_email");
-
-    // Datos receptor
-    $omitir_receptor        = params_get("omitir_receptor");        // Deprecated
-    $receptorNombre         = params_get("receptor_nombre");
-    $receptorTipoIdentif    = params_get("receptor_tipo_identif");
-    $receptorNumIdentif     = params_get("receptor_num_identif");
-    $receptorProvincia      = params_get("receptor_provincia");
-    $receptorCanton         = params_get("receptor_canton");
-    $receptorDistrito       = params_get("receptor_distrito");
-    $receptorBarrio         = params_get("receptor_barrio");
-    $receptorOtrasSenas     = params_get("receptor_otras_senas");
-    $receptorOtrasSenasExtranjero     = params_get("receptor_otras_senas_extranjero");
-    $receptorCodPaisTel     = params_get("receptor_cod_pais_tel");
-    $receptorTel            = params_get("receptor_tel");
-    $receptorCodPaisFax     = params_get("receptor_cod_pais_fax");
-    $receptorFax            = params_get("receptor_fax");
-    $receptorEmail          = params_get("receptor_email");
+    $clave                          = params_get("clave");
+    $codigoActividad                = params_get("codigoActividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $consecutivo                    = params_get("consecutivo");
+    $fechaEmision                   = params_get("fecha_emision");
+        
+    // Datos emisor     
+    $emisorNombre                   = params_get("emisor_nombre");
+    $emisorTipoIdentif              = params_get("emisor_tipo_indetif");
+    $emisorNumIdentif               = params_get("emisor_num_identif");
+    $nombreComercial                = params_get("nombre_comercial");
+    $emisorProv                     = params_get("emisor_provincia");
+    $emisorCanton                   = params_get("emisor_canton");
+    $emisorDistrito                 = params_get("emisor_distrito");
+    $emisorBarrio                   = params_get("emisor_barrio");
+    $emisorOtrasSenas               = params_get("emisor_otras_senas");
+    $emisorCodPaisTel               = params_get("emisor_cod_pais_tel");
+    $emisorTel                      = params_get("emisor_tel");
+    $emisorCodPaisFax               = params_get("emisor_cod_pais_fax");
+    $emisorFax                      = params_get("emisor_fax");
+    $emisorEmail                    = params_get("emisor_email");
+        
+    // Datos receptor       
+    $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
+    $receptorNombre                 = params_get("receptor_nombre");
+    $receptorTipoIdentif            = params_get("receptor_tipo_identif");
+    $receptorNumIdentif             = params_get("receptor_num_identif");
+    $receptorProvincia              = params_get("receptor_provincia");
+    $receptorCanton                 = params_get("receptor_canton");
+    $receptorDistrito               = params_get("receptor_distrito");
+    $receptorBarrio                 = params_get("receptor_barrio");
+    $receptorOtrasSenas             = params_get("receptor_otras_senas");
+    $receptorOtrasSenasExtranjero   = params_get("receptor_otras_senas_extranjero");
+    $receptorCodPaisTel             = params_get("receptor_cod_pais_tel");
+    $receptorTel                    = params_get("receptor_tel");
+    $receptorCodPaisFax             = params_get("receptor_cod_pais_fax");
+    $receptorFax                    = params_get("receptor_fax");
+    $receptorEmail                  = params_get("receptor_email");
 
     // Detalles de tiquete / Factura
-    $condVenta              = params_get("condicion_venta");
-    $plazoCredito           = params_get("plazo_credito");
-    $medioPago              = params_get("medio_pago");
-    $codMoneda              = params_get("cod_moneda");
-    $tipoCambio             = params_get("tipo_cambio");
-    $totalServGravados      = params_get("total_serv_gravados");
-    $totalServExentos       = params_get("total_serv_exentos");
-    $totalMercGravadas      = params_get("total_merc_gravada");
-    $totalMercExentas       = params_get("total_merc_exenta");
-    $totalGravados          = params_get("total_gravados");
-    $totalExentos           = params_get("total_exentos");
-    $totalVentas            = params_get("total_ventas");
-    $totalDescuentos        = params_get("total_descuentos");
-    $totalVentasNeta        = params_get("total_ventas_neta");
-    $totalImp               = params_get("total_impuestos");
-    $totalComprobante       = params_get("total_comprobante");
-    $otros                  = params_get("otros");
-    $otrosType              = params_get("otrosType");
+    $condVenta                      = params_get("condicion_venta");
+    $plazoCredito                   = params_get("plazo_credito");
+    $medioPago                      = params_get("medio_pago");
+    $codMoneda                      = params_get("cod_moneda");
+    $tipoCambio                     = params_get("tipo_cambio");
+    $totalServGravados              = params_get("total_serv_gravados");
+    $totalServExentos               = params_get("total_serv_exentos");
+    $totalMercGravadas              = params_get("total_merc_gravada");
+    $totalMercExentas               = params_get("total_merc_exenta");
+    $totalGravados                  = params_get("total_gravados");
+    $totalExentos                   = params_get("total_exentos");
+    $totalVentas                    = params_get("total_ventas");
+    $totalDescuentos                = params_get("total_descuentos");
+    $totalVentasNeta                = params_get("total_ventas_neta");
+    $totalImp                       = params_get("total_impuestos");
+    $totalComprobante               = params_get("total_comprobante");
+    $otros                          = params_get("otros");
+    $otrosType                      = params_get("otrosType");
 
     // Detalles de la compra
-    $detalles = json_decode(params_get("detalles"));
+    $detalles                       = json_decode(params_get("detalles"));
     grace_debug(params_get("detalles"));
 
     // Validate string sizes
@@ -341,77 +341,77 @@ function genXMLFe()
 function genXMLNC()
 {
     // Datos contribuyente
-    $clave                  = params_get("clave");
-    $codigoActividad        = params_get("codigoActividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
-    $consecutivo            = params_get("consecutivo");
-    $fechaEmision           = params_get("fecha_emision");
+    $clave                          = params_get("clave");
+    $codigoActividad                = params_get("codigoActividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $consecutivo                    = params_get("consecutivo");
+    $fechaEmision                   = params_get("fecha_emision");
 
-    // Datos emisor
-    $emisorNombre           = params_get("emisor_nombre");
-    $emisorTipoIdentif      = params_get("emisor_tipo_indetif");
-    $emisorNumIdentif       = params_get("emisor_num_identif");
-    $nombreComercial        = params_get("nombre_comercial");
-    $emisorProv             = params_get("emisor_provincia");
-    $emisorCanton           = params_get("emisor_canton");
-    $emisorDistrito         = params_get("emisor_distrito");
-    $emisorBarrio           = params_get("emisor_barrio");
-    $emisorOtrasSenas       = params_get("emisor_otras_senas");
-    $emisorCodPaisTel       = params_get("emisor_cod_pais_tel");
-    $emisorTel              = params_get("emisor_tel");
-    $emisorCodPaisFax       = params_get("emisor_cod_pais_fax");
-    $emisorFax              = params_get("emisor_fax");
-    $emisorEmail            = params_get("emisor_email");
+    // Datos emisor     
+    $emisorNombre                   = params_get("emisor_nombre");
+    $emisorTipoIdentif              = params_get("emisor_tipo_indetif");
+    $emisorNumIdentif               = params_get("emisor_num_identif");
+    $nombreComercial                = params_get("nombre_comercial");
+    $emisorProv                     = params_get("emisor_provincia");
+    $emisorCanton                   = params_get("emisor_canton");
+    $emisorDistrito                 = params_get("emisor_distrito");
+    $emisorBarrio                   = params_get("emisor_barrio");
+    $emisorOtrasSenas               = params_get("emisor_otras_senas");
+    $emisorCodPaisTel               = params_get("emisor_cod_pais_tel");
+    $emisorTel                      = params_get("emisor_tel");
+    $emisorCodPaisFax               = params_get("emisor_cod_pais_fax");
+    $emisorFax                      = params_get("emisor_fax");
+    $emisorEmail                    = params_get("emisor_email");
 
-    // Datos receptor
-    $omitir_receptor        = params_get("omitir_receptor");        // Deprecated
-    $receptorNombre         = params_get("receptor_nombre");
-    $receptorTipoIdentif    = params_get("receptor_tipo_identif");
-    $receptorNumIdentif     = params_get("receptor_num_identif");
-    $receptorProvincia      = params_get("receptor_provincia");
-    $receptorCanton         = params_get("receptor_canton");
-    $receptorDistrito       = params_get("receptor_distrito");
-    $receptorBarrio         = params_get("receptor_barrio");
-    $receptorOtrasSenas     = params_get("receptor_otras_senas");
-    $receptorOtrasSenasExtranjero     = params_get("receptor_otras_senas_extranjero");
-    $receptorCodPaisTel     = params_get("receptor_cod_pais_tel");
-    $receptorTel            = params_get("receptor_tel");
-    $receptorCodPaisFax     = params_get("receptor_cod_pais_fax");
-    $receptorFax            = params_get("receptor_fax");
-    $receptorEmail          = params_get("receptor_email");
+    // Datos receptor       
+    $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
+    $receptorNombre                 = params_get("receptor_nombre");
+    $receptorTipoIdentif            = params_get("receptor_tipo_identif");
+    $receptorNumIdentif             = params_get("receptor_num_identif");
+    $receptorProvincia              = params_get("receptor_provincia");
+    $receptorCanton                 = params_get("receptor_canton");
+    $receptorDistrito               = params_get("receptor_distrito");
+    $receptorBarrio                 = params_get("receptor_barrio");
+    $receptorOtrasSenas             = params_get("receptor_otras_senas");
+    $receptorOtrasSenasExtranjero   = params_get("receptor_otras_senas_extranjero");
+    $receptorCodPaisTel             = params_get("receptor_cod_pais_tel");
+    $receptorTel                    = params_get("receptor_tel");
+    $receptorCodPaisFax             = params_get("receptor_cod_pais_fax");
+    $receptorFax                    = params_get("receptor_fax");
+    $receptorEmail                  = params_get("receptor_email");
 
     // Detalles de tiquete / Factura
-    $condVenta              = params_get("condicion_venta");
-    $plazoCredito           = params_get("plazo_credito");
-    $medioPago              = params_get("medio_pago");
-    $codMoneda              = params_get("cod_moneda");
-    $tipoCambio             = params_get("tipo_cambio");
-    $totalServGravados      = params_get("total_serv_gravados");
-    $totalServExentos       = params_get("total_serv_exentos");
-    $totalMercGravadas      = params_get("total_merc_gravada");
-    $totalMercExentas       = params_get("total_merc_exenta");
-    $totalGravados          = params_get("total_gravados");
-    $totalExentos           = params_get("total_exentos");
-    $totalVentas            = params_get("total_ventas");
-    $totalDescuentos        = params_get("total_descuentos");
-    $totalVentasNeta        = params_get("total_ventas_neta");
-    $totalImp               = params_get("total_impuestos");
-    $totalComprobante       = params_get("total_comprobante");
-    $otros                  = params_get("otros");
-    $otrosType              = params_get("otrosType");
-    $infoRefeTipoDoc        = params_get("infoRefeTipoDoc");
-    $infoRefeNumero         = params_get("infoRefeNumero");
-    $infoRefeFechaEmision   = params_get("infoRefeFechaEmision");
-    $infoRefeCodigo         = params_get("infoRefeCodigo");
-    $infoRefeRazon          = params_get("infoRefeRazon");
+    $condVenta                      = params_get("condicion_venta");
+    $plazoCredito                   = params_get("plazo_credito");
+    $medioPago                      = params_get("medio_pago");
+    $codMoneda                      = params_get("cod_moneda");
+    $tipoCambio                     = params_get("tipo_cambio");
+    $totalServGravados              = params_get("total_serv_gravados");
+    $totalServExentos               = params_get("total_serv_exentos");
+    $totalMercGravadas              = params_get("total_merc_gravada");
+    $totalMercExentas               = params_get("total_merc_exenta");
+    $totalGravados                  = params_get("total_gravados");
+    $totalExentos                   = params_get("total_exentos");
+    $totalVentas                    = params_get("total_ventas");
+    $totalDescuentos                = params_get("total_descuentos");
+    $totalVentasNeta                = params_get("total_ventas_neta");
+    $totalImp                       = params_get("total_impuestos");
+    $totalComprobante               = params_get("total_comprobante");
+    $otros                          = params_get("otros");
+    $otrosType                      = params_get("otrosType");
+    $infoRefeTipoDoc                = params_get("infoRefeTipoDoc");
+    $infoRefeNumero                 = params_get("infoRefeNumero");
+    $infoRefeFechaEmision           = params_get("infoRefeFechaEmision");
+    $infoRefeCodigo                 = params_get("infoRefeCodigo");
+    $infoRefeRazon                  = params_get("infoRefeRazon");
 
     // Detalles de la compra
-    $detalles               = json_decode(params_get("detalles"));
+    $detalles                       = json_decode(params_get("detalles"));
     //return $detalles;
 
     // Validate string sizes
     if (strlen($codigoActividad) != $codigoActividadSize)
     {
-        $error_log("codigoActividad size is $codigoActividadSize")
+        $error_log("codigoActividad size is $codigoActividadSize");
     }
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
     {
@@ -660,76 +660,76 @@ function genXMLNC()
 function genXMLND()
 {
     // Datos contribuyente
-    $clave                  = params_get("clave");
-    $codigoActividad        = params_get("codigoActividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
-    $consecutivo            = params_get("consecutivo");
-    $fechaEmision           = params_get("fecha_emision");
+    $clave                          = params_get("clave");
+    $codigoActividad                = params_get("codigoActividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $consecutivo                    = params_get("consecutivo");
+    $fechaEmision                   = params_get("fecha_emision");
 
-    // Datos emisor
-    $emisorNombre           = params_get("emisor_nombre");
-    $emisorTipoIdentif      = params_get("emisor_tipo_indetif");
-    $emisorNumIdentif       = params_get("emisor_num_identif");
-    $nombreComercial        = params_get("nombre_comercial");
-    $emisorProv             = params_get("emisor_provincia");
-    $emisorCanton           = params_get("emisor_canton");
-    $emisorDistrito         = params_get("emisor_distrito");
-    $emisorBarrio           = params_get("emisor_barrio");
-    $emisorOtrasSenas       = params_get("emisor_otras_senas");
-    $emisorCodPaisTel       = params_get("emisor_cod_pais_tel");
-    $emisorTel              = params_get("emisor_tel");
-    $emisorCodPaisFax       = params_get("emisor_cod_pais_fax");
-    $emisorFax              = params_get("emisor_fax");
-    $emisorEmail            = params_get("emisor_email");
+    // Datos emisor     
+    $emisorNombre                   = params_get("emisor_nombre");
+    $emisorTipoIdentif              = params_get("emisor_tipo_indetif");
+    $emisorNumIdentif               = params_get("emisor_num_identif");
+    $nombreComercial                = params_get("nombre_comercial");
+    $emisorProv                     = params_get("emisor_provincia");
+    $emisorCanton                   = params_get("emisor_canton");
+    $emisorDistrito                 = params_get("emisor_distrito");
+    $emisorBarrio                   = params_get("emisor_barrio");
+    $emisorOtrasSenas               = params_get("emisor_otras_senas");
+    $emisorCodPaisTel               = params_get("emisor_cod_pais_tel");
+    $emisorTel                      = params_get("emisor_tel");
+    $emisorCodPaisFax               = params_get("emisor_cod_pais_fax");
+    $emisorFax                      = params_get("emisor_fax");
+    $emisorEmail                    = params_get("emisor_email");
 
-    // Datos receptor
-    $omitir_receptor        = params_get("omitir_receptor");        // Deprecated
-    $receptorNombre         = params_get("receptor_nombre");
-    $receptorTipoIdentif    = params_get("receptor_tipo_identif");
-    $receptorNumIdentif     = params_get("receptor_num_identif");
-    $receptorProvincia      = params_get("receptor_provincia");
-    $receptorCanton         = params_get("receptor_canton");
-    $receptorDistrito       = params_get("receptor_distrito");
-    $receptorBarrio         = params_get("receptor_barrio");
-    $receptorOtrasSenas     = params_get("receptor_otras_senas");
-    $receptorOtrasSenasExtranjero     = params_get("receptor_otras_senas_extranjero");
-    $receptorCodPaisTel     = params_get("receptor_cod_pais_tel");
-    $receptorTel            = params_get("receptor_tel");
-    $receptorCodPaisFax     = params_get("receptor_cod_pais_fax");
-    $receptorFax            = params_get("receptor_fax");
-    $receptorEmail          = params_get("receptor_email");
+    // Datos receptor       
+    $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
+    $receptorNombre                 = params_get("receptor_nombre");
+    $receptorTipoIdentif            = params_get("receptor_tipo_identif");
+    $receptorNumIdentif             = params_get("receptor_num_identif");
+    $receptorProvincia              = params_get("receptor_provincia");
+    $receptorCanton                 = params_get("receptor_canton");
+    $receptorDistrito               = params_get("receptor_distrito");
+    $receptorBarrio                 = params_get("receptor_barrio");
+    $receptorOtrasSenas             = params_get("receptor_otras_senas");
+    $receptorOtrasSenasExtranjero   = params_get("receptor_otras_senas_extranjero");
+    $receptorCodPaisTel             = params_get("receptor_cod_pais_tel");
+    $receptorTel                    = params_get("receptor_tel");
+    $receptorCodPaisFax             = params_get("receptor_cod_pais_fax");
+    $receptorFax                    = params_get("receptor_fax");
+    $receptorEmail                  = params_get("receptor_email");
 
     // Detalles de tiquete / Factura
-    $condVenta              = params_get("condicion_venta");
-    $plazoCredito           = params_get("plazo_credito");
-    $medioPago              = params_get("medio_pago");
-    $codMoneda              = params_get("cod_moneda");
-    $tipoCambio             = params_get("tipo_cambio");
-    $totalServGravados      = params_get("total_serv_gravados");
-    $totalServExentos       = params_get("total_serv_exentos");
-    $totalMercGravadas      = params_get("total_merc_gravada");
-    $totalMercExentas       = params_get("total_merc_exenta");
-    $totalGravados          = params_get("total_gravados");
-    $totalExentos           = params_get("total_exentos");
-    $totalVentas            = params_get("total_ventas");
-    $totalDescuentos        = params_get("total_descuentos");
-    $totalVentasNeta        = params_get("total_ventas_neta");
-    $totalImp               = params_get("total_impuestos");
-    $totalComprobante       = params_get("total_comprobante");
-    $otros                  = params_get("otros");
-    $otrosType              = params_get("otrosType");
-    $infoRefeTipoDoc        = params_get("infoRefeTipoDoc");
-    $infoRefeNumero         = params_get("infoRefeNumero");
-    $infoRefeFechaEmision   = params_get("infoRefeFechaEmision");
-    $infoRefeCodigo         = params_get("infoRefeCodigo");
-    $infoRefeRazon          = params_get("infoRefeRazon");
+    $condVenta                      = params_get("condicion_venta");
+    $plazoCredito                   = params_get("plazo_credito");
+    $medioPago                      = params_get("medio_pago");
+    $codMoneda                      = params_get("cod_moneda");
+    $tipoCambio                     = params_get("tipo_cambio");
+    $totalServGravados              = params_get("total_serv_gravados");
+    $totalServExentos               = params_get("total_serv_exentos");
+    $totalMercGravadas              = params_get("total_merc_gravada");
+    $totalMercExentas               = params_get("total_merc_exenta");
+    $totalGravados                  = params_get("total_gravados");
+    $totalExentos                   = params_get("total_exentos");
+    $totalVentas                    = params_get("total_ventas");
+    $totalDescuentos                = params_get("total_descuentos");
+    $totalVentasNeta                = params_get("total_ventas_neta");
+    $totalImp                       = params_get("total_impuestos");
+    $totalComprobante               = params_get("total_comprobante");
+    $otros                          = params_get("otros");
+    $otrosType                      = params_get("otrosType");
+    $infoRefeTipoDoc                = params_get("infoRefeTipoDoc");
+    $infoRefeNumero                 = params_get("infoRefeNumero");
+    $infoRefeFechaEmision           = params_get("infoRefeFechaEmision");
+    $infoRefeCodigo                 = params_get("infoRefeCodigo");
+    $infoRefeRazon                  = params_get("infoRefeRazon");
 
     // Detalles de la compra
-    $detalles               = json_decode(params_get("detalles"));
+    $detalles                       = json_decode(params_get("detalles"));
 
     // Validate string sizes
     if (strlen($codigoActividad) != $codigoActividadSize)
     {
-        $error_log("codigoActividad size is $codigoActividadSize")
+        $error_log("codigoActividad size is $codigoActividadSize");
     }
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
     {
@@ -979,72 +979,72 @@ function genXMLND()
 function genXMLTE()
 {
     // Datos contribuyente
-    $clave                  = params_get("clave");
-    $codigoActividad        = params_get("codigoActividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
-    $consecutivo            = params_get("consecutivo");
-    $fechaEmision           = params_get("fecha_emision");
+    $clave                          = params_get("clave");
+    $codigoActividad                = params_get("codigoActividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $consecutivo                    = params_get("consecutivo");
+    $fechaEmision                   = params_get("fecha_emision");
 
-    // Datos emisor
-    $emisorNombre           = params_get("emisor_nombre");
-    $emisorTipoIdentif      = params_get("emisor_tipo_indetif");
-    $emisorNumIdentif       = params_get("emisor_num_identif");
-    $nombreComercial        = params_get("nombre_comercial");
-    $emisorProv             = params_get("emisor_provincia");
-    $emisorCanton           = params_get("emisor_canton");
-    $emisorDistrito         = params_get("emisor_distrito");
-    $emisorBarrio           = params_get("emisor_barrio");
-    $emisorOtrasSenas       = params_get("emisor_otras_senas");
-    $emisorCodPaisTel       = params_get("emisor_cod_pais_tel");
-    $emisorTel              = params_get("emisor_tel");
-    $emisorCodPaisFax       = params_get("emisor_cod_pais_fax");
-    $emisorFax              = params_get("emisor_fax");
-    $emisorEmail            = params_get("emisor_email");
+    // Datos emisor     
+    $emisorNombre                   = params_get("emisor_nombre");
+    $emisorTipoIdentif              = params_get("emisor_tipo_indetif");
+    $emisorNumIdentif               = params_get("emisor_num_identif");
+    $nombreComercial                = params_get("nombre_comercial");
+    $emisorProv                     = params_get("emisor_provincia");
+    $emisorCanton                   = params_get("emisor_canton");
+    $emisorDistrito                 = params_get("emisor_distrito");
+    $emisorBarrio                   = params_get("emisor_barrio");
+    $emisorOtrasSenas               = params_get("emisor_otras_senas");
+    $emisorCodPaisTel               = params_get("emisor_cod_pais_tel");
+    $emisorTel                      = params_get("emisor_tel");
+    $emisorCodPaisFax               = params_get("emisor_cod_pais_fax");
+    $emisorFax                      = params_get("emisor_fax");
+    $emisorEmail                    = params_get("emisor_email");
 
-    // Datos receptor
-    $omitir_receptor        = params_get("omitir_receptor");        // Deprecated
-    $receptorNombre         = params_get("receptor_nombre");
-    $receptorTipoIdentif    = params_get("receptor_tipo_identif");
-    $receptorNumIdentif     = params_get("receptor_num_identif");
-    $receptorProvincia      = params_get("receptor_provincia");
-    $receptorCanton         = params_get("receptor_canton");
-    $receptorDistrito       = params_get("receptor_distrito");
-    $receptorBarrio         = params_get("receptor_barrio");
-    $receptorOtrasSenas     = params_get("receptor_otras_senas");
-    $receptorOtrasSenasExtranjero     = params_get("receptor_otras_senas_extranjero");
-    $receptorCodPaisTel     = params_get("receptor_cod_pais_tel");
-    $receptorTel            = params_get("receptor_tel");
-    $receptorCodPaisFax     = params_get("receptor_cod_pais_fax");
-    $receptorFax            = params_get("receptor_fax");
-    $receptorEmail          = params_get("receptor_email");
+    // Datos receptor       
+    $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
+    $receptorNombre                 = params_get("receptor_nombre");
+    $receptorTipoIdentif            = params_get("receptor_tipo_identif");
+    $receptorNumIdentif             = params_get("receptor_num_identif");
+    $receptorProvincia              = params_get("receptor_provincia");
+    $receptorCanton                 = params_get("receptor_canton");
+    $receptorDistrito               = params_get("receptor_distrito");
+    $receptorBarrio                 = params_get("receptor_barrio");
+    $receptorOtrasSenas             = params_get("receptor_otras_senas");
+    $receptorOtrasSenasExtranjero   = params_get("receptor_otras_senas_extranjero");
+    $receptorCodPaisTel             = params_get("receptor_cod_pais_tel");
+    $receptorTel                    = params_get("receptor_tel");
+    $receptorCodPaisFax             = params_get("receptor_cod_pais_fax");
+    $receptorFax                    = params_get("receptor_fax");
+    $receptorEmail                  = params_get("receptor_email");
 
     // Detalles de tiquete / Factura
-    $condVenta              = params_get("condicion_venta");
-    $plazoCredito           = params_get("plazo_credito");
-    $medioPago              = params_get("medio_pago");
-    $codMoneda              = params_get("cod_moneda");
-    $tipoCambio             = params_get("tipo_cambio");
-    $totalServGravados      = params_get("total_serv_gravados");
-    $totalServExentos       = params_get("total_serv_exentos");
-    $totalMercGravadas      = params_get("total_merc_gravada");
-    $totalMercExentas       = params_get("total_merc_exenta");
-    $totalGravados          = params_get("total_gravados");
-    $totalExentos           = params_get("total_exentos");
-    $totalVentas            = params_get("total_ventas");
-    $totalDescuentos        = params_get("total_descuentos");
-    $totalVentasNeta        = params_get("total_ventas_neta");
-    $totalImp               = params_get("total_impuestos");
-    $totalComprobante       = params_get("total_comprobante");
-    $otros                  = params_get("otros");
-    $otrosType              = params_get("otrosType");
+    $condVenta                      = params_get("condicion_venta");
+    $plazoCredito                   = params_get("plazo_credito");
+    $medioPago                      = params_get("medio_pago");
+    $codMoneda                      = params_get("cod_moneda");
+    $tipoCambio                     = params_get("tipo_cambio");
+    $totalServGravados              = params_get("total_serv_gravados");
+    $totalServExentos               = params_get("total_serv_exentos");
+    $totalMercGravadas              = params_get("total_merc_gravada");
+    $totalMercExentas               = params_get("total_merc_exenta");
+    $totalGravados                  = params_get("total_gravados");
+    $totalExentos                   = params_get("total_exentos");
+    $totalVentas                    = params_get("total_ventas");
+    $totalDescuentos                = params_get("total_descuentos");
+    $totalVentasNeta                = params_get("total_ventas_neta");
+    $totalImp                       = params_get("total_impuestos");
+    $totalComprobante               = params_get("total_comprobante");
+    $otros                          = params_get("otros");
+    $otrosType                      = params_get("otrosType");
 
     // Detalles de la compra
-    $detalles               = json_decode(params_get("detalles"));
+    $detalles                       = json_decode(params_get("detalles"));
     grace_debug(params_get("detalles"));
 
     // Validate string sizes
     if (strlen($codigoActividad) != $codigoActividadSize)
     {
-        $error_log("codigoActividad size is $codigoActividadSize")
+        $error_log("codigoActividad size is $codigoActividadSize");
     }
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
     {
@@ -1241,7 +1241,7 @@ function genXMLMr()
     // Validate string sizes
     if (strlen($codigoActividad) != $codigoActividadSize)
     {
-        $error_log("codigoActividad size is $codigoActividadSize")
+        $error_log("codigoActividad size is $codigoActividadSize");
     }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
