@@ -4,3 +4,4 @@ www/settings.php
 **/*.AppleDouble
 .gitsecret/keys/random_seed
 !*.secret
+random_seed
