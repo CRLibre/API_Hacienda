@@ -37,7 +37,7 @@ function genXML_init()
             'access_params' => 'accessName',
             'params'        => array(
                     array("key" => "clave",                         "def" => "", "req" => true),    // d{50,50} equivale a clave en FE
-                    array("key" => "codigoActividad",               "def" => "", "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                    array("key" => "codigo_actividad",               "def" => "", "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
                     array("key" => "numero_cedula_emisor",          "def" => "", "req" => true),    // d{12,12} equivale a emisor_num_identif en FE
                     array("key" => "fecha_emision_doc",             "def" => "", "req" => true),    // YYYY-MM-DDThh:mm:ss-06:00 ej: 2018-05-13T15:30:00-06:00
                     array("key" => "mensaje",                       "def" => "", "req" => true),    // 1 - Aceptado, 2 - Aceptado Parcialmente, 3 - Rechazado
@@ -56,7 +56,7 @@ function genXML_init()
             'access_params' => 'accessName',
             'params' => array(
                 array("key" => "clave",                             "def" => "",        "req" => true),
-                array("key" => "codigoActividad",                   "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad",                   "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
                 array("key" => "consecutivo",                       "def" => "",        "req" => true),
                 array("key" => "fecha_emision",                     "def" => "",        "req" => true),
                 array("key" => "emisor_nombre",                     "def" => "",        "req" => true),
@@ -117,7 +117,7 @@ function genXML_init()
             'access_params' => 'accessName',
             'params'        => array(
                 array("key" => "clave",                             "def" => "",        "req" => true),
-                array("key" => "codigoActividad",                   "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad",                   "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
                 array("key" => "consecutivo",                       "def" => "",        "req" => true),
                 array("key" => "fecha_emision",                     "def" => "",        "req" => true),
                 array("key" => "emisor_nombre",                     "def" => "",        "req" => true),
@@ -183,7 +183,7 @@ function genXML_init()
             'access_params' => 'accessName',
             'params' => array(
                 array("key" => "clave",                             "def" => "",        "req" => true),
-                array("key" => "codigoActividad",                   "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad",                   "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
                 array("key" => "consecutivo",                       "def" => "",        "req" => true),
                 array("key" => "fecha_emision",                     "def" => "",        "req" => true),
                 array("key" => "emisor_nombre",                     "def" => "",        "req" => true),
@@ -249,7 +249,7 @@ function genXML_init()
             'access_params' => 'accessName',
             'params' => array(
                 array("key" => "clave",                             "def" => "",        "req" => true),
-                array("key" => "codigoActividad",                   "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad",                  "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
                 array("key" => "consecutivo",                       "def" => "",        "req" => true),
                 array("key" => "fecha_emision",                     "def" => "",        "req" => true),
                 array("key" => "emisor_nombre",                     "def" => "",        "req" => true),
