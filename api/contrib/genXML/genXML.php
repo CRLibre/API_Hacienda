@@ -1,7 +1,7 @@
 <?php
 /*
  * Copyright (C) 2017-2019 CRLibre <https://crlibre.org>
- * 
+ *
  * Conveying Modified Source Versions
  * Modified by: JeanCarlos Chavarria Hughes - May 2019
  * jchavarria@imagineing.com
@@ -39,8 +39,8 @@ function genXMLFe()
     $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
-        
-    // Datos emisor     
+
+    // Datos emisor
     $emisorNombre                   = params_get("emisor_nombre");
     $emisorTipoIdentif              = params_get("emisor_tipo_indetif");
     $emisorNumIdentif               = params_get("emisor_num_identif");
@@ -55,8 +55,8 @@ function genXMLFe()
     $emisorCodPaisFax               = params_get("emisor_cod_pais_fax");
     $emisorFax                      = params_get("emisor_fax");
     $emisorEmail                    = params_get("emisor_email");
-        
-    // Datos receptor       
+
+    // Datos receptor
     $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
     $receptorNombre                 = params_get("receptor_nombre");
     $receptorTipoIdentif            = params_get("receptor_tipo_identif");
@@ -95,25 +95,27 @@ function genXMLFe()
 
     // Detalles de la compra
     $detalles                       = json_decode(params_get("detalles"));
+
     grace_debug(params_get("detalles"));
 
     // Validate string sizes
     if (strlen($codigoActividad) != $codigoActividadSize)
     {
-        $error_log("codigoActividad size is: $codigoActividadSize");
+        error_log("codigoActividad size is: $codigoActividadSize");
     }
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
     {
-        $error_log("emisorNombre size is greater than $emisorNombreMaxSize");
+        error_log("emisorNombre size is greater than $emisorNombreMaxSize");
     }
     if (strlen($receptorNombre) > $receptorNombreMaxSize)
     {
-        $error_log("receptorNombre size is greater than $receptorNombreMaxSize");
+        error_log("receptorNombre size is greater than $receptorNombreMaxSize");
     }
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
     {
-        $error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
+        error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
     }
+
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
     <FacturaElectronica
@@ -177,7 +179,7 @@ function genXMLFe()
             if ($receptorTipoIdentif != '' &&  $receptorNumIdentif != '')
             {
                 $xmlString .= '<IdentificacionExtranjero>'
-                        . $receptorNumIdentif 
+                        . $receptorNumIdentif
                         . ' </IdentificacionExtranjero>';
             }
             if ($receptorOtrasSenasExtranjero != '' && strlen($receptorOtrasSenasExtranjero) <= 300)
@@ -346,7 +348,7 @@ function genXMLNC()
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
 
-    // Datos emisor     
+    // Datos emisor
     $emisorNombre                   = params_get("emisor_nombre");
     $emisorTipoIdentif              = params_get("emisor_tipo_indetif");
     $emisorNumIdentif               = params_get("emisor_num_identif");
@@ -362,7 +364,7 @@ function genXMLNC()
     $emisorFax                      = params_get("emisor_fax");
     $emisorEmail                    = params_get("emisor_email");
 
-    // Datos receptor       
+    // Datos receptor
     $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
     $receptorNombre                 = params_get("receptor_nombre");
     $receptorTipoIdentif            = params_get("receptor_tipo_identif");
@@ -411,19 +413,19 @@ function genXMLNC()
     // Validate string sizes
     if (strlen($codigoActividad) != $codigoActividadSize)
     {
-        $error_log("codigoActividad size is $codigoActividadSize");
+        error_log("codigoActividad size is $codigoActividadSize");
     }
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
     {
-        $error_log("emisorNombre size is greater than $emisorNombreMaxSize");
+        error_log("emisorNombre size is greater than $emisorNombreMaxSize");
     }
     if (strlen($receptorNombre) > $receptorNombreMaxSize)
     {
-        $error_log("receptorNombre size is greater than $receptorNombreMaxSize");
+        error_log("receptorNombre size is greater than $receptorNombreMaxSize");
     }
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
     {
-        $error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
+        error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
     }
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
@@ -490,7 +492,7 @@ function genXMLNC()
             if ($receptorTipoIdentif != '' && $receptorNumIdentif != '')
             {
                 $xmlString .= '<IdentificacionExtranjero>'
-                        . $receptorNumIdentif 
+                        . $receptorNumIdentif
                         . ' </IdentificacionExtranjero>';
             }
             if ($receptorOtrasSenasExtranjero != '' && strlen($receptorOtrasSenasExtranjero) <= 300)
@@ -665,7 +667,7 @@ function genXMLND()
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
 
-    // Datos emisor     
+    // Datos emisor
     $emisorNombre                   = params_get("emisor_nombre");
     $emisorTipoIdentif              = params_get("emisor_tipo_indetif");
     $emisorNumIdentif               = params_get("emisor_num_identif");
@@ -681,7 +683,7 @@ function genXMLND()
     $emisorFax                      = params_get("emisor_fax");
     $emisorEmail                    = params_get("emisor_email");
 
-    // Datos receptor       
+    // Datos receptor
     $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
     $receptorNombre                 = params_get("receptor_nombre");
     $receptorTipoIdentif            = params_get("receptor_tipo_identif");
@@ -729,19 +731,19 @@ function genXMLND()
     // Validate string sizes
     if (strlen($codigoActividad) != $codigoActividadSize)
     {
-        $error_log("codigoActividad size is $codigoActividadSize");
+        error_log("codigoActividad size is $codigoActividadSize");
     }
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
     {
-        $error_log("emisorNombre size is greater than $emisorNombreMaxSize");
+        error_log("emisorNombre size is greater than $emisorNombreMaxSize");
     }
     if (strlen($receptorNombre) > $receptorNombreMaxSize)
     {
-        $error_log("receptorNombre size is greater than $receptorNombreMaxSize");
+        error_log("receptorNombre size is greater than $receptorNombreMaxSize");
     }
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
     {
-        $error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
+        error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
     }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
@@ -806,7 +808,7 @@ function genXMLND()
             if ($receptorTipoIdentif != '' &&  $receptorNumIdentif != '')
             {
                 $xmlString .= '<IdentificacionExtranjero>'
-                        . $receptorNumIdentif 
+                        . $receptorNumIdentif
                         . ' </IdentificacionExtranjero>';
             }
             if ($receptorOtrasSenasExtranjero != '' && strlen($receptorOtrasSenasExtranjero) <= 300)
@@ -984,7 +986,7 @@ function genXMLTE()
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
 
-    // Datos emisor     
+    // Datos emisor
     $emisorNombre                   = params_get("emisor_nombre");
     $emisorTipoIdentif              = params_get("emisor_tipo_indetif");
     $emisorNumIdentif               = params_get("emisor_num_identif");
@@ -1000,7 +1002,7 @@ function genXMLTE()
     $emisorFax                      = params_get("emisor_fax");
     $emisorEmail                    = params_get("emisor_email");
 
-    // Datos receptor       
+    // Datos receptor
     $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
     $receptorNombre                 = params_get("receptor_nombre");
     $receptorTipoIdentif            = params_get("receptor_tipo_identif");
@@ -1044,19 +1046,19 @@ function genXMLTE()
     // Validate string sizes
     if (strlen($codigoActividad) != $codigoActividadSize)
     {
-        $error_log("codigoActividad size is $codigoActividadSize");
+        error_log("codigoActividad size is $codigoActividadSize");
     }
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
     {
-        $error_log("emisorNombre size is greater than $emisorNombreMaxSize");
+        error_log("emisorNombre size is greater than $emisorNombreMaxSize");
     }
     if (strlen($receptorNombre) > $receptorNombreMaxSize)
     {
-        $error_log("receptorNombre size is greater than $receptorNombreMaxSize");
+        error_log("receptorNombre size is greater than $receptorNombreMaxSize");
     }
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
     {
-        $error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
+        error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
     }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
@@ -1241,7 +1243,7 @@ function genXMLMr()
     // Validate string sizes
     if (strlen($codigoActividad) != $codigoActividadSize)
     {
-        $error_log("codigoActividad size is $codigoActividadSize");
+        error_log("codigoActividad size is $codigoActividadSize");
     }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
