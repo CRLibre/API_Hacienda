@@ -5,3 +5,4 @@ www/settings.php
 .gitsecret/keys/random_seed
 !*.secret
 random_seed
+/api/files
