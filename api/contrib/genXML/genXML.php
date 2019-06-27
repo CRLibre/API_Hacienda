@@ -81,14 +81,19 @@ function genXMLFe()
     $tipoCambio                     = params_get("tipo_cambio");
     $totalServGravados              = params_get("total_serv_gravados");
     $totalServExentos               = params_get("total_serv_exentos");
+    $totalServExonerados            = params_get("total_serv_exonerados");
     $totalMercGravadas              = params_get("total_merc_gravada");
     $totalMercExentas               = params_get("total_merc_exenta");
+    $totalMercExonerada             = params_get("total_merc_exonerada");
     $totalGravados                  = params_get("total_gravados");
-    $totalExentos                   = params_get("total_exentos");
+    $totalExento                    = params_get("total_exento");
+    $totalExonerado                 = params_get("total_exonerado");
     $totalVentas                    = params_get("total_ventas");
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
     $totalImp                       = params_get("total_impuestos");
+    $totalIVADevuelto               = params_get("totalIVADevuelto");
+    $totalOtrosCargos               = params_get("totalOtrosCargos");
     $totalComprobante               = params_get("total_comprobante");
     $otros                          = params_get("otros");
     $otrosType                      = params_get("otrosType");
@@ -299,18 +304,25 @@ function genXMLFe()
 
     $xmlString .= '</DetalleServicio>
         <ResumenFactura>
-        <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
-        <TipoCambio>' . $tipoCambio . '</TipoCambio>
+        <CodigoTipoMoneda>
+            <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
+            <TipoCambio>' . $tipoCambio . '</TipoCambio>
+        </CodigoTipoMoneda>
         <TotalServGravados>' . $totalServGravados . '</TotalServGravados>
         <TotalServExentos>' . $totalServExentos . '</TotalServExentos>
+        <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>
         <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>
+        <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>
         <TotalGravado>' . $totalGravados . '</TotalGravado>
-        <TotalExento>' . $totalExentos . '</TotalExento>
+        <TotalExento>' . $totalExento . '</TotalExento>
+        <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
         <TotalVenta>' . $totalVentas . '</TotalVenta>
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
+        <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>
+        <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
         <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
         </ResumenFactura>
         <Normativa>
@@ -389,14 +401,19 @@ function genXMLNC()
     $tipoCambio                     = params_get("tipo_cambio");
     $totalServGravados              = params_get("total_serv_gravados");
     $totalServExentos               = params_get("total_serv_exentos");
+    $totalServExonerados            = params_get("total_serv_exonerados");
     $totalMercGravadas              = params_get("total_merc_gravada");
     $totalMercExentas               = params_get("total_merc_exenta");
+    $totalMercExonerada             = params_get("total_merc_exonerada");
     $totalGravados                  = params_get("total_gravados");
-    $totalExentos                   = params_get("total_exentos");
+    $totalExento                    = params_get("total_exento");
+    $totalExonerado                 = params_get("total_exonerado");
     $totalVentas                    = params_get("total_ventas");
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
     $totalImp                       = params_get("total_impuestos");
+    $totalIVADevuelto               = params_get("totalIVADevuelto");
+    $totalOtrosCargos               = params_get("totalOtrosCargos");
     $totalComprobante               = params_get("total_comprobante");
     $otros                          = params_get("otros");
     $otrosType                      = params_get("otrosType");
@@ -616,14 +633,19 @@ function genXMLNC()
         <TipoCambio>' . $tipoCambio . '</TipoCambio>
         <TotalServGravados>' . $totalServGravados . '</TotalServGravados>
         <TotalServExentos>' . $totalServExentos . '</TotalServExentos>
+        <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>
         <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>
+        <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>
         <TotalGravado>' . $totalGravados . '</TotalGravado>
-        <TotalExento>' . $totalExentos . '</TotalExento>
+        <TotalExento>' . $totalExento . '</TotalExento>
+        <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
         <TotalVenta>' . $totalVentas . '</TotalVenta>
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
+        <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>
+        <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
         <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
     </ResumenFactura>
     <InformacionReferencia>
@@ -708,14 +730,19 @@ function genXMLND()
     $tipoCambio                     = params_get("tipo_cambio");
     $totalServGravados              = params_get("total_serv_gravados");
     $totalServExentos               = params_get("total_serv_exentos");
+    $totalServExonerados            = params_get("total_serv_exonerados");
     $totalMercGravadas              = params_get("total_merc_gravada");
     $totalMercExentas               = params_get("total_merc_exenta");
+    $totalMercExonerada             = params_get("total_merc_exonerada");
     $totalGravados                  = params_get("total_gravados");
-    $totalExentos                   = params_get("total_exentos");
+    $totalExento                    = params_get("total_exento");
+    $totalExonerado                 = params_get("total_exonerado");
     $totalVentas                    = params_get("total_ventas");
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
     $totalImp                       = params_get("total_impuestos");
+    $totalIVADevuelto               = params_get("totalIVADevuelto");
+    $totalOtrosCargos               = params_get("totalOtrosCargos");
     $totalComprobante               = params_get("total_comprobante");
     $otros                          = params_get("otros");
     $otrosType                      = params_get("otrosType");
@@ -934,14 +961,19 @@ function genXMLND()
         <TipoCambio>' . $tipoCambio . '</TipoCambio>
         <TotalServGravados>' . $totalServGravados . '</TotalServGravados>
         <TotalServExentos>' . $totalServExentos . '</TotalServExentos>
+        <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>
         <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>
+        <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>
         <TotalGravado>' . $totalGravados . '</TotalGravado>
-        <TotalExento>' . $totalExentos . '</TotalExento>
+        <TotalExento>' . $totalExento . '</TotalExento>
+        <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
         <TotalVenta>' . $totalVentas . '</TotalVenta>
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
+        <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>
+        <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
         <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
     </ResumenFactura>
     <InformacionReferencia>
@@ -1027,14 +1059,19 @@ function genXMLTE()
     $tipoCambio                     = params_get("tipo_cambio");
     $totalServGravados              = params_get("total_serv_gravados");
     $totalServExentos               = params_get("total_serv_exentos");
+    $totalServExonerados            = params_get("total_serv_exonerados");
     $totalMercGravadas              = params_get("total_merc_gravada");
     $totalMercExentas               = params_get("total_merc_exenta");
+    $totalMercExonerada             = params_get("total_merc_exonerada");
     $totalGravados                  = params_get("total_gravados");
-    $totalExentos                   = params_get("total_exentos");
+    $totalExento                    = params_get("total_exento");
+    $totalExonerado                 = params_get("total_exonerado");
     $totalVentas                    = params_get("total_ventas");
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
     $totalImp                       = params_get("total_impuestos");
+    $totalIVADevuelto               = params_get("totalIVADevuelto");
+    $totalOtrosCargos               = params_get("totalOtrosCargos");
     $totalComprobante               = params_get("total_comprobante");
     $otros                          = params_get("otros");
     $otrosType                      = params_get("otrosType");
@@ -1184,14 +1221,19 @@ function genXMLTE()
         <TipoCambio>' . $tipoCambio . '</TipoCambio>
         <TotalServGravados>' . $totalServGravados . '</TotalServGravados>
         <TotalServExentos>' . $totalServExentos . '</TotalServExentos>
+        <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>
         <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>
+        <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>
         <TotalGravado>' . $totalGravados . '</TotalGravado>
-        <TotalExento>' . $totalExentos . '</TotalExento>
+        <TotalExento>' . $totalExento . '</TotalExento>
+        <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
         <TotalVenta>' . $totalVentas . '</TotalVenta>
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
+        <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>
+        <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
         <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
     </ResumenFactura>
     <Normativa>

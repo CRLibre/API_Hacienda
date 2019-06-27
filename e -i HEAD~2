@@ -1,0 +1,359 @@
+[33m0dfd2ff[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop_fix_7[m[33m, [m[1;31morigin/develop_fix_7[m[33m)[m Merge branch 'develop_fix_7' of https://github.com/JeanCarlosChavarriaHughes/API_Hacienda into develop_fix_7
+[33m53ac5f0[m Merge branch 'develop_fix_7' of https://github.com/JeanCarlosChavarriaHughes/API_Hacienda into develop_fix_7
+[33m427e810[m Merge branch 'develop_fix_7' of https://github.com/JeanCarlosChavarriaHughes/API_Hacienda into develop_fix_7
+[33mb522e24[m '#'7 Listo Resumen de comprobante
+[33m637245f[m Listo Resumen de comprobante issue 7
+[33m964d4e0[m[33m ([m[1;31morigin/develop_fix_8[m[33m, [m[1;31morigin/develop[m[33m, [m[1;32mdevelop_fix_8[m[33m)[m Jean: Adapting headerDocs in xmlGenerator.php from https://github.com/enzojimenez/hacienda-firmador-php/wiki
+[33m6a651c1[m Corrección de error en declaración de función error_log
+[33mfc24a82[m Sprint #3: API Upgrade - Mecanismo de Seguridad
+[33m2944583[m Jean: fix codigoActividad with codigo_actividad in get_params and array key
+[33m703e749[m Merge pull request #11 from JeanCarlosChavarriaHughes/master
+[33mae41c1b[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m Fix in gitignore
+[33mf7d5e89[m Update for gitignore
+[33mf855c78[m #6 adding new params in module.php of genXML api contrib module
+[33m3f0bc9f[m #6 remove git conflict message
+[33m7fd3a41[m New headers for API-03 #6
+[33mb777e71[m Update genXML.php
+[33m6088d2d[m Issue  #6 - Se agrega la lectura del parametro, codigoActividad. Basado en la lista: [actividades_por_codigo.json](https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json) - Se agrega receptorOtrasSenasExtranjero - Se agrega validacion de size para `codigoActividad`, `receptorOtrasSenasExtranjero`, `emisorNombre` y `receptorNombre`.
+[33mf6c05c8[m #6 Adding headerDoc from gometa samples
+[33ma306274[m Update xmlGenerator.php
+[33m136f94b[m Adding secret
+[33m30e16a7[m git-secret https://git-secret.io/
+[33mfdcffef[m Update README.md
+[33m9da39d6[m Update settings.php
+[33m4f77a35[m Heroku Ticket Suggestion: 708695
+[33m47b403d[m make errors logs to one file instead of rotation. Temporary
+[33m69225c9[m Update Procfile
+[33m7b66946[m error logging
+[33me3a5edd[m Jean: updating crypto information
+[33m47fa19e[m removing internal html
+[33meaca86a[m Add composer to root
+[33m83b1c20[m fixing as recommended by coco unlock cr
+[33ma4b3847[m Merge branch 'master' of https://github.com/JeanCarlosChavarriaHughes/API_Hacienda
+[33m9776982[m Adding gitignore for mac files
+[33mb0b2204[m Revert "Create composer.json"
+[33me0ef6c5[m fix settings
+[33m6fad2bf[m Moving api folder into www/html
+[33mffcc414[m Fix in settings
+[33m65fbf43[m Jean: following [API Installation Guide](https://docs.google.com/document/d/1Km3sWrwz_b_QqQxmFz2nauixCOcVPy__HTSZkgbc1KU/edit#)
+[33me7220b8[m Create composer.json
+[33md7da7f4[m Delete index.php
+[33m7638581[m fix #3 adding settings.php with real credentials
+[33m18bc550[m Merge pull request #2 from CRLibre/master
+[33mb797b16[m Ahora no se creará el nodo "montoDescuento" si el monto es igual a 0.
+[33m299c5df[m Merge branch 'CRLibre-master'
+[33m83495f8[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda into CRLibre-master
+[33mec00416[m ¡¡¡FELIZ AÑO NUEVO 2019!!!
+[33m1732c69[m ¡Muchas gracias colaboradores!
+[33mdc18acb[m Añadidas nuevas opciones en config para activar/desactivar el debug log (grace). (#78)
+[33m38cf05a[m Añadidos los módulos de Facturador.
+[33me6b33cd[m Eliminado el módulo 'sicWsQuery', se encuentra obsoleto.
+[33m50af88e[m Corregido el error de firmado para Mensajes receptores (#69)
+[33m54acca4[m Ahora el nodo "Barrio" es opcional en la generación de XML (#67)
+[33mace989c[m Corregido cierre de llave en genXML.
+[33m42625f8[m Ahora el nodo de Correo electrónico en generación de XML es opcional (#64)
+[33m175c206[m Update copyright
+[33mb53c7d9[m Añadido el encabezado de copyright (#62)
+[33m11015ec[m Corrección de la Fecha de Resolución en los Tiquetes Electrónicos.
+[33md8d3013[m Rename issue_template.md to ISSUE_TEMPLATE.md
+[33mf732631[m Update version.php
+[33m2dadb2a[m Ahora se obtiene el hash de versión por medio del tag init creado.
+[33m6a37b18[m Typo fix recenprot -> receptor
+[33m6b1d6f5[m Rename CONTRIBUTING.md to .github/CONTRIBUTING.md
+[33mb1ace4d[m Implementado el módulo `version`.
+[33m6741d4e[m Añadido mensaje de error para c424a0a27da9ebcd8772212f68b4f7fcdf6084c7
+[33mad29fde[m Update README.md
+[33m5e1ddef[m Ahora se comprobará la versión PHP y las extensiones necesarias.
+[33m46651af[m Actualización de URL de Anexos y Estructuras (#60)
+[33ma47f33c[m Rename INSTALL to INSTALL.md
+[33m4a7f3e8[m Eliminación de install.php y creación de INSTALL para orientar mejor a la instalación del API.
+[33m56e6275[m Actualización de api_base.sql con MySQL Dump.
+[33m603b6a5[m Añadido update sql de 485eb2ada52afe15e916f06dde635be2813f5c98
+[33m733bd0f[m Organizado los archivos SQL (#58)
+[33m485eb2a[m Corrección en el tamaño de datos al ser almacenados en DB. (#59)
+[33ma106412[m Implementación de soporte SMTP para envío de correos (#56)
+[33m9bdd3ec[m Añadidas notas para la plantilla de reportes.
+[33mc424a0a[m Solucionado un problema al obtener datos de POST sin procesar. (#48)
+[33m0347530[m Codestyle, cleanup whitespaces & tab2spaces (#55)
+[33m4865310[m Cleanup logs.
+[33md849b57[m Cambio de horario a Costa Rica para evitar incidencias con horario de Hacienda. (#52)
+[33me64388d[m Información necesaria para los reportes de bugs.
+[33m186a52a[m Añadida comprobación de existencia de la carpeta "api". (#51)
+[33m6eedd9b[m Añadidas algunas configuraciones de git (#49)
+[33m71c172a[m Merge pull request #47 from TheCloneMaster/patch-1
+[33m6bbdf1b[m Falta paréntesis derecho
+[33m11c337a[m Merge pull request #38 from mamm26/config
+[33m0e4256a[m Merge pull request #42 from mamm26/codestyle
+[33mac8bace[m brace
+[33m56cda2d[m Añadido espacio luego de if, while, for y foreach.
+[33mdcc3561[m Subida de la carpeta "modules".
+[33me276b87[m Finalizada la carpeta "contrib".
+[33m99e8896[m Merge branch 'master' into codestyle
+[33m0f22152[m Update genXML.php
+[33m772e9ef[m Parte 1: Codestyle en algunos módulos de la carpeta "contrib".
+[33me94c49e[m Merge pull request #46 from walner1borbon/master
+[33mf2cd207[m se agrega la validacion para receptores extrangeros
+[33m8c5f1ff[m Update .gitignore
+[33m8bbde9f[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda into codestyle
+[33m8cd740e[m Corrección de conflictos.
+[33ma5fd238[m Merge pull request #44 from walner1borbon/master
+[33mec30f33[m cambio en el retorno de Factura
+[33m0662b25[m Merge pull request #1 from CRLibre/master
+[33m3d6899c[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda into config
+[33m9e228c3[m Revert "Cambio en archivo de configuración."
+[33m755bb7d[m Revert "Comprobación del archivo settings.php"
+[33m0bb5671[m Revert "Update .gitignore"
+[33m3a430ae[m Merge pull request #18 from lmoraobando/master
+[33m03413b5[m Merge branch 'master' into master
+[33m395e5ac[m Merge pull request #33 from mchojrin/patch-1
+[33m849f8de[m Merge pull request #39 from mamm26/nbproject
+[33mfc5a35d[m Merge branch 'master' into nbproject
+[33m4d7ac05[m Merge pull request #41 from variux/patch-2
+[33m4712f9e[m Merge branch 'master' into patch-2
+[33m0157d1b[m Merge pull request #43 from walner1borbon/master
+[33me4a6e1b[m Sin Cambios
+[33mfc4385c[m Eliminacion de lines blancas
+[33m4744aab[m Tabla para el facturador
+[33m06e354a[m Documento con pasos de instalacion y uso
+[33m686425b[m Sin Cambios
+[33mfb56dd5[m Se elimina la coleccion de Postaman V2.1
+[33mc7dbd50[m Coleccion de Postam V3.1
+[33m612168b[m gitIgnore
+[33mbca383c[m Se agrega un retorno de idUser en la creacion de usuario
+[33ma36a072[m Se cambian de campos de obligatorio a no obligatorio
+[33m3f44e6e[m Cambio en la estructura del XML
+[33m1641eb1[m Cambio en la generacion de la clave
+[33md853410[m dummy commit
+[33mea1bda1[m Actualizacion genXML
+[33mab8a0ab[m Eliminamos la carpeta de Neatbeans del proyecto.
+[33m08d2c55[m Update .gitignore
+[33mb204cbd[m Comprobación del archivo settings.php
+[33m20df3ed[m Cambio en archivo de configuración.
+[33mb156e1d[m Fix typo
+[33md7f222b[m settings -1 para no cerrar sesion
+[33m3c01ee4[m Se agrega en html con el formato de crlibre
+[33m498f8e2[m Se agrega validacion para poder recibir el callback
+[33me6d4fba[m Merge pull request #32 from walner1borbon/master
+[33mac87ba2[m CallBack para Respuesta Hacienda
+[33m10ac3d6[m Update README.md
+[33md71b505[m Se eliminan lineas no requeridas
+[33m42caca9[m adapting the module for the mail notification
+[33m115f85a[m adding try catch in the openssl decrypt
+[33m072cf0e[m adding allowed ext
+[33m279c050[m adding some documentation
+[33m90a5486[m Badges agregados
+[33m603734c[m Merge remote-tracking branch 'upstream/master'
+[33m6129ea6[m Merge pull request #31 from walner1borbon/master
+[33m2442807[m Merge branch 'master' of https://github.com/walner1borbon/API_Hacienda
+[33m5eb1a82[m Correccion de db anterios la cual no tenia todas las tablas
+[33m4c6917a[m Merge branch 'master' into master
+[33m285b3b7[m Solucionado el Mensaje Aceptacion
+[33m52a4a20[m Nuevos modulos funcionales
+[33md36b2bb[m Cambio de otrosType
+[33m087f010[m Se migra todo el proceso a Curl
+[33m5191af2[m Base de Datos
+[33mf4a1072[m Caleccion para Postman
+[33m775fd2e[m DB en construccion con tablas maestras para facturador
+[33m7ca8a3a[m Check receptor en envio a hacienda
+[33m531a4b7[m Se agrega el SSL_Verifypeer 0 y SSL_VERIFYHOST 0
+[33ma49c372[m Merge pull request #29 from Dwardmr/patch-1
+[33maf279dc[m Merge branch 'master' into patch-1
+[33mdbd49fb[m Se pasa la declaracion de $key al interior de las funciones
+[33m30486eb[m Se elimina el salt de las versiones mayores a 7.0
+[33m5d87b34[m se agrega linea 22 y 23 para omitir errores en SSL
+[33m0a392cd[m linea 37 en boot.php evita imprimir alertas si el settings.php esta en false
+[33m093f359[m Update README.md
+[33m00f724b[m Ajustes al README
+[33mf53f1fa[m Se cambio el req true del campo otros
+[33m1b57d5d[m Cambio en las opciones del password_hash
+[33m1f9a47b[m Cambios Varios
+[33m528fd73[m Agrega tipos de etiquetas para campo otros
+[33m209d03a[m Agregar link al 'step by step' del API al README
+[33mdbd3ebf[m cambio nombre variable retorno
+[33m51a149c[m Tabulacion
+[33m35d2ab1[m CMD api installer
+[33m99a918c[m Archivo no necesario -> Eliminacion
+[33m3d2e174[m validacion de parametros de recptor
+[33ma5b9d09[m Se cambian los valores de los valores obligatorios
+[33mf809b75[m Se declara en la linea 47-48 el uso del -1
+[33m2d5094a[m Se agrega el -1 para omitir la validacion de tiempo de sesion.
+[33m34c5d86[m Se agrega la generacion del mensaje de aceptacion
+[33mbe63217[m First forked from CRLibre/API_Hacienda
+[33m78b0f78[m Merge pull request #23 from joseluissegura/master
+[33m6cb7ade[m Update README.md
+[33m5bf4551[m Update README.md
+[33m1d1ba2f[m Revert "Revert "API Core Update""
+[33m3e741da[m Revert "API Core Update"
+[33mad35e8c[m API Core Update
+[33m9697d1b[m clan comments and pad $numeroCedulaEmisor and $numeroCedulaReceptor to size12
+[33mcbe0fde[m Mensaje Receptor
+[33m6021e65[m Mensaje Aceptacion
+[33m20d4ebb[m Se agregan las variables tambien al sendMensaje
+[33med7a493[m Cambio en las variables
+[33m55653b9[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda
+[33m2c58abe[m Modulo del proceso completo en un request
+[33m25e7956[m Se implementa el modulo al 100%
+[33m3df95e7[m Se vuelven opcionales campos de informacion de receptor
+[33m1c93b5d[m Se agregan NITE y DIMEX a la elaboracion de Cedula
+[33mfccd280[m Set theme jekyll-theme-cayman
+[33m5077f71[m Set theme jekyll-theme-hacker
+[33mb8adad7[m Set theme jekyll-theme-cayman
+[33ma134714[m Update README.md
+[33mb3fd499[m Update README.md
+[33m2c4b93b[m Documentacion y ejemplo de uso
+[33m4763212[m Modificación de lista
+[33m882d3ea[m Actualizacion de requerimiento
+[33m4067a5c[m Modulo para consultar datos del SIC
+[33m0465f02[m Cambio en el modulo de creacion de Usuario
+[33mc933b68[m Archivos no necesarios para la operacion del API
+[33meffe422[m elimino mensajes erroneos
+[33m64422e7[m Update README.md
+[33m64de781[m Se comienza a establecer requerimientos minimos
+[33m2d3e1dc[m Se agusta el modulo para las veriones de PHP
+[33ma53580e[m Archivos no necesarios
+[33mf7bb9f3[m Se corrige error en getClave
+[33m39ddf27[m Se elimina el grace_debug
+[33m68b5ef0[m Se remplaza mcrypt_create_iv()
+[33m59c5dc7[m Se cambia la direccion de los errors.log
+[33m627edc0[m Se agrega makeKey
+[33m850438b[m .
+[33m0301185[m Se agrega makeKey256
+[33m853435e[m Se agrega duncion makeKey
+[33m5102148[m funcion para crear ek Key
+[33md607519[m Cambios en modulo Consultar
+[33m7c7ae5c[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda
+[33m721b7bf[m Requerido el client_id
+[33m6a39958[m cli-signer.php -> corregir typo = "$doctyp"
+[33m5b07f1e[m Se agrega un hash al crypto
+[33m7eb6bfd[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda
+[33m088ea40[m Se modifica el url del api-prod
+[33m8f4114d[m Se valida en api-prod o api-stag
+[33m49e304f[m client_id para validar en produccion o stag
+[33medc81f2[m Not working, deleting this file
+[33m197e309[m Name change
+[33mb6ce643[m Commit inicial de la herramienta
+[33mdf5e400[m Se integra la funcion md5
+[33ma9bd1b0[m Modulo crypto para la manejo open SSL aes-256-cbc
+[33mfac6d7c[m Se adapta para utilizar el modulo crypto
+[33mae2c0b4[m Se agregar desde el settings del www el modulo crypto
+[33md9ed7a1[m Se agrega el modulo Crypto como parte del core del API
+[33m7a5501e[m Mover genID12Digitos a recursos
+[33mbb3a372[m Creacion
+[33m5ae64e5[m Se aceptan parametros mas parametros
+[33ma356bad[m Function not found cuando al no encuentrar funcion
+[33m3c63307[m Se agrega descripcion del file en el return
+[33mb79aaf7[m Cambio en linea Module not found
+[33mf72e8bd[m Devuelve Function not found si no existe la funcion
+[33mf16e2de[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda
+[33m5dd51f9[m Se modifica la linea 30 de getClave a clave
+[33m514367f[m Merge pull request #16 from schweini/master
+[33mde58bdb[m alinear output. listo para PR, creo.
+[33me3a5818[m Update cli-signer.php
+[33ma434a1f[m Update cli-signer.php
+[33md61fb3a[m Update cli-signer.php
+[33ma6fb0c1[m Update cli-signer.php
+[33m1b29d25[m Update cli-signer.php
+[33mdc456ee[m usar __DIR__ para el include
+[33ma81d0c1[m usar '-' para usar STDIN/STDOUT
+[33mb7ee50b[m cambiar shebang, imprimir a STDERR
+[33md29d77d[m autodetectar tipo de comprobante
+[33mb08ef0d[m Update cli-signer.php
+[33m545809f[m Update cli-signer.php
+[33m5f4c756[m cli-signer.php - un wrapper para usar el firmador desde la linea de comando.
+[33m4d5f24d[m Modificacion de Json
+[33m05b8f54[m Update issue templates
+[33mc95b63b[m Merge pull request #13 from eliastorres/master
+[33m33cafce[m Enlace de chats en CONTRIBUTING
+[33ma2d4599[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda
+[33m7e99609[m Se modifica para cargar descuentos
+[33mb4070c0[m Se elimina ya que no se requiere
+[33mf2ece92[m Merge pull request #12 from eliastorres/master
+[33m1168ea1[m Agregado enlace a wiki en descripción
+[33me156669[m Cambio de enlace de chats
+[33m94520f7[m Se agrega validacion del campo clave
+[33mcb9f932[m Valido que los campos del la Clave sean los correctos
+[33mb929b73[m Validaciones en el token
+[33m5b738ac[m validacion de datos enviados
+[33mafde831[m Se agrega el codigo de validacion de Sucursal, terminal, tipos de documentos
+[33m9869cfb[m Se agrega linea 40 41 para enviar terminal y sucursal
+[33m9f2a8c2[m Se agrega validacion de los tipos de documentos
+[33m1db5ba5[m Modificacion de parametros de retorno
+[33m6e8e86b[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda
+[33m070bc1b[m Cambio en Envio de Mensaje
+[33mf9c51d8[m Modificacion genera FE NC ND
+[33m5e92ef1[m Merge pull request #10 from alejosv/master
+[33m6b21a0e[m fixing php location
+[33mc30382d[m Added Procfile
+[33m81d0107[m Fix posible fuga de informacion
+[33m3437319[m Contribución que el podría permitir a la API ofrecer la manera de hacer consultas SIC WEB consumiendo directamente el webservice. Quedan algunos tODOS: - Implementar la función que calcule el digito verificador de pertencia - Implementar consultar localmente si el webservice no funciona (tal y como lo hace la aplicación de escritorio) - Implemetar un mecanismo que pueda descarhar el msi, descomprimirlo y actualizar el registro local basado en al mdb que dispone Hacienda en este instalador
+[33mc0b5c05[m Update CONTRIBUTING.md
+[33md3ebc64[m Delete docx as it got moved to wiki
+[33ma77c5e2[m Add Wiki link
+[33m5b8aed6[m Cambio en faltantes documentacion
+[33m2c4da84[m Agrego documentacion para crear XML FE
+[33m208e921[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda
+[33m34b5123[m Cambio en recibir Tipo de Documento
+[33m4143326[m Devuelve un array de status y text
+[33m140940c[m Mas Documentacion de Uso
+[33m3d7d456[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda
+[33md0485cc[m Cambios en el LogOut
+[33m95c118c[m Cambios en el solicitador de Token
+[33me735884[m Manual de Uso del Api CRLibre
+[33m3e0d520[m eliminacion de comillas dobles
+[33m93f56ce[m Eliminacion del XML TEMP
+[33me95b3b0[m Cambio de retorno
+[33m40e3219[m Cambios Varios
+[33m53d6aaf[m Update clave.php
+[33maf7e3d6[m Update README.md
+[33mccee891[m Readme
+[33m3dec920[m Update README.md
+[33m27a3f3f[m Modificacion de los parametros
+[33m4d1c2ca[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda
+[33mb3c6c26[m Cambio en el metodo de firmar
+[33m4dc35b3[m Update Firmadohaciendacr.php
+[33m77f05a8[m Actualizada licencia
+[33m0eecc65[m Cambios en documentacion
+[33mc40e09a[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda into tomerge
+[33m304ec14[m Cambios en la clave
+[33m2424f88[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda into tomerge
+[33m89aa38d[m genrador xml de FE
+[33m9fabf42[m Merge pull request #6 from enzofjh/master
+[33m4be527a[m Modificación de Tipos de Documento
+[33m17c3054[m Cambio en la creacion de la Clave
+[33me9aa8dd[m q
+[33m6261f42[m Recursos ApiHacienda
+[33m296c75d[m :::erge branch 'master' of https://github.com/CRLibre/API_Hacienda into tomerge
+[33mb5a39ad[m cambios walner
+[33m27e5524[m cambios
+[33me45b56e[m Cambios en el firmador FE NC ND
+[33m204b0ec[m UpLoader php
+[33m777a252[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda
+[33mcca4496[m Uploader Certificado
+[33m5602fb1[m Cambios en modulos, Firmador funcionando en dominio
+[33mbdf8c9c[m Update README.md
+[33m9ba5959[m Actualizacion del firmador
+[33m4e40805[m Create LICENSE
+[33mbed189b[m Update README.md
+[33mc9bc464[m Update README.md
+[33m4d27f5d[m URL Test server
+[33m443f794[m Firmador con Licencia
+[33me4df3e4[m Licencia de Firmador
+[33m62172a6[m Codificacion del modulo Clave situaciones
+[33me332d98[m Merge branch 'master' of https://github.com/CRLibre/API_Hacienda
+[33m0bc4a34[m Codificacion del modulo Clave
+[33me278272[m Cambios con los modulos
+[33mf353852[m Mas detalles en los read me
+[33me345d65[m Update README.md
+[33m5ec91b8[m Cambios en los readme de los modulos
+[33mfd099e9[m modulos api
+[33m9b4c027[m Correccion del modulo Base
+[33m51e38b3[m Modulo Token, Get Token and Refresh Token
+[33mb031198[m Merge branch 'tomerge'
+[33m0c036ea[m Cambios en read me
+[33m2cdac54[m Prueba
+[33m0c3750b[m Update and rename README to README.md
+[33m408b88f[m Archivo CONTRIBUTING.md
+[33m0b77f57[m Merge pull request #2 from fdelapena/master
+[33m2dcfae8[m Use utf8mb4 to support full Unicode range
+[33m4f831ca[m gitignore
+[33m475bd81[m first commit :)
