@@ -72,14 +72,19 @@ function genXML()
     $tipoCambio             = params_get("tipo_cambio");
     $totalServGravados      = params_get("total_serv_gravados");
     $totalServExentos       = params_get("total_serv_exentos");
+    $totalServExonerados    = params_get("total_serv_exonerados");
     $totalMercGravadas      = params_get("total_merc_gravada");
     $totalMercExentas       = params_get("total_merc_exenta");
+    $totalMercExonerada     = params_get("total_merc_exonerada");
     $totalGravados          = params_get("total_gravados");
-    $totalExentos           = params_get("total_exentos");
+    $totalExento            = params_get("total_exento");
+    $totalExonerado         = params_get("total_exonerado");
     $totalVentas            = params_get("total_ventas");
     $totalDescuentos        = params_get("total_descuentos");
     $totalVentasNeta        = params_get("total_ventas_neta");
     $totalImp               = params_get("total_impuestos");
+    $totalIVADevuelto       = params_get("totalIVADevuelto");
+    $totalOtrosCargos       = params_get("totalOtrosCargos");
     $totalComprobante       = params_get("total_comprobante");
     $otros                  = params_get("otros");
 
