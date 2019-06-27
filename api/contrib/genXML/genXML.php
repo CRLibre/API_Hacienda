@@ -92,6 +92,11 @@ function genXMLFe()
     $totalComprobante               = params_get("total_comprobante");
     $otros                          = params_get("otros");
     $otrosType                      = params_get("otrosType");
+    $infoRefeTipoDoc                = params_get("infoRefeTipoDoc");
+    $infoRefeNumero                 = params_get("infoRefeNumero");
+    $infoRefeFechaEmision           = params_get("infoRefeFechaEmision");
+    $infoRefeCodigo                 = params_get("infoRefeCodigo");
+    $infoRefeRazon                  = params_get("infoRefeRazon");
 
     // Detalles de la compra
     $detalles                       = json_decode(params_get("detalles"));
@@ -317,6 +322,28 @@ function genXMLFe()
         <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
         <FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
         </Normativa>';
+    if ($infoRefeTipoDoc != '' && $infoRefeNumero != '' && $infoRefeFechaEmision != '' && $infoRefeCodigo != '' && $infoRefeRazon != ''){
+
+        $xmlString .=   '<InformacionReferencia>
+                            <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>
+                            <Numero>' . $infoRefeNumero . '</Numero>
+                            <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>
+                            <Codigo>' . $infoRefeCodigo . '</Codigo>
+                            <Razon>' . $infoRefeRazon . '</Razon>
+                        </InformacionReferencia>';
+    }
+
+    if ($otros != '' && $otrosType != '')
+    {
+        $tipos = array("Otros", "OtroTexto", "OtroContenido");
+        if (in_array($otrosType, $tipos))
+        {
+            $xmlString .= '
+                <Otros>
+            <' . $otrosType . '>' . $otros . '</' . $otrosType . '>
+            </Otros>';
+        }
+    }
 
     if ($otros != '' && $otrosType != '')
     {
@@ -1038,6 +1065,11 @@ function genXMLTE()
     $totalComprobante               = params_get("total_comprobante");
     $otros                          = params_get("otros");
     $otrosType                      = params_get("otrosType");
+    $infoRefeTipoDoc                = params_get("infoRefeTipoDoc");
+    $infoRefeNumero                 = params_get("infoRefeNumero");
+    $infoRefeFechaEmision           = params_get("infoRefeFechaEmision");
+    $infoRefeCodigo                 = params_get("infoRefeCodigo");
+    $infoRefeRazon                  = params_get("infoRefeRazon");
 
     // Detalles de la compra
     $detalles                       = json_decode(params_get("detalles"));
@@ -1198,6 +1230,18 @@ function genXMLTE()
         <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
         <FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
     </Normativa>';
+
+    if ($infoRefeTipoDoc != '' && $infoRefeNumero != '' && $infoRefeFechaEmision != '' && $infoRefeCodigo != '' && $infoRefeRazon != ''){
+
+        $xmlString .=   '<InformacionReferencia>
+                            <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>
+                            <Numero>' . $infoRefeNumero . '</Numero>
+                            <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>
+                            <Codigo>' . $infoRefeCodigo . '</Codigo>
+                            <Razon>' . $infoRefeRazon . '</Razon>
+                        </InformacionReferencia>';
+    }
+
     if ($otros != '' && $otrosType != '')
     {
         $tipos = array("Otros", "OtroTexto", "OtroContenido");
