@@ -357,18 +357,6 @@ function genXMLFe()
         }
     }
 
-    if ($otros != '' && $otrosType != '')
-    {
-        $tipos = array("Otros", "OtroTexto", "OtroContenido");
-        if (in_array($otrosType, $tipos))
-        {
-            $xmlString .= '
-                <Otros>
-            <' . $otrosType . '>' . $otros . '</' . $otrosType . '>
-            </Otros>';
-        }
-    }
-
     $xmlString .= '
     </FacturaElectronica>';
     $arrayResp = array(
