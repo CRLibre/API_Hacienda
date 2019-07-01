@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright (C) 2017-2019 CRLibre <https://crlibre.org>
  * Copyright (C) 2017 José Carlos Aguilar Vásquez
@@ -23,151 +24,130 @@
 
 class Firmadocr
 {
-  const POLITICA_FIRMA = array(
-    "name"      => "",
-    "url"       => "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4/Resolucion%20Comprobantes%20Electronicos%20%20DGT-R-48-2016.pdf",
-    "digest"    => "V8lVVNGDCPen6VELRD1Ja8HARFk=" // digest en sha1 y base64
-  );
+    private static $NODOS_NS = array(
+        "URL" => "https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/",
+        '01' => "facturaElectronica",
+        '02' => "notaDebitoElectronica",
+        '03' => "notaCreditoElectronica",
+        '04' => "tiqueteElectronico",
+        '05' => "mensajeReceptor",
+        '06' => "mensajeReceptor",
+        '07' => "mensajeReceptor"
+    );
+    
+    private static $POLITICA_FIRMA = array(
+        "name"      => "",
+        "url"       => "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4/Resolucion%20Comprobantes%20Electronicos%20%20DGT-R-48-2016.pdf",
+        "digest"    => "V8lVVNGDCPen6VELRD1Ja8HARFk=" // digest en sha1 y base64
+    );
 
-  private $signTime         = NULL;
-  private $signPolicy       = NULL;
-  private $publicKey        = NULL;
-  private $privateKey       = NULL;
-  private $cerROOT          = NULL;
-  private $cerINTERMEDIO    = NULL;
-  private $tipoDoc          = '01';
+    private $signTime         = null;
+    private $signPolicy       = null;
+    private $publicKey        = null;
+    private $privateKey       = null;
+    private $cerROOT          = null;
+    private $cerINTERMEDIO    = null;
+    private $tipoDoc          = '01';
 
-  public function retC14DigestSha1($strcadena)
-  {
-      $strcadena    = str_replace("\r", "", str_replace("\n", "", $strcadena));
-      $d1p          = new DOMDocument('1.0','UTF-8');
-      $d1p->loadXML($strcadena);
-      $strcadena    = $d1p->C14N();
+    public function retC14DigestSha1($strcadena)
+    {
+        $strcadena    = str_replace("\r", "", str_replace("\n", "", $strcadena));
+        $d1p          = new DOMDocument('1.0', 'UTF-8');
+        $d1p->loadXML($strcadena);
+        $strcadena    = $d1p->C14N();
 
-      return base64_encode(hash('sha256' , $strcadena, true ));
-  }
+        return base64_encode(hash('sha256', $strcadena, true));
+    }
 
-  public function firmar($certificadop12, $clavecertificado, $xmlsinfirma, $tipodoc)
-  {
-      if (!$pfx = file_get_contents($certificadop12))
-      {
-         echo "Error: No se puede leer el fichero del certificado o no existe en la ruta especificada\n";
-         exit;
-      }
+    public function firmar($certificadop12, $clavecertificado, $xmlsinfirma, $tipodoc)
+    {
+        if (!$pfx = file_get_contents($certificadop12)) {
+            echo "Error: No se puede leer el fichero del certificado o no existe en la ruta especificada\n";
+            exit;
+        }
 
-      if (openssl_pkcs12_read($pfx, $key, $clavecertificado))
-      {
-          $this->publicKey    = $key["cert"];
-          $this->privateKey   = $key["pkey"];
+        if (openssl_pkcs12_read($pfx, $key, $clavecertificado)) {
+            $this->publicKey    = $key["cert"];
+            $this->privateKey   = $key["pkey"];
 
-          $complem          = openssl_pkey_get_details(openssl_pkey_get_private($this->privateKey));
-          $this->Modulus    = base64_encode($complem['rsa']['n']);
-          $this->Exponent   = base64_encode($complem['rsa']['e']);
-      }
-      else
-      {
-          echo "Error: No se puede leer el almacén de certificados o la clave no es la correcta.\n";
-          exit;
-      }
+            $complem          = openssl_pkey_get_details(openssl_pkey_get_private($this->privateKey));
+            $this->Modulus    = base64_encode($complem['rsa']['n']);
+            $this->Exponent   = base64_encode($complem['rsa']['e']);
+        } else {
+            echo "Error: No se puede leer el almacén de certificados o la clave no es la correcta.\n";
+            exit;
+        }
 
-      $this->signPolicy         = self::POLITICA_FIRMA;
-      $this->signatureID        = "Signature-ddb543c7-ea0c-4b00-95b9-d4bfa2b4e411";
-      $this->signatureValue     = "SignatureValue-ddb543c7-ea0c-4b00-95b9-d4bfa2b4e411";
-      $this->XadesObjectId      = "XadesObjectId-43208d10-650c-4f42-af80-fc889962c9ac";
-      $this->KeyInfoId          = "KeyInfoId-".$this->signatureID;
+        $this->signPolicy         = self::$POLITICA_FIRMA;
+        $this->signatureID        = "Signature-ddb543c7-ea0c-4b00-95b9-d4bfa2b4e411";
+        $this->signatureValue     = "SignatureValue-ddb543c7-ea0c-4b00-95b9-d4bfa2b4e411";
+        $this->XadesObjectId      = "XadesObjectId-43208d10-650c-4f42-af80-fc889962c9ac";
+        $this->KeyInfoId          = "KeyInfoId-".$this->signatureID;
 
-      $this->Reference0Id       = "Reference-0e79b719-635c-476f-a59e-8ac3ba14365d";
-      $this->Reference1Id       = "ReferenceKeyInfo";
+        $this->Reference0Id       = "Reference-0e79b719-635c-476f-a59e-8ac3ba14365d";
+        $this->Reference1Id       = "ReferenceKeyInfo";
 
-      $this->SignedProperties   = "SignedProperties-".$this->signatureID;
+        $this->SignedProperties   = "SignedProperties-".$this->signatureID;
 
-      $this->tipoDoc            = $tipodoc;
-      $xml1                     = base64_decode($xmlsinfirma);
-      $xml1                     = $this->insertaFirma($xml1);
+        $this->tipoDoc            = $tipodoc;
+        $xml1                     = base64_decode($xmlsinfirma);
+        $xml1                     = $this->insertaFirma($xml1);
 
-      return base64_encode($xml1);
-  }
+        return base64_encode($xml1);
+    }
 
-  /**
-   * Función que Inserta la firma e
-   * @parametros  archivo xml sin firma según UBL de DIAN
-   * @retorna el documento firmando
-   */
+    /**
+     * Función que Inserta la firma e
+     * @parametros  archivo xml sin firma según UBL de DIAN
+     * @retorna el documento firmando
+     */
 
-  public function insertaFirma($xml)
-  {
-      if (is_null($this->publicKey) || is_null($this->privateKey))
-         return $xml;
+    public function insertaFirma($xml)
+    {
+        if (is_null($this->publicKey) || is_null($this->privateKey)) {
+            return $xml;
+        }
 
-      // Canoniza todo el documento  para el digest
-      $d = new DOMDocument('1.0','UTF-8');
-      $d->loadXML($xml);
-      $canonizadoreal = $d->C14N();
+        // Canoniza todo el documento  para el digest
+        $d = new DOMDocument('1.0', 'UTF-8');
+        $d->loadXML($xml);
+        $canonizadoreal = $d->C14N();
 
-      // Definir los namespace para los diferentes nodos
-      $xmlns_keyinfo;$xmnls_signedprops;$xmnls_signeg;
-      if ($this->tipoDoc == '01')
-      {
-          $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" ';
-          $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" ';
-          $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" ';
-      }
-      elseif ($this->tipoDoc == '02')
-      {
-          $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaDebitoElectronica" ';
-          $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaDebitoElectronica" ';
-          $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaDebitoElectronica" ';
-      }
-      elseif ($this->tipoDoc == '03')
-      {
-          $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" ';
-          $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" ';
-          $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" ';
-      }
-      elseif ($this->tipoDoc == '04')
-      {
-          $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" ';
-          $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" ';
-          $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" ';
-      }
-      elseif ($this->tipoDoc == '05' || $this->tipoDoc == '06' || $this->tipoDoc == '07')
-      {
-          $xmlns_keyinfo='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor" ';
-          $xmnls_signedprops='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor" ';
-          $xmnls_signeg='xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor" ';
-      }
-
-      $xmlns = 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
+        // Definir los namespace para los diferentes nodos
+        $xmlns_keyinfo = 'xmlns="'.self::$NODOS_NS["URL"].self::$NODOS_NS[$this->tipoDoc].'" ';
+        $xmnls_signedprops = $xmlns_keyinfo;
+        $xmnls_signeg = $xmlns_keyinfo;
+    
+        $xmlns = 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" ' .
             'xmlns:fe="http://www.dian.gov.co/contratos/facturaelectronica/v1" ' .
             'xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"';
-      $xmlns_keyinfo .= 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
-                      'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
-                      'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
-      $xmnls_signedprops .= 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
-                          'xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" '.
-                          'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
-                          'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
-      $xmnls_signeg .= 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
-                     'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
-                     'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
+    
+        $xmlns_keyinfo .= 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" ' .
+                        'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' .
+                        'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
+    
+        $xmnls_signedprops .= 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" ' .
+                            'xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" ' .
+                            'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' .
+                            'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
+    
+        $xmnls_signeg .= 'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" ' .
+                        'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' .
+                        'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
 
-      // date_default_timezone_set("America/Costa_Rica");
-      // $signTime1 = '2018-01-30T17:16:42-06:00';
-      // $signTime1 = date('Y-m-d\TH:i:s.vT:00');
-      $signTime1 = date('Y-m-d\TH:i:s-06:00');
+        $signTime1 = date('Y-m-d\TH:i:s-06:00');
 
-      $certData   = openssl_x509_parse($this->publicKey);
-      $certDigest = base64_encode(openssl_x509_fingerprint($this->publicKey, "sha256", true));
+        $certData   = openssl_x509_parse($this->publicKey);
+        $certDigest = base64_encode(openssl_x509_fingerprint($this->publicKey, "sha256", true));
 
-      $certIssuer = array();
-      foreach ($certData['issuer'] as $item=>$value)
-      {
-          $certIssuer[] = $item . '=' . $value;
-      }
+        $certIssuer = array();
+        foreach ($certData['issuer'] as $item=>$value) {
+            $certIssuer[] = $item . '=' . $value;
+        }
 
-      $certIssuer = implode(', ', array_reverse($certIssuer));
+        $certIssuer = implode(', ', array_reverse($certIssuer));
 
-      $prop = '<xades:SignedProperties Id="' . $this->SignedProperties .  '">' .
+        $prop = '<xades:SignedProperties Id="' . $this->SignedProperties .  '">' .
       '<xades:SignedSignatureProperties>'.
           '<xades:SigningTime>' .  $signTime1 . '</xades:SigningTime>' .
           '<xades:SigningCertificate>'.
@@ -203,14 +183,14 @@ class Firmadocr
       '</xades:SignedDataObjectProperties>'.
       '</xades:SignedProperties>';
 
-      // Prepare key info
-      $publicPEM = "";
-      openssl_x509_export($this->publicKey, $publicPEM);
-      $publicPEM = str_replace("-----BEGIN CERTIFICATE-----", "", $publicPEM);
-      $publicPEM = str_replace("-----END CERTIFICATE-----", "", $publicPEM);
-      $publicPEM = str_replace("\r", "", str_replace("\n", "", $publicPEM));
+        // Prepare key info
+        $publicPEM = "";
+        openssl_x509_export($this->publicKey, $publicPEM);
+        $publicPEM = str_replace("-----BEGIN CERTIFICATE-----", "", $publicPEM);
+        $publicPEM = str_replace("-----END CERTIFICATE-----", "", $publicPEM);
+        $publicPEM = str_replace("\r", "", str_replace("\n", "", $publicPEM));
 
-      $kInfo = '<ds:KeyInfo Id="'.$this->KeyInfoId.'">' .
+        $kInfo = '<ds:KeyInfo Id="'.$this->KeyInfoId.'">' .
                 '<ds:X509Data>'  .
                     '<ds:X509Certificate>'  . $publicPEM .'</ds:X509Certificate>' .
                 '</ds:X509Data>' .
@@ -222,16 +202,16 @@ class Firmadocr
                 '</ds:KeyValue>'.
              '</ds:KeyInfo>';
 
-      $aconop     = str_replace('<xades:SignedProperties', '<xades:SignedProperties ' . $xmnls_signedprops, $prop);
-      $propDigest = $this->retC14DigestSha1($aconop);
+        $aconop     = str_replace('<xades:SignedProperties', '<xades:SignedProperties ' . $xmnls_signedprops, $prop);
+        $propDigest = $this->retC14DigestSha1($aconop);
 
-      $keyinfo_para_hash1 = str_replace('<ds:KeyInfo', '<ds:KeyInfo ' . $xmlns_keyinfo, $kInfo);
-      $kInfoDigest = $this->retC14DigestSha1($keyinfo_para_hash1);
+        $keyinfo_para_hash1 = str_replace('<ds:KeyInfo', '<ds:KeyInfo ' . $xmlns_keyinfo, $kInfo);
+        $kInfoDigest = $this->retC14DigestSha1($keyinfo_para_hash1);
 
-      $documentDigest = base64_encode(hash('sha256' , $canonizadoreal, true ));
+        $documentDigest = base64_encode(hash('sha256', $canonizadoreal, true));
 
-      // Prepare signed info
-      $sInfo = '<ds:SignedInfo>' .
+        // Prepare signed info
+        $sInfo = '<ds:SignedInfo>' .
         '<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />' .
         '<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />' .
         '<ds:Reference Id="' . $this->Reference0Id . '" URI="">' .
@@ -252,20 +232,20 @@ class Firmadocr
         '</ds:SignedInfo>';
 
 
-      $signaturePayload = str_replace('<ds:SignedInfo', '<ds:SignedInfo ' . $xmnls_signeg, $sInfo);
+        $signaturePayload = str_replace('<ds:SignedInfo', '<ds:SignedInfo ' . $xmnls_signeg, $sInfo);
 
-      $d1p = new DOMDocument('1.0','UTF-8');
-      $d1p->loadXML($signaturePayload);
-      $signaturePayload = $d1p->C14N();
+        $d1p = new DOMDocument('1.0', 'UTF-8');
+        $d1p->loadXML($signaturePayload);
+        $signaturePayload = $d1p->C14N();
 
-      $signatureResult = "";
-      $algo = "SHA256";
+        $signatureResult = "";
+        $algo = "SHA256";
 
-      openssl_sign($signaturePayload, $signatureResult, $this->privateKey, $algo);
+        openssl_sign($signaturePayload, $signatureResult, $this->privateKey, $algo);
 
-      $signatureResult = base64_encode($signatureResult);
+        $signatureResult = base64_encode($signatureResult);
 
-      $sig = '<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="' . $this->signatureID . '">'.
+        $sig = '<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="' . $this->signatureID . '">'.
         $sInfo .
         '<ds:SignatureValue Id="' . $this->signatureValue . '">' .
         $signatureResult .  '</ds:SignatureValue>'  . $kInfo .
@@ -273,37 +253,30 @@ class Firmadocr
         '<xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Id="QualifyingProperties-012b8df6-b93e-4867-9901-83447ffce4bf" Target="#' . $this->signatureID . '">' . $prop .
         '</xades:QualifyingProperties></ds:Object></ds:Signature>';
 
-      $buscar;$remplazar;
-      if ($this->tipoDoc == '01')
-      {
-          $buscar = '</FacturaElectronica>';
-          $remplazar = $sig."</FacturaElectronica>";
-      }
-      elseif ($this->tipoDoc == '02')
-      {
-          $buscar = '</NotaDebitoElectronica>';
-          $remplazar = $sig."</NotaDebitoElectronica>";
-      }
-      elseif ($this->tipoDoc == '03')
-      {
-          $buscar = '</NotaCreditoElectronica>';
-          $remplazar = $sig."</NotaCreditoElectronica>";
-      }
-      elseif ($this->tipoDoc == '04')
-      {
-          $buscar = '</TiqueteElectronico>';
-          $remplazar = $sig."</TiqueteElectronico>";
-      }
-      elseif ($this->tipoDoc == '05' || $this->tipoDoc == '06' || $this->tipoDoc == '07')
-      {
-          $buscar = '</MensajeReceptor>';
-          $remplazar = $sig."</MensajeReceptor>";
-      }
+        $buscar;
+        $remplazar;
+        if ($this->tipoDoc == '01') {
+            $buscar = '</FacturaElectronica>';
+            $remplazar = $sig."</FacturaElectronica>";
+        } elseif ($this->tipoDoc == '02') {
+            $buscar = '</NotaDebitoElectronica>';
+            $remplazar = $sig."</NotaDebitoElectronica>";
+        } elseif ($this->tipoDoc == '03') {
+            $buscar = '</NotaCreditoElectronica>';
+            $remplazar = $sig."</NotaCreditoElectronica>";
+        } elseif ($this->tipoDoc == '04') {
+            $buscar = '</TiqueteElectronico>';
+            $remplazar = $sig."</TiqueteElectronico>";
+        } elseif ($this->tipoDoc == '05' || $this->tipoDoc == '06' || $this->tipoDoc == '07') {
+            $buscar = '</MensajeReceptor>';
+            $remplazar = $sig."</MensajeReceptor>";
+        }
 
-      $pos = strrpos($xml, $buscar);
-      if ($pos !== false)
-        $xml = substr_replace($xml, $remplazar, $pos, strlen($buscar));
+        $pos = strrpos($xml, $buscar);
+        if ($pos !== false) {
+            $xml = substr_replace($xml, $remplazar, $pos, strlen($buscar));
+        }
 
-      return $xml;
+        return $xml;
     }
 }
