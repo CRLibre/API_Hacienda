@@ -25,6 +25,7 @@ function genXMLFe()
     // Datos contribuyente
     $clave                  = params_get("clave");
     $codigoActividad        = params_get("codigo_actividad");
+    $codigoActividad        = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     $consecutivo            = params_get("consecutivo");
     $fechaEmision           = params_get("fecha_emision");
 
@@ -391,6 +392,7 @@ function genXMLNC()
     // Datos contribuyente
     $clave                  = params_get("clave");
     $codigoActividad        = params_get("codigo_actividad");
+    $codigoActividad        = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     $consecutivo            = params_get("consecutivo");
     $fechaEmision           = params_get("fecha_emision");
 
@@ -769,6 +771,7 @@ function genXMLND()
     // Datos contribuyente
     $clave                  = params_get("clave");
     $codigoActividad        = params_get("codigo_actividad");
+    $codigoActividad        = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     $consecutivo            = params_get("consecutivo");
     $fechaEmision           = params_get("fecha_emision");
 
@@ -1147,6 +1150,7 @@ function genXMLTE()
     // Datos contribuyente
     $clave                  = params_get("clave");
     $codigoActividad        = params_get("codigo_actividad");
+    $codigoActividad        = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     $consecutivo            = params_get("consecutivo");
     $fechaEmision           = params_get("fecha_emision");
 
@@ -1460,6 +1464,7 @@ function genXMLMr()
     $mensaje                        = params_get("mensaje");                                    // 1 - Aceptado, 2 - Aceptado Parcialmente, 3 - Rechazado
     $detalleMensaje                 = params_get("detalle_mensaje");
     $codigoActividad                = params_get("codigo_actividad");
+    $codigoActividad                = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     $condicionImpuesto              = params_get("condicion_impuesto");
     $montoTotalImpuestoAcreditar    = params_get("monto_total_impuesto_acreditar");
     $montoTotalDeGastoAplicable     = params_get("monto_total_de_gasto_aplicable");
