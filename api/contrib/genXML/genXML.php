@@ -2,7 +2,9 @@
 /*
  * Copyright (C) 2017-2019 CRLibre <https://crlibre.org>
  *
- * Conveying Modified Source Versions
+ * 
+ * 
+ * 
  * Modified by: JeanCarlos Chavarria Hughes - May 2019
  * jchavarria@imagineing.com
  *
@@ -34,6 +36,11 @@ $receptorOtrasSenasMaxSize = 250;
 
 function genXMLFe()
 {
+    global $codigoActividadSize;
+    global $emisorNombreMaxSize;
+    global $receptorNombreMaxSize;
+    global $receptorOtrasSenasMaxSize;
+
     // Datos contribuyente
     $clave                          = params_get("clave");
     $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
@@ -109,22 +116,18 @@ function genXMLFe()
     grace_debug(params_get("detalles"));
 
     // Validate string sizes
+    $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     if (strlen($codigoActividad) != $codigoActividadSize)
-    {
         error_log("codigoActividad size is: $codigoActividadSize");
-    }
+
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
-    {
         error_log("emisorNombre size is greater than $emisorNombreMaxSize");
-    }
+
     if (strlen($receptorNombre) > $receptorNombreMaxSize)
-    {
         error_log("receptorNombre size is greater than $receptorNombreMaxSize");
-    }
+
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
-    {
         error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
-    }
 
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
@@ -312,9 +315,6 @@ function genXMLFe()
                 if ( isset($i->factorIVA) && $i->factorIVA != "")
                     $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
 
-                if ( isset($i->montoExportacion) && $i->montoExportacion != "")
-                    $xmlString .= '<MontoExportacion>' . $i->montoExportacion . '</MontoExportacion>';
-                
                 if (isset($i->exoneracion) && $i->exoneracion != "")
                 {
                     $xmlString .= '
@@ -340,16 +340,6 @@ function genXMLFe()
 
     $xmlString .= '</DetalleServicio>
         <ResumenFactura>
-        <CodigoTipoMoneda>
-            <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
-            <TipoCambio>' . $tipoCambio . '</TipoCambio>
-        </CodigoTipoMoneda>
-        <TotalServGravados>' . $totalServGravados . '</TotalServGravados>
-        <TotalServExentos>' . $totalServExentos . '</TotalServExentos>
-        <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>
-        <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>
-        <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>
-        <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>
         <TotalGravado>' . $totalGravados . '</TotalGravado>
         <TotalExento>' . $totalExento . '</TotalExento>
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
@@ -357,14 +347,62 @@ function genXMLFe()
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
-        <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
-        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
-        </ResumenFactura>
-        <Normativa>
-        <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
-        <FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
-        </Normativa>';
+        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
+
+    if ($totalIVADevuelto != '')
+        {
+            $xmlString .= '
+            <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
+        }
+
+    if ($totalServGravados != '')
+        {
+            $xmlString .= '
+            <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
+        }
+        
+    if ($totalServExentos != '')
+        {
+            $xmlString .= '
+            <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
+        }
+
+    if ($totalMercGravadas != '')
+        {
+            $xmlString .= '
+            <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
+        }
+        
+    if ($totalMercExentas != '')
+        {
+            $xmlString .= '
+            <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
+        }
+        
+    if ($totalMercExonerada != '')
+        {
+            $xmlString .= '
+            <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
+        }
+
+    if ($totalServExonerados != '')
+        {
+            $xmlString .= '
+            <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
+        }
+
+    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0)
+        {
+            $xmlString .= '<CodigoTipoMoneda>
+            <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
+            <TipoCambio>' . $tipoCambio . '</TipoCambio>
+        </CodigoTipoMoneda>';
+        }
+
+    $xmlString .= '
+        </ResumenFactura>';
+    
     if ($infoRefeTipoDoc != '' && $infoRefeNumero != '' && $infoRefeFechaEmision != '' && $infoRefeCodigo != '' && $infoRefeRazon != ''){
 
         $xmlString .=   '<InformacionReferencia>
@@ -412,6 +450,11 @@ function genXMLFe()
 
 function genXMLNC()
 {
+    global $codigoActividadSize;
+    global $emisorNombreMaxSize;
+    global $receptorNombreMaxSize;
+    global $receptorOtrasSenasMaxSize;
+
     // Datos contribuyente
     $clave                          = params_get("clave");
     $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
@@ -486,22 +529,18 @@ function genXMLNC()
     //return $detalles;
 
     // Validate string sizes
+    $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     if (strlen($codigoActividad) != $codigoActividadSize)
-    {
         error_log("codigoActividad size is $codigoActividadSize");
-    }
+
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
-    {
         error_log("emisorNombre size is greater than $emisorNombreMaxSize");
-    }
+
     if (strlen($receptorNombre) > $receptorNombreMaxSize)
-    {
         error_log("receptorNombre size is greater than $receptorNombreMaxSize");
-    }
+
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
-    {
         error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
-    }
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
     <NotaCreditoElectronica
@@ -720,14 +759,6 @@ function genXMLNC()
 
     $xmlString .= '</DetalleServicio>
     <ResumenFactura>
-        <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
-        <TipoCambio>' . $tipoCambio . '</TipoCambio>
-        <TotalServGravados>' . $totalServGravados . '</TotalServGravados>
-        <TotalServExentos>' . $totalServExentos . '</TotalServExentos>
-        <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>
-        <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>
-        <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>
-        <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>
         <TotalGravado>' . $totalGravados . '</TotalGravado>
         <TotalExento>' . $totalExento . '</TotalExento>
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
@@ -735,9 +766,61 @@ function genXMLNC()
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
-        <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
-        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
+        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
+    
+
+    if ($totalIVADevuelto != '')
+        {
+            $xmlString .= '
+            <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
+        }
+
+    if ($totalServGravados != '')
+        {
+            $xmlString .= '
+            <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
+        }
+        
+    if ($totalServExentos != '')
+        {
+            $xmlString .= '
+            <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
+        }
+
+    if ($totalMercGravadas != '')
+        {
+            $xmlString .= '
+            <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
+        }
+        
+    if ($totalMercExentas != '')
+        {
+            $xmlString .= '
+            <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
+        }
+        
+    if ($totalMercExonerada != '')
+        {
+            $xmlString .= '
+            <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
+        }
+
+    if ($totalServExonerados != '')
+        {
+            $xmlString .= '
+            <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
+        }
+
+    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0)
+        {
+            $xmlString .= '<CodigoTipoMoneda>
+            <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
+            <TipoCambio>' . $tipoCambio . '</TipoCambio>
+        </CodigoTipoMoneda>';
+        }
+
+    $xmlString .= '    
     </ResumenFactura>
     <InformacionReferencia>
         <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>
@@ -745,11 +828,7 @@ function genXMLNC()
         <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>
         <Codigo>' . $infoRefeCodigo . '</Codigo>
         <Razon>' . $infoRefeRazon . '</Razon>
-    </InformacionReferencia>
-    <Normativa>
-        <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
-        <FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
-    </Normativa>';
+    </InformacionReferencia>';
     if ($otros != '' && $otrosType != '')
     {
         $tipos = array("Otros", "OtroTexto", "OtroContenido");
@@ -774,6 +853,11 @@ function genXMLNC()
 
 function genXMLND()
 {
+    global $codigoActividadSize;
+    global $emisorNombreMaxSize;
+    global $receptorNombreMaxSize;
+    global $receptorOtrasSenasMaxSize;
+
     // Datos contribuyente
     $clave                          = params_get("clave");
     $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
@@ -847,22 +931,18 @@ function genXMLND()
     $detalles                       = json_decode(params_get("detalles"));
 
     // Validate string sizes
+    $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     if (strlen($codigoActividad) != $codigoActividadSize)
-    {
         error_log("codigoActividad size is $codigoActividadSize");
-    }
+
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
-    {
         error_log("emisorNombre size is greater than $emisorNombreMaxSize");
-    }
+
     if (strlen($receptorNombre) > $receptorNombreMaxSize)
-    {
         error_log("receptorNombre size is greater than $receptorNombreMaxSize");
-    }
+
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
-    {
         error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
-    }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <NotaDebitoElectronica
@@ -1080,14 +1160,6 @@ function genXMLND()
 
     $xmlString .= '</DetalleServicio>
     <ResumenFactura>
-        <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
-        <TipoCambio>' . $tipoCambio . '</TipoCambio>
-        <TotalServGravados>' . $totalServGravados . '</TotalServGravados>
-        <TotalServExentos>' . $totalServExentos . '</TotalServExentos>
-        <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>
-        <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>
-        <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>
-        <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>
         <TotalGravado>' . $totalGravados . '</TotalGravado>
         <TotalExento>' . $totalExento . '</TotalExento>
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
@@ -1095,9 +1167,61 @@ function genXMLND()
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
-        <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
-        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
+        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
+    
+
+    if ($totalIVADevuelto != '')
+        {
+            $xmlString .= '
+            <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
+        }
+
+    if ($totalServGravados != '')
+        {
+            $xmlString .= '
+            <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
+        }
+        
+    if ($totalServExentos != '')
+        {
+            $xmlString .= '
+            <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
+        }
+
+    if ($totalMercGravadas != '')
+        {
+            $xmlString .= '
+            <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
+        }
+        
+    if ($totalMercExentas != '')
+        {
+            $xmlString .= '
+            <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
+        }
+
+    if ($totalMercExonerada != '')
+        {
+            $xmlString .= '
+            <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
+        }
+
+    if ($totalServExonerados != '')
+        {
+            $xmlString .= '
+            <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
+        }
+
+    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0)
+        {
+            $xmlString .= '<CodigoTipoMoneda>
+            <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
+            <TipoCambio>' . $tipoCambio . '</TipoCambio>
+        </CodigoTipoMoneda>';
+        }
+
+    $xmlString .= '
     </ResumenFactura>
     <InformacionReferencia>
         <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>
@@ -1105,11 +1229,7 @@ function genXMLND()
         <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>
         <Codigo>' . $infoRefeCodigo . '</Codigo>
         <Razon>' . $infoRefeRazon . '</Razon>
-    </InformacionReferencia>
-    <Normativa>
-        <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
-        <FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
-    </Normativa>';
+    </InformacionReferencia>';
     if ($otros != '' && $otrosType != '')
     {
         $tipos = array("Otros", "OtroTexto", "OtroContenido");
@@ -1135,6 +1255,11 @@ function genXMLND()
 
 function genXMLTE()
 {
+    global $codigoActividadSize;
+    global $emisorNombreMaxSize;
+    global $receptorNombreMaxSize;
+    global $receptorOtrasSenasMaxSize;
+
     // Datos contribuyente
     $clave                          = params_get("clave");
     $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
@@ -1209,22 +1334,18 @@ function genXMLTE()
     grace_debug(params_get("detalles"));
 
     // Validate string sizes
+    $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     if (strlen($codigoActividad) != $codigoActividadSize)
-    {
         error_log("codigoActividad size is $codigoActividadSize");
-    }
+
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
-    {
         error_log("emisorNombre size is greater than $emisorNombreMaxSize");
-    }
+
     if (strlen($receptorNombre) > $receptorNombreMaxSize)
-    {
         error_log("receptorNombre size is greater than $receptorNombreMaxSize");
-    }
+
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
-    {
         error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
-    }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <TiqueteElectronico
@@ -1345,9 +1466,6 @@ function genXMLTE()
                 
                 if ( isset($i->factorIVA) && $i->factorIVA != "")
                     $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
-
-                if ( isset($i->montoExportacion) && $i->montoExportacion != "")
-                    $xmlString .= '<MontoExportacion>' . $i->montoExportacion . '</MontoExportacion>';
                 
                 if (isset($i->exoneracion) && $i->exoneracion != "")
                 {
@@ -1374,14 +1492,6 @@ function genXMLTE()
 
     $xmlString .= '</DetalleServicio>
     <ResumenFactura>
-        <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
-        <TipoCambio>' . $tipoCambio . '</TipoCambio>
-        <TotalServGravados>' . $totalServGravados . '</TotalServGravados>
-        <TotalServExentos>' . $totalServExentos . '</TotalServExentos>
-        <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>
-        <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>
-        <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>
-        <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>
         <TotalGravado>' . $totalGravados . '</TotalGravado>
         <TotalExento>' . $totalExento . '</TotalExento>
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
@@ -1389,14 +1499,62 @@ function genXMLTE()
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
-        <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
-        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
-    </ResumenFactura>
-    <Normativa>
-        <NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
-        <FechaResolucion>07-10-2016 08:00:00</FechaResolucion>
-    </Normativa>';
+        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
+    
+
+    if ($totalIVADevuelto != '')
+        {
+            $xmlString .= '
+            <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
+        }
+
+    if ($totalServGravados != '')
+        {
+            $xmlString .= '
+            <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
+        }
+        
+    if ($totalServExentos != '')
+        {
+            $xmlString .= '
+            <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
+        }
+
+    if ($totalMercGravadas != '')
+        {
+            $xmlString .= '
+            <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
+        }
+        
+    if ($totalMercExentas != '')
+        {
+            $xmlString .= '
+            <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
+        }
+
+    if ($totalMercExonerada != '')
+        {
+            $xmlString .= '
+            <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
+        }
+
+    if ($totalServExonerados != '')
+        {
+            $xmlString .= '
+            <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
+        }
+    
+    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0)
+        {
+            $xmlString .= '<CodigoTipoMoneda>
+            <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
+            <TipoCambio>' . $tipoCambio . '</TipoCambio>
+        </CodigoTipoMoneda>';
+        }
+
+    $xmlString .= '
+    </ResumenFactura>';
 
     if ($infoRefeTipoDoc != '' && $infoRefeNumero != '' && $infoRefeFechaEmision != '' && $infoRefeCodigo != '' && $infoRefeRazon != ''){
 
@@ -1433,6 +1591,11 @@ function genXMLTE()
 
 function genXMLMr()
 {
+    global $codigoActividadSize;
+    global $emisorNombreMaxSize;
+    global $receptorNombreMaxSize;
+    global $receptorOtrasSenasMaxSize;
+
     $clave                          = params_get("clave");                                      // d{50,50}
     // Datos vendedor = emisor
     $numeroCedulaEmisor             = params_get("numero_cedula_emisor");                       // d{12,12} cedula fisica,juridica,NITE,DIMEX
@@ -1452,10 +1615,9 @@ function genXMLMr()
     $numeroCedulaReceptor           = str_pad($numeroCedulaReceptor, 12, "0", STR_PAD_LEFT);
 
     // Validate string sizes
+    $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     if (strlen($codigoActividad) != $codigoActividadSize)
-    {
         error_log("codigoActividad size is $codigoActividadSize");
-    }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <MensajeReceptor
