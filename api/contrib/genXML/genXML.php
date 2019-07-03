@@ -118,16 +118,16 @@ function genXMLFe()
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     if (strlen($codigoActividad) != $codigoActividadSize)
-        error_log("codigoActividad size is: $codigoActividadSize");
+        error_log("codigoActividadSize is: $codigoActividadSize and codigoActividad is $codigoActividad");
 
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
-        error_log("emisorNombre size is greater than $emisorNombreMaxSize");
+        error_log("emisorNombreSize: $emisorNombreMaxSize is greater than emisorNombre: $emisorNombre");
 
     if (strlen($receptorNombre) > $receptorNombreMaxSize)
-        error_log("receptorNombre size is greater than $receptorNombreMaxSize");
+        error_log("receptorNombreMaxSize: $receptorNombreMaxSize is greater than receptorNombre: $receptorNombre");
 
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
-        error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
+        error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
 
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
@@ -531,16 +531,17 @@ function genXMLNC()
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     if (strlen($codigoActividad) != $codigoActividadSize)
-        error_log("codigoActividad size is $codigoActividadSize");
+        error_log("codigoActividadSize is: $codigoActividadSize and codigoActividad is $codigoActividad");
 
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
-        error_log("emisorNombre size is greater than $emisorNombreMaxSize");
+        error_log("emisorNombreSize: $emisorNombreMaxSize is greater than emisorNombre: $emisorNombre");
 
     if (strlen($receptorNombre) > $receptorNombreMaxSize)
-        error_log("receptorNombre size is greater than $receptorNombreMaxSize");
+        error_log("receptorNombreMaxSize: $receptorNombreMaxSize is greater than receptorNombre: $receptorNombre");
 
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
-        error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
+        error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
+
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
     <NotaCreditoElectronica
@@ -933,16 +934,17 @@ function genXMLND()
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     if (strlen($codigoActividad) != $codigoActividadSize)
-        error_log("codigoActividad size is $codigoActividadSize");
+        error_log("codigoActividadSize is: $codigoActividadSize and codigoActividad is $codigoActividad");
 
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
-        error_log("emisorNombre size is greater than $emisorNombreMaxSize");
+        error_log("emisorNombreSize: $emisorNombreMaxSize is greater than emisorNombre: $emisorNombre");
 
     if (strlen($receptorNombre) > $receptorNombreMaxSize)
-        error_log("receptorNombre size is greater than $receptorNombreMaxSize");
+        error_log("receptorNombreMaxSize: $receptorNombreMaxSize is greater than receptorNombre: $receptorNombre");
 
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
-        error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
+        error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
+
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <NotaDebitoElectronica
@@ -1336,16 +1338,17 @@ function genXMLTE()
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     if (strlen($codigoActividad) != $codigoActividadSize)
-        error_log("codigoActividad size is $codigoActividadSize");
+        error_log("codigoActividadSize is: $codigoActividadSize and codigoActividad is $codigoActividad");
 
     if (strlen($emisorNombre) > $emisorNombreMaxSize)
-        error_log("emisorNombre size is greater than $emisorNombreMaxSize");
+        error_log("emisorNombreSize: $emisorNombreMaxSize is greater than emisorNombre: $emisorNombre");
 
     if (strlen($receptorNombre) > $receptorNombreMaxSize)
-        error_log("receptorNombre size is greater than $receptorNombreMaxSize");
+        error_log("receptorNombreMaxSize: $receptorNombreMaxSize is greater than receptorNombre: $receptorNombre");
 
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
-        error_log("receptorOtrasSenas size is greater than $receptorOtrasSenasMaxSize");
+        error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
+
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <TiqueteElectronico
@@ -1617,7 +1620,7 @@ function genXMLMr()
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
     if (strlen($codigoActividad) != $codigoActividadSize)
-        error_log("codigoActividad size is $codigoActividadSize");
+        error_log("codigoActividadSize: $codigoActividadSize is not codigoActividad: $codigoActividad");
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <MensajeReceptor
