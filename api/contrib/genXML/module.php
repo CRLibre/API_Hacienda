@@ -116,7 +116,8 @@ function genXML_init()
                 array("key" => "infoRefeNumero",                    "def" => "",        "req" => true),
                 array("key" => "infoRefeFechaEmision",              "def" => "",        "req" => true),
                 array("key" => "infoRefeCodigo",                    "def" => "",        "req" => true),
-                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true)
+                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true),
+                array("key" => "otrosCargos",                       "def" => "",        "req" => false)
             ),
             'file'          => 'genXML.php'
         ),
@@ -187,7 +188,8 @@ function genXML_init()
                 array("key" => "infoRefeNumero",                    "def" => "",        "req" => true),
                 array("key" => "infoRefeFechaEmision",              "def" => "",        "req" => true),
                 array("key" => "infoRefeCodigo",                    "def" => "",        "req" => true),
-                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true)
+                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true),
+                array("key" => "otrosCargos",                       "def" => "",        "req" => false)
             ),
             'file' => 'genXML.php'
         ),
@@ -258,7 +260,8 @@ function genXML_init()
                 array("key" => "infoRefeNumero",                    "def" => "",        "req" => true),
                 array("key" => "infoRefeFechaEmision",              "def" => "",        "req" => true),
                 array("key" => "infoRefeCodigo",                    "def" => "",        "req" => true),
-                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true)
+                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true),
+                array("key" => "otrosCargos",                       "def" => "",        "req" => false)
             ),
             'file' => 'genXML.php'
         ),
@@ -329,7 +332,8 @@ function genXML_init()
                 array("key" => "infoRefeNumero",                    "def" => "",        "req" => true),
                 array("key" => "infoRefeFechaEmision",              "def" => "",        "req" => true),
                 array("key" => "infoRefeCodigo",                    "def" => "",        "req" => true),
-                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true)
+                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true),
+                array("key" => "otrosCargos",                       "def" => "",        "req" => false)
             ),
             'file'          => 'genXML.php'
         ),

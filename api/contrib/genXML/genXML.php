@@ -112,8 +112,11 @@ function genXMLFe()
 
     // Detalles de la compra
     $detalles                       = json_decode(params_get("detalles"));
+    $otrosCargos                     = json_decode(params_get("otrosCargos"));
+    
 
     grace_debug(params_get("detalles"));
+    grace_debug(params_get("otrosCargos"));
 
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
@@ -128,6 +131,13 @@ function genXMLFe()
 
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
         error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
+
+    if (count($otrosCargos) > 15){
+        error_log("otrosCargos: ".count($otrosCargos)." is greater than 15");
+        //Delimita el array a solo 15 elementos
+        $otrosCargos = array_slice($otrosCargos, 0, 15);
+    }
+        
 
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
@@ -338,17 +348,36 @@ function genXMLFe()
         $l++;
     }
 
-    $xmlString .= '</DetalleServicio>
-        <ResumenFactura>
-        <TotalGravado>' . $totalGravados . '</TotalGravado>
-        <TotalExento>' . $totalExento . '</TotalExento>
-        <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
-        <TotalVenta>' . $totalVentas . '</TotalVenta>
-        <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
-        <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
-        <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
-        <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
-        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
+    $xmlString .= '</DetalleServicio>';
+    //OtrosCargos
+    foreach ($otrosCargos as $o)
+    {
+        $xmlString .= '<OtrosCargos>
+        //if ( isset($o->tipoDocumento) && $o->tipoDocumento != "")
+        <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
+        if ( isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "")
+            $xmlString .= '<NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
+        if ( isset($o->nombreTercero) && $o->nombreTercero != "")
+            $xmlString .= '<NombreTercero>'.$o->nombreTercero.'</NombreTercero>';   
+        //if ( isset($o->detalle) && $o->detalle != "")
+        $xmlString .= '<Detalle>'.$o->detalle.'</Detalle>';
+        if ( isset($o->porcentaje) && $o->porcentaje != "")
+            $xmlString .= '<Porcentaje>'.$o->porcentaje.'</Porcentaje>';
+        //if ( isset($o->montoCargo) && $o->montoCargo != "")
+        $xmlString .= '<MontoCargo>'.$o->montoCargo.'</MontoCargo>';
+        $xmlString .= '</OtrosCargos>';
+    }
+
+    $xmlString .= '<ResumenFactura>
+    <TotalGravado>' . $totalGravados . '</TotalGravado>
+    <TotalExento>' . $totalExento . '</TotalExento>
+    <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
+    <TotalVenta>' . $totalVentas . '</TotalVenta>
+    <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
+    <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
+    <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
+    <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
+    <TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
 
     if ($totalIVADevuelto != '')
         {
@@ -526,6 +555,8 @@ function genXMLNC()
 
     // Detalles de la compra
     $detalles                       = json_decode(params_get("detalles"));
+    $otrosCargos                     = json_decode(params_get("otrosCargos"));
+    grace_debug(params_get("otrosCargos"));
     //return $detalles;
 
     // Validate string sizes
@@ -542,6 +573,11 @@ function genXMLNC()
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
         error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
 
+    if (count($otrosCargos) > 15){
+        error_log("otrosCargos: ".count($otrosCargos)." is greater than 15");
+        //Delimita el array a solo 15 elementos
+        $otrosCargos = array_slice($otrosCargos, 0, 15);
+    }
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
     <NotaCreditoElectronica
@@ -758,8 +794,28 @@ function genXMLNC()
         $l++;
     }
 
-    $xmlString .= '</DetalleServicio>
-    <ResumenFactura>
+    $xmlString .= '</DetalleServicio>';
+
+    //OtrosCargos
+    foreach ($otrosCargos as $o)
+    {
+        $xmlString .= '<OtrosCargos>
+        //if ( isset($o->tipoDocumento) && $o->tipoDocumento != "")
+        <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
+        if ( isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "")
+            $xmlString .= '<NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
+        if ( isset($o->nombreTercero) && $o->nombreTercero != "")
+            $xmlString .= '<NombreTercero>'.$o->nombreTercero.'</NombreTercero>';   
+        //if ( isset($o->detalle) && $o->detalle != "")
+        $xmlString .= '<Detalle>'.$o->detalle.'</Detalle>';
+        if ( isset($o->porcentaje) && $o->porcentaje != "")
+            $xmlString .= '<Porcentaje>'.$o->porcentaje.'</Porcentaje>';
+        //if ( isset($o->montoCargo) && $o->montoCargo != "")
+        $xmlString .= '<MontoCargo>'.$o->montoCargo.'</MontoCargo>';
+        $xmlString .= '</OtrosCargos>';
+    }
+    
+    $xmlString .= '<ResumenFactura>
         <TotalGravado>' . $totalGravados . '</TotalGravado>
         <TotalExento>' . $totalExento . '</TotalExento>
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
@@ -930,6 +986,8 @@ function genXMLND()
 
     // Detalles de la compra
     $detalles                       = json_decode(params_get("detalles"));
+    $otrosCargos                     = json_decode(params_get("otrosCargos"));
+    grace_debug(params_get("otrosCargos"));
 
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
@@ -945,6 +1003,11 @@ function genXMLND()
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
         error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
 
+    if (count($otrosCargos) > 15){
+        error_log("otrosCargos: ".count($otrosCargos)." is greater than 15");
+        //Delimita el array a solo 15 elementos
+        $otrosCargos = array_slice($otrosCargos, 0, 15);
+    }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <NotaDebitoElectronica
@@ -1160,8 +1223,28 @@ function genXMLND()
         $l++;
     }
 
-    $xmlString .= '</DetalleServicio>
-    <ResumenFactura>
+    $xmlString .= '</DetalleServicio>';
+
+    //OtrosCargos
+    foreach ($otrosCargos as $o)
+    {
+        $xmlString .= '<OtrosCargos>
+        //if ( isset($o->tipoDocumento) && $o->tipoDocumento != "")
+        <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
+        if ( isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "")
+            $xmlString .= '<NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
+        if ( isset($o->nombreTercero) && $o->nombreTercero != "")
+            $xmlString .= '<NombreTercero>'.$o->nombreTercero.'</NombreTercero>';   
+        //if ( isset($o->detalle) && $o->detalle != "")
+        $xmlString .= '<Detalle>'.$o->detalle.'</Detalle>';
+        if ( isset($o->porcentaje) && $o->porcentaje != "")
+            $xmlString .= '<Porcentaje>'.$o->porcentaje.'</Porcentaje>';
+        //if ( isset($o->montoCargo) && $o->montoCargo != "")
+        $xmlString .= '<MontoCargo>'.$o->montoCargo.'</MontoCargo>';
+        $xmlString .= '</OtrosCargos>';
+    }
+
+    $xmlString .= '<ResumenFactura>
         <TotalGravado>' . $totalGravados . '</TotalGravado>
         <TotalExento>' . $totalExento . '</TotalExento>
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
@@ -1333,7 +1416,10 @@ function genXMLTE()
 
     // Detalles de la compra
     $detalles                       = json_decode(params_get("detalles"));
+    $otrosCargos                     = json_decode(params_get("otrosCargos"));
+
     grace_debug(params_get("detalles"));
+    grace_debug(params_get("otrosCargos"));
 
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
@@ -1349,6 +1435,11 @@ function genXMLTE()
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
         error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
 
+    if (count($otrosCargos) > 15){
+        error_log("otrosCargos: ".count($otrosCargos)." is greater than 15");
+        //Delimita el array a solo 15 elementos
+        $otrosCargos = array_slice($otrosCargos, 0, 15);
+    }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <TiqueteElectronico
@@ -1493,8 +1584,28 @@ function genXMLTE()
         $l++;
     }
 
-    $xmlString .= '</DetalleServicio>
-    <ResumenFactura>
+    $xmlString .= '</DetalleServicio>';
+
+    //OtrosCargos
+    foreach ($otrosCargos as $o)
+    {
+        $xmlString .= '<OtrosCargos>
+        //if ( isset($o->tipoDocumento) && $o->tipoDocumento != "")
+        <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
+        if ( isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "")
+            $xmlString .= '<NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
+        if ( isset($o->nombreTercero) && $o->nombreTercero != "")
+            $xmlString .= '<NombreTercero>'.$o->nombreTercero.'</NombreTercero>';   
+        //if ( isset($o->detalle) && $o->detalle != "")
+        $xmlString .= '<Detalle>'.$o->detalle.'</Detalle>';
+        if ( isset($o->porcentaje) && $o->porcentaje != "")
+            $xmlString .= '<Porcentaje>'.$o->porcentaje.'</Porcentaje>';
+        //if ( isset($o->montoCargo) && $o->montoCargo != "")
+        $xmlString .= '<MontoCargo>'.$o->montoCargo.'</MontoCargo>';
+        $xmlString .= '</OtrosCargos>';
+    }
+
+    $xmlString .= '<ResumenFactura>
         <TotalGravado>' . $totalGravados . '</TotalGravado>
         <TotalExento>' . $totalExento . '</TotalExento>
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
