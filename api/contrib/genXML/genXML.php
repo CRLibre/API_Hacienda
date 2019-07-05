@@ -375,9 +375,12 @@ function genXMLFe()
     <TotalVenta>' . $totalVentas . '</TotalVenta>
     <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
     <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
-    <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
-    <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
-    <TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
+    <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
+
+    if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
+        $xmlString .= '<TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
+
+    $xmlString .= '<TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
 
     if ($totalIVADevuelto != '')
         {
@@ -822,9 +825,12 @@ function genXMLNC()
         <TotalVenta>' . $totalVentas . '</TotalVenta>
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
-        <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
-        <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
-        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
+        <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
+
+    if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
+        $xmlString .= '<TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
+
+    $xmlString .= '<TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
     
 
     if ($totalIVADevuelto != '')
@@ -1251,9 +1257,12 @@ function genXMLND()
         <TotalVenta>' . $totalVentas . '</TotalVenta>
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
-        <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
-        <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
-        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
+        <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
+
+    if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
+        $xmlString .= '<TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
+
+    $xmlString .= '<TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
     
 
     if ($totalIVADevuelto != '')
@@ -1612,9 +1621,12 @@ function genXMLTE()
         <TotalVenta>' . $totalVentas . '</TotalVenta>
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
-        <TotalImpuesto>' . $totalImp . '</TotalImpuesto>
-        <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>
-        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
+        <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
+
+    if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
+        $xmlString .= '<TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
+
+    $xmlString .= '<TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
     
 
     if ($totalIVADevuelto != '')
