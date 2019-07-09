@@ -1268,42 +1268,6 @@ function genXMLND()
     $xmlString .= '</DetalleServicio>';
 
     //OtrosCargos
-    if ( isset($otrosCargos) && $otrosCargos != ""){
-        foreach ($otrosCargos as $o)
-        {
-            $xmlString .= '<OtrosCargos>
-            //if ( isset($o->tipoDocumento) && $o->tipoDocumento != "")
-            <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
-            if ( isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "")
-                $xmlString .= '<NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
-            if ( isset($o->nombreTercero) && $o->nombreTercero != "")
-                $xmlString .= '<NombreTercero>'.$o->nombreTercero.'</NombreTercero>';   
-            //if ( isset($o->detalle) && $o->detalle != "")
-            $xmlString .= '<Detalle>'.$o->detalle.'</Detalle>';
-            if ( isset($o->porcentaje) && $o->porcentaje != "")
-                $xmlString .= '<Porcentaje>'.$o->porcentaje.'</Porcentaje>';
-            //if ( isset($o->montoCargo) && $o->montoCargo != "")
-            $xmlString .= '<MontoCargo>'.$o->montoCargo.'</MontoCargo>';
-            $xmlString .= '</OtrosCargos>';
-        }
-    }
-
-    $xmlString .= '<ResumenFactura>
-        <TotalGravado>' . $totalGravados . '</TotalGravado>
-        <TotalExento>' . $totalExento . '</TotalExento>
-        <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
-        <TotalVenta>' . $totalVentas . '</TotalVenta>
-        <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
-        <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
-        <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
-
-    if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
-        $xmlString .= '<TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
-
-    $xmlString .= '<TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
-    
-
-    //OtrosCargos
     foreach ($otrosCargos as $o)
     {
         $xmlString .= '
