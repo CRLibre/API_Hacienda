@@ -107,7 +107,7 @@ function genXML_init()
                 array("key" => "total_ventas_neta",                 "def" => "",        "req" => true),
                 array("key" => "total_impuestos",                   "def" => "",        "req" => true),
                 array("key" => "totalIVADevuelto",                  "def" => "",        "req" => true),
-                array("key" => "totalOtrosCargos",                  "def" => "",        "req" => true),
+                array("key" => "totalOtrosCargos",                  "def" => "",        "req" => false),
                 array("key" => "total_comprobante",                 "def" => "",        "req" => true),
                 array("key" => "otros",                             "def" => "",        "req" => false),
                 array("key" => "otrosType",                         "def" => "",        "req" => false),
@@ -116,7 +116,8 @@ function genXML_init()
                 array("key" => "infoRefeNumero",                    "def" => "",        "req" => true),
                 array("key" => "infoRefeFechaEmision",              "def" => "",        "req" => true),
                 array("key" => "infoRefeCodigo",                    "def" => "",        "req" => true),
-                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true)
+                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true),
+                array("key" => "otrosCargos",                       "def" => "",        "req" => false)
             ),
             'file'          => 'genXML.php'
         ),
@@ -178,7 +179,7 @@ function genXML_init()
                 array("key" => "total_ventas_neta",                 "def" => "",        "req" => true),
                 array("key" => "total_impuestos",                   "def" => "",        "req" => true),
                 array("key" => "totalIVADevuelto",                  "def" => "",        "req" => true),
-                array("key" => "totalOtrosCargos",                  "def" => "",        "req" => true),
+                array("key" => "totalOtrosCargos",                  "def" => "",        "req" => false),
                 array("key" => "total_comprobante",                 "def" => "",        "req" => true),
                 array("key" => "otros",                             "def" => "",        "req" => false),
                 array("key" => "otrosType",                         "def" => "",        "req" => false),
@@ -187,7 +188,8 @@ function genXML_init()
                 array("key" => "infoRefeNumero",                    "def" => "",        "req" => true),
                 array("key" => "infoRefeFechaEmision",              "def" => "",        "req" => true),
                 array("key" => "infoRefeCodigo",                    "def" => "",        "req" => true),
-                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true)
+                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true),
+                array("key" => "otrosCargos",                       "def" => "",        "req" => false)
             ),
             'file' => 'genXML.php'
         ),
@@ -249,7 +251,7 @@ function genXML_init()
                 array("key" => "total_ventas_neta",                 "def" => "",        "req" => true),
                 array("key" => "total_impuestos",                   "def" => "",        "req" => true),
                 array("key" => "totalIVADevuelto",                  "def" => "",        "req" => true),
-                array("key" => "totalOtrosCargos",                  "def" => "",        "req" => true),
+                array("key" => "totalOtrosCargos",                  "def" => "",        "req" => false),
                 array("key" => "total_comprobante",                 "def" => "",        "req" => true),
                 array("key" => "otros",                             "def" => "",        "req" => false),
                 array("key" => "otrosType",                         "def" => "",        "req" => false),
@@ -258,7 +260,8 @@ function genXML_init()
                 array("key" => "infoRefeNumero",                    "def" => "",        "req" => true),
                 array("key" => "infoRefeFechaEmision",              "def" => "",        "req" => true),
                 array("key" => "infoRefeCodigo",                    "def" => "",        "req" => true),
-                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true)
+                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true),
+                array("key" => "otrosCargos",                       "def" => "",        "req" => false)
             ),
             'file' => 'genXML.php'
         ),
@@ -320,7 +323,7 @@ function genXML_init()
                 array("key" => "total_ventas_neta",                 "def" => "",        "req" => true),
                 array("key" => "total_impuestos",                   "def" => "",        "req" => true),
                 array("key" => "totalIVADevuelto",                  "def" => "",        "req" => true),
-                array("key" => "totalOtrosCargos",                  "def" => "",        "req" => true),
+                array("key" => "totalOtrosCargos",                  "def" => "",        "req" => false),
                 array("key" => "total_comprobante",                 "def" => "",        "req" => true),
                 array("key" => "otros",                             "def" => "",        "req" => false),
                 array("key" => "otrosType",                         "def" => "",        "req" => false),
@@ -329,7 +332,8 @@ function genXML_init()
                 array("key" => "infoRefeNumero",                    "def" => "",        "req" => true),
                 array("key" => "infoRefeFechaEmision",              "def" => "",        "req" => true),
                 array("key" => "infoRefeCodigo",                    "def" => "",        "req" => true),
-                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true)
+                array("key" => "infoRefeRazon",                     "def" => "",        "req" => true),
+                array("key" => "otrosCargos",                       "def" => "",        "req" => false)
             ),
             'file'          => 'genXML.php'
         ),
