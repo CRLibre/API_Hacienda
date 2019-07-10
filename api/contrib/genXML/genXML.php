@@ -277,33 +277,36 @@ function genXMLFe()
     $l = 1;
     foreach ($detalles as $d)
     {
-        $xmlString .= '<LineaDetalle>
-                  <NumeroLinea>' . $l . '</NumeroLinea>
-                  <Cantidad>' . $d->cantidad . '</Cantidad>
-                  <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
-                  <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>
-                  <Detalle>' . $d->detalle . '</Detalle>
-                  <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
-                  <Codigo>' . $d->codigo . '</Codigo>
-                  <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
-
+        $xmlString .= '
+        <LineaDetalle>
+            <NumeroLinea>' . $l . '</NumeroLinea>
+            <Codigo>' . $d->codigo . '</Codigo>';
         if (isset($d->codigoComercial) && $d->codigoComercial != "" && $d->codigoComercial != 0)
             foreach ($d->codigoComercial as $c)
             {
                 if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "" )
-                    $xmlString .= '<CodigoComercial>
-                    <Codigo>' . $c->codigo . '</Codigo>
-                    <Tipo>' . $c->tipo . '</Tipo>
+                    $xmlString .= '
+                    <CodigoComercial>
+                        <Tipo>' . $c->tipo . '</Tipo>
+                        <Codigo>' . $c->codigo . '</Codigo>
                     </CodigoComercial>';
             }
+        $xmlString .= '
+            <Cantidad>' . $d->cantidad . '</Cantidad>
+            <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
+            <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>
+            <Detalle>' . $d->detalle . '</Detalle>
+            <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
+            <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
         
         if (isset($d->descuento) && $d->descuento != "" && $d->descuento != 0)
             foreach ($d->descuento as $dsc)
             {
                 if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "" )
-                    $xmlString .= '<Descuento>
-                    <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                    <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
+                    $xmlString .= '
+                    <Descuento>
+                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
+                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
                     </Descuento>';
             }
 
@@ -314,18 +317,19 @@ function genXMLFe()
         {
             foreach ($d->impuesto as $i)
             {
-                $xmlString .= '<Impuesto>
-                <Codigo>' . $i->codigo . '</Codigo>
-                <Monto>' . $i->monto . '</Monto>';
-
+                $xmlString .= '
+                <Impuesto>
+                    <Codigo>' . $i->codigo . '</Codigo>';
                 if ( isset($i->codigoTarifa) && $i->codigoTarifa != "" )
                     $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
-
+                    
                 if ( isset($i->tarifa) && $i->tarifa != "")
                     $xmlString .= '<Tarifa>' . $i->tarifa . '</Tarifa>';
                 
                 if ( isset($i->factorIVA) && $i->factorIVA != "")
                     $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                
+                $xmlString .= '<Monto>' . $i->monto . '</Monto>';
 
                 if (isset($i->exoneracion) && $i->exoneracion != "")
                 {
@@ -335,8 +339,8 @@ function genXMLFe()
                         <NumeroDocumento>' . $i->exoneracion->numeroDocumento . '</NumeroDocumento>
                         <NombreInstitucion>' . $i->exoneracion->nombreInstitucion . '</NombreInstitucion>
                         <FechaEmision>' . $i->exoneracion->fechaEmision . '</FechaEmision>
-                        <MontoExoneracion>' . $i->exoneracion->montoExoneracion . '</MontoExoneracion>
                         <PorcentajeExoneracion>' . $i->exoneracion->porcentajeExoneracion . '</PorcentajeExoneracion>
+                        <MontoExoneracion>' . $i->exoneracion->montoExoneracion . '</MontoExoneracion>
                     </Exoneracion>';
                 }
 
@@ -355,99 +359,93 @@ function genXMLFe()
     if ( isset($otrosCargos) && $otrosCargos != ""){
         foreach ($otrosCargos as $o)
         {
-            $xmlString .= '<OtrosCargos>
-            //if ( isset($o->tipoDocumento) && $o->tipoDocumento != "")
-            <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
+            $xmlString .= '
+            <OtrosCargos>
+                <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
             if ( isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "")
-                $xmlString .= '<NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
+                $xmlString .= '
+                <NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
             if ( isset($o->nombreTercero) && $o->nombreTercero != "")
-                $xmlString .= '<NombreTercero>'.$o->nombreTercero.'</NombreTercero>';   
-            //if ( isset($o->detalle) && $o->detalle != "")
-            $xmlString .= '<Detalle>'.$o->detalle.'</Detalle>';
+                $xmlString .= '
+                <NombreTercero>'.$o->nombreTercero.'</NombreTercero>';   
+            $xmlString .= '
+                <Detalle>'.$o->detalle.'</Detalle>';
             if ( isset($o->porcentaje) && $o->porcentaje != "")
-                $xmlString .= '<Porcentaje>'.$o->porcentaje.'</Porcentaje>';
-            //if ( isset($o->montoCargo) && $o->montoCargo != "")
-            $xmlString .= '<MontoCargo>'.$o->montoCargo.'</MontoCargo>';
-            $xmlString .= '</OtrosCargos>';
+                $xmlString .= '
+                <Porcentaje>'.$o->porcentaje.'</Porcentaje>';
+            $xmlString .= '
+                <MontoCargo>'.$o->montoCargo.'</MontoCargo>';   
+            $xmlString .= '
+            </OtrosCargos>';
         }
     }
 
-    $xmlString .= '<ResumenFactura>
-    <TotalGravado>' . $totalGravados . '</TotalGravado>
-    <TotalExento>' . $totalExento . '</TotalExento>
-    <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
-    <TotalVenta>' . $totalVentas . '</TotalVenta>
-    <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
-    <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
-    <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
-
-    if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
-        $xmlString .= '<TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
-
-    $xmlString .= '<TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
-
-    if ($totalIVADevuelto != '')
-        {
-            $xmlString .= '
-            <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
-        }
-
-    if ($totalServGravados != '')
-        {
-            $xmlString .= '
-            <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
-        }
-        
-    if ($totalServExentos != '')
-        {
-            $xmlString .= '
-            <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
-        }
-
-    if ($totalMercGravadas != '')
-        {
-            $xmlString .= '
-            <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
-        }
-        
-    if ($totalMercExentas != '')
-        {
-            $xmlString .= '
-            <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
-        }
-        
-    if ($totalMercExonerada != '')
-        {
-            $xmlString .= '
-            <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
-        }
-
-    if ($totalServExonerados != '')
-        {
-            $xmlString .= '
-            <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
-        }
+    $xmlString .= '
+    <ResumenFactura>';
 
     if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0)
-        {
-            $xmlString .= '<CodigoTipoMoneda>
+        $xmlString .= '
+        <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
             <TipoCambio>' . $tipoCambio . '</TipoCambio>
         </CodigoTipoMoneda>';
-        }
+
+    if ($totalServGravados != '')
+        $xmlString .= '
+        <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
+
+    if ($totalServExentos != '')
+        $xmlString .= '
+        <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
+
+    if ($totalServExonerados != '')
+        $xmlString .= '
+        <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
+        
+    if ($totalMercGravadas != '')
+        $xmlString .= '
+        <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
+    
+    if ($totalMercExentas != '')
+        $xmlString .= '
+        <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
+        
+    if ($totalMercExonerada != '')
+        $xmlString .= '
+        <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
+
 
     $xmlString .= '
-        </ResumenFactura>';
+        <TotalGravado>' . $totalGravados . '</TotalGravado>
+        <TotalExento>' . $totalExento . '</TotalExento>
+        <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
+        <TotalVenta>' . $totalVentas . '</TotalVenta>
+        <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>
+        <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
+        <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
+
+    if ($totalIVADevuelto != '')
+        $xmlString .= '
+        <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
+
+    if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
+        $xmlString .= '
+        <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
+
+    $xmlString .= '
+        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
+    </ResumenFactura>';
     
     if ($infoRefeTipoDoc != '' && $infoRefeNumero != '' && $infoRefeFechaEmision != '' && $infoRefeCodigo != '' && $infoRefeRazon != ''){
 
-        $xmlString .=   '<InformacionReferencia>
-                            <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>
-                            <Numero>' . $infoRefeNumero . '</Numero>
-                            <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>
-                            <Codigo>' . $infoRefeCodigo . '</Codigo>
-                            <Razon>' . $infoRefeRazon . '</Razon>
-                        </InformacionReferencia>';
+        $xmlString .=   '
+    <InformacionReferencia>
+        <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>
+        <Numero>' . $infoRefeNumero . '</Numero>
+        <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>
+        <Codigo>' . $infoRefeCodigo . '</Codigo>
+        <Razon>' . $infoRefeRazon . '</Razon>
+    </InformacionReferencia>';
     }
 
     if ($otros != '' && $otrosType != '')
@@ -714,27 +712,31 @@ function genXMLNC()
     foreach ($detalles as $d)
     {
         $xmlString .= '<LineaDetalle>
-            <NumeroLinea>' . $l . '</NumeroLinea>
-            <Cantidad>' . $d->cantidad . '</Cantidad>
-            <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
-            <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>
-            <Detalle>' . $d->detalle . '</Detalle>
-            <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
-            <Codigo>' . $d->codigo . '</Codigo>
-            <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
-        
+            <NumeroLinea>' . $l . '</NumeroLinea>';
+
         if ( isset($d->partidaArancelaria) && $d->partidaArancelaria != "" )
             $xmlString .= '<PartidaArancelaria>' . $d->partidaArancelaria . '</PartidaArancelaria>';
+
+        $xmlString .= '
+            <Codigo>' . $d->codigo . '</Codigo>';
 
         if (isset($d->codigoComercial) && $d->codigoComercial != "" && $d->codigoComercial != 0)
             foreach ($d->codigoComercial as $c)
             {
                 if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "" )
                     $xmlString .= '<CodigoComercial>
-                    <Codigo>' . $c->codigo . '</Codigo>
                     <Tipo>' . $c->tipo . '</Tipo>
+                    <Codigo>' . $c->codigo . '</Codigo>
                     </CodigoComercial>';
             }
+
+        $xmlString .= '
+            <Cantidad>' . $d->cantidad . '</Cantidad>
+            <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
+            <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>
+            <Detalle>' . $d->detalle . '</Detalle>
+            <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
+            <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
         if (isset($d->descuento) && $d->descuento != "" && $d->descuento != 0)
             foreach ($d->descuento as $dsc)
@@ -745,7 +747,7 @@ function genXMLNC()
                     <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
                     </Descuento>';
             }
-
+        
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
         $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
 
@@ -754,17 +756,18 @@ function genXMLNC()
             foreach ($d->impuesto as $i)
             {
                 $xmlString .= '<Impuesto>
-                <Codigo>' . $i->codigo . '</Codigo>
-                <Monto>' . $i->monto . '</Monto>';
+                <Codigo>' . $i->codigo . '</Codigo>';
 
                 if ( isset($i->codigoTarifa) && $i->codigoTarifa != "" )
                     $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
-
+                
                 if ( isset($i->tarifa) && $i->tarifa != "")
                     $xmlString .= '<Tarifa>' . $i->tarifa . '</Tarifa>';
                 
                 if ( isset($i->factorIVA) && $i->factorIVA != "")
                     $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+
+                $xmlString .= '<Monto>' . $i->monto . '</Monto>';               
 
                 if ( isset($i->montoExportacion) && $i->montoExportacion != "")
                     $xmlString .= '<MontoExportacion>' . $i->montoExportacion . '</MontoExportacion>';
@@ -777,8 +780,9 @@ function genXMLNC()
                         <NumeroDocumento>' . $i->exoneracion->numeroDocumento . '</NumeroDocumento>
                         <NombreInstitucion>' . $i->exoneracion->nombreInstitucion . '</NombreInstitucion>
                         <FechaEmision>' . $i->exoneracion->fechaEmision . '</FechaEmision>
-                        <MontoExoneracion>' . $i->exoneracion->montoExoneracion . '</MontoExoneracion>
                         <PorcentajeExoneracion>' . $i->exoneracion->porcentajeExoneracion . '</PorcentajeExoneracion>
+                        <MontoExoneracion>' . $i->exoneracion->montoExoneracion . '</MontoExoneracion>
+                        
                     </Exoneracion>';
                 }
 
@@ -798,24 +802,62 @@ function genXMLNC()
     if ( isset($otrosCargos) && $otrosCargos != ""){
         foreach ($otrosCargos as $o)
         {
-            $xmlString .= '<OtrosCargos>
-            //if ( isset($o->tipoDocumento) && $o->tipoDocumento != "")
-            <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
+            $xmlString .= '
+            <OtrosCargos>
+                <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
             if ( isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "")
-                $xmlString .= '<NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
+                $xmlString .= '
+                <NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
             if ( isset($o->nombreTercero) && $o->nombreTercero != "")
-                $xmlString .= '<NombreTercero>'.$o->nombreTercero.'</NombreTercero>';   
+                $xmlString .= '
+                <NombreTercero>'.$o->nombreTercero.'</NombreTercero>';   
             //if ( isset($o->detalle) && $o->detalle != "")
-            $xmlString .= '<Detalle>'.$o->detalle.'</Detalle>';
+            $xmlString .= '
+                <Detalle>'.$o->detalle.'</Detalle>';
             if ( isset($o->porcentaje) && $o->porcentaje != "")
-                $xmlString .= '<Porcentaje>'.$o->porcentaje.'</Porcentaje>';
+                $xmlString .= '
+                <Porcentaje>'.$o->porcentaje.'</Porcentaje>';
             //if ( isset($o->montoCargo) && $o->montoCargo != "")
-            $xmlString .= '<MontoCargo>'.$o->montoCargo.'</MontoCargo>';
-            $xmlString .= '</OtrosCargos>';
+            $xmlString .= '
+                <MontoCargo>'.$o->montoCargo.'</MontoCargo>';
+            $xmlString .= '
+            </OtrosCargos>';
         }
     }
     
-    $xmlString .= '<ResumenFactura>
+    $xmlString .= '<ResumenFactura>';
+
+    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0)
+        $xmlString .= '
+        <CodigoTipoMoneda>
+            <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
+            <TipoCambio>' . $tipoCambio . '</TipoCambio>
+        </CodigoTipoMoneda>';
+
+    if ($totalServGravados != '')
+        $xmlString .= '
+        <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
+
+    if ($totalServExentos != '')
+        $xmlString .= '
+        <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
+    if ($totalServExonerados != '')
+        $xmlString .= '
+        <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
+        
+    if ($totalMercGravadas != '')
+        $xmlString .= '
+        <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
+    
+    if ($totalMercExentas != '')
+        $xmlString .= '
+        <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
+        
+    if ($totalMercExonerada != '')
+        $xmlString .= '
+        <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
+
+    $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>
         <TotalExento>' . $totalExento . '</TotalExento>
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
@@ -824,64 +866,19 @@ function genXMLNC()
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
 
-    if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
-        $xmlString .= '<TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
-
-    $xmlString .= '<TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
-    
-
     if ($totalIVADevuelto != '')
-        {
-            $xmlString .= '
-            <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
-        }
+        $xmlString .= '
+        <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
 
-    if ($totalServGravados != '')
-        {
-            $xmlString .= '
-            <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
-        }
-        
-    if ($totalServExentos != '')
-        {
-            $xmlString .= '
-            <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
-        }
+    if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
+        $xmlString .= '
+        <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
 
-    if ($totalMercGravadas != '')
-        {
-            $xmlString .= '
-            <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
-        }
-        
-    if ($totalMercExentas != '')
-        {
-            $xmlString .= '
-            <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
-        }
-        
-    if ($totalMercExonerada != '')
-        {
-            $xmlString .= '
-            <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
-        }
+    $xmlString .= '
+        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
+    <ResumenFactura>';
 
-    if ($totalServExonerados != '')
-        {
-            $xmlString .= '
-            <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
-        }
-
-    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0)
-        {
-            $xmlString .= '<CodigoTipoMoneda>
-            <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
-            <TipoCambio>' . $tipoCambio . '</TipoCambio>
-        </CodigoTipoMoneda>';
-        }
-
-    $xmlString .= '    
-    </ResumenFactura>
+    $xmlString .= '
     <InformacionReferencia>
         <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>
         <Numero>' . $infoRefeNumero . '</Numero>
@@ -889,6 +886,7 @@ function genXMLNC()
         <Codigo>' . $infoRefeCodigo . '</Codigo>
         <Razon>' . $infoRefeRazon . '</Razon>
     </InformacionReferencia>';
+
     if ($otros != '' && $otrosType != '')
     {
         $tipos = array("Otros", "OtroTexto", "OtroContenido");
@@ -900,6 +898,7 @@ function genXMLNC()
             </Otros>';
         }
     }
+
     $xmlString .= '
     </NotaCreditoElectronica>';
 
@@ -1008,11 +1007,12 @@ function genXMLND()
     if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
         error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
 
-    if (count($otrosCargos) > 15){
-        error_log("otrosCargos: ".count($otrosCargos)." is greater than 15");
-        //Delimita el array a solo 15 elementos
-        $otrosCargos = array_slice($otrosCargos, 0, 15);
-    }
+    if ( isset($otrosCargos) && $otrosCargos != "")
+        if (count($otrosCargos) > 15){
+            error_log("otrosCargos: ".count($otrosCargos)." is greater than 15");
+            //Delimita el array a solo 15 elementos
+            $otrosCargos = array_slice($otrosCargos, 0, 15);
+        }
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <NotaDebitoElectronica
@@ -1149,18 +1149,14 @@ function genXMLND()
     $l = 1;
     foreach ($detalles as $d)
     {
-        $xmlString .= '<LineaDetalle>
-            <NumeroLinea>' . $l . '</NumeroLinea>
-            <Cantidad>' . $d->cantidad . '</Cantidad>
-            <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
-            <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>
-            <Detalle>' . $d->detalle . '</Detalle>
-            <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
-            <Codigo>' . $d->codigo . '</Codigo>
-            <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
-
+        $xmlString .= '
+        <LineaDetalle>
+            <NumeroLinea>' . $l . '</NumeroLinea>';
         if ( isset($d->partidaArancelaria) && $d->partidaArancelaria != "" )
             $xmlString .= '<PartidaArancelaria>' . $d->partidaArancelaria . '</PartidaArancelaria>';
+        
+        $xmlString .= '
+            <Codigo>' . $d->codigo . '</Codigo>';
 
         if (isset($d->codigoComercial) && $d->codigoComercial != "" && $d->codigoComercial != 0)
             foreach ($d->codigoComercial as $c)
@@ -1171,6 +1167,14 @@ function genXMLND()
                     <Tipo>' . $c->tipo . '</Tipo>
                     </CodigoComercial>';
             }
+
+        $xmlString .= '
+            <Cantidad>' . $d->cantidad . '</Cantidad>
+            <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
+            <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>
+            <Detalle>' . $d->detalle . '</Detalle>
+            <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
+            <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
         if (isset($d->descuento) && $d->descuento != "" && $d->descuento != 0)
             foreach ($d->descuento as $dsc)
@@ -1190,17 +1194,18 @@ function genXMLND()
             foreach ($d->impuesto as $i)
             {
                 $xmlString .= '<Impuesto>
-                <Codigo>' . $i->codigo . '</Codigo>
-                <Monto>' . $i->monto . '</Monto>';
-
+                <Codigo>' . $i->codigo . '</Codigo>';
+                
                 if ( isset($i->codigoTarifa) && $i->codigoTarifa != "" )
                     $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
-
+                
                 if ( isset($i->tarifa) && $i->tarifa != "")
                     $xmlString .= '<Tarifa>' . $i->tarifa . '</Tarifa>';
                 
                 if ( isset($i->factorIVA) && $i->factorIVA != "")
                     $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+
+                $xmlString .= '<Monto>' . $i->monto . '</Monto>';               
 
                 if ( isset($i->montoExportacion) && $i->montoExportacion != "")
                     $xmlString .= '<MontoExportacion>' . $i->montoExportacion . '</MontoExportacion>';
@@ -1232,26 +1237,63 @@ function genXMLND()
 
     //OtrosCargos
     if ( isset($otrosCargos) && $otrosCargos != ""){
-        foreach ($otrosCargos as $o)
-        {
-            $xmlString .= '<OtrosCargos>
-            //if ( isset($o->tipoDocumento) && $o->tipoDocumento != "")
-            <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
+        foreach ($otrosCargos as $o){
+            $xmlString .= '
+            <OtrosCargos>
+                <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
             if ( isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "")
-                $xmlString .= '<NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
+                $xmlString .= '
+                <NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
             if ( isset($o->nombreTercero) && $o->nombreTercero != "")
-                $xmlString .= '<NombreTercero>'.$o->nombreTercero.'</NombreTercero>';   
-            //if ( isset($o->detalle) && $o->detalle != "")
-            $xmlString .= '<Detalle>'.$o->detalle.'</Detalle>';
+                $xmlString .= '
+                <NombreTercero>'.$o->nombreTercero.'</NombreTercero>';  
+            $xmlString .= '
+                <Detalle>'.$o->detalle.'</Detalle>';
             if ( isset($o->porcentaje) && $o->porcentaje != "")
-                $xmlString .= '<Porcentaje>'.$o->porcentaje.'</Porcentaje>';
-            //if ( isset($o->montoCargo) && $o->montoCargo != "")
-            $xmlString .= '<MontoCargo>'.$o->montoCargo.'</MontoCargo>';
-            $xmlString .= '</OtrosCargos>';
+                $xmlString .= '
+                <Porcentaje>'.$o->porcentaje.'</Porcentaje>';
+            $xmlString .= '
+                <MontoCargo>'.$o->montoCargo.'</MontoCargo>';
+            $xmlString .= '
+            </OtrosCargos>';
         }
     }
 
-    $xmlString .= '<ResumenFactura>
+    $xmlString .= '
+    <ResumenFactura>';
+
+    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0)
+        $xmlString .= '
+        <CodigoTipoMoneda>
+            <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
+            <TipoCambio>' . $tipoCambio . '</TipoCambio>
+        </CodigoTipoMoneda>';
+
+    if ($totalServGravados != '')
+        $xmlString .= '
+        <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
+
+    if ($totalServExentos != '')
+        $xmlString .= '
+        <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
+
+    if ($totalServExonerados != '')
+        $xmlString .= '
+        <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
+        
+    if ($totalMercGravadas != '')
+        $xmlString .= '
+        <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
+    
+    if ($totalMercExentas != '')
+        $xmlString .= '
+        <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
+        
+    if ($totalMercExonerada != '')
+        $xmlString .= '
+        <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
+
+    $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>
         <TotalExento>' . $totalExento . '</TotalExento>
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
@@ -1260,64 +1302,19 @@ function genXMLND()
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
 
-    if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
-        $xmlString .= '<TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
-
-    $xmlString .= '<TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
-    
-
     if ($totalIVADevuelto != '')
-        {
-            $xmlString .= '
-            <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
-        }
+        $xmlString .= '
+        <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
 
-    if ($totalServGravados != '')
-        {
-            $xmlString .= '
-            <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
-        }
-        
-    if ($totalServExentos != '')
-        {
-            $xmlString .= '
-            <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
-        }
-
-    if ($totalMercGravadas != '')
-        {
-            $xmlString .= '
-            <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
-        }
-        
-    if ($totalMercExentas != '')
-        {
-            $xmlString .= '
-            <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
-        }
-
-    if ($totalMercExonerada != '')
-        {
-            $xmlString .= '
-            <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
-        }
-
-    if ($totalServExonerados != '')
-        {
-            $xmlString .= '
-            <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
-        }
-
-    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0)
-        {
-            $xmlString .= '<CodigoTipoMoneda>
-            <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
-            <TipoCambio>' . $tipoCambio . '</TipoCambio>
-        </CodigoTipoMoneda>';
-        }
+    if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
+        $xmlString .= '
+        <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
 
     $xmlString .= '
-    </ResumenFactura>
+        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
+    </ResumenFactura>';
+
+    $xmlString .= '
     <InformacionReferencia>
         <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>
         <Numero>' . $infoRefeNumero . '</Numero>
@@ -1325,6 +1322,7 @@ function genXMLND()
         <Codigo>' . $infoRefeCodigo . '</Codigo>
         <Razon>' . $infoRefeRazon . '</Razon>
     </InformacionReferencia>';
+
     if ($otros != '' && $otrosType != '')
     {
         $tipos = array("Otros", "OtroTexto", "OtroContenido");
@@ -1524,33 +1522,36 @@ function genXMLTE()
     $l = 1;
     foreach ($detalles as $d)
     {
-        $xmlString .= '<LineaDetalle>
+        $xmlString .= '
+        <LineaDetalle>
             <NumeroLinea>' . $l . '</NumeroLinea>
-            <Cantidad>' . $d->cantidad . '</Cantidad>
-            <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
-            <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>
-            <Detalle>' . $d->detalle . '</Detalle>
-            <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
-            <Codigo>' . $d->codigo . '</Codigo>
-            <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
-
+            <Codigo>' . $d->codigo . '</Codigo>';
         if (isset($d->codigoComercial) && $d->codigoComercial != "" && $d->codigoComercial != 0)
             foreach ($d->codigoComercial as $c)
             {
                 if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "" )
-                    $xmlString .= '<CodigoComercial>
-                    <Codigo>' . $c->codigo . '</Codigo>
-                    <Tipo>' . $c->tipo . '</Tipo>
+                    $xmlString .= '
+                    <CodigoComercial>
+                        <Tipo>' . $c->tipo . '</Tipo>
+                        <Codigo>' . $c->codigo . '</Codigo>
                     </CodigoComercial>';
             }
+        $xmlString .= '
+            <Cantidad>' . $d->cantidad . '</Cantidad>
+            <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>
+            <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>
+            <Detalle>' . $d->detalle . '</Detalle>
+            <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>   
+            <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
         if (isset($d->descuento) && $d->descuento != "" && $d->descuento != 0)
             foreach ($d->descuento as $dsc)
             {
                 if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "" )
-                    $xmlString .= '<Descuento>
-                    <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                    <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
+                    $xmlString .= '
+                    <Descuento>
+                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
+                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
                     </Descuento>';
             }
 
@@ -1561,18 +1562,23 @@ function genXMLTE()
         {
             foreach ($d->impuesto as $i)
             {
-                $xmlString .= '<Impuesto>
-                <Codigo>' . $i->codigo . '</Codigo>
-                <Monto>' . $i->monto . '</Monto>';
-
+                $xmlString .= '
+                <Impuesto>
+                    <Codigo>' . $i->codigo . '</Codigo>';
                 if ( isset($i->codigoTarifa) && $i->codigoTarifa != "" )
-                    $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
+                    $xmlString .= '
+                    <CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
 
                 if ( isset($i->tarifa) && $i->tarifa != "")
-                    $xmlString .= '<Tarifa>' . $i->tarifa . '</Tarifa>';
+                    $xmlString .= '
+                    <Tarifa>' . $i->tarifa . '</Tarifa>';
                 
                 if ( isset($i->factorIVA) && $i->factorIVA != "")
-                    $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                    $xmlString .= '
+                    <FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                
+                $xmlString .= '
+                    <Monto>' . $i->monto . '</Monto>';
                 
                 if (isset($i->exoneracion) && $i->exoneracion != "")
                 {
@@ -1582,12 +1588,13 @@ function genXMLTE()
                         <NumeroDocumento>' . $i->exoneracion->numeroDocumento . '</NumeroDocumento>
                         <NombreInstitucion>' . $i->exoneracion->nombreInstitucion . '</NombreInstitucion>
                         <FechaEmision>' . $i->exoneracion->fechaEmision . '</FechaEmision>
-                        <MontoExoneracion>' . $i->exoneracion->montoExoneracion . '</MontoExoneracion>
                         <PorcentajeExoneracion>' . $i->exoneracion->porcentajeExoneracion . '</PorcentajeExoneracion>
+                        <MontoExoneracion>' . $i->exoneracion->montoExoneracion . '</MontoExoneracion>
                     </Exoneracion>';
                 }
 
-                $xmlString .= '</Impuesto>';
+                $xmlString .= '
+                </Impuesto>';
             }
         }
 
@@ -1603,24 +1610,64 @@ function genXMLTE()
     if ( isset($otrosCargos) && $otrosCargos != ""){
         foreach ($otrosCargos as $o)
         {
-            $xmlString .= '<OtrosCargos>
-            //if ( isset($o->tipoDocumento) && $o->tipoDocumento != "")
-            <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
+            $xmlString .= '
+            <OtrosCargos>
+                <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
             if ( isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "")
-                $xmlString .= '<NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
+                $xmlString .= '
+                <NumeroIdentidadTercero>'.$o->numeroIdentidadTercero.'</NumeroIdentidadTercero>';
             if ( isset($o->nombreTercero) && $o->nombreTercero != "")
-                $xmlString .= '<NombreTercero>'.$o->nombreTercero.'</NombreTercero>';   
+                $xmlString .= '
+                <NombreTercero>'.$o->nombreTercero.'</NombreTercero>';   
             //if ( isset($o->detalle) && $o->detalle != "")
-            $xmlString .= '<Detalle>'.$o->detalle.'</Detalle>';
+            $xmlString .= '
+                <Detalle>'.$o->detalle.'</Detalle>';
             if ( isset($o->porcentaje) && $o->porcentaje != "")
-                $xmlString .= '<Porcentaje>'.$o->porcentaje.'</Porcentaje>';
+                $xmlString .= '
+                <Porcentaje>'.$o->porcentaje.'</Porcentaje>';
             //if ( isset($o->montoCargo) && $o->montoCargo != "")
-            $xmlString .= '<MontoCargo>'.$o->montoCargo.'</MontoCargo>';
-            $xmlString .= '</OtrosCargos>';
+            $xmlString .= '
+                <MontoCargo>'.$o->montoCargo.'</MontoCargo>';
+            $xmlString .= '
+            </OtrosCargos>';
         }
     }
 
-    $xmlString .= '<ResumenFactura>
+    $xmlString .= '
+    <ResumenFactura>';
+
+    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0)
+        $xmlString .= '
+        <CodigoTipoMoneda>
+            <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
+            <TipoCambio>' . $tipoCambio . '</TipoCambio>
+        </CodigoTipoMoneda>';
+
+    if ($totalServGravados != '')
+        $xmlString .= '
+        <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
+        
+    if ($totalServExentos != '')
+        $xmlString .= '
+        <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
+
+    if ($totalServExonerados != '')
+        $xmlString .= '
+        <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
+    
+    if ($totalMercGravadas != '')
+        $xmlString .= '
+        <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
+
+    if ($totalMercExentas != '')
+        $xmlString .= '
+        <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
+        
+    if ($totalMercExonerada != '')
+        $xmlString .= '
+        <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
+
+    $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>
         <TotalExento>' . $totalExento . '</TotalExento>
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>
@@ -1629,74 +1676,27 @@ function genXMLTE()
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
 
+    if ($totalIVADevuelto != '')
+        $xmlString .= '
+        <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
+
     if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
         $xmlString .= '<TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
 
-    $xmlString .= '<TotalComprobante>' . $totalComprobante . '</TotalComprobante>';
-    
-
-    if ($totalIVADevuelto != '')
-        {
-            $xmlString .= '
-            <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
-        }
-
-    if ($totalServGravados != '')
-        {
-            $xmlString .= '
-            <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
-        }
-        
-    if ($totalServExentos != '')
-        {
-            $xmlString .= '
-            <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
-        }
-
-    if ($totalMercGravadas != '')
-        {
-            $xmlString .= '
-            <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
-        }
-        
-    if ($totalMercExentas != '')
-        {
-            $xmlString .= '
-            <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
-        }
-
-    if ($totalMercExonerada != '')
-        {
-            $xmlString .= '
-            <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
-        }
-
-    if ($totalServExonerados != '')
-        {
-            $xmlString .= '
-            <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
-        }
-    
-    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0)
-        {
-            $xmlString .= '<CodigoTipoMoneda>
-            <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
-            <TipoCambio>' . $tipoCambio . '</TipoCambio>
-        </CodigoTipoMoneda>';
-        }
-
     $xmlString .= '
-    </ResumenFactura>';
-
+        <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
+    <ResumenFactura>';
+    
     if ($infoRefeTipoDoc != '' && $infoRefeNumero != '' && $infoRefeFechaEmision != '' && $infoRefeCodigo != '' && $infoRefeRazon != ''){
 
-        $xmlString .=   '<InformacionReferencia>
-                            <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>
-                            <Numero>' . $infoRefeNumero . '</Numero>
-                            <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>
-                            <Codigo>' . $infoRefeCodigo . '</Codigo>
-                            <Razon>' . $infoRefeRazon . '</Razon>
-                        </InformacionReferencia>';
+        $xmlString .=   '
+    <InformacionReferencia>
+        <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>
+        <Numero>' . $infoRefeNumero . '</Numero>
+        <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>
+        <Codigo>' . $infoRefeCodigo . '</Codigo>
+        <Razon>' . $infoRefeRazon . '</Razon>
+    </InformacionReferencia>';
     }
 
     if ($otros != '' && $otrosType != '')
