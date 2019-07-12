@@ -1,6 +1,10 @@
 <?php
 /*
  * Copyright (C) 2017-2019 CRLibre <https://crlibre.org>
+ * 
+ * Conveying Modified Source Versions
+ * Modified by: JeanCarlos Chavarria Hughes - May 2019
+ * jchavarria@imagineing.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -68,14 +72,19 @@ function genXML()
     $tipoCambio             = params_get("tipo_cambio");
     $totalServGravados      = params_get("total_serv_gravados");
     $totalServExentos       = params_get("total_serv_exentos");
+    $totalServExonerados    = params_get("total_serv_exonerados");
     $totalMercGravadas      = params_get("total_merc_gravada");
     $totalMercExentas       = params_get("total_merc_exenta");
+    $totalMercExonerada     = params_get("total_merc_exonerada");
     $totalGravados          = params_get("total_gravados");
-    $totalExentos           = params_get("total_exentos");
+    $totalExento            = params_get("total_exento");
+    $totalExonerado         = params_get("total_exonerado");
     $totalVentas            = params_get("total_ventas");
     $totalDescuentos        = params_get("total_descuentos");
     $totalVentasNeta        = params_get("total_ventas_neta");
     $totalImp               = params_get("total_impuestos");
+    $totalIVADevuelto       = params_get("totalIVADevuelto");
+    $totalOtrosCargos       = params_get("totalOtrosCargos");
     $totalComprobante       = params_get("total_comprobante");
     $otros                  = params_get("otros");
 
@@ -157,22 +166,22 @@ function genXML()
     $footerDoc="";
      if ($tipoDocumento == 'FE')
      {
-        $headerDoc='<FacturaElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica FacturaElectronica_V.4.2.xsd">" ';
+        $headerDoc='<FacturaElectronica xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> ';
         $footerDoc='</FacturaElectronica>';
     }
     elseif ($tipoDocumento == 'TE')
     {
-        $headerDoc='<TiqueteElectronico xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico TiqueteElectronico_V.4.2.xsd">" ';
+        $headerDoc='<TiqueteElectronico xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/tiqueteElectronico" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> ';
         $footerDoc='</TiqueteElectronico>';
     }
     elseif ($tipoDocumento == 'NC')
     {
-        $headerDoc='<NotaCreditoElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica NotaCreditoElectronica_V.4.2.xsd">" ';
+        $headerDoc='<NotaCreditoElectronica xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/notaCreditoElectronica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> ';
         $footerDoc='</NotaCreditoElectronica>';
     }
     elseif ($tipoDocumento == 'ND')
     {
-        $headerDoc='<NotaDebitoElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaDebitoElectronica" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaDebitoElectronica NotaDebitoElectronica_V.4.2.xsd">" ';
+        $headerDoc='<NotaDebitoElectronica xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/notaDebitoElectronica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> ';
         $footerDoc='</NotaDebitoElectronica>';
     }
 

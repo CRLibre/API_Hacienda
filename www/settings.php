@@ -69,7 +69,7 @@ $config['mail']['noreply']      = getenv('mail_noreply');       // Optional - fo
 $config['mail']['host']         = getenv('smtp_only_host');
 $config['mail']['username']     = getenv('smtp_only_username');
 $config['mail']['password']     = getenv('smtp_only_password');
-$config['mail']['secure']       = getenv('tls_or_ssl');    // Use tls or ssl
+$config['mail']['secure']       = getenv('tls_or_ssl');         // Use tls or ssl
 $config['mail']['port']         = getenv('mail_port_587');
 
 ##############################################################################
