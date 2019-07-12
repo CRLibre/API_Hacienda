@@ -311,7 +311,11 @@ function genXMLFe()
             }
 
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
-        $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
+
+        if (isset($d->baseImponible) && $d->baseImponible != "")
+        {
+            $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
+        }
 
         if (isset($d->impuesto) && $d->impuesto != "")
         {
@@ -749,8 +753,10 @@ function genXMLNC()
             }
         
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
-        $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
-
+        if (isset($d->baseImponible) && $d->baseImponible != "")
+        {
+            $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
+        }
         if (isset($d->impuesto) && $d->impuesto != "")
         {
             foreach ($d->impuesto as $i)
@@ -1187,8 +1193,10 @@ function genXMLND()
             }
 
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
-        $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
-
+        if (isset($d->baseImponible) && $d->baseImponible != "")
+        {
+            $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
+        }
         if (isset($d->impuesto) && $d->impuesto != "")
         {
             foreach ($d->impuesto as $i)
@@ -1556,8 +1564,10 @@ function genXMLTE()
             }
 
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
-        $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
-
+        if (isset($d->baseImponible) && $d->baseImponible != "")
+        {
+            $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
+        }
         if (isset($d->impuesto) && $d->impuesto != "")
         {
             foreach ($d->impuesto as $i)
