@@ -378,6 +378,7 @@ function genXMLFe()
         }
 
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
+        if (isset($d->baseImponible) && $d->baseImponible != "")
         $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
 
         if (isset($d->impuesto) && $d->impuesto != "")
@@ -911,6 +912,7 @@ function genXMLNC()
         }
         
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
+        if (isset($d->baseImponible) && $d->baseImponible != "")
         $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
 
         if (isset($d->impuesto) && $d->impuesto != "")
@@ -1448,6 +1450,7 @@ function genXMLND()
         }
 
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
+        if (isset($d->baseImponible) && $d->baseImponible != "")
         $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
 
         if (isset($d->impuesto) && $d->impuesto != "")
@@ -1815,23 +1818,6 @@ function genXMLTE()
         $xmlString .= '<Receptor>
             <Nombre>' . $receptorNombre . '</Nombre>';
 
-        /*if ($receptorTipoIdentif == '05')
-        {
-            if ($receptorTipoIdentif != '' && $receptorNumIdentif != '')
-            {
-                $xmlString .= '<IdentificacionExtranjero>'
-                        . $receptorNumIdentif
-                        . ' </IdentificacionExtranjero>';
-            }
-            if ($receptorOtrasSenasExtranjero != '' && strlen($receptorOtrasSenasExtranjero) <= 300)
-            {
-                $xmlString .= '<OtrasSenasExtranjero>'
-                        . $receptorOtrasSenasExtranjero
-                        . ' </OtrasSenasExtranjero>';
-            }
-        }
-        else
-        {*/
         if ($receptorTipoIdentif != '' && $receptorNumIdentif != '')
         {
             $xmlString .= '
@@ -1983,6 +1969,7 @@ function genXMLTE()
         }
 
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
+        if (isset($d->baseImponible) && $d->baseImponible != "")
         $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
 
         if (isset($d->impuesto) && $d->impuesto != "")
