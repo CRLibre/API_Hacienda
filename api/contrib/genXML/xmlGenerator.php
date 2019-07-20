@@ -33,7 +33,7 @@ function genXML()
     $fechaEmision           = params_get("fecha_emision");
     // Datos emisor
     $emisorNombre           = params_get("emisor_nombre");
-    $emisorTipoIdentif      = params_get("emisor_tipo_indetif");
+    $emisorTipoIdentif      = params_get("emisor_tipo_identif");
     $emisorNumIdentif       = params_get("emisor_num_identif");
     $nombreComercial        = params_get("nombre_comercial");
 
