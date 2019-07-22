@@ -47,7 +47,7 @@ function genXMLFe()
 
     // Datos emisor
     $emisorNombre                   = params_get("emisor_nombre");
-    $emisorTipoIdentif              = params_get("emisor_tipo_indetif");
+    $emisorTipoIdentif              = params_get("emisor_tipo_identif");
     $emisorNumIdentif               = params_get("emisor_num_identif");
     $emisorNombreComercial          = params_get("emisor_nombre_comercial");
     $emisorProv                     = params_get("emisor_provincia");
@@ -376,8 +376,11 @@ function genXMLFe()
         }
 
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
+
         if (isset($d->baseImponible) && $d->baseImponible != "")
-        $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
+        {
+            $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
+        }
 
         if (isset($d->impuesto) && $d->impuesto != "")
         {
@@ -414,7 +417,10 @@ function genXMLFe()
             }
         }
 
-        $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
+        if (isset($d->impuestoNeto) && $d->impuestoNeto != "")
+        {
+            $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
+        }
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
@@ -591,7 +597,7 @@ function genXMLNC()
 
     // Datos emisor
     $emisorNombre                   = params_get("emisor_nombre");
-    $emisorTipoIdentif              = params_get("emisor_tipo_indetif");
+    $emisorTipoIdentif              = params_get("emisor_tipo_identif");
     $emisorNumIdentif               = params_get("emisor_num_identif");
     $emisorNombreComercial          = params_get("emisor_nombre_comercial");
     $emisorProv                     = params_get("emisor_provincia");
@@ -921,8 +927,9 @@ function genXMLNC()
         
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
         if (isset($d->baseImponible) && $d->baseImponible != "")
-        $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
-
+        {
+            $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
+        }
         if (isset($d->impuesto) && $d->impuesto != "")
         {
             foreach ($d->impuesto as $i)
@@ -962,7 +969,10 @@ function genXMLNC()
             }
         }
 
-        $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
+        if (isset($d->impuestoNeto) && $d->impuestoNeto != "")
+        {
+            $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
+        }
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
@@ -1137,7 +1147,7 @@ function genXMLND()
 
     // Datos emisor
     $emisorNombre                   = params_get("emisor_nombre");
-    $emisorTipoIdentif              = params_get("emisor_tipo_indetif");
+    $emisorTipoIdentif              = params_get("emisor_tipo_identif");
     $emisorNumIdentif               = params_get("emisor_num_identif");
     $emisorNombreComercial          = params_get("emisor_nombre_comercial");
     $emisorProv                     = params_get("emisor_provincia");
@@ -1467,8 +1477,9 @@ function genXMLND()
 
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
         if (isset($d->baseImponible) && $d->baseImponible != "")
-        $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
-
+        {
+            $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
+        }
         if (isset($d->impuesto) && $d->impuesto != "")
         {
             foreach ($d->impuesto as $i)
@@ -1507,7 +1518,10 @@ function genXMLND()
             }
         }
 
-        $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
+        if (isset($d->impuestoNeto) && $d->impuestoNeto != "")
+        {
+            $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
+        }
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
@@ -1680,7 +1694,7 @@ function genXMLTE()
 
     // Datos emisor
     $emisorNombre                   = params_get("emisor_nombre");
-    $emisorTipoIdentif              = params_get("emisor_tipo_indetif");
+    $emisorTipoIdentif              = params_get("emisor_tipo_identif");
     $emisorNumIdentif               = params_get("emisor_num_identif");
     $emisorNombreComercial          = params_get("emisor_nombre_comercial");
     $emisorProv                     = params_get("emisor_provincia");
@@ -1995,8 +2009,9 @@ function genXMLTE()
 
         $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
         if (isset($d->baseImponible) && $d->baseImponible != "")
-        $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
-
+        {
+            $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
+        }
         if (isset($d->impuesto) && $d->impuesto != "")
         {
             foreach ($d->impuesto as $i)
@@ -2037,7 +2052,10 @@ function genXMLTE()
             }
         }
 
-        $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
+        if (isset($d->impuestoNeto) && $d->impuestoNeto != "")
+        {
+            $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
+        }
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;

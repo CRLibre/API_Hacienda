@@ -70,6 +70,14 @@ function db_Connect()
     global $dbConn;
 
     # Create connection
+    grace_debug("config['db']['name']: ");
+    grace_debug(conf_get('name', 'db'));
+    grace_debug("config['db']['pwd']: ");
+    grace_debug(conf_get('pwd', 'db'));
+    grace_debug("config['db']['user']: ");
+    grace_debug(conf_get('user', 'db'));
+    grace_debug("config['db']['host']: ");
+    grace_debug(conf_get('host', 'db'));
     @$dbConn = new mysqli(conf_get('host', 'db'), conf_get('user', 'db'), conf_get('pwd', 'db'), conf_get('name', 'db'));
 
     # Check connection
