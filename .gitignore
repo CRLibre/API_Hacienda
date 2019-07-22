@@ -6,7 +6,7 @@ api/resources
 api/errors/*
 nbproject/*
 build/*
-*settings.php
+# *settings.php
 .DS_Store
 .vscode
 
@@ -30,7 +30,7 @@ Desktop.ini
 !/.gitignore
 !/.travis.yml
 
-www/settings.php
+# www/settings.php
 *.AppleDouble
 *.DS_Store
 **/*.AppleDouble
