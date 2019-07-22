@@ -25,10 +25,13 @@
 /* * ************************************************** */
 /* Constantes de validacion                             */
 /* * ************************************************** */
-$codigoActividadSize = 6;
-$emisorNombreMaxSize = 100;
-$receptorNombreMaxSize = 100;
-$receptorOtrasSenasMaxSize = 250;
+const TIPODOCREFVALUES = array('01','02','03','04','05','06','07','99');
+const CODIDOREFVALUES = array('01','02','04','05','99');
+const CODIGOACTIVIDADSIZE = 6;
+const EMISORNOMBREMAXSIZE = 100;
+const RECEPTORNOMBREMAXSIZE = 100;
+const RECEPTOROTRASSENASMAXSIZE = 250;
+
 
 /* * ************************************************** */
 /* Funcion para generar XML                          */
@@ -36,11 +39,6 @@ $receptorOtrasSenasMaxSize = 250;
 
 function genXMLFe()
 {
-    global $codigoActividadSize;
-    global $emisorNombreMaxSize;
-    global $receptorNombreMaxSize;
-    global $receptorOtrasSenasMaxSize;
-
     // Datos contribuyente
     $clave                          = params_get("clave");
     $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
@@ -127,17 +125,17 @@ function genXMLFe()
 
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
-    if (strlen($codigoActividad) != $codigoActividadSize)
-        error_log("codigoActividadSize is: $codigoActividadSize and codigoActividad is $codigoActividad");
+    if (strlen($codigoActividad) != CODIGOACTIVIDADSIZE)
+        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividad is ".$codigoActividad);
 
-    if (strlen($emisorNombre) > $emisorNombreMaxSize)
-        error_log("emisorNombreSize: $emisorNombreMaxSize is greater than emisorNombre: $emisorNombre");
+    if (strlen($emisorNombre) > EMISORNOMBREMAXSIZE)
+        error_log("emisorNombreSize: ".EMISORNOMBREMAXSIZE." is greater than emisorNombre: ".$emisorNombre);
 
-    if (strlen($receptorNombre) > $receptorNombreMaxSize)
-        error_log("receptorNombreMaxSize: $receptorNombreMaxSize is greater than receptorNombre: $receptorNombre");
+    if (strlen($receptorNombre) > RECEPTORNOMBREMAXSIZE)
+        error_log("receptorNombreMaxSize: ".RECEPTORNOMBREMAXSIZE." is greater than receptorNombre: ".$receptorNombre);
 
-    if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
-        error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
+    if (strlen($receptorOtrasSenas) > RECEPTOROTRASSENASMAXSIZE)
+        error_log("receptorOtrasSenasMaxSize: ".RECEPTOROTRASSENASMAXSIZE." is greater than receptorOtrasSenas: ".$receptorOtrasSenas);
 
     if ( isset($otrosCargos) && $otrosCargos != "")
         if (count($otrosCargos) > 15){
@@ -523,8 +521,15 @@ function genXMLFe()
     if ($infoRefeTipoDoc != '' && $infoRefeFechaEmision != ''){
 
         $xmlString .=   '
-    <InformacionReferencia>
+    <InformacionReferencia>';
+    
+        if(in_array($infoRefeTipoDoc, TIPODOCREFVALUES, true))
+        $xmlString .='
         <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>';
+        else{
+            grace_error("El parámetro infoRefeTipoDoc no cumple con la estructura establecida. infoRefeTipoDoc = ". $infoRefeTipoDoc);
+            return "El parámetro infoRefeTipoDoc no cumple con la estructura establecida.";
+        }
 
         if ( isset($infoRefeNumero) && $infoRefeNumero != "")
             $xmlString .=   '
@@ -533,9 +538,16 @@ function genXMLFe()
         $xmlString .=   '
         <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>';
 
-        if ( isset($infoRefeCodigo) && $infoRefeCodigo != "")
-            $xmlString .=   '
-        <Codigo>' . $infoRefeCodigo . '</Codigo>';
+        if ( isset($infoRefeCodigo) && $infoRefeCodigo != ""){
+            if(in_array($infoRefeCodigo, CODIDOREFVALUES, true)){
+                $xmlString .=   '
+            <Codigo>' . $infoRefeCodigo . '</Codigo>';
+            }else{
+                grace_error("El parámetro infoRefeCodigo no cumple con la estructura establecida. infoRefeCodigo = ". $infoRefeCodigo);
+                return "El parámetro infoRefeCodigo no cumple con la estructura establecida.";
+            }
+        }
+            
 
         if ( isset($infoRefeRazon) && $infoRefeRazon != "")
             $xmlString .=   '
@@ -570,10 +582,6 @@ function genXMLFe()
 
 function genXMLNC()
 {
-    global $codigoActividadSize;
-    global $emisorNombreMaxSize;
-    global $receptorNombreMaxSize;
-    global $receptorOtrasSenasMaxSize;
 
     // Datos contribuyente
     $clave                          = params_get("clave");
@@ -659,17 +667,17 @@ function genXMLNC()
 
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
-    if (strlen($codigoActividad) != $codigoActividadSize)
-        error_log("codigoActividadSize is: $codigoActividadSize and codigoActividad is $codigoActividad");
+    if (strlen($codigoActividad) != CODIGOACTIVIDADSIZE)
+        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividad is ".$codigoActividad);
 
-    if (strlen($emisorNombre) > $emisorNombreMaxSize)
-        error_log("emisorNombreSize: $emisorNombreMaxSize is greater than emisorNombre: $emisorNombre");
+    if (strlen($emisorNombre) > EMISORNOMBREMAXSIZE)
+        error_log("emisorNombreSize: ".EMISORNOMBREMAXSIZE." is greater than emisorNombre: ".$emisorNombre);
 
-    if (strlen($receptorNombre) > $receptorNombreMaxSize)
-        error_log("receptorNombreMaxSize: $receptorNombreMaxSize is greater than receptorNombre: $receptorNombre");
+    if (strlen($receptorNombre) > RECEPTORNOMBREMAXSIZE)
+        error_log("receptorNombreMaxSize: ".RECEPTORNOMBREMAXSIZE." is greater than receptorNombre: ".$receptorNombre);
 
-    if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
-        error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
+    if (strlen($receptorOtrasSenas) > RECEPTOROTRASSENASMAXSIZE)
+        error_log("receptorOtrasSenasMaxSize: ".RECEPTOROTRASSENASMAXSIZE." is greater than receptorOtrasSenas: ".$receptorOtrasSenas);
 
     if ( isset($otrosCargos) && $otrosCargos != "")
         if (count($otrosCargos) > 15){
@@ -1062,8 +1070,14 @@ function genXMLNC()
     </ResumenFactura>';
 
     $xmlString .=   '
-    <InformacionReferencia>
+    <InformacionReferencia>';
+    if(in_array($infoRefeTipoDoc, TIPODOCREFVALUES, true))
+        $xmlString .='
         <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>';
+    else{
+        grace_error("El parámetro infoRefeTipoDoc no cumple con la estructura establecida. infoRefeTipoDoc = ". $infoRefeTipoDoc);
+        return "El parámetro infoRefeTipoDoc no cumple con la estructura establecida.";
+    }
 
     if ( isset($infoRefeNumero) && $infoRefeNumero != "")
         $xmlString .=   '
@@ -1072,9 +1086,15 @@ function genXMLNC()
     $xmlString .=   '
         <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>';
 
-    if ( isset($infoRefeCodigo) && $infoRefeCodigo != "")
-        $xmlString .=   '
+    if ( isset($infoRefeCodigo) && $infoRefeCodigo != ""){
+        if(in_array($infoRefeCodigo, CODIDOREFVALUES, true)){
+            $xmlString .=   '
         <Codigo>' . $infoRefeCodigo . '</Codigo>';
+        }else{
+            grace_error("El parámetro infoRefeCodigo no cumple con la estructura establecida. infoRefeCodigo = ". $infoRefeCodigo);
+            return "El parámetro infoRefeCodigo no cumple con la estructura establecida.";
+        }
+    }
 
     if ( isset($infoRefeRazon) && $infoRefeRazon != "")
         $xmlString .=   '
@@ -1108,10 +1128,6 @@ function genXMLNC()
 
 function genXMLND()
 {
-    global $codigoActividadSize;
-    global $emisorNombreMaxSize;
-    global $receptorNombreMaxSize;
-    global $receptorOtrasSenasMaxSize;
 
     // Datos contribuyente
     $clave                          = params_get("clave");
@@ -1197,17 +1213,17 @@ function genXMLND()
 
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
-    if (strlen($codigoActividad) != $codigoActividadSize)
-        error_log("codigoActividadSize is: $codigoActividadSize and codigoActividad is $codigoActividad");
+    if (strlen($codigoActividad) != CODIGOACTIVIDADSIZE)
+        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividad is ".$codigoActividad);
 
-    if (strlen($emisorNombre) > $emisorNombreMaxSize)
-        error_log("emisorNombreSize: $emisorNombreMaxSize is greater than emisorNombre: $emisorNombre");
+    if (strlen($emisorNombre) > EMISORNOMBREMAXSIZE)
+        error_log("emisorNombreSize: ".EMISORNOMBREMAXSIZE." is greater than emisorNombre: ".$emisorNombre);
 
-    if (strlen($receptorNombre) > $receptorNombreMaxSize)
-        error_log("receptorNombreMaxSize: $receptorNombreMaxSize is greater than receptorNombre: $receptorNombre");
+    if (strlen($receptorNombre) > RECEPTORNOMBREMAXSIZE)
+        error_log("receptorNombreMaxSize: ".RECEPTORNOMBREMAXSIZE." is greater than receptorNombre: ".$receptorNombre);
 
-    if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
-        error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
+    if (strlen($receptorOtrasSenas) > RECEPTOROTRASSENASMAXSIZE)
+        error_log("receptorOtrasSenasMaxSize: ".RECEPTOROTRASSENASMAXSIZE." is greater than receptorOtrasSenas: ".$receptorOtrasSenas);
 
     if ( isset($otrosCargos) && $otrosCargos != "")
         if (count($otrosCargos) > 15){
@@ -1596,8 +1612,15 @@ function genXMLND()
     </ResumenFactura>';
 
     $xmlString .=   '
-    <InformacionReferencia>
+    <InformacionReferencia>';
+        
+    if(in_array($infoRefeTipoDoc, TIPODOCREFVALUES, true))
+        $xmlString .='
         <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>';
+    else{
+        grace_error("El parámetro infoRefeTipoDoc no cumple con la estructura establecida. infoRefeTipoDoc = ". $infoRefeTipoDoc);
+        return "El parámetro infoRefeTipoDoc no cumple con la estructura establecida.";
+    }
 
     if ( isset($infoRefeNumero) && $infoRefeNumero != "")
         $xmlString .=   '
@@ -1606,9 +1629,15 @@ function genXMLND()
     $xmlString .=   '
         <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>';
 
-    if ( isset($infoRefeCodigo) && $infoRefeCodigo != "")
-        $xmlString .=   '
+    if ( isset($infoRefeCodigo) && $infoRefeCodigo != ""){
+        if(in_array($infoRefeCodigo, CODIDOREFVALUES, true)){
+            $xmlString .=   '
         <Codigo>' . $infoRefeCodigo . '</Codigo>';
+        }else{
+            grace_error("El parámetro infoRefeCodigo no cumple con la estructura establecida. infoRefeCodigo = ". $infoRefeCodigo);
+            return "El parámetro infoRefeCodigo no cumple con la estructura establecida.";
+        }
+    }
 
     if ( isset($infoRefeRazon) && $infoRefeRazon != "")
         $xmlString .=   '
@@ -1642,10 +1671,6 @@ function genXMLND()
 
 function genXMLTE()
 {
-    global $codigoActividadSize;
-    global $emisorNombreMaxSize;
-    global $receptorNombreMaxSize;
-    global $receptorOtrasSenasMaxSize;
 
     // Datos contribuyente
     $clave                          = params_get("clave");
@@ -1733,17 +1758,17 @@ function genXMLTE()
 
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
-    if (strlen($codigoActividad) != $codigoActividadSize)
-        error_log("codigoActividadSize is: $codigoActividadSize and codigoActividad is $codigoActividad");
+    if (strlen($codigoActividad) != CODIGOACTIVIDADSIZE)
+        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividad is ".$codigoActividad);
 
-    if (strlen($emisorNombre) > $emisorNombreMaxSize)
-        error_log("emisorNombreSize: $emisorNombreMaxSize is greater than emisorNombre: $emisorNombre");
+    if (strlen($emisorNombre) > EMISORNOMBREMAXSIZE)
+        error_log("emisorNombreSize: ".EMISORNOMBREMAXSIZE." is greater than emisorNombre: ".$emisorNombre);
 
-    if (strlen($receptorNombre) > $receptorNombreMaxSize)
-        error_log("receptorNombreMaxSize: $receptorNombreMaxSize is greater than receptorNombre: $receptorNombre");
+    if (strlen($receptorNombre) > RECEPTORNOMBREMAXSIZE)
+        error_log("receptorNombreMaxSize: ".RECEPTORNOMBREMAXSIZE." is greater than receptorNombre: ".$receptorNombre);
 
-    if (strlen($receptorOtrasSenas) > $receptorOtrasSenasMaxSize)
-        error_log("receptorOtrasSenasMaxSize: $receptorOtrasSenasMaxSize is greater than receptorOtrasSenas: $receptorOtrasSenas");
+    if (strlen($receptorOtrasSenas) > RECEPTOROTRASSENASMAXSIZE)
+        error_log("receptorOtrasSenasMaxSize: ".RECEPTOROTRASSENASMAXSIZE." is greater than receptorOtrasSenas: ".$receptorOtrasSenas);
 
     if ( isset($otrosCargos) && $otrosCargos != "")
         if (count($otrosCargos) > 15){
@@ -2122,8 +2147,14 @@ function genXMLTE()
     if ($infoRefeTipoDoc != '' && $infoRefeFechaEmision != ''){
 
         $xmlString .=   '
-    <InformacionReferencia>
-        <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>';
+    <InformacionReferencia>';
+        if(in_array($infoRefeTipoDoc, TIPODOCREFVALUES, true))
+            $xmlString .='
+            <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>';
+        else{
+            grace_error("El parámetro infoRefeTipoDoc no cumple con la estructura establecida. infoRefeTipoDoc = ". $infoRefeTipoDoc);
+            return "El parámetro infoRefeTipoDoc no cumple con la estructura establecida.";
+        }
 
         if ( isset($infoRefeNumero) && $infoRefeNumero != "")
             $xmlString .=   '
@@ -2132,9 +2163,15 @@ function genXMLTE()
         $xmlString .=   '
         <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>';
 
-        if ( isset($infoRefeCodigo) && $infoRefeCodigo != "")
-            $xmlString .=   '
-        <Codigo>' . $infoRefeCodigo . '</Codigo>';
+        if ( isset($infoRefeCodigo) && $infoRefeCodigo != ""){
+            if(in_array($infoRefeCodigo, CODIDOREFVALUES, true)){
+                $xmlString .=   '
+            <Codigo>' . $infoRefeCodigo . '</Codigo>';
+            }else{
+                grace_error("El parámetro infoRefeCodigo no cumple con la estructura establecida. infoRefeCodigo = ". $infoRefeCodigo);
+                return "El parámetro infoRefeCodigo no cumple con la estructura establecida.";
+            }
+        }
 
         if ( isset($infoRefeRazon) && $infoRefeRazon != "")
             $xmlString .=   '
@@ -2169,10 +2206,6 @@ function genXMLTE()
 
 function genXMLMr()
 {
-    global $codigoActividadSize;
-    global $emisorNombreMaxSize;
-    global $receptorNombreMaxSize;
-    global $receptorOtrasSenasMaxSize;
 
     $clave                          = params_get("clave");                                      // d{50,50}
     // Datos vendedor = emisor
@@ -2194,8 +2227,8 @@ function genXMLMr()
 
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
-    if (strlen($codigoActividad) != $codigoActividadSize)
-        error_log("codigoActividadSize: $codigoActividadSize is not codigoActividad: $codigoActividad");
+    if (strlen($codigoActividad) != CODIGOACTIVIDADSIZE)
+        error_log("codigoActividadSize: ".CODIGOACTIVIDADSIZE." is not codigoActividad: ".$codigoActividad);
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <MensajeReceptor
