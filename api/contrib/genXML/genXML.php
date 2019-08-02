@@ -2,12 +2,6 @@
 /*
  * Copyright (C) 2017-2019 CRLibre <https://crlibre.org>
  *
- * 
- * 
- * 
- * Modified by: JeanCarlos Chavarria Hughes - May 2019
- * jchavarria@imagineing.com
- *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or
