@@ -1,4 +1,4 @@
-= API_Hacienda / CRLibre - Archivo de agradecimiento =
+# API_Hacienda / CRLibre - Archivo de agradecimiento
 
 API Hacienda ha sido creado para faciliar el desarrollo de herramientas para la Facturación Electrónica en Costa Rica,
 la misma ha sido desarrollada por la comunidad de CRLibre, comunidad que somos cualquiera que aporte a nuestros proyectos
