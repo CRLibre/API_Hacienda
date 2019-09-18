@@ -54,7 +54,9 @@ function _grace_talk($msg, $who = 'info')
         if (!file_exists(conf_get('coreInstall', 'modules') . "errors/"))
             mkdir(conf_get('coreInstall', 'modules') . "errors/", 0777, true);
 
-        error_log($msg, 3, conf_get('coreInstall', 'modules') . "errors/" . date('y_m_d_h', time()) . "_errors.log");
+        #error_log($msg, 3, conf_get('coreInstall', 'modules') . "errors/" . date('y_m_d_h', time()) . "_errors.log");
+        #error_log($msg, 3, conf_get('coreInstall', 'modules') . "errors/" . "_errors.log");
+        error_log($msg);
         # Add the message to the debug pool if you want me to store them in a file
         if (conf_get('logPath', 'grace', '') != '' && $who != 'a')
             $grace_logMsgs[] = $msg;

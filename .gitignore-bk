@@ -1,0 +1,10 @@
+api/files
+api/install
+api/logs/*
+api/resources
+api/errors/*
+nbproject/*
+build/*
+*settings.php
+.DS_Store
+.vscode

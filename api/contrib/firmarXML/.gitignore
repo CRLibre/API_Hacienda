@@ -1,0 +1,7 @@
+.idea/
+vendor/
+tests/
+
+
+composer.lock
+firmar_test.php

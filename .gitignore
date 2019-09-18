@@ -1,3 +1,4 @@
+# Specific Files to ignore
 api/files
 api/install
 api/logs/*
@@ -5,6 +6,34 @@ api/resources
 api/errors/*
 nbproject/*
 build/*
-*settings.php
+# *settings.php
 .DS_Store
 .vscode
+
+# ignore IDE/hidden/OS cache files
+.*
+*~
+nbproject
+nb-configuration.xml
+Session.vim
+*.tmproj
+*.tmproject
+tmtags
+Thumbs.db
+Desktop.ini
+
+# ignore Composer downloads
+/vendor/*
+
+# keep some hiddens
+!.htaccess
+!/.gitignore
+!/.travis.yml
+
+# www/settings.php
+*.AppleDouble
+*.DS_Store
+**/*.AppleDouble
+.gitsecret/keys/random_seed
+!*.secret
+random_seed
