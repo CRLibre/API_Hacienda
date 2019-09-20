@@ -55,23 +55,24 @@ class Firmador {
         // if (file_exists($input)){
         //     $input = file_get_contents($input);
         // }
+        
 
         // Intentar parsear el input como archivo xml. Caso contrario se detiene el script
         try {
             $xml->loadXML($input);
         } catch (\Exception $ex){
             die($ex->getMessage());
-        }
-
+        }    
+   
         // Crear un nuevo objeto de seguridad
         $objSec = new XMLSecurityDSig();
-
+        
         // Mantener el primer nodo secundario original XML en memoria
         $objSec->xmlFirstChild = $xml->firstChild;
-
+        
         // Establecer política de firma
         $objSec->setSignPolicy();
-
+        
         // Cargar la información del certificado desde el archivo *.p12
         $certInfo = $objSec->loadCertInfo($pfx,$pin);
 

@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2019 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2018 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -25,52 +25,52 @@ global $config;
 #
 #####################################################################################
 # Database name
-$config['db']['name'] = getenv('DB_NAME');
+$config['db']['name'] = "db";
 # Database password
-$config['db']['pwd'] = getenv('DB_PASSWORD');
+$config['db']['pwd'] = 'db';
 # Database user name
-$config['db']['user'] = getenv('DB_USERNAME');
+$config['db']['user'] = "db";
 # Database host
-$config['db']['host'] = getenv('DB_HOST');
+$config['db']['host'] = "db";
 ##############################################################################
 #
 # Crypto Keys
 #
 ##############################################################################
-$config['crypto']['key'] = getenv('cryptoKey');
+$config['crypto']['key'] = "TqkIsC8PPPBHmlL3C7Gkc7RPp0t4\/Mb9RZ1wmTxASck=";
 ##############################################################################
 #
 # print alerts
 # false or true
 #
 ##############################################################################
-$config['boot']['alert'] = getenv('boot_alert');
+$config['boot']['alert'] = "false";
 ##############################################################################
 ##
 ## Log errors
 ## false or true
 ##
 ###############################################################################
-$config['debug']['print_all']    = getenv('log_errors');
-$config['debug']['print_absurd'] = getenv('log_errors');
-$config['debug']['print_debug']  = getenv('log_errors');
-$config['debug']['print_error']  = getenv('log_errors');
+$config['debug']['print_all']    = false;
+$config['debug']['print_absurd'] = false;
+$config['debug']['print_debug']  = false;
+$config['debug']['print_error']  = false;
 ##############################################################################
 #
 # Emails
 #
 ##############################################################################
 # Options: "mail" or "smtp".
-$config['mail']['type']         = getenv('mail_or_smtp');
+$config['mail']['type']         = "mail";
 # Used in "mail" or "smtp"
-$config['mail']['address']      = getenv('mail_address');       // for example: info@crlibre.org
-$config['mail']['noreply']      = getenv('mail_noreply');       // Optional - for example: no-reply@crlibre.org
+$config['mail']['address']      = "";       // for example: info@crlibre.org
+$config['mail']['noreply']      = "";       // Optional - for example: no-reply@crlibre.org
 # If "smtp" option is actived.
-$config['mail']['host']         = getenv('smtp_only_host');
-$config['mail']['username']     = getenv('smtp_only_username');
-$config['mail']['password']     = getenv('smtp_only_password');
-$config['mail']['secure']       = getenv('tls_or_ssl');         // Use tls or ssl
-$config['mail']['port']         = getenv('mail_port_587');
+$config['mail']['host']         = "";
+$config['mail']['username']     = "";
+$config['mail']['password']     = "";
+$config['mail']['secure']       = "tls";    // Use tls or ssl
+$config['mail']['port']         = 587;
 
 ##############################################################################
 #
@@ -84,20 +84,21 @@ $config['mail']['port']         = getenv('mail_port_587');
 
 # The core installation: This is probably the only one you need to touch
 # IMPORTANTE: La ruta debe finalizar en "/".
-$config['modules']['coreInstall'] = getenv('core_install');
+# $config['modules']['coreInstall'] = "/var/www/api.posventa.cr/factura/api/";
+$config['modules']['coreInstall'] = '/var/www/html/api/';
 
 # Name of your site, Not in use really
-$config['core']['siteName'] = getenv('core_siteName');
+$config['core']['siteName'] = 'targua';
 
 # The host name for your site
-$config['core']['host'] = getenv('core_host');
-$config['core']['compannyIMG'] = getenv('corp_url_img');
+$config['core']['host'] = "targua.posventa.cr";
+$config['core']['compannyIMG'] = "https://scontent.fsyq2-1.fna.fbcdn.net/v/t1.0-9/33379063_741113822944661_9042709073681711104_n.png?_nc_cat=0&oh=9ac1b60c1f7ab20eb174b29d85a50470&oe=5C0C2666";
 
 # Time in seconds for the lifetime of a session, after this time, the user must
 # log back in, if you dont want to use the session life set the value in -1, li this
 #  $config['users']['sessionLifetime'] = -1;
 
-$config['users']['sessionLifetime'] = getenv('sessionLifetime');
+$config['users']['sessionLifetime'] = -1;
 
 /*******************************************************************************
  * You should not need to touch anything beyond this point

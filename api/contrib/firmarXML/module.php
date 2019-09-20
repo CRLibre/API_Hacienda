@@ -29,6 +29,8 @@ function firmarXML_bootMeUp()
  */
 function firmarXML_init()
 {
+
+    
     $paths = array(
         array(
             'r'             => 'firmar',

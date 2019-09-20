@@ -281,7 +281,9 @@ class XMLSecurityDSig
     }
 
     public function setSignPolicy(){
+    
         $xmlns = $this->xmlFirstChild->getAttribute('xmlns');
+
         switch ($xmlns){
             case (strpos($xmlns, 'v4.2') !== false):
                 $this->signPolicy = [

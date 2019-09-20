@@ -1,14 +1,10 @@
-# Specific Files to ignore
-api/files/*
+api/files
 api/install
 api/logs/*
 api/resources
 api/errors/*
 nbproject/*
 build/*
-recursos/Targua
-vendor/
 *settings.php
 .DS_Store
 .vscode
-.ddev
