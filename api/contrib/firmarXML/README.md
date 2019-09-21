@@ -43,7 +43,31 @@ print_r($archivo);
 
 ### VALIDAR:
 
-[Próximanente!...]
+Para validar el funcionamiento de este endpoint, se debe tener un archivo p12 con el cual hacer las pruebas.
+Supongamos que el p12 se llama 070211023522.p12
+En este caso, el firmador firmarXml lo que va a hacer es recibir un downloadCode, el cual representa un archivo en una ruta local asignado a un usuario de la Api. Por lo cuál se requiere tener un usuario activo en la Api con un respectivo idUser.
+
+* Paso 1:
+Determinar el idUser que desea usar en la Api. `SELECT * from users;`
+Ejemplo, idUser = 5.
+
+* Paso 2:
+Verificar que la siguiente ruta existe en su servidor de la Api, sino existe la debe crear:
+`api/files/5/hacienda`
+Esta ruta representa la carpeta donde se van a almacenar los recursos del usuario con idUser 5, en este caso, el certificado p12.
+
+* Paso 3:
+Subir el Certificado a esa ruta si no está aún. Asegurarse que el nombre del archivo es igual al valor de la celda `name` en el registro correspondiente de la tabla `files` en la base de datos.
+
+* Paso 4:
+Validar con postman. Siguiendo el siguiente ejemplo, donde:
+p12Url es el downloadCode.
+pinP12 es el pin del certificado.
+inXml es el Xml en base64
+r es el módulo firmar
+w es la acción a ejecutar, firmarXml
+
+![postman ejemplo](https://user-images.githubusercontent.com/8434928/65374989-564d2680-dc4d-11e9-8224-1caa19b2e3b9.jpeg)
 
 ## Quiere contribuir?
 Los "Pull Requests" son bienvenidos.
