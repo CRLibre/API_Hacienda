@@ -57,9 +57,12 @@ Verificar que la siguiente ruta existe en su servidor de la Api, sino existe la 
 Esta ruta representa la carpeta donde se van a almacenar los recursos del usuario con idUser 5, en este caso, el certificado p12.
 
 * Paso 3:
-Subir el Certificado a esa ruta si no está aún. Asegurarse que el nombre del archivo es igual al valor de la celda `name` en el registro correspondiente de la tabla `files` en la base de datos.
+Asegurarse que se siguieron bien los pasos de upload certificado y se tiene un registro en la tabla files con el idUser correspondiente. [Upload Certificado](https://github.com/CRLibre/API_Hacienda/wiki/Upload-del-certificado-o-llave-criptogr%C3%A1fica)
 
 * Paso 4:
+Subir el Certificado a esa ruta si no está aún. Asegurarse que el nombre del archivo es igual al valor de la celda `name` en el registro correspondiente de la tabla `files` en la base de datos.
+
+* Paso 5:
 Validar con postman. Siguiendo el siguiente ejemplo, donde:
 p12Url es el downloadCode.
 pinP12 es el pin del certificado.
