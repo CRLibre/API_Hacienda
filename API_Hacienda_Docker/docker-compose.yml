@@ -21,6 +21,8 @@ services:
                 ipv4_address: 172.28.1.1
         links:
             - 'mariadb'
+        depends_on:
+            - 'mariadb'
         # command: [sh, -c, '/bin/bash -c "source /tmp/setup.sh"']
     mariadb:
         image: mariadb:10.1
