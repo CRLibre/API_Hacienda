@@ -10,20 +10,16 @@ services:
                 - ../www:/var/www/html:z
                 - ../api:/var/www/api:z
         environment: 
-            CRLIBRE_API_HACIENDA_DB_NAME: 'testdb'
-            CRLIBRE_API_HACIENDA_DB_PASSWORD: 'testpassword'
-            CRLIBRE_API_HACIENDA_DB_USER: 'testuser'
-            CRLIBRE_API_HACIENDA_DB_HOST: '172.28.1.2'
+            CRLIBRE_API_HACIENDA_DB_HOST: 'mariadb'                   # 
+            CRLIBRE_API_HACIENDA_DB_NAME: 'testdb'                    # 
+            CRLIBRE_API_HACIENDA_DB_USER: 'testuser'                  # 
+            CRLIBRE_API_HACIENDA_DB_PASSWORD: 'testpassword'          # 
         # restart: always
         # tty: true
-        networks:
-            api_hacienda_network:
-                ipv4_address: 172.28.1.1
-        links:
-            - 'mariadb'
         depends_on:
             - 'mariadb'
-        # command: [sh, -c, '/bin/bash -c "source /tmp/setup.sh"']
+        links:
+            - 'mariadb:database'
     mariadb:
         image: mariadb:10.1
         ports:
@@ -41,14 +37,5 @@ services:
             MYSQL_DATABASE: 'testdb'
         restart: always
         tty: true
-        networks:
-            api_hacienda_network:
-                ipv4_address: "172.28.1.2"
 volumes:
     mariadb:
-networks:
-    api_hacienda_network:
-        ipam:
-            driver: default
-            config:
-                - subnet: 172.28.0.0/16
