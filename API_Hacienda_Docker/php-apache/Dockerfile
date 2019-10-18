@@ -5,4 +5,4 @@ RUN apt-get update && apt-get -y install libpng-dev curl libcurl4-openssl-dev op
 RUN docker-php-ext-install pdo pdo_mysql mysqli gd curl
 # RUN a2enmod rewrite
 ADD ./setup.sh /tmp/
-CMD /bin/bash -c '/tmp/setup.sh'
+CMD [ "/bin/bash", "-c", "/tmp/setup.sh" ]

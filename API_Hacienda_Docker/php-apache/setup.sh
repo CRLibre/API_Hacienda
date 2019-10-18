@@ -6,7 +6,9 @@ SETTINGS_TEMPLATE_FILE_PATH=/var/www/html/settings.php.dist
 LOCALHOSTNAME=localhost
 CRLIBRE_API_HACIENDA_CRYPTO_KEY="non-set"
 
-if [ ! -e "${SETTINGS_FILE_PATH}" ]; then
+if [ -e "${SETTINGS_FILE_PATH}" ]; then
+    echo "Found ${SETTINGS_FILE_PATH}, skipping its computation";
+else
     jsonValue() { KEY=$1; num=$2; awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1)}}}' | tr -d '"' | sed -n ${num}p ;} 
     echo "Computing  ${SETTINGS_FILE_PATH}";
 
@@ -43,10 +45,9 @@ if [ ! -e "${SETTINGS_FILE_PATH}" ]; then
     | sed "s/{dbHost}/${CRLIBRE_API_HACIENDA_DB_HOST}/g" \
     | sed "s/{cryptoKey}/${CRLIBRE_API_HACIENDA_CRYPTO_KEY}/g" \
     > "${SETTINGS_FILE_PATH}"
-else
-    echo "Found ${SETTINGS_FILE_PATH}, skipping its computation";
 fi
 echo "Foreground set to: apache2-foreground to foreground"
 fg %1
 echo " Done."
 exit 0
+
