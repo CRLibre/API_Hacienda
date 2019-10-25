@@ -2,20 +2,19 @@ version: '3.4'
 services:
     php-apache:
         build:
-            context: ./php-apache
+            context: .
+            dockerfile: ./docker-php-apache/Dockerfile
         ports:
-            - 8080:80
+            - 8080:80                                                 # localhost:container
             - 8443:443
-        volumes:
-                - ../www:/var/www/html:z
-                - ../api:/var/www/api:z
+        # volumes:
+        #         - ./www:/var/www/html:z
+        #         - ./api:/var/www/api:z
         environment: 
             CRLIBRE_API_HACIENDA_DB_HOST: 'mariadb'                   # 
             CRLIBRE_API_HACIENDA_DB_NAME: 'testdb'                    # 
             CRLIBRE_API_HACIENDA_DB_USER: 'testuser'                  # 
             CRLIBRE_API_HACIENDA_DB_PASSWORD: 'testpassword'          # 
-        # restart: always
-        # tty: true
         depends_on:
             - 'mariadb'
         links:
@@ -25,9 +24,8 @@ services:
         ports:
             - 4407:3306
         volumes:
-            - mariadb:/var/lib/mysql
-            - ../recursos/sql:/docker-entrypoint-initdb.d
-            # - ../recursos/sql:/tmp/deployment/sql
+            - /var/lib/mysql
+            - ./recursos/sql:/docker-entrypoint-initdb.d
         environment:
             TZ: "Europe/Rome"
             MYSQL_ALLOW_EMPTY_PASSWORD: "no"
@@ -37,5 +35,3 @@ services:
             MYSQL_DATABASE: 'testdb'
         restart: always
         tty: true
-volumes:
-    mariadb:
