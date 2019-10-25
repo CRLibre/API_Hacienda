@@ -5,16 +5,14 @@ services:
             context: .
             dockerfile: ./docker-php-apache/Dockerfile
         ports:
-            - 8080:80                                                 # localhost:container
+            - 8080:80
             - 8443:443
-        # volumes:
-        #         - ./www:/var/www/html:z
-        #         - ./api:/var/www/api:z
-        environment: 
-            CRLIBRE_API_HACIENDA_DB_HOST: 'mariadb'                   # 
-            CRLIBRE_API_HACIENDA_DB_NAME: 'testdb'                    # 
-            CRLIBRE_API_HACIENDA_DB_USER: 'testuser'                  # 
-            CRLIBRE_API_HACIENDA_DB_PASSWORD: 'testpassword'          # 
+        env_file: ./docker-php-apache/php-apache.env
+        # environment: 
+        #     CRLIBRE_API_HACIENDA_DB_HOST: 'mariadb'                   # 
+        #     CRLIBRE_API_HACIENDA_DB_NAME: 'testdb'                    # 
+        #     CRLIBRE_API_HACIENDA_DB_USER: 'testuser'                  # 
+        #     CRLIBRE_API_HACIENDA_DB_PASSWORD: 'testpassword'          # 
         depends_on:
             - 'mariadb'
         links:
