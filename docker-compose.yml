@@ -7,12 +7,12 @@ services:
         ports:
             - 8080:80
             - 8443:443
-        env_file: ./docker-php-apache/php-apache.env
-        # environment: 
-        #     CRLIBRE_API_HACIENDA_DB_HOST: 'mariadb'                   # 
-        #     CRLIBRE_API_HACIENDA_DB_NAME: 'testdb'                    # 
-        #     CRLIBRE_API_HACIENDA_DB_USER: 'testuser'                  # 
-        #     CRLIBRE_API_HACIENDA_DB_PASSWORD: 'testpassword'          # 
+        # env_file: ./docker-php-apache/php-apache.env
+        environment: 
+            CRLIBRE_API_HACIENDA_DB_HOST: 'mariadb'                   # 
+            CRLIBRE_API_HACIENDA_DB_NAME: 'testdb'                    # 
+            CRLIBRE_API_HACIENDA_DB_USER: 'testuser'                  # 
+            CRLIBRE_API_HACIENDA_DB_PASSWORD: 'testpassword'          # 
         depends_on:
             - 'mariadb'
         links:
@@ -22,8 +22,8 @@ services:
         ports:
             - 4407:3306
         volumes:
-            - /var/lib/mysql
             - ./recursos/sql:/docker-entrypoint-initdb.d
+            - /var/lib/mysql
         environment:
             TZ: "Europe/Rome"
             MYSQL_ALLOW_EMPTY_PASSWORD: "no"
