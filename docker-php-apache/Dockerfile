@@ -9,6 +9,7 @@ COPY ./docker-php-apache/docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 COPY ./www/ /var/www/html
 COPY ./api/ /var/www/api
+RUN mkdir -p /var/www/api/errors
 RUN chmod -R 755 /var/www/
 RUN chmod -R 777 /var/www/api/errors
 RUN ln -s /usr/local/bin/docker-entrypoint.sh / # backwards compat
