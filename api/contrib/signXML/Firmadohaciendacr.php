@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2017-2019 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
  * Copyright (C) 2017 José Carlos Aguilar Vásquez
  * Firmado para Costa Rica xades EPES
  * Este archivo contiene el proceso de firma en PHP de acuerdo a las especificaciones de Hacienda
