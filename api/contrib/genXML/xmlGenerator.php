@@ -1,10 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2019 CRLibre <https://crlibre.org>
- * 
- * Conveying Modified Source Versions
- * Modified by: JeanCarlos Chavarria Hughes - May 2019
- * jchavarria@imagineing.com
+ * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -33,7 +29,7 @@ function genXML()
     $fechaEmision           = params_get("fecha_emision");
     // Datos emisor
     $emisorNombre           = params_get("emisor_nombre");
-    $emisorTipoIdentif      = params_get("emisor_tipo_indetif");
+    $emisorTipoIdentif      = params_get("emisor_tipo_identif");
     $emisorNumIdentif       = params_get("emisor_num_identif");
     $nombreComercial        = params_get("nombre_comercial");
 
