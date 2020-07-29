@@ -1,5 +1,5 @@
 # Modulo para firmar un XML
-Se enviar                               
+Se debe enviar                               
         p12Url es un downloadcode previamente suministrado al subir el certificado en el modulo fileUploader -> subir_certif
         pinP12 es el codigo del certificado.
         inXml es el XML sin firmar en formato Base64. 
