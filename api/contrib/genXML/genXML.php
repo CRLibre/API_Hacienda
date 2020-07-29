@@ -496,7 +496,7 @@ function genXMLFe()
 
     if ($totalExonerado != '')
         $xmlString .= '
-        <TotalExonerado>' . $totalExento . '</TotalExonerado>';
+        <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
 
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
@@ -1051,7 +1051,7 @@ function genXMLNC()
 
     if ($totalExonerado != '')
         $xmlString .= '
-        <TotalExonerado>' . $totalExento . '</TotalExonerado>';
+        <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
 
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
@@ -1597,7 +1597,7 @@ function genXMLND()
 
     if ($totalExonerado != '')
         $xmlString .= '
-        <TotalExonerado>' . $totalExento . '</TotalExonerado>';
+        <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
 
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
@@ -2134,7 +2134,7 @@ function genXMLTE()
 
     if ($totalExonerado != '')
         $xmlString .= '
-        <TotalExonerado>' . $totalExento . '</TotalExonerado>';
+        <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
 
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
