@@ -34,6 +34,7 @@ define('GRACE_PRINT_ERROR', conf_get('print_error', 'debug'));
  *  @{
  */
 //! Debug messages stored in Grace
+$grace_logMsgs = array();
 global $grace_logMsgs;
 
 /** @} */
