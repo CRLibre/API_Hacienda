@@ -332,8 +332,23 @@ function genXMLFe()
             if (count($d->codigoComercial) > 5){
                 error_log("codigoComercial: ".count($d->codigoComercial)." is greater than 5");
             }
-            //$d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
+            $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
             foreach ($d->codigoComercial as $c)
+            {
+                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "" )
+                    $xmlString .= '
+                    <CodigoComercial>
+                        <Tipo>' . $c->tipo . '</Tipo>';
+                    if (isset($c->codigo) && $c->codigo != "")
+                        $xmlString .= '
+                        <Codigo>' . $c->codigo . '</Codigo>';
+                    $xmlString .= '
+                    </CodigoComercial>';
+            }
+        }
+
+        if (isset($d->codigoComercialLinea) && $d->codigoComercialLinea != "" && $d->codigoComercialLinea != 0){
+            foreach ($d->codigoComercialLinea as $c)
             {
                 if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "" )
                     $xmlString .= '
@@ -350,10 +365,10 @@ function genXMLFe()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-        if (isset($c->codigo) && $c->codigo != "")
+            if (isset($c->codigo) && $c->codigo != "")
+                $xmlString .= '
+                <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
             $xmlString .= '
-            <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
-        $xmlString .= '
             <Detalle>' . $d->detalle . '</Detalle>
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
@@ -363,8 +378,19 @@ function genXMLFe()
             if (count($d->descuento) > 5){
                 error_log("descuento: ".count($d->descuento)." is greater than 5");
             }
-            //$d->descuento= array_slice($d->descuento, 0, 5);
+            $d->descuento= array_slice($d->descuento, 0, 5);
             foreach ($d->descuento as $dsc)
+            {
+                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "" )
+                    $xmlString .= '<Descuento>
+                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
+                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
+                    </Descuento>';
+            }
+        }
+
+        if (isset($d->descuentoLinea) && $d->descuentoLinea != "" && $d->descuentoLinea != 0){
+            foreach ($d->descuentoLinea as $dsc)
             {
                 if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "" )
                     $xmlString .= '
@@ -889,8 +915,23 @@ function genXMLNC()
             if (count($d->codigoComercial) > 5){
                 error_log("codigoComercial: ".count($d->codigoComercial)." is greater than 5");
             }
-            //$d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
+            $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
             foreach ($d->codigoComercial as $c)
+            {
+                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "" )
+                    $xmlString .= '
+                    <CodigoComercial>
+                        <Tipo>' . $c->tipo . '</Tipo>';
+                    if (isset($c->codigo) && $c->codigo != "")
+                        $xmlString .= '
+                        <Codigo>' . $c->codigo . '</Codigo>';
+                    $xmlString .= '
+                    </CodigoComercial>';
+            }
+        }
+
+        if (isset($d->codigoComercialLinea) && $d->codigoComercialLinea != "" && $d->codigoComercialLinea != 0){
+            foreach ($d->codigoComercialLinea as $c)
             {
                 if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "" )
                     $xmlString .= '
@@ -920,13 +961,25 @@ function genXMLNC()
             if (count($d->descuento) > 5){
                 error_log("descuento: ".count($d->descuento)." is greater than 5");
             }
-            //$d->descuento= array_slice($d->descuento, 0, 5);
+            $d->descuento= array_slice($d->descuento, 0, 5);
             foreach ($d->descuento as $dsc)
             {
                 if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "" )
                     $xmlString .= '<Descuento>
-                    <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                    <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
+                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
+                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
+                    </Descuento>';
+            }
+        }
+
+        if (isset($d->descuentoLinea) && $d->descuentoLinea != "" && $d->descuentoLinea != 0){
+            foreach ($d->descuentoLinea as $dsc)
+            {
+                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "" )
+                    $xmlString .= '
+                    <Descuento>
+                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
+                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
                     </Descuento>';
             }
         }
@@ -1444,12 +1497,26 @@ function genXMLND()
             if (count($d->codigoComercial) > 5){
                 error_log("codigoComercial: ".count($d->codigoComercial)." is greater than 5");
             }
-            //$d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
+            $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
             foreach ($d->codigoComercial as $c)
             {
                 if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "" )
                     $xmlString .= '
                     <CodigoComercial>
+                        <Tipo>' . $c->tipo . '</Tipo>';
+                    if (isset($c->codigo) && $c->codigo != "")
+                        $xmlString .= '
+                        <Codigo>' . $c->codigo . '</Codigo>';
+                    $xmlString .= '
+                    </CodigoComercial>';
+            }
+        }
+
+        if (isset($d->codigoComercialLinea) && $d->codigoComercialLinea != "" && $d->codigoComercialLinea != 0){
+            foreach ($d->codigoComercialLinea as $c)
+            {
+                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "" )
+                    $xmlString .= '
                     <CodigoComercial>
                         <Tipo>' . $c->tipo . '</Tipo>';
                     if (isset($c->codigo) && $c->codigo != "")
@@ -1476,13 +1543,25 @@ function genXMLND()
             if (count($d->descuento) > 5){
                 error_log("descuento: ".count($d->descuento)." is greater than 5");
             }
-            //$d->descuento= array_slice($d->descuento, 0, 5);
+            $d->descuento= array_slice($d->descuento, 0, 5);
             foreach ($d->descuento as $dsc)
             {
                 if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "" )
                     $xmlString .= '<Descuento>
-                    <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                    <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
+                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
+                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
+                    </Descuento>';
+            }
+        }
+
+        if (isset($d->descuentoLinea) && $d->descuentoLinea != "" && $d->descuentoLinea != 0){
+            foreach ($d->descuentoLinea as $dsc)
+            {
+                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "" )
+                    $xmlString .= '
+                    <Descuento>
+                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
+                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
                     </Descuento>';
             }
         }
@@ -1982,8 +2061,23 @@ function genXMLTE()
             if (count($d->codigoComercial) > 5){
                 error_log("codigoComercial: ".count($d->codigoComercial)." is greater than 5");
             }
-            //$d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
+            $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
             foreach ($d->codigoComercial as $c)
+            {
+                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "" )
+                    $xmlString .= '
+                    <CodigoComercial>
+                        <Tipo>' . $c->tipo . '</Tipo>';
+                    if (isset($c->codigo) && $c->codigo != "")
+                        $xmlString .= '
+                        <Codigo>' . $c->codigo . '</Codigo>';
+                    $xmlString .= '
+                    </CodigoComercial>';
+            }
+        }
+
+        if (isset($d->codigoComercialLinea) && $d->codigoComercialLinea != "" && $d->codigoComercialLinea != 0){
+            foreach ($d->codigoComercialLinea as $c)
             {
                 if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "" )
                     $xmlString .= '
@@ -2013,8 +2107,19 @@ function genXMLTE()
             if (count($d->descuento) > 5){
                 error_log("descuento: ".count($d->descuento)." is greater than 5");
             }
-            //$d->descuento= array_slice($d->descuento, 0, 5);
+            $d->descuento= array_slice($d->descuento, 0, 5);
             foreach ($d->descuento as $dsc)
+            {
+                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "" )
+                    $xmlString .= '<Descuento>
+                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
+                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
+                    </Descuento>';
+            }
+        }
+
+        if (isset($d->descuentoLinea) && $d->descuentoLinea != "" && $d->descuentoLinea != 0){
+            foreach ($d->descuentoLinea as $dsc)
             {
                 if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "" )
                     $xmlString .= '
