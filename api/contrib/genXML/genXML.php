@@ -262,7 +262,7 @@ function genXMLFe()
                 .$receptorOtrasSenasExtranjero. 
             '</OtrasSenasExtranjero>';
         }
-/*}*/
+    /*}*/
 
     if ($receptorCodPaisTel != '' && $receptorTel != '')
     {
@@ -290,7 +290,7 @@ function genXMLFe()
     $xmlString .= '
         <CondicionVenta>' . $condVenta . '</CondicionVenta>';
 
-    if ( isset($plazoCredito) && $plazoCredito != "" && $plazoCredito != 0 )
+    if ( isset($plazoCredito) && $plazoCredito != "" )
     $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
 
@@ -872,7 +872,7 @@ function genXMLNC()
     $xmlString .= '
     <CondicionVenta>' . $condVenta . '</CondicionVenta>';
     
-    if ( isset($plazoCredito) && $plazoCredito != "" && $plazoCredito != 0 )
+    if ( isset($plazoCredito) && $plazoCredito != "" )
     $xmlString .= '
     <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
 
@@ -1452,7 +1452,7 @@ function genXMLND()
     $xmlString .= '
     <CondicionVenta>' . $condVenta . '</CondicionVenta>';
     
-    if ( isset($plazoCredito) && $plazoCredito != "" && $plazoCredito != 0 )
+    if ( isset($plazoCredito) && $plazoCredito != "" )
     $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
 
@@ -2018,7 +2018,7 @@ function genXMLTE()
     $xmlString .= '
     <CondicionVenta>' . $condVenta . '</CondicionVenta>';
     
-    if ( isset($plazoCredito) && $plazoCredito != "" && $plazoCredito != 0 )
+    if ( isset($plazoCredito) && $plazoCredito != "" )
     $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
 
