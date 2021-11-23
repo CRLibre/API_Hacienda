@@ -1,4 +1,20 @@
 <?php
+/*
+ * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /** @file module.php
  * Main Files module, this is where it all begins...
@@ -39,34 +55,37 @@ define('ERROR_FILES_NOT_FOUND', '-405');
 /**
  * Boot up procedure
  */
-function files_bootMeUp() {
+function files_bootMeUp()
+{
     //
 }
 
 /**
  * Init function
  */
-function files_init() {
+function files_init()
+{
     $paths = array(
         array(
-            'r' => 'filesGetUrl',
-            'action' => 'filesGetUrl',
-            'access' => "users_openAccess",
-            'params' => array(
+            'r'         => 'filesGetUrl',
+            'action'    => 'filesGetUrl',
+            'access'    => "users_openAccess",
+            'params'    => array(
                 array("key" => "downloadCode", "def" => "", "req" => true)
             )
         ),
         array(
-            'r' => 'files_view_file',
-            'action' => 'files_viewPublic',
-            'access' => "users_openAccess"
+            'r'         => 'files_view_file',
+            'action'    => 'files_viewPublic',
+            'access'    => "users_openAccess"
         ),
         array(
-            'r' => 'upload',
-            'action' => 'files_upload',
-            'access' => "users_openAccess"
+            'r'         => 'upload',
+            'action'    => 'files_upload',
+            'access'    => "users_openAccess"
         )
     );
+
     return $paths;
 }
 
@@ -78,7 +97,8 @@ function files_init() {
  *
  * @return 
  * */
-function filesGetUrl($codigo = '') {
+function filesGetUrl($codigo = '')
+{
     /**
      * Esta funcion se puede llamar desde GET POST si se envian los siguientes parametros
      * w=files
@@ -88,19 +108,22 @@ function filesGetUrl($codigo = '') {
      * modules_loader("files");       <-- Esta funcion importa el modulo
      * filesGetUrl('codigo');  <------------ esta funcion retorna el URL del file codigo es el downloadCode de la db
      * */
-    if ($codigo == '') {
+    if ($codigo == '')
         $codigo = params_get('downloadCode', '');
-    }
+
     $q = sprintf("SELECT * FROM files WHERE downloadCode = '%s'", $codigo);
     $file = db_query($q, 1);
-    if ($file != ERROR_DB_NO_RESULTS_FOUND) {
+    if ($file != ERROR_DB_NO_RESULTS_FOUND)
+    {
         $filePath = files_createPath($file->idUser, $file->type) . $file->name;
         return $filePath;
     }
+
     return false;
 }
 
-function files_createPath($idUser, $type) {
+function files_createPath($idUser, $type)
+{
     return sprintf('%s%s/%s/', conf_get('basePath', 'files', '/'), $idUser, $type);
 }
 
@@ -112,7 +135,8 @@ function files_createPath($idUser, $type) {
  *
  * @return 
  * */
-function files_createDownloadCode($name, $idUser) {
+function files_createDownloadCode($name, $idUser)
+{
     return md5($name . "//" . time() . $idUser);
 }
 
@@ -127,8 +151,8 @@ function files_createDownloadCode($name, $idUser) {
  *
  * @return 
  * */
-function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSize = 0, $del = true) {
-
+function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSize = 0, $del = true)
+{
     global $user;
 
     # Load the tool
@@ -137,13 +161,15 @@ function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSi
     grace_debug("Uploading a file");
 
     # List of allowed files
-    if ($ext == false) {
+    if ($ext == false)
+    {
         grace_debug("Using default allowed extentions");
         $ext = conf_get("allowedExt", "files", "jpg,png,gif,P12,XML,Xml,p12,xml");
     }
 
     # Maximum allowed size
-    if ($maxSize == false) {
+    if ($maxSize == false)
+    {
         grace_debug("Using default max upload size");
         $maxSize = conf_get("maxUploadSize", "files", "2");
     }
@@ -154,12 +180,12 @@ function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSi
     grace_debug("Saving file to: " . $targetDir);
 
     # Create directory if it does not exist
-    if (!file_exists($targetDir)) {
+    if (!file_exists($targetDir))
+    {
         mkdir($targetDir, 0777, true);
     }
 
     # Set the new name if one was given
-
     $finalName = ($finalName == false ?
             basename($_FILES["fileToUpload"]["name"]) :
             $finalName . "." . pathinfo(basename($_FILES["fileToUpload"]["name"]), PATHINFO_EXTENSION));
@@ -175,55 +201,58 @@ function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSi
     //$fileInfo = new finfo(FILEINFO_MIME);
     # Check if file already exists, remane if it does
     //! @todo remane files if they already exist in the server
-    if (file_exists($targetFile)) {
+    if (file_exists($targetFile))
+    {
         $uploadOk = 0;
     }
 
     # Check file size
     //! @todo depend on the file type attach|avatar|bgd|etc...
-    if ($_FILES["fileToUpload"]["size"] > $maxSize * 1000000) {
+    if ($_FILES["fileToUpload"]["size"] > $maxSize * 1000000)
+    {
         return ERROR_FILES_TOO_BIG;
     }
 
     # Check allowed extentions
     //! @todo depend on the file type attach|avatar|bgd|etc...
-    if ($ext != "*") {
+    if ($ext != "*")
+    {
         grace_debug("Some extention restrictions apply");
         $ext = explode(",", $ext);
 
         # Get the information about the file
         $fInfo = pathinfo($targetFile);
 
-        if (!in_array($fInfo['extension'], $ext)) {
+        if (!in_array($fInfo['extension'], $ext))
             return ERROR_FILES_EXT_NOT_ALLOWED;
-        }
     }
 
     # Delete it just in case
-    if ($del) {
-        if (file_exists($targetFile)) {
+    if ($del)
+    {
+        if (file_exists($targetFile))
             unlink($targetFile);
-        }
     }
 
     # Try to upload the file
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFile)) {
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFile))
+    {
         $downloadCode = files_createDownloadCode($finalName, $user->idUser);
         $idFile = files_Save(
-                array('md5' => md5($_FILES["fileToUpload"]["tmp_name"]),
-                    'name' => $finalName,
-                    'timestamp' => time(),
-                    'size' => $_FILES["fileToUpload"]["size"],
-                    'idUser' => $user->idUser,
-                    'downloadCode' => $downloadCode,
-                    'fileType' => "",
-                    'type' => $type
+                array('md5'         => md5($_FILES["fileToUpload"]["tmp_name"]),
+                    'name'          => $finalName,
+                    'timestamp'     => time(),
+                    'size'          => $_FILES["fileToUpload"]["size"],
+                    'idUser'        => $user->idUser,
+                    'downloadCode'  => $downloadCode,
+                    'fileType'      => "",
+                    'type'          => $type
         ));
 
         return array('idFile' => $idFile, 'name' => $finalName, 'downloadCode' => $downloadCode);
-    } else {
-        return ERROR_FILES_UPLOAD_ERROR;
     }
+    else
+        return ERROR_FILES_UPLOAD_ERROR;
 }
 
 /**
@@ -231,8 +260,8 @@ function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSi
  *
  * @param The dets of the file, an array with all of them
  */
-function files_save($dets) {
-
+function files_save($dets)
+{
     $q = sprintf("INSERT INTO files (md5, name, timestamp, size, idUser, downloadCode, fileType, type)
         VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", $dets['md5'], $dets['name'], $dets['timestamp'], $dets['size'], $dets['idUser'], $dets['downloadCode'], $dets['fileType'], $dets['type']
     );
@@ -240,7 +269,7 @@ function files_save($dets) {
     db_query($q, 0);
 
     # Lets find out which file it was
-    $q = sprintf("SELECT idFile FROM files WHERE downloadCode = '%s'", $dets['downloadCode']);
+    $q      = sprintf("SELECT idFile FROM files WHERE downloadCode = '%s'", $dets['downloadCode']);
     $idFile = db_query($q, 1);
 
     return $idFile->idFile;
@@ -251,16 +280,13 @@ function files_save($dets) {
  *
  *  @param idFile The id of the file
  */
-function files_load($idFile) {
-
+function files_load($idFile)
+{
     $q = sprintf("SELECT * FROM files WHERE idFile = '%s'", $idFile);
-
     $file = db_query($q, 1);
-
-    if ($file != ERROR_DB_NO_RESULTS_FOUND) {
-
+    if ($file != ERROR_DB_NO_RESULTS_FOUND)
+    {
         $file->path = files_createPath($file->idUser, $file->type) . $file->name;
-
         return $file;
     }
 
@@ -275,11 +301,10 @@ function files_load($idFile) {
  *
  * @return 
  * */
-function files_presentFile($file, $internal = true) {
-
-    if ($internal && !file_exists($file)) {
+function files_presentFile($file, $internal = true)
+{
+    if ($internal && !file_exists($file))
         $file = conf_get('resourcesPath', 'core', '') . "404FileNotFound.svg";
-    }
 
     $type = files_getMimeTypeFromExtention(basename($file));
     $thisFileName = time() . basename($file);
@@ -289,14 +314,18 @@ function files_presentFile($file, $internal = true) {
     header('Expires: 0');
     header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
     header('Pragma: public');
-    if ($internal == false) {
+    if ($internal == false)
+    {
         echo file_get_contents($file);
         exit;
-    } else {
+    }
+    else
+    {
         ob_clean();
         flush();
         readfile($file);
     }
+
     exit;
 }
 
@@ -308,47 +337,46 @@ function files_presentFile($file, $internal = true) {
  *
  * @return The Mime Type for said file
  * */
-function files_getMimeTypeFromExtention($file) {
-
+function files_getMimeTypeFromExtention($file)
+{
     # Internal non-complete list of mime types, but the ones we need at least
     $mimeTypes = array(
-        "pdf" => "application/pdf"
-        , "exe" => "application/octet-stream"
-        , "zip" => "application/zip"
-        , "docx" => "application/msword"
-        , "doc" => "application/msword"
-        , "xls" => "application/vnd.ms-excel"
-        , "ppt" => "application/vnd.ms-powerpoint"
-        , "gif" => "image/gif"
-        , "png" => "image/png"
-        , "jpeg" => "image/jpg"
-        , "jpg" => "image/jpg"
-        , "mp3" => "audio/mpeg"
-        , "wav" => "audio/x-wav"
-        , "mpeg" => "video/mpeg"
-        , "mpg" => "video/mpeg"
-        , "mpe" => "video/mpeg"
-        , "mov" => "video/quicktime"
-        , "avi" => "video/x-msvideo"
-        , "3gp" => "video/3gpp"
-        , "css" => "text/css"
-        , "jsc" => "application/javascript"
-        , "js" => "application/javascript"
-        , "php" => "text/html"
-        , "htm" => "text/html"
-        , "html" => "text/html"
-        , "svg" => "image/svg+xml"
+        "pdf"     => "application/pdf",
+        "exe"     => "application/octet-stream",
+        "zip"     => "application/zip",
+        "docx"    => "application/msword",
+        "doc"     => "application/msword",
+        "xls"     => "application/vnd.ms-excel",
+        "ppt"     => "application/vnd.ms-powerpoint",
+        "gif"     => "image/gif",
+        "png"     => "image/png",
+        "jpeg"    => "image/jpg",
+        "jpg"     => "image/jpg",
+        "mp3"     => "audio/mpeg",
+        "wav"     => "audio/x-wav",
+        "mpeg"    => "video/mpeg",
+        "mpg"     => "video/mpeg",
+        "mpe"     => "video/mpeg",
+        "mov"     => "video/quicktime",
+        "avi"     => "video/x-msvideo",
+        "3gp"     => "video/3gpp",
+        "css"     => "text/css",
+        "jsc"     => "application/javascript",
+        "js"      => "application/javascript",
+        "php"     => "text/html",
+        "htm"     => "text/html",
+        "html"    => "text/html",
+        "svg"     => "image/svg+xml",
     );
 
     $extension = explode('.', $file);
     $extension = end($extension);
     $extension = strtolower($extension);
 
-    if (array_key_exists($extension, $mimeTypes)) {
+    if (array_key_exists($extension, $mimeTypes))
         return $mimeTypes[$extension];
-    } else {
+    else
         return "application/octet-stream";
-    }
 }
 
 /**
@@ -359,23 +387,25 @@ function files_getMimeTypeFromExtention($file) {
  * @param filename The full path to the file
  * @param sizes An array with all the sizes that you want
  */
-function files_resizeImg($fileName, $sizes = array()) {
-
+function files_resizeImg($fileName, $sizes = array())
+{
     # Base name without extention
     $fileParts = pathinfo($fileName);
-
     $baseName = $fileParts['filename'];
-
     # Create the new image
     $newImage = new \Eventviva\ImageResize($fileName);
 
-    if (is_array($sizes)) {
-        foreach ($sizes as $size) {
+    if (is_array($sizes))
+    {
+        foreach ($sizes as $size)
+        {
             grace_debug("Creating a new version of the image: " . $size);
             $newImage->resizeToMax($size);
             $newImage->save(str_replace($baseName, $baseName . "_" . $size, $fileName));
         }
-    } else {
+    }
+    else
+    {
         grace_debug("Resizing image and keeping the same name");
         $newImage->resizeToMax($sizes);
         $newImage->save($fileName);
@@ -393,18 +423,15 @@ function files_resizeImg($fileName, $sizes = array()) {
  * @return The public path for said file
  *
  * */
-function files_getPublicPath($idFile, $size = false) {
-
+function files_getPublicPath($idFile, $size = false)
+{
     # Get the details about the file
     $file = files_load($idFile);
 
-    if ($file != false) {
-
+    if ($file != false) 
         return "w=files&r=files_view_file&code=" . $file->downloadCode . "&size=" . $size;
-    } else {
-
+    else
         return ERROR_FILES_DOWNLOAD_ERROR;
-    }
 }
 
 /**
@@ -412,15 +439,12 @@ function files_getPublicPath($idFile, $size = false) {
  *
  * @return 'Presents' a file in the browser, an image will be displayed, a zip will be prompted for dowload probably. Or an eror not found.
  * */
-function files_viewPublic() {
-
+function files_viewPublic()
+{
     $file = files_loadByCode(params_get("code", ""), params_get("size", 0));
-
     grace_debug("found file in path: " . $file->path);
-
-    if ($file != ERROR_DB_NO_RESULTS_FOUND) {
+    if ($file != ERROR_DB_NO_RESULTS_FOUND)
         files_presentFile($file->path);
-    }
 
     return ERROR_FILES_NOT_FOUND;
 }
@@ -433,17 +457,15 @@ function files_viewPublic() {
  *
  * @return The information about the file including its path.
  * */
-function files_loadByCode($code, $size = false) {
-
+function files_loadByCode($code, $size = false)
+{
     $q = sprintf("SELECT * FROM files WHERE downloadCode = '%s'", $code);
-
     $file = db_query($q, 1);
-
-    if ($file != ERROR_DB_NO_RESULTS_FOUND) {
-
+    if ($file != ERROR_DB_NO_RESULTS_FOUND)
+    {
         $file->path = files_createPath($file->idUser, $file->type) . $file->name;
-
-        if ($size) {
+        if ($size)
+        {
             $file->path = files_renameImgWithSize($file->path, $size);
             /*
               $fileParts  = pathinfo($file->path);
@@ -466,13 +488,11 @@ function files_loadByCode($code, $size = false) {
  *
  * @return 
  * */
-function files_renameImgWithSize($fullName, $size) {
-
+function files_renameImgWithSize($fullName, $size)
+{
     # Get the parts of this file
     $fileParts = pathinfo($fullName);
-
     $baseName = $fileParts['filename'];
-
     return str_replace($baseName, $baseName . "_" . $size, $fullName);
 }
 

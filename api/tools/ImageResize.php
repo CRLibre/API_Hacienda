@@ -1,4 +1,20 @@
 <?php
+/*
+ * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 namespace Eventviva;
 
@@ -9,17 +25,17 @@ use \Exception;
  */
 class ImageResize
 {
-    const CROPTOP = 1;
-    const CROPCENTRE = 2;
-    const CROPCENTER = 2;
-    const CROPBOTTOM = 3;
-    const CROPLEFT = 4;
-    const CROPRIGHT = 5;
+    const CROPTOP       = 1;
+    const CROPCENTRE    = 2;
+    const CROPCENTER    = 2;
+    const CROPBOTTOM    = 3;
+    const CROPLEFT      = 4;
+    const CROPRIGHT     = 5;
 
     public $quality_jpg = 75;
     public $quality_png = 0;
 
-    public $interlace = 0;
+    public $interlace   = 0;
 
     public $source_type;
 
@@ -28,8 +44,8 @@ class ImageResize
     protected $original_w;
     protected $original_h;
 
-    protected $dest_x = 0;
-    protected $dest_y = 0;
+    protected $dest_x   = 0;
+    protected $dest_y   = 0;
 
     protected $source_x;
     protected $source_y;
@@ -64,29 +80,26 @@ class ImageResize
     {
         $image_info = @getimagesize($filename);
 
-        if (!$image_info) {
+        if (!$image_info)
             throw new \Exception('Could not read file');
-        }
 
-        list (
+        list(
             $this->original_w,
             $this->original_h,
             $this->source_type
         ) = $image_info;
 
-        switch ($this->source_type) {
+        switch ($this->source_type)
+        {
             case IMAGETYPE_GIF:
                 $this->source_image = imagecreatefromgif($filename);
                 break;
-
             case IMAGETYPE_JPEG:
                 $this->source_image = imagecreatefromjpeg($filename);
                 break;
-
             case IMAGETYPE_PNG:
                 $this->source_image = imagecreatefrompng($filename);
                 break;
-
             default:
                 throw new \Exception('Unsupported image type');
                 break;
@@ -112,22 +125,23 @@ class ImageResize
 
         imageinterlace($dest_image, $this->interlace);
 
-        switch ($image_type) {
+        switch ($image_type)
+        {
             case IMAGETYPE_GIF:
                 $background = imagecolorallocatealpha($dest_image, 255, 255, 255, 1);
                 imagecolortransparent($dest_image, $background);
                 imagefill($dest_image, 0, 0 , $background);
                 imagesavealpha($dest_image, true);
                 break;
-
             case IMAGETYPE_JPEG:
                 $background = imagecolorallocate($dest_image, 255, 255, 255);
                 imagefilledrectangle($dest_image, 0, 0, $this->getDestWidth(), $this->getDestHeight(), $background);
                 break;
-
             case IMAGETYPE_PNG:
                 imagealphablending($dest_image, false);
                 imagesavealpha($dest_image, true);
+                break;
+            default:
                 break;
         }
 
@@ -144,31 +158,33 @@ class ImageResize
             $this->source_h
         );
 
-        switch ($image_type) {
+        switch ($image_type)
+        {
             case IMAGETYPE_GIF:
                 imagegif($dest_image, $filename);
                 break;
-
             case IMAGETYPE_JPEG:
-                if ($quality === null) {
+            {
+                if ($quality === null)
                     $quality = $this->quality_jpg;
-                }
 
                 imagejpeg($dest_image, $filename, $quality);
                 break;
-
+            }
             case IMAGETYPE_PNG:
-                if ($quality === null) {
+            {
+                if ($quality === null)
                     $quality = $this->quality_png;
-                }
 
                 imagepng($dest_image, $filename, $quality);
                 break;
+            }
+            default:
+                break;
         }
 
-        if ($permissions) {
+        if ($permissions)
             chmod($filename, $permissions);
-        }
 
         return $this;
     }
@@ -253,14 +269,11 @@ class ImageResize
 
     public function resizeToMax($maxSize, $allow_enlarge = false)
     {
-				// If portrait
-				if(($this->getSourceWidth() / $this->getSourceHeight()) > 0){
-					$this->resizeToWidth($maxSize, $allow_enlarge);
-				}
-				else
-				{
-					$this->resizeToHeight($maxSize, $allow_enlarge);
-				}
+        // If portrait
+        if (($this->getSourceWidth() / $this->getSourceHeight()) > 0)
+            $this->resizeToWidth($maxSize, $allow_enlarge);
+        else
+            $this->resizeToHeight($maxSize, $allow_enlarge);
 
         return $this;
     }
@@ -291,12 +304,14 @@ class ImageResize
      */
     public function resize($width, $height, $allow_enlarge = false)
     {
-        if (!$allow_enlarge) {
+        if (!$allow_enlarge)
+        {
             // if the user hasn't explicitly allowed enlarging,
             // but either of the dimensions are larger then the original,
             // then just use original dimensions - this logic may need rethinking
 
-            if ($width > $this->getSourceWidth() || $height > $this->getSourceHeight()) {
+            if ($width > $this->getSourceWidth() || $height > $this->getSourceHeight())
+            {
                 $width  = $this->getSourceWidth();
                 $height = $this->getSourceHeight();
             }
@@ -325,24 +340,24 @@ class ImageResize
      */
     public function crop($width, $height, $allow_enlarge = false, $position = self::CROPCENTER)
     {
-        if (!$allow_enlarge) {
+        if (!$allow_enlarge)
+        {
             // this logic is slightly different to resize(),
             // it will only reset dimensions to the original
             // if that particular dimenstion is larger
 
-            if ($width > $this->getSourceWidth()) {
+            if ($width > $this->getSourceWidth())
                 $width  = $this->getSourceWidth();
-            }
 
-            if ($height > $this->getSourceHeight()) {
+            if ($height > $this->getSourceHeight())
                 $height = $this->getSourceHeight();
-            }
         }
 
         $ratio_source = $this->getSourceWidth() / $this->getSourceHeight();
         $ratio_dest = $width / $height;
 
-        if ($ratio_dest < $ratio_source) {
+        if ($ratio_dest < $ratio_source)
+        {
             $this->resizeToHeight($height, $allow_enlarge);
 
             $excess_width = ($this->getDestWidth() - $width) / $this->getDestWidth() * $this->getSourceWidth();
@@ -351,7 +366,9 @@ class ImageResize
             $this->source_x = $this->getCropPosition($excess_width, $position);
 
             $this->dest_w = $width;
-        } else {
+        }
+        else
+        {
             $this->resizeToWidth($width, $allow_enlarge);
 
             $excess_height = ($this->getDestHeight() - $height) / $this->getDestHeight() * $this->getSourceHeight();
@@ -414,7 +431,8 @@ class ImageResize
     protected function getCropPosition($expectedSize, $position = self::CROPCENTER)
     {
         $size = 0;
-        switch ($position) {
+        switch ($position)
+        {
             case self::CROPBOTTOM:
             case self::CROPRIGHT:
                 $size = $expectedSize;
@@ -423,7 +441,10 @@ class ImageResize
             case self::CROPCENTRE:
                 $size = $expectedSize / 2;
                 break;
+            default:
+                break;
         }
+
         return $size;
     }
 }

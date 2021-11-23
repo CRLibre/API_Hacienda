@@ -1,66 +1,69 @@
 <?php
-/** @file module.php
- * A brief file description.
- * A more elaborated file description.
+/*
+ * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-/** \addtogroup Core 
- *  @{
- */
-
-/**
- * \defgroup Module
- * @{
- */
-
 
 /**
  * Boot up procedure
  */
-function fileUploader_bootMeUp(){
-	// Just booting up
+function fileUploader_bootMeUp()
+{
+    // Just booting up
 }
 
 /**
  * Init function
  */
-
-
-function fileUploader_init(){
-
-	$paths = array(
-		array(
-			'r' => '',
-			'action' => '',
-			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',
-			'params' => array(array("key" => "", "def" => "", "req" => true)),
-			'file' => 'file.php'
-		),
-		array(
-			'r' => 'subir_certif',
-			'action' => 'uploadCert',
-			'access' => 'users_loggedIn', 
-			'access_params' => 'accessName',
-			'file' => 'uploader.php'
-		),
+function fileUploader_init()
+{
+    $paths = array(
+        array(
+            'r'             => '',
+            'action'        => '',
+            'access'        => 'users_openAccess',
+            'access_params' => 'accessName',
+            'params'        => array(
+                array("key" => "", "def" => "", "req" => true)
+            ),
+            'file'          => 'file.php'
+        ),
+        array(
+            'r'             => 'subir_certif',
+            'action'        => 'uploadCert',
+            'access'        => 'users_loggedIn', 
+            'access_params' => 'accessName',
+            'file'          => 'uploader.php'
+        ),
             array(
-			'r' => 'subir_xml',
-			'action' => 'uploadXml',
-			'access' => 'users_loggedIn', 
-			'access_params' => 'accessName',
-			'file' => 'uploader.php'
-		),
-		array(
-			'r' => 'test',
-			'action' => 'doTest',
-			'access' => 'users_openAccess', 
-			'access_params' => 'accessName',
-			'file' => 'uploader.php'
-		)
-	);
+            'r'             => 'subir_xml',
+            'action'        => 'uploadXml',
+            'access'        => 'users_loggedIn', 
+            'access_params' => 'accessName',
+            'file'          => 'uploader.php'
+        ),
+        array(
+            'r'             => 'test',
+            'action'        => 'doTest',
+            'access'        => 'users_openAccess', 
+            'access_params' => 'accessName',
+            'file'          => 'uploader.php'
+        )
+    );
 
-	return $paths;
+    return $paths;
 }
 
 
@@ -74,22 +77,21 @@ function fileUploader_init(){
 /**
  * Get the perms for this module
  */
-function fileUploader_access(){
-
-	$perms = array(
-		array(
-			# A human readable name
-			'name'        => 'Do something with this module',
-			# Something to remember what it is for
-			'description' => 'What can be achieved with this permission',
-			# Internal machine name, no spaces, no funny symbols, same rules as a variable
-			# Use yourmodule_ prefix
-			'code'        => 'mymodule_access_one',
-			# Default value in case it is not set
-			'def'        => false, //Or true, you decide
-		),
-	);
-
+function fileUploader_access()
+{
+    $perms = array(
+        array(
+            # A human readable name
+            'name'        => 'Do something with this module',
+            # Something to remember what it is for
+            'description' => 'What can be achieved with this permission',
+            # Internal machine name, no spaces, no funny symbols, same rules as a variable
+            # Use yourmodule_ prefix
+            'code'        => 'mymodule_access_one',
+            # Default value in case it is not set
+            'def'         => false, // Or true, you decide
+        ),
+    );
 }
 
 /**@}*/
