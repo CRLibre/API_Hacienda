@@ -69,7 +69,6 @@ function consutar()
     {
          $response = json_decode($response);
         return $response;
-
     }
 }
 
