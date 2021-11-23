@@ -28,6 +28,7 @@ function consutar()
     if (params_get("client_id") == 'api-stag')
         $url = "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/";
     else if (params_get("client_id") == 'api-prod')
+
         $url = "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/";
 
     if ($url == null)
@@ -69,6 +70,7 @@ function consutar()
     {
          $response = json_decode($response);
         return $response;
+
     }
 }
 
