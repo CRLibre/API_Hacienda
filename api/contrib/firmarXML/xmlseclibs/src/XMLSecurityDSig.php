@@ -141,7 +141,7 @@ class XMLSecurityDSig
         $this->reference1Id = "ReferenceKeyInfo";
         $this->signedProperties = "SignedProperties-" . $this->signatureId;
         $this->qualifyingProperties = $this->generateGUID('QualifyingProperties-');
-        //$this->signPolicy['digest'] = base64_encode(hash_file('sha1',$this->signPolicy['url'],true));
+        //$this->signPolicy['digest'] = base64_encode(hash_file('sha256',$this->signPolicy['url'],true));
 
         $template = self::BASE_TEMPLATE;
         if (! empty($prefix)) {
@@ -283,18 +283,11 @@ class XMLSecurityDSig
     public function setSignPolicy(){
         $xmlns = $this->xmlFirstChild->getAttribute('xmlns');
         switch ($xmlns){
-            case (strpos($xmlns, 'v4.2') !== false):
-                $this->signPolicy = [
-                    "name" 		=> "",
-                    "url" 		=> "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4.2/ResolucionComprobantesElectronicosDGT-R-48-2016_4.2.pdf",
-                    "digest" 	=> "3gQCr0HYSdoxi0ZaRaJ4qs3mHfI=" // Base64_Encode(Hash_File(SHA_1))
-                ];
-                break;
             case (strpos($xmlns, 'v4.3') !== false):
                 $this->signPolicy = [
                     "name" 		=> "",
-                    "url" 		=> "https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/ResolucionComprobantesElectronicosDGT-R-48-2016_4.3.pdf",
-                    "digest" 	=> "3gQCr0HYSdoxi0ZaRaJ4qs3mHfI=" // Base64_Encode(Hash_File(SHA_1))
+                    "url" 		=> "https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf",
+                    "digest" 	=> "0h7Q3dFHhu0bHbcZEgVc07cEcDlquUeG08HG6Iototo=" // Base64_Encode(Hash_File(SHA_256))
                 ];
                 break;
             default:
@@ -1376,7 +1369,7 @@ class XMLSecurityDSig
         $signaturePolicyIdNode->appendChild($sigPolicyHashNode);
         $digestMethodNode = $this->createNewSignNode('DigestMethod');
         $sigPolicyHashNode->appendChild($digestMethodNode);
-        $digestMethodNode->setAttribute('Algorithm', $this::SHA1);
+        $digestMethodNode->setAttribute('Algorithm', $this::SHA256);
         $digestValueNode = $this->createNewSignNode('DigestValue', $this->signPolicy['digest']);
         $sigPolicyHashNode->appendChild($digestValueNode);
         $signedDataObjectPropertiesNode = $this->createNewXadesNode('SignedDataObjectProperties');

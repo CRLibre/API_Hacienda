@@ -37,8 +37,8 @@ class Firmadocr
     
     private static $POLITICA_FIRMA = array(
         "name"      => "",
-        "url"       => "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4/Resolucion%20Comprobantes%20Electronicos%20%20DGT-R-48-2016.pdf",
-        "digest"    => "V8lVVNGDCPen6VELRD1Ja8HARFk=" // digest en sha1 y base64
+        "url"       => "https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf",
+        "digest"    => "0h7Q3dFHhu0bHbcZEgVc07cEcDlquUeG08HG6Iototo=" // digest en sha256 y base64
     );
 
     private $signTime         = null;
@@ -169,7 +169,7 @@ class Firmadocr
                       '<xades:Description />'.
                   '</xades:SigPolicyId>'.
                   '<xades:SigPolicyHash>' .
-                      '<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />'.
+                      '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />'.
                       '<ds:DigestValue>' . $this->signPolicy['digest'] . '</ds:DigestValue>'.
                   '</xades:SigPolicyHash>'.
               '</xades:SignaturePolicyId>' .
