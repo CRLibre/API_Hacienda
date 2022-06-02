@@ -33,3 +33,8 @@ services:
             MYSQL_DATABASE: 'testdb'
         restart: always
         tty: true
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+        - 8081:8080
