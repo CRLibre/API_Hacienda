@@ -1,7 +1,3 @@
 {
-    "require": {},
-    "name": "crlibre/api_hacienda",
-    "license": "AGPL-3.0-only",
-    "type": "project",
-    "description": "Nuestro objetivo es crear un software que simplifique el proceso a desarrolladores de cumplir con las resoluciones del Ministerio, de forma más ágil, desde cualquier lenguaje de programación y sin depender de intermediarios al poder instalar esta pieza de software libre en un servidor propio manteniendo control de sus datos sensibles.: https://github.com/CRLibre/API_Hacienda#readme"
+    "require": {}
 }

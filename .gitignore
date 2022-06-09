@@ -9,7 +9,6 @@ build/*
 # *settings.php
 .DS_Store
 .vscode
-validation_data.json
 
 # ignore IDE/hidden/OS cache files
 .*
