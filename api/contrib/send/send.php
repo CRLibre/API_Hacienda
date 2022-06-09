@@ -20,7 +20,7 @@ function send()
 {
     $datos = null;
     $apiTo  = params_get("client_id");
-    $url    = ($apiTo == 'api-stag' ? "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/" : ($apiTo == 'api-prod' ? "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : null)); 
+    $url    = ($apiTo == 'api-stag' ? "https://api-sandbox.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : ($apiTo == 'api-prod' ? "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : null)); 
 
     if (params_get("recp_tipoIdentificacion") == "" or params_get("recp_numeroIdentificacion") == "") 
     {
@@ -128,7 +128,7 @@ function send()
 function sendMensaje()
 {
     $apiTo  = params_get("client_id");
-    $url    = ($apiTo == 'api-stag' ? "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/" : ($apiTo == 'api-prod' ? "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : null));
+    $url    = ($apiTo == 'api-stag' ? "https://api-sandbox.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : ($apiTo == 'api-prod' ? "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : null));
 
     $datos = array(
         'clave'     => params_get('clave'),
@@ -188,7 +188,7 @@ function sendMensaje()
 function sendTE()
 {
     $apiTo = params_get("client_id");
-    $url = ($apiTo == 'api-stag' ? "https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/" : ($apiTo == 'api-prod' ? "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : null));
+    $url = ($apiTo == 'api-stag' ? "https://api-sandbox.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : ($apiTo == 'api-prod' ? "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : null));
 
     $datos = array(
         'clave'     => params_get('clave'),
