@@ -37,7 +37,7 @@ class Firmadocr
     
     private static $POLITICA_FIRMA = array(
         "name"      => "",
-        "url"       => "https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf",
+        "url"       => "https://atv.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf",
         "digest"    => "0h7Q3dFHhu0bHbcZEgVc07cEcDlquUeG08HG6Iototo=" // digest en sha256 y base64
     );
 
