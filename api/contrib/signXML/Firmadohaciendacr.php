@@ -32,7 +32,9 @@ class Firmadocr
         '04' => "tiqueteElectronico",
         '05' => "mensajeReceptor",
         '06' => "mensajeReceptor",
-        '07' => "mensajeReceptor"
+        '07' => "mensajeReceptor",
+        '08' => "facturaElectronicaCompra",
+        '09' => "facturaElectronicaExportacion"
     );
     
     private static $POLITICA_FIRMA = array(
@@ -253,8 +255,8 @@ class Firmadocr
         '<xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Id="QualifyingProperties-012b8df6-b93e-4867-9901-83447ffce4bf" Target="#' . $this->signatureID . '">' . $prop .
         '</xades:QualifyingProperties></ds:Object></ds:Signature>';
 
-        $buscar;
-        $remplazar;
+        $buscar =null;
+        $remplazar= null;
         if ($this->tipoDoc == '01') {
             $buscar = '</FacturaElectronica>';
             $remplazar = $sig."</FacturaElectronica>";
@@ -270,6 +272,12 @@ class Firmadocr
         } elseif ($this->tipoDoc == '05' || $this->tipoDoc == '06' || $this->tipoDoc == '07') {
             $buscar = '</MensajeReceptor>';
             $remplazar = $sig."</MensajeReceptor>";
+        } elseif($this->tipoDoc == '08'){
+            $buscar = '</FacturaElectronicaCompra>';
+            $remplazar = $sig."FacturaElectronicaCompra";
+        } elseif ($this->tipoDoc == '09') {
+            $buscar = '</FacturaElectronicaExportacion>';
+         $remplazar = $sig."</FacturaElectronicaExportacion>";
         }
 
         $pos = strrpos($xml, $buscar);
