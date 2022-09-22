@@ -24,12 +24,10 @@ function signFE()
     $pinP12     = params_get('pinP12');
     $inXml      = params_get('inXml');
     $tipoDoc    = params_get('tipodoc');
-    $tipos      = array("FE", "ND", "NC", "TE","CCE","CPCE","RCE");
+    $tipos      = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE", "FEC", "FEE");
 
-    if (in_array($tipoDoc, $tipos))
-    {
-        switch ($tipoDoc)
-        {
+    if (in_array($tipoDoc, $tipos)) {
+        switch ($tipoDoc) {
             case 'FE': // Factura Electronica
                 $tipoDocumento = "01";
                 break;
@@ -51,12 +49,17 @@ function signFE()
             case 'RCE': // Rechazo Comprobante Electronico
                 $tipoDocumento = "07";
                 break;
+            case 'FEC':  // Factura  Electronica de compra
+                $tipoDocumento = "08";
+                break;
+            case 'FEE':  // Factura Electronica de Exportacion
+                $tipoDocumento = "09";
+                break;
             default:
                 $tipoDocumento = null;
                 break;
         }
-    }
-    else
+    } else
         return "No se encuentra tipo de documento";
 
     if ($tipoDocumento == null)
@@ -78,5 +81,4 @@ function signFE()
 
     return $arrayResp;
 }
-
 ?>
