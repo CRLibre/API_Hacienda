@@ -14,6 +14,9 @@ RUN mkdir -p /var/www/api/logs
 RUN chmod -R 755 /var/www/
 RUN chmod -R 777 /var/www/api/errors
 RUN chmod -R 777 /var/www/api/logs
+RUN chmod -R 777 ../api/  
+RUN chmod -R 777 ./files/  
 RUN ln -s /usr/local/bin/docker-entrypoint.sh / # backwards compat
+COPY ./Config/docker-php.conf /etc/apache2/conf-available/docker-php.conf
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]

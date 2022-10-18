@@ -38,3 +38,7 @@ Desktop.ini
 .gitsecret/keys/random_seed
 !*.secret
 random_seed
+
+mariadb.env
+apache.env
+db.sql
