@@ -1,4 +1,5 @@
 # Specific Files to ignore
+www/settings.php
 api/files
 api/install
 api/logs/*
