@@ -104,5 +104,6 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
         > files
             > xml
 ```
+  - si no existe el archivo files dentro de www, este se debe de crear.
   - Se debe de cambiar su usuario en el docker-compose.yml en la siguiente linea  ` source: /home/USER/Hacienda/ ` 
   - Si se desea usar una base de datos ya con algun script este se debe de llamar db.sql y debe de estar en la raiz de el proyecto, o cambar esto en docker-compose.yml en la siguiente linea ` - "./db.sql:/docker-entrypoint-initdb.d/db.sql"`
