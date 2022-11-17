@@ -274,7 +274,7 @@ class Firmadocr
             $remplazar = $sig."</MensajeReceptor>";
         } elseif($this->tipoDoc == '08'){
             $buscar = '</FacturaElectronicaCompra>';
-            $remplazar = $sig."FacturaElectronicaCompra";
+            $remplazar = $sig."</FacturaElectronicaCompra>";
         } elseif ($this->tipoDoc == '09') {
             $buscar = '</FacturaElectronicaExportacion>';
          $remplazar = $sig."</FacturaElectronicaExportacion>";
