@@ -20,11 +20,12 @@ function signFE()
 {
     require 'Firmadohaciendacr.php';
     modules_loader("files");
-    $p12Url     = filesGetUrl(params_get('p12Url'));
-    $pinP12     = params_get('pinP12');
-    $inXml      = params_get('inXml');
-    $tipoDoc    = params_get('tipodoc');
-    $tipos      = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE", "FEC", "FEE");
+    $p12Url       = filesGetUrl(params_get('p12Url'));
+    $firmaReceptor = filesGetUrl(params_get('firmaReceptor'));
+    $pinP12       = params_get('pinP12');
+    $inXml        = params_get('inXml');
+    $tipoDoc      = params_get('tipodoc');
+    $tipos        = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE", "FEC", "FEE");
 
     if (in_array($tipoDoc, $tipos)) {
         switch ($tipoDoc) {
@@ -74,7 +75,10 @@ function signFE()
     //03 NC
     //04 TE
     //05 06 07 Mensaje Receptor
-    $returnFile = $fac->firmar($p12Url, $pinP12, $inXml, $tipoDocumento);
+    $returnFile = $fac->firmar($p12Url, $pinP12, $inXml, $tipoDocumento, true);
+    if (empty($firmaReceptor) != 1){
+        $returnFile = $fac->firmar($firmaReceptor, $pinP12, $returnFile, $tipoDocumento, false);
+    }
     $arrayResp  = array(
         "xmlFirmado" => $returnFile
     );

@@ -61,7 +61,7 @@ class Firmadocr
         return base64_encode(hash('sha256', $strcadena, true));
     }
 
-    public function firmar($certificadop12, $clavecertificado, $xmlsinfirma, $tipodoc)
+    public function firmar($certificadop12, $clavecertificado, $xmlsinfirma, $tipodoc, $esEmisor)
     {
         if (!$pfx = file_get_contents($certificadop12)) {
             echo "Error: No se puede leer el fichero del certificado o no existe en la ruta especificada\n";
@@ -93,7 +93,7 @@ class Firmadocr
 
         $this->tipoDoc            = $tipodoc;
         $xml1                     = base64_decode($xmlsinfirma);
-        $xml1                     = $this->insertaFirma($xml1);
+        $xml1                     = $this->insertaFirma($xml1, $esEmisor);
 
         return base64_encode($xml1);
     }
@@ -104,7 +104,7 @@ class Firmadocr
      * @retorna el documento firmando
      */
 
-    public function insertaFirma($xml)
+    public function insertaFirma($xml, $esEmisor)
     {
         if (is_null($this->publicKey) || is_null($this->privateKey)) {
             return $xml;
@@ -247,13 +247,24 @@ class Firmadocr
 
         $signatureResult = base64_encode($signatureResult);
 
-        $sig = '<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="' . $this->signatureID . '">'.
-        $sInfo .
-        '<ds:SignatureValue Id="' . $this->signatureValue . '">' .
-        $signatureResult .  '</ds:SignatureValue>'  . $kInfo .
-        '<ds:Object Id="'.$this->XadesObjectId .'">'.
-        '<xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Id="QualifyingProperties-012b8df6-b93e-4867-9901-83447ffce4bf" Target="#' . $this->signatureID . '">' . $prop .
-        '</xades:QualifyingProperties></ds:Object></ds:Signature>';
+        $sig = null;
+        if ($esEmisor) {
+            $sig = '<ds:SignatureEmisor xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="' . $this->signatureID . '">'.
+            $sInfo .
+            '<ds:SignatureValue Id="' . $this->signatureValue . '">' .
+            $signatureResult .  '</ds:SignatureValue>'  . $kInfo .
+            '<ds:Object Id="'.$this->XadesObjectId .'">'.
+            '<xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Id="QualifyingProperties-012b8df6-b93e-4867-9901-83447ffce4bf" Target="#' . $this->signatureID . '">' . $prop .
+            '</xades:QualifyingProperties></ds:Object></ds:SignatureEmisor>';
+        } else {
+            $sig = '<ds:SignatureReceptor xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="' . $this->signatureID . '">'.
+            $sInfo .
+            '<ds:SignatureValue Id="' . $this->signatureValue . '">' .
+            $signatureResult .  '</ds:SignatureValue>'  . $kInfo .
+            '<ds:Object Id="'.$this->XadesObjectId .'">'.
+            '<xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" Id="QualifyingProperties-012b8df6-b93e-4867-9901-83447ffce4bf" Target="#' . $this->signatureID . '">' . $prop .
+            '</xades:QualifyingProperties></ds:Object></ds:SignatureReceptor>';
+        }
 
         $buscar =null;
         $remplazar= null;

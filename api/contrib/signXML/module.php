@@ -37,9 +37,10 @@ function signXML_init()
             'access'        => 'users_openAccess',
             'access_params' => 'accessName',
             'params' => array(
-                array("key" => "p12Url",    "def" => "", "req" => true),
-                array("key" => "pinP12",    "def" => "", "req" => true),
-                array("key" => "inXml",     "def" => "", "req" => true),
+                array("key" => "p12Url",         "def" => "", "req" =>  true),
+                array("key" => "pinP12",         "def" => "", "req" =>  true),
+                array("key" => "inXml",          "def" => "", "req" =>  true),
+                array("key" => "firmaReceptor",   "def" => "", "req" => false),
             ),
             'file'          => 'sign.php'
         )
