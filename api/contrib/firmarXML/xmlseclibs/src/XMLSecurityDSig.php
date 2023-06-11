@@ -286,7 +286,7 @@ class XMLSecurityDSig
             case (strpos($xmlns, 'v4.3') !== false):
                 $this->signPolicy = [
                     "name" 		=> "",
-                    "url" 		=> "https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf",
+                    "url" 		=> "https://atv.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf",
                     "digest" 	=> "0h7Q3dFHhu0bHbcZEgVc07cEcDlquUeG08HG6Iototo=" // Base64_Encode(Hash_File(SHA_256))
                 ];
                 break;
