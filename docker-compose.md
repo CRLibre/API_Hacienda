@@ -1,6 +1,6 @@
 # Resumen
 
-La implementación provista de docker y docker compose, su propósito es proveer una rápida de acceder el API. Porfavor, notese que estos contenedores no están optimizados para producción.
+La implementación provista de docker y docker compose, su propósito es proveer una rápida de acceder el API. Por favor, notese que estos contenedores no están optimizados para producción.
 
 # Instalación
 
