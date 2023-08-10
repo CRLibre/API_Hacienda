@@ -59,6 +59,27 @@ class Firmadocr
         return base64_encode(hash('sha256', $strcadena, true));
     }
 
+    // Allows converting large hexadecimal string to large decimal string
+    // without precision issues or requiring PHP extensions like BC Math or GMP
+    public function stringHex2StringDec($hex) {
+        $dec = [];
+        $hexLen = strlen($hex);
+        for ($h = 0; $h < $hexLen; ++$h) {
+            $carry = hexdec($hex[$h]);
+            for ($i = 0; $i < count($dec); ++$i) {
+                $val = $dec[$i] * 16 + $carry;
+                $dec[$i] = $val % 10;
+                $carry = (int) ($val / 10);
+            }
+            while ($carry > 0) {
+                $dec[] = $carry % 10;
+                $carry = (int) ($carry / 10);
+            }
+        }
+        return join("", array_reverse($dec));
+    }
+
+
     public function firmar($certificadop12, $clavecertificado, $xmlsinfirma, $tipodoc)
     {
         if (!$pfx = file_get_contents($certificadop12)) {
@@ -147,6 +168,13 @@ class Firmadocr
 
         $certIssuer = implode(', ', array_reverse($certIssuer));
 
+        if (strpos($certData['serialNumber'], "0x") === false) {
+            // https://bugs.php.net/bug.php?id=77411
+            $serialNumber = $certData['serialNumber'];
+        } else {
+            $serialNumber = stringHex2StringDec($certData['serialNumber']);
+       }
+
         $prop = '<xades:SignedProperties Id="' . $this->SignedProperties .  '">' .
       '<xades:SignedSignatureProperties>'.
           '<xades:SigningTime>' .  $signTime1 . '</xades:SigningTime>' .
@@ -158,7 +186,7 @@ class Firmadocr
                   '</xades:CertDigest>'.
                   '<xades:IssuerSerial>' .
                       '<ds:X509IssuerName>'   . $certIssuer       . '</ds:X509IssuerName>'.
-                      '<ds:X509SerialNumber>' . $certData['serialNumber'] . '</ds:X509SerialNumber>' .
+                      '<ds:X509SerialNumber>' . $serialNumber . '</ds:X509SerialNumber>' .
                   '</xades:IssuerSerial>'.
               '</xades:Cert>'.
           '</xades:SigningCertificate>' .
