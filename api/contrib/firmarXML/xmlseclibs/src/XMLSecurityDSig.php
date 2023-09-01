@@ -822,6 +822,26 @@ class XMLSecurityDSig
         return $objNode;
     }
 
+    // Allows converting large hexadecimal string to large decimal string
+    // without precision issues or requiring PHP extensions like BC Math or GMP
+    public function stringHex2StringDec($hex) {
+        $dec = [];
+        $hexLen = strlen($hex);
+        for ($h = 0; $h < $hexLen; ++$h) {
+            $carry = hexdec($hex[$h]);
+            for ($i = 0; $i < count($dec); ++$i) {
+                $val = $dec[$i] * 16 + $carry;
+                $dec[$i] = $val % 10;
+                $carry = (int) ($val / 10);
+            }
+            while ($carry > 0) {
+                $dec[] = $carry % 10;
+                $carry = (int) ($carry / 10);
+            }
+        }
+        return join("", array_reverse($dec));
+    }
+
     /**
      * @param null|DOMNode $node
      * @return null|XMLSecurityKey
@@ -1134,7 +1154,13 @@ class XMLSecurityDSig
                         $x509SubjectNode = $baseDoc->createElementNS(self::XMLDSIGNS, $dsig_pfx.'X509SubjectName', $subjectNameValue);
                         $x509DataNode->appendChild($x509SubjectNode);
                     }
-                    if ($issuerSerial && ! empty($certData['issuer']) && ! empty($certData['serialNumber'])) {
+                    if (strpos($certData['serialNumber'], "0x") === false) {
+                        // https://bugs.php.net/bug.php?id=77411
+                        $serialNumber = $certData['serialNumber'];
+                    } else {
+                        $serialNumber = stringHex2StringDec($certData['serialNumber']);
+                    }
+                    if ($issuerSerial && ! empty($certData['issuer']) && ! empty($serialNumber)) {
                         if (is_array($certData['issuer'])) {
                             $parts = array();
                             foreach ($certData['issuer'] AS $key => $value) {
@@ -1150,7 +1176,7 @@ class XMLSecurityDSig
 
                         $x509Node = $baseDoc->createElementNS(self::XMLDSIGNS, $dsig_pfx.'X509IssuerName', $issuerName);
                         $x509IssuerNode->appendChild($x509Node);
-                        $x509Node = $baseDoc->createElementNS(self::XMLDSIGNS, $dsig_pfx.'X509SerialNumber', $certData['serialNumber']);
+                        $x509Node = $baseDoc->createElementNS(self::XMLDSIGNS, $dsig_pfx.'X509SerialNumber', $serialNumber);
                         $x509IssuerNode->appendChild($x509Node);
                     }
                 }
@@ -1346,6 +1372,12 @@ class XMLSecurityDSig
         $digestValueNode = $this->createNewSignNode('DigestValue', $digestValue);
         $certDigestNode->appendChild($digestValueNode);
         $certData = openssl_x509_parse($certInfo["publicKey"]);
+        if (strpos($certData['serialNumber'], "0x") === false) {
+            // https://bugs.php.net/bug.php?id=77411
+            $serialNumber = $certData['serialNumber'];
+        } else {
+            $serialNumber = stringHex2StringDec($certData['serialNumber']);
+        }
         $certIssuer = [];
         foreach ($certData['issuer'] as $item => $value) {
             $certIssuer[] = $item . '=' . $value;
@@ -1353,7 +1385,7 @@ class XMLSecurityDSig
         $certIssuer = implode(', ', array_reverse($certIssuer));
         $X509IssuerNameNode = $this->createNewSignNode('X509IssuerName', $certIssuer);
         $issuerSerialNode->appendChild($X509IssuerNameNode);
-        $X509SerialNumber = $this->createNewSignNode('X509SerialNumber', $certData['serialNumber']);
+        $X509SerialNumber = $this->createNewSignNode('X509SerialNumber', $serialNumber);
         $issuerSerialNode->appendChild($X509SerialNumber);
         $signaturePolicyIdentifierNode = $this->createNewXadesNode('SignaturePolicyIdentifier');
         $signedSignaturePropertiesNode->appendChild($signaturePolicyIdentifierNode);

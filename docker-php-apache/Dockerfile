@@ -1,5 +1,5 @@
-FROM php:7.2.1-apache
-LABEL version="1.0"
+FROM php:7.4.9-apache
+LABEL version="1.1"
 # VOLUME [ "/var/www/html" ]
 # VOLUME [ "/var/www/api" ]
 RUN apt-get update && apt-get -y install libpng-dev curl libcurl4-openssl-dev openssl netcat
