@@ -31,7 +31,7 @@ Para la [implementación de la Factura Electrónica](https://www.hacienda.go.cr/
 
 ## Sobre este API
 
-**Trabajo en proceso [lo estamos creando en conjunto](CONTRIBUTING.md)**
+**Trabajo en proceso [lo estamos creando en conjunto](THANKS.md)**
 
 Esta es una API en PHP, la idea de esto es poder realizar módulos sobre una base que maneja ya diferentes aspectos como la conexión a bases de datos y usuarios, está basado en [CalaAPI](https://github.com/CRLibre/CalaAPI)
 
