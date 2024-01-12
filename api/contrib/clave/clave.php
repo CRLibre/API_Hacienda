@@ -147,7 +147,7 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
     }
 
     $tipoDoc = params_get('tipoDocumento');
-    $tipos = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE");
+    $tipos = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE","FC");
     grace_debug($tipoDoc);
     if (in_array($tipoDoc, $tipos))
     {
@@ -173,6 +173,9 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
                 break;
             case 'RCE': // Rechazo Comprobante Electronico
                 $tipoDocumento = "07";
+                break;
+            case 'FC': // Factura Electronica de Compra
+                $tipoDocumento = "08";
                 break;
             default:
                 break;
