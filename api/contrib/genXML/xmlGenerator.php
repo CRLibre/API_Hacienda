@@ -180,7 +180,7 @@ function genXML()
         $headerDoc='<NotaDebitoElectronica xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/notaDebitoElectronica" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> ';
         $footerDoc='</NotaDebitoElectronica>';
     }
-    elseif ($tipoDocumento == 'FC')
+    elseif ($tipoDocumento == 'FEC')
     {
         $headerDoc='<FacturaElectronicaCompra xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronicaCompra" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> ';
         $footerDoc='</FacturaElectronicaCompra>';

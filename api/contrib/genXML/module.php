@@ -349,8 +349,8 @@ function genXML_init()
             'file'          => 'genXML.php'
         ),
         array(
-            'r'             => 'gen_xml_fc',
-            'action'        => 'genXMLFc',
+            'r'             => 'gen_xml_fec',
+            'action'        => 'genXMLFec',
             'access'        => 'users_openAccess',
             'access_params' => 'accessName',
             'params' => array(

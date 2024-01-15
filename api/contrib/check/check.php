@@ -60,7 +60,7 @@ function check_XML()
     }
 
     $tipoDoc = params_get('tipoDocumento');
-    $tipos = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE","FC");
+    $tipos = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE","FEC");
 
     grace_debug($tipoDoc);
     if (in_array($tipoDoc, $tipos))
@@ -100,7 +100,7 @@ function check_XML()
             case 'RCE': // Rechazo Comprobante Electronico
                 $tipoDocumento = "07";
                 break;
-            case 'FC': // Factura Electronica de Compra
+            case 'FEC': // Factura Electronica de Compra
                 $tipoDocumento = "08";
                 break;
             default:

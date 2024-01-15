@@ -2399,7 +2399,7 @@ function genXMLMr()
     return $arrayResp;
 }
 
-function genXMLFc()
+function genXMLFec()
 {
     // Datos contribuyente
     $clave                          = params_get("clave");
