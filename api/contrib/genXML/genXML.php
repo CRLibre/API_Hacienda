@@ -3047,11 +3047,11 @@ function genXMLFee()
     if (strlen($receptorOtrasSenasExtranjero) > RECEPTOROTRASSENASEXTRANJEROMAXSIZE)
         error_log("RECEPTOROTRASSENASEXTRANJEROMAXSIZE: ".RECEPTOROTRASSENASEXTRANJEROMAXSIZE." is greater than receptorOtrasSenas: ".$receptorOtrasSenasExtranjero);
 
-    if ( isset($otrosCargos) && $otrosCargos != "")
-        if (count($otrosCargos) > 15){
-            error_log("otrosCargos: ".count($otrosCargos)." is greater than 15");
-            //Delimita el array a solo 15 elementos
-            $otrosCargos = array_slice($otrosCargos, 0, 15);
+    if ( isset($otrosCargos) && !empty($otrosCargos))
+        if (count($otrosCargos->otrosCargos) > 15){
+            error_log("otrosCargos: ".count($otrosCargos->otrosCargos)." is greater than 15");
+            //Delimita el array a solo 4 elementos
+            $otrosCargos->otrosCargos = array_slice($otrosCargos->otrosCargos, 0, 15);
         }
 
     if ( isset($medioPago) && !empty($medioPago))
@@ -3221,7 +3221,7 @@ function genXMLFee()
         <LineaDetalle>
             <NumeroLinea>' . $l . '</NumeroLinea>';
 
-        if (isset($d->PartidaArancelaria) && $d->PartidaArancelaria != "")
+        if (isset($d->partidaArancelaria) && $d->partidaArancelaria != "")
             $xmlString .= '
             <PartidaArancelaria>' . $d->partidaArancelaria . '</PartidaArancelaria>';
 
@@ -3325,10 +3325,22 @@ function genXMLFee()
     }
 
     $xmlString .= '</DetalleServicio>';
-    //OtrosCargos
-    if ( isset($otrosCargos) && $otrosCargos != ""){
-        foreach ($otrosCargos as $o)
-        {
+
+    // JSON DE EJEMPLO
+    // {
+    //     "otrosCargos": [
+    //         {
+    //             "detalle": "123",
+    //             "montoCargo": "123",
+    //             "porcentaje": "123",
+    //             "tipoDocumento": "01"
+    //         }
+    //     ]
+    // }
+
+    if (isset($otrosCargos) && !empty($otrosCargos)) {
+        // Iteramos sobre los elementos de otroContenido
+        foreach ($otrosCargos->otrosCargos as $o) {
             $xmlString .= '
             <OtrosCargos>
                 <TipoDocumento>'.$o->tipoDocumento.'</TipoDocumento>';
@@ -3344,10 +3356,18 @@ function genXMLFee()
         }
     }
 
+    // XML Resultante
+    // <OtrosCargos>
+    //     <TipoDocumento>01</TipoDocumento>
+    //     <Detalle>123</Detalle>
+    //     <Porcentaje>123</Porcentaje>
+    //     <MontoCargo>123</MontoCargo>
+    // </OtrosCargos>
+
     $xmlString .= '
     <ResumenFactura>';
 
-    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0)
+    if ($codMoneda != '' && $tipoCambio != '' && $tipoCambio != 0)
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
