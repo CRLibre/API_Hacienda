@@ -19,7 +19,7 @@
 /* * ************************************************** */
 /* Constantes de validacion                             */
 /* * ************************************************** */
-const TIPODOCREFVALUES = array('01','02','03','04','05','06','07','08','99');
+const TIPODOCREFVALUES = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '99');
 const CODIDOREFVALUES = array('01','02','04','05','99');
 const CODIGOACTIVIDADSIZE = 6;
 const EMISORNOMBREMAXSIZE = 100;
@@ -3031,7 +3031,7 @@ function genXMLFee()
         grace_debug(params_get("otrosCargos"));
 
     if ( isset($medioPago) && $medioPago != "")
-        grace_debug(params_get("medios_pago"));
+        grace_debug(params_get("medio_pago"));
 
     // Validate string sizes
     $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
