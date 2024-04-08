@@ -1031,36 +1031,7 @@
 				},
 				"description": ""
 			},
-			"response": [
-				{
-					"id": "6207a6d1-c70b-47a2-9a95-8449f780c3eb",
-					"name": "Default",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://api-demo.crlibre.org/api.php",
-							"protocol": "http",
-							"host": [
-								"api-demo",
-								"crlibre",
-								"org"
-							],
-							"path": [
-								"api.php"
-							]
-						}
-					},
-					"code": 200,
-					"_postman_previewlanguage": "",
-					"_postman_previewtype": "parsed",
-					"header": [],
-					"cookie": [],
-					"responseTime": 0,
-					"body": ""
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Token Stag",
