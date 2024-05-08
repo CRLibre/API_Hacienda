@@ -325,7 +325,7 @@ function genXMLFe()
             $xmlString .= '
             <Codigo>' . $d->codigo . '</Codigo>';
 
-        if (isset($d->codigoComercial) && $d->codigoComercial != "" && $d->codigoComercial != 0){
+        if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
             //Delimita el array a solo 5 elementos
             if (count($d->codigoComercial) > 5){
                 error_log("codigoComercial: ".count($d->codigoComercial)." is greater than 5");
@@ -371,7 +371,7 @@ function genXMLFe()
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->descuento) && $d->descuento != "" && $d->descuento != 0){
+        if (isset($d->descuento) && is_string($d->descuento) && strlen($d->descuento) != 0) {
             //Delimita el array a solo 5 elementos
             if (count($d->descuento) > 5){
                 error_log("descuento: ".count($d->descuento)." is greater than 5");
@@ -399,7 +399,7 @@ function genXMLFe()
             }
         }
 
-        $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
+        $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
 
         if (isset($d->baseImponible) && $d->baseImponible != "")
         {
@@ -907,7 +907,7 @@ function genXMLNC()
             $xmlString .= '
             <Codigo>' . $d->codigo . '</Codigo>';
 
-        if (isset($d->codigoComercial) && $d->codigoComercial != "" && $d->codigoComercial != 0){
+        if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
             //Delimita el array a solo 5 elementos
             if (count($d->codigoComercial) > 5){
                 error_log("codigoComercial: ".count($d->codigoComercial)." is greater than 5");
@@ -953,7 +953,7 @@ function genXMLNC()
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->descuento) && $d->descuento != "" && $d->descuento != 0){
+        if (isset($d->descuento) && is_string($d->descuento) && strlen($d->descuento) != 0) {
             //Delimita el array a solo 5 elementos
             if (count($d->descuento) > 5){
                 error_log("descuento: ".count($d->descuento)." is greater than 5");
@@ -981,7 +981,7 @@ function genXMLNC()
             }
         }
 
-        $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
+        $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
         if (isset($d->baseImponible) && $d->baseImponible != "")
         {
             $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
@@ -1487,7 +1487,7 @@ function genXMLND()
             $xmlString .= '
             <Codigo>' . $d->codigo . '</Codigo>';
 
-        if (isset($d->codigoComercial) && $d->codigoComercial != "" && $d->codigoComercial != 0){
+        if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
             //Delimita el array a solo 5 elementos
             if (count($d->codigoComercial) > 5){
                 error_log("codigoComercial: ".count($d->codigoComercial)." is greater than 5");
@@ -1533,7 +1533,7 @@ function genXMLND()
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->descuento) && $d->descuento != "" && $d->descuento != 0){
+        if (isset($d->descuento) && is_string($d->descuento) && strlen($d->descuento) != 0) {
             //Delimita el array a solo 5 elementos
             if (count($d->descuento) > 5){
                 error_log("descuento: ".count($d->descuento)." is greater than 5");
@@ -1561,7 +1561,7 @@ function genXMLND()
             }
         }
 
-        $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
+        $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
         if (isset($d->baseImponible) && $d->baseImponible != "")
         {
             $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
@@ -2051,7 +2051,7 @@ function genXMLTE()
             $xmlString .= '
             <Codigo>' . $d->codigo . '</Codigo>';
 
-        if (isset($d->codigoComercial) && $d->codigoComercial != "" && $d->codigoComercial != 0){
+        if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
             //Delimita el array a solo 5 elementos
             if (count($d->codigoComercial) > 5){
                 error_log("codigoComercial: ".count($d->codigoComercial)." is greater than 5");
@@ -2097,7 +2097,7 @@ function genXMLTE()
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->descuento) && $d->descuento != "" && $d->descuento != 0){
+            if (isset($d->descuento) && is_string($d->descuento) && strlen($d->descuento) != 0) {
             //Delimita el array a solo 5 elementos
             if (count($d->descuento) > 5){
                 error_log("descuento: ".count($d->descuento)." is greater than 5");
@@ -2125,7 +2125,7 @@ function genXMLTE()
             }
         }
 
-        $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
+        $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
         if (isset($d->baseImponible) && $d->baseImponible != "")
         {
             $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
@@ -3018,11 +3018,7 @@ function genXMLFee()
     $totalImp                       = params_get("total_impuestos");
     $totalOtrosCargos               = params_get("totalOtrosCargos");
     $totalComprobante               = params_get("total_comprobante");
-    $infoRefeTipoDoc                = params_get("infoRefeTipoDoc");
-    $infoRefeNumero                 = params_get("infoRefeNumero");
-    $infoRefeFechaEmision           = params_get("infoRefeFechaEmision");
-    $infoRefeCodigo                 = params_get("infoRefeCodigo");
-    $infoRefeRazon                  = params_get("infoRefeRazon");
+    $informacionReferencia          = json_decode(params_get("informacionReferencia"));
     $otros                          = json_decode(params_get("otros"));
 
     grace_debug(params_get("detalles"));
@@ -3301,8 +3297,10 @@ function genXMLFee()
             foreach ($d->impuesto as $i)
             {
                 $xmlString .= '
-                <Impuesto>
-                    <Codigo>' . $i->codigo . '</Codigo>';
+                <Impuesto>';
+                if ( isset($i->codigo) && $i->codigo != "" )
+                    $xmlString .= '<Codigo>' . $i->codigo . '</Codigo>';
+
                 if ( isset($i->codigoTarifa) && $i->codigoTarifa != "" )
                     $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
 
@@ -3312,9 +3310,11 @@ function genXMLFee()
                 if ( isset($i->factorIVA) && $i->factorIVA != "")
                     $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
 
-                $xmlString .= '<Monto>' . $i->monto . '</Monto>';
+                if ( isset($i->monto) && $i->monto != "" )
+                    $xmlString .= '<Monto>' . $i->monto . '</Monto>';
 
-                $xmlString .= '<MontoExportacion>' . $i->montoExportacion . '</MontoExportacion>';
+                if ( isset($i->montoExportacion) && $i->montoExportacion != "" )
+                    $xmlString .= '<MontoExportacion>' . $i->montoExportacion . '</MontoExportacion>';
 
                 $xmlString .= '</Impuesto>';
             }
@@ -3425,54 +3425,75 @@ function genXMLFee()
         <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
     </ResumenFactura>';
 
-    if ($infoRefeTipoDoc != '' && $infoRefeFechaEmision != ''){
+    // JSON de ejemplo
+    // {
+    //     "1": {
+    //         "codigo": "01",
+    //         "fechaEmision": "2024-04-02T12:00:00-06:00",
+    //         "numero": "50620032400020536006000100001010000000017100000017",
+    //         "razon": "Falta de informacion",
+    //         "tipoDoc": "01"
+    //     }
+    // }
 
-        $xmlString .=   '
-    <InformacionReferencia>';
-
-        if(in_array($infoRefeTipoDoc, TIPODOCREFVALUES, true))
-        $xmlString .='
-        <TipoDoc>' . $infoRefeTipoDoc . '</TipoDoc>';
-        else{
-            grace_error("El parámetro infoRefeTipoDoc no cumple con la estructura establecida. infoRefeTipoDoc = ". $infoRefeTipoDoc);
-            return "El parámetro infoRefeTipoDoc no cumple con la estructura establecida.";
+    if (isset($informacionReferencia) && $informacionReferencia != "") {
+        if(count((array) $informacionReferencia) > 10) {
+            error_log("informacionReferencia: ".count((array) $informacionReferencia)." is greater than 10");
         }
+        else
+        {
+            foreach ($informacionReferencia as $i)
+            {
+                $xmlString .= '
+                    <InformacionReferencia>';
 
-        if ( isset($infoRefeNumero) && $infoRefeNumero != "")
-            $xmlString .=   '
-        <Numero>' . $infoRefeNumero . '</Numero>';
+                if (isset($i->tipoDoc) && $i->tipoDoc != "")
+                    $xmlString .= '
+                    <TipoDoc>' . $i->tipoDoc . '</TipoDoc>';
 
-        $xmlString .=   '
-        <FechaEmision>' . $infoRefeFechaEmision . '</FechaEmision>';
+                if (isset($i->numero) && $i->numero != "")
+                    $xmlString .= '
+                    <Numero>' . $i->numero . '</Numero>';
 
-        if ( isset($infoRefeCodigo) && $infoRefeCodigo != ""){
-            if(in_array($infoRefeCodigo, CODIDOREFVALUES, true)){
-                $xmlString .=   '
-            <Codigo>' . $infoRefeCodigo . '</Codigo>';
-            }else{
-                grace_error("El parámetro infoRefeCodigo no cumple con la estructura establecida. infoRefeCodigo = ". $infoRefeCodigo);
-                return "El parámetro infoRefeCodigo no cumple con la estructura establecida.";
+                if (isset($i->fechaEmision) && $i->fechaEmision != "")
+                    $xmlString .= '
+                    <FechaEmision>' . $i->fechaEmision . '</FechaEmision>';
+
+                if (isset($i->codigo) && $i->codigo != "")
+                    $xmlString .= '
+                    <Codigo>' . $i->codigo . '</Codigo>';
+
+                if (isset($i->razon) && $i->razon != "")
+                    $xmlString .= '
+                    <Razon>' . $i->razon . '</Razon>';
+
+                $xmlString .= '</InformacionReferencia>';
             }
         }
-
-
-        if (isset($infoRefeRazon) && $infoRefeRazon != "")
-            $xmlString .=   '
-        <Razon>' . $infoRefeRazon . '</Razon>';
-
-        $xmlString .=   '
-    </InformacionReferencia>';
-
     }
 
-    // // JSON de ejemplo
+    // XML Resultante
+    // <InformacionReferencia>
+	// 	<TipoDoc>01</TipoDoc>
+	// 	<Numero>50620032400020536006000100001010000000017100000017</Numero>
+	// 	<FechaEmision>2024-04-02T12:00:00-06:00</FechaEmision>
+	// 	<Codigo>01</Codigo>
+	// 	<Razon>Falta de informacion</Razon>
+    // </InformacionReferencia>
+
+    // -----------------------------------------------------------------------------------------------------
+
+    // JSON de ejemplo
     // {
     //     "otroContenido": [
     //         {
     //             "codigo": "CONT1",
     //             "contenidoEstructurado": {
-    //                 "Elemento1": "Contenido 1",
-    //                 "Elemento2": "Contenido 2"
+    //                 "ContactoDesarrollador": {
+    //                     "Correo": "operacionesfacturaelectronica@ice.go.cr",
+    //                     "Nombre": "Equipo Operaciones Factura Electronica",
+    //                     "Telefono": "+506 800-400-0000"
+    //                 }
     //             }
     //         }
     //     ],
@@ -3484,36 +3505,36 @@ function genXMLFee()
 
     if (isset($otros) && !empty($otros)) {
         $xmlString .= '<Otros>';
-
-        // Comprobamos si existe la propiedad "otroTexto"
         if (isset($otros->otroTexto)) {
             $xmlString .= '<OtroTexto codigo="' . $otros->otroTexto->codigo . '">' . $otros->otroTexto->texto . '</OtroTexto>';
         }
-
-        // Comprobamos si existe la propiedad "otroContenido"
         if (isset($otros->otroContenido)) {
-            // Iteramos sobre los elementos de otroContenido
             foreach ($otros->otroContenido as $item) {
-                $xmlString .= '<OtroContenido codigo="' . $item->codigo . '">';
-                // Iteramos sobre el contenido estructurado de cada elemento
-                foreach ($item->contenidoEstructurado as $element => $content) {
-                    $xmlString .= '<' . $element . '>' . $content . '</' . $element . '>';
+                $xmlString .= '<OtroContenido>';
+                if (isset($item->contenidoEstructurado)) {
+                    foreach ($item->contenidoEstructurado as $element => $content) {
+                        // Construimos el XML para objetos anidados
+                        $xmlString .= '<' . $element . ' xmlns="https://www.grupoice.com">';
+                        foreach ($content as $nestedElement => $nestedContent) {
+                            $xmlString .= '<' . $nestedElement . '>' . htmlspecialchars($nestedContent) . '</' . $nestedElement . '>';
+                        }
+                        $xmlString .= '</' . $element . '>';
+                    }
                 }
                 $xmlString .= '</OtroContenido>';
             }
         }
-
         $xmlString .= '</Otros>';
     }
 
     // XML Resultante
-    // <Otros>
-    //     <OtroTexto codigo="COD1">Texto opcional 1</OtroTexto>
-    //     <OtroContenido codigo="CONT1">
-    //         <Elemento1>Contenido 1</Elemento1>
-    //         <Elemento2>Contenido 2</Elemento2>
-    //     </OtroContenido>
-    // </Otros>
+    // <OtroContenido>
+	//     <ContactoDesarrollador xmlns="https://www.grupoice.com">
+    //         <Nombre>Equipo Operaciones Factura Electronica</Nombre>
+    //         <Correo>operacionesfacturaelectronica@ice.go.cr</Correo>
+    //         <Telefono>+506 800-400-0000</Telefono>
+	//     </ContactoDesarrollador>
+    // </OtroContenido>
 
     $xmlString .= '
     </FacturaElectronicaExportacion>';
