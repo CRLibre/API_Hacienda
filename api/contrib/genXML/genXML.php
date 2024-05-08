@@ -2688,7 +2688,7 @@ function genXMLFec()
             $xmlString .= '
             <Codigo>' . $d->codigo . '</Codigo>';
 
-        if (isset($d->codigoComercial) && $d->codigoComercial != "" && $d->codigoComercial != 0){
+        if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
             //Delimita el array a solo 5 elementos
             if (count($d->codigoComercial) > 5){
                 error_log("codigoComercial: ".count($d->codigoComercial)." is greater than 5");
@@ -2734,7 +2734,7 @@ function genXMLFec()
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->descuento) && $d->descuento != "" && $d->descuento != 0){
+        if (isset($d->descuento) && is_string($d->descuento) && strlen($d->descuento) != 0) {
             //Delimita el array a solo 5 elementos
             if (count($d->descuento) > 5){
                 error_log("descuento: ".count($d->descuento)." is greater than 5");
@@ -2762,7 +2762,7 @@ function genXMLFec()
             }
         }
 
-        $xmlString .= '<SubTotal>' . $d->subtotal . '</SubTotal>';
+        $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
 
         if (isset($d->baseImponible) && $d->baseImponible != "")
         {
