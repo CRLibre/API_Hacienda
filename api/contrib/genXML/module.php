@@ -475,11 +475,7 @@ function genXML_init()
                 array("key" => "total_impuestos",                 "def" => "", "req" => false),
                 array("key" => "totalOtrosCargos",                "def" => "", "req" => false),
                 array("key" => "total_comprobante",               "def" => "", "req" => true),
-                array("key" => "infoRefeTipoDoc",                 "def" => "", "req" => false),
-                array("key" => "infoRefeNumero",                  "def" => "", "req" => false),
-                array("key" => "infoRefeFechaEmision",            "def" => "", "req" => false),
-                array("key" => "infoRefeCodigo",                  "def" => "", "req" => false),
-                array("key" => "infoRefeRazon",                   "def" => "", "req" => false),
+                array("key" => "informacionReferencia",           "def" => "", "req" => false),
                 array("key" => "otros",                           "def" => "", "req" => false)
             ),
             'file'          => 'genXML.php'
