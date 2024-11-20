@@ -60,7 +60,7 @@ function check_XML()
     }
 
     $tipoDoc = params_get('tipoDocumento');
-    $tipos = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE","FEC");
+    $tipos = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE","FEC, FEE");
 
     grace_debug($tipoDoc);
     if (in_array($tipoDoc, $tipos))
@@ -69,7 +69,7 @@ function check_XML()
         {
             case 'FE': //Factura Electronica
             {
-                // Enable user error handling 
+                // Enable user error handling
                 libxml_use_internal_errors(true);
 
                 $xml = new DOMDocument();
@@ -102,6 +102,9 @@ function check_XML()
                 break;
             case 'FEC': // Factura Electronica de Compra
                 $tipoDocumento = "08";
+                break;
+            case 'FEE': // Factura Electronica de Exportación
+                $tipoDocumento = "09";
                 break;
             default:
                 break;

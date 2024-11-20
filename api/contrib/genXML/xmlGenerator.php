@@ -185,6 +185,11 @@ function genXML()
         $headerDoc='<FacturaElectronicaCompra xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronicaCompra" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> ';
         $footerDoc='</FacturaElectronicaCompra>';
     }
+    elseif ($tipoDocumento == 'FEE')
+    {
+        $headerDoc='<FacturaElectronicaExportacion xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronicaExportacion" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> ';
+        $footerDoc='</FacturaElectronicaExportacion>';
+    }
 
     $finalXML= $headerDoc . $xmltext . $footerDoc;
     return $finalXML;

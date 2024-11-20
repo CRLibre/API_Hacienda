@@ -37,7 +37,6 @@ function modules_getPath($which)
 function modules_loader($which, $file = 'module.php', $boot = true)
 {
     $path = modules_getPath($which);
-    
         grace_debug("Loading in path: " . $path . "/" . $file);
 
         # Load the module and the config if one exists
