@@ -19,7 +19,7 @@ De forma complementaria al proyecto de este API creamos dos repositorios relacio
 * Archivos y recursos comunes para cualquier proyecto https://github.com/CRLibre/fe-hacienda-cr-misc
 
 ### ¿Por qué un API para conectarse a los del Ministerio de Hacienda?
-Para la [implementación de la Factura Electrónica](https://www.hacienda.go.cr/contenido/14350-factura-electronica), el Ministerio de Hacienda puso a disposición [documentación técnica e interfaces de programación sofisticados](https://www.hacienda.go.cr/ATV/ComprobanteElectronico/frmAnexosyEstructuras.aspx) que muchos programadores encuentran difíciles de comprender y utilizar. Nuestro objetivo es crear un software que simplifique el proceso a desarrolladores de cumplir con las [resoluciones del Ministerio](http://web.archive.org/web/20191219053048if_/https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf), de forma más ágil, desde cualquier lenguaje de programación y sin depender de intermediarios al poder instalar esta pieza de [software libre](https://es.wikipedia.org/wiki/Software_libre) en un servidor propio manteniendo control de sus datos sensibles.
+Para la [implementación de la Factura Electrónica](https://www.hacienda.go.cr/docs/N2ComprobantesElectronicos.pdf), el Ministerio de Hacienda puso a disposición [documentación técnica e interfaces de programación sofisticados](https://atv.hacienda.go.cr/ATV/ComprobanteElectronico/frmAnexosyEstructuras.aspx) que muchos programadores encuentran difíciles de comprender y utilizar. Nuestro objetivo es crear un software que simplifique el proceso a desarrolladores de cumplir con las [resoluciones del Ministerio](https://atv.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf), de forma más ágil, desde cualquier lenguaje de programación y sin depender de intermediarios al poder instalar esta pieza de [software libre](https://es.wikipedia.org/wiki/Software_libre) en un servidor propio manteniendo control de sus datos sensibles.
 
 
 ## Cómo colaborar
@@ -31,7 +31,7 @@ Para la [implementación de la Factura Electrónica](https://www.hacienda.go.cr/
 
 ## Sobre este API
 
-**Trabajo en proceso [lo estamos creando en conjunto](CONTRIBUTING.md)**
+**Trabajo en proceso [lo estamos creando en conjunto](THANKS.md)**
 
 Esta es una API en PHP, la idea de esto es poder realizar módulos sobre una base que maneja ya diferentes aspectos como la conexión a bases de datos y usuarios, está basado en [CalaAPI](https://github.com/CRLibre/CalaAPI)
 

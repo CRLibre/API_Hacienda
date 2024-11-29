@@ -5,7 +5,8 @@ echo "[$(date -u +%d-%m-%Y_%H-%S-%N)][${0}] Starting API Hacienda Configuration"
 
 setUpCryptoKey() {
     SETTINGS_FILE_PATH=/var/www/html/settings.php
-    SETTINGS_TEMPLATE_FILE_PATH=/var/www/html/settings.php.dist
+    # SETTINGS_TEMPLATE_FILE_PATH=/var/www/html/settings.php.dist
+    SETTINGS_TEMPLATE_FILE_PATH=/var/www/html/settings_original.php.dist
     LOCALHOSTNAME=localhost
     CRLIBRE_API_HACIENDA_CRYPTO_KEY="non-set"
 

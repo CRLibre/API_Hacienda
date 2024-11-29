@@ -83,7 +83,7 @@ else if (isset($argv))
         grace_debug("Adding to post: $key => $val");
     }
 
-    params_set('w', $_POST); 
+    params_set('w', $_POST);
 }
 
 $r = boot_itUp();
