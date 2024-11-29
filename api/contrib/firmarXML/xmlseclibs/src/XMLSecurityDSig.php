@@ -141,7 +141,7 @@ class XMLSecurityDSig
         $this->reference1Id = "ReferenceKeyInfo";
         $this->signedProperties = "SignedProperties-" . $this->signatureId;
         $this->qualifyingProperties = $this->generateGUID('QualifyingProperties-');
-        //$this->signPolicy['digest'] = base64_encode(hash_file('sha1',$this->signPolicy['url'],true));
+        //$this->signPolicy['digest'] = base64_encode(hash_file('sha256',$this->signPolicy['url'],true));
 
         $template = self::BASE_TEMPLATE;
         if (! empty($prefix)) {
@@ -283,18 +283,11 @@ class XMLSecurityDSig
     public function setSignPolicy(){
         $xmlns = $this->xmlFirstChild->getAttribute('xmlns');
         switch ($xmlns){
-            case (strpos($xmlns, 'v4.2') !== false):
-                $this->signPolicy = [
-                    "name" 		=> "",
-                    "url" 		=> "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4.2/ResolucionComprobantesElectronicosDGT-R-48-2016_4.2.pdf",
-                    "digest" 	=> "3gQCr0HYSdoxi0ZaRaJ4qs3mHfI=" // Base64_Encode(Hash_File(SHA_1))
-                ];
-                break;
             case (strpos($xmlns, 'v4.3') !== false):
                 $this->signPolicy = [
                     "name" 		=> "",
-                    "url" 		=> "https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/ResolucionComprobantesElectronicosDGT-R-48-2016_4.3.pdf",
-                    "digest" 	=> "3gQCr0HYSdoxi0ZaRaJ4qs3mHfI=" // Base64_Encode(Hash_File(SHA_1))
+                    "url" 		=> "https://atv.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf",
+                    "digest" 	=> "0h7Q3dFHhu0bHbcZEgVc07cEcDlquUeG08HG6Iototo=" // Base64_Encode(Hash_File(SHA_256))
                 ];
                 break;
             default:
@@ -829,6 +822,26 @@ class XMLSecurityDSig
         return $objNode;
     }
 
+    // Allows converting large hexadecimal string to large decimal string
+    // without precision issues or requiring PHP extensions like BC Math or GMP
+    public function stringHex2StringDec($hex) {
+        $dec = [];
+        $hexLen = strlen($hex);
+        for ($h = 0; $h < $hexLen; ++$h) {
+            $carry = hexdec($hex[$h]);
+            for ($i = 0; $i < count($dec); ++$i) {
+                $val = $dec[$i] * 16 + $carry;
+                $dec[$i] = $val % 10;
+                $carry = (int) ($val / 10);
+            }
+            while ($carry > 0) {
+                $dec[] = $carry % 10;
+                $carry = (int) ($carry / 10);
+            }
+        }
+        return join("", array_reverse($dec));
+    }
+
     /**
      * @param null|DOMNode $node
      * @return null|XMLSecurityKey
@@ -1141,7 +1154,13 @@ class XMLSecurityDSig
                         $x509SubjectNode = $baseDoc->createElementNS(self::XMLDSIGNS, $dsig_pfx.'X509SubjectName', $subjectNameValue);
                         $x509DataNode->appendChild($x509SubjectNode);
                     }
-                    if ($issuerSerial && ! empty($certData['issuer']) && ! empty($certData['serialNumber'])) {
+                    if (strpos($certData['serialNumber'], "0x") === false) {
+                        // https://bugs.php.net/bug.php?id=77411
+                        $serialNumber = $certData['serialNumber'];
+                    } else {
+                        $serialNumber = stringHex2StringDec($certData['serialNumber']);
+                    }
+                    if ($issuerSerial && ! empty($certData['issuer']) && ! empty($serialNumber)) {
                         if (is_array($certData['issuer'])) {
                             $parts = array();
                             foreach ($certData['issuer'] AS $key => $value) {
@@ -1157,7 +1176,7 @@ class XMLSecurityDSig
 
                         $x509Node = $baseDoc->createElementNS(self::XMLDSIGNS, $dsig_pfx.'X509IssuerName', $issuerName);
                         $x509IssuerNode->appendChild($x509Node);
-                        $x509Node = $baseDoc->createElementNS(self::XMLDSIGNS, $dsig_pfx.'X509SerialNumber', $certData['serialNumber']);
+                        $x509Node = $baseDoc->createElementNS(self::XMLDSIGNS, $dsig_pfx.'X509SerialNumber', $serialNumber);
                         $x509IssuerNode->appendChild($x509Node);
                     }
                 }
@@ -1353,6 +1372,12 @@ class XMLSecurityDSig
         $digestValueNode = $this->createNewSignNode('DigestValue', $digestValue);
         $certDigestNode->appendChild($digestValueNode);
         $certData = openssl_x509_parse($certInfo["publicKey"]);
+        if (strpos($certData['serialNumber'], "0x") === false) {
+            // https://bugs.php.net/bug.php?id=77411
+            $serialNumber = $certData['serialNumber'];
+        } else {
+            $serialNumber = stringHex2StringDec($certData['serialNumber']);
+        }
         $certIssuer = [];
         foreach ($certData['issuer'] as $item => $value) {
             $certIssuer[] = $item . '=' . $value;
@@ -1360,7 +1385,7 @@ class XMLSecurityDSig
         $certIssuer = implode(', ', array_reverse($certIssuer));
         $X509IssuerNameNode = $this->createNewSignNode('X509IssuerName', $certIssuer);
         $issuerSerialNode->appendChild($X509IssuerNameNode);
-        $X509SerialNumber = $this->createNewSignNode('X509SerialNumber', $certData['serialNumber']);
+        $X509SerialNumber = $this->createNewSignNode('X509SerialNumber', $serialNumber);
         $issuerSerialNode->appendChild($X509SerialNumber);
         $signaturePolicyIdentifierNode = $this->createNewXadesNode('SignaturePolicyIdentifier');
         $signedSignaturePropertiesNode->appendChild($signaturePolicyIdentifierNode);
@@ -1376,7 +1401,7 @@ class XMLSecurityDSig
         $signaturePolicyIdNode->appendChild($sigPolicyHashNode);
         $digestMethodNode = $this->createNewSignNode('DigestMethod');
         $sigPolicyHashNode->appendChild($digestMethodNode);
-        $digestMethodNode->setAttribute('Algorithm', $this::SHA1);
+        $digestMethodNode->setAttribute('Algorithm', $this::SHA256);
         $digestValueNode = $this->createNewSignNode('DigestValue', $this->signPolicy['digest']);
         $sigPolicyHashNode->appendChild($digestValueNode);
         $signedDataObjectPropertiesNode = $this->createNewXadesNode('SignedDataObjectProperties');

@@ -1,14 +1,14 @@
 # Resumen
 
-La implementación provista de docker y docker compose, su propósito es proveer una rápida de acceder el API. Porfavor, notese que estos contenedores no están optimizados para producción.
+La implementación provista de docker y docker compose, su propósito es proveer una forma rápida de acceder al API. Por favor, nótese que estos contenedores no están optimizados para producción.
 
 # Instalación
 
 ## Windows
 En el caso de Windows es necesario instalar _Docker desktop on Windows_ el cual puede ser descargado desde https://docs.docker.com/docker-for-windows/install/ este mismo incluye _Docker Compose_
 
-Adicionalmente el contenedor utiliza volumenes, estos volumenes requieren que se le de accesso al disco duro. 
-En el momento de este escrito, eso se puede lograr en la ventana de _Settings_ en el _tab_ de _Shared Drivers_ y seleccionando las unidesde que el servidio de docker puede tener disponibles.
+Adicionalmente el contenedor utiliza volúmenes, estos volúmenes requieren que se le de accesso al disco duro. 
+En el momento de este escrito, eso se puede lograr en la ventana de _Settings_ en el _tab_ de _Shared Drivers_ y seleccionando las unidades que el servicio de docker puede tener disponibles.
 
 
 * Docker for Windows

@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.5'
 services:
     php-apache:
         build:
@@ -18,14 +18,14 @@ services:
         links:
             - 'mariadb:database'
     mariadb:
-        image: mariadb:10.1
+        image: mariadb:10.11.4
         ports:
             - 4407:3306
         volumes:
             - ./recursos/sql:/docker-entrypoint-initdb.d
             - /var/lib/mysql
         environment:
-            TZ: "Europe/Rome"
+            TZ: "America/Costa_Rica"
             MYSQL_ALLOW_EMPTY_PASSWORD: "no"
             MYSQL_ROOT_PASSWORD: "rootpwd"
             MYSQL_USER: 'testuser'

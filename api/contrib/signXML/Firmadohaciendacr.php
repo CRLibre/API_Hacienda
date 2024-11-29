@@ -37,8 +37,8 @@ class Firmadocr
     
     private static $POLITICA_FIRMA = array(
         "name"      => "",
-        "url"       => "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4/Resolucion%20Comprobantes%20Electronicos%20%20DGT-R-48-2016.pdf",
-        "digest"    => "V8lVVNGDCPen6VELRD1Ja8HARFk=" // digest en sha1 y base64
+        "url"       => "https://atv.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf",
+        "digest"    => "0h7Q3dFHhu0bHbcZEgVc07cEcDlquUeG08HG6Iototo=" // digest en sha256 y base64
     );
 
     private $signTime         = null;
@@ -58,6 +58,27 @@ class Firmadocr
 
         return base64_encode(hash('sha256', $strcadena, true));
     }
+
+    // Allows converting large hexadecimal string to large decimal string
+    // without precision issues or requiring PHP extensions like BC Math or GMP
+    public function stringHex2StringDec($hex) {
+        $dec = [];
+        $hexLen = strlen($hex);
+        for ($h = 0; $h < $hexLen; ++$h) {
+            $carry = hexdec($hex[$h]);
+            for ($i = 0; $i < count($dec); ++$i) {
+                $val = $dec[$i] * 16 + $carry;
+                $dec[$i] = $val % 10;
+                $carry = (int) ($val / 10);
+            }
+            while ($carry > 0) {
+                $dec[] = $carry % 10;
+                $carry = (int) ($carry / 10);
+            }
+        }
+        return join("", array_reverse($dec));
+    }
+
 
     public function firmar($certificadop12, $clavecertificado, $xmlsinfirma, $tipodoc)
     {
@@ -147,6 +168,13 @@ class Firmadocr
 
         $certIssuer = implode(', ', array_reverse($certIssuer));
 
+        if (strpos($certData['serialNumber'], "0x") === false) {
+            // https://bugs.php.net/bug.php?id=77411
+            $serialNumber = $certData['serialNumber'];
+        } else {
+            $serialNumber = stringHex2StringDec($certData['serialNumber']);
+       }
+
         $prop = '<xades:SignedProperties Id="' . $this->SignedProperties .  '">' .
       '<xades:SignedSignatureProperties>'.
           '<xades:SigningTime>' .  $signTime1 . '</xades:SigningTime>' .
@@ -158,7 +186,7 @@ class Firmadocr
                   '</xades:CertDigest>'.
                   '<xades:IssuerSerial>' .
                       '<ds:X509IssuerName>'   . $certIssuer       . '</ds:X509IssuerName>'.
-                      '<ds:X509SerialNumber>' . $certData['serialNumber'] . '</ds:X509SerialNumber>' .
+                      '<ds:X509SerialNumber>' . $serialNumber . '</ds:X509SerialNumber>' .
                   '</xades:IssuerSerial>'.
               '</xades:Cert>'.
           '</xades:SigningCertificate>' .
@@ -169,7 +197,7 @@ class Firmadocr
                       '<xades:Description />'.
                   '</xades:SigPolicyId>'.
                   '<xades:SigPolicyHash>' .
-                      '<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />'.
+                      '<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />'.
                       '<ds:DigestValue>' . $this->signPolicy['digest'] . '</ds:DigestValue>'.
                   '</xades:SigPolicyHash>'.
               '</xades:SignaturePolicyId>' .
