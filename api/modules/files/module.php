@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2024 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -164,7 +164,7 @@ function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSi
     if ($ext == false)
     {
         grace_debug("Using default allowed extentions");
-        $ext = conf_get("allowedExt", "files", "jpg,png,gif,P12,XML,Xml,p12,xml");
+        $ext = conf_get("allowedExt", "files", "jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF,p12,P12,pfx,PFX,xml,XML,Xml");
     }
 
     # Maximum allowed size
