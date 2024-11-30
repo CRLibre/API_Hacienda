@@ -147,7 +147,7 @@ function genXMLFe()
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
     <FacturaElectronica
-    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronica"
+    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.4/facturaElectronica"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Clave>' . $clave . '</Clave>
@@ -724,7 +724,7 @@ function genXMLNC()
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
     <NotaCreditoElectronica
-    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/notaCreditoElectronica"
+    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.4/notaCreditoElectronica"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
@@ -1306,7 +1306,7 @@ function genXMLND()
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <NotaDebitoElectronica
-    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/notaDebitoElectronica"
+    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.4/notaDebitoElectronica"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
@@ -1886,7 +1886,7 @@ function genXMLTE()
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <TiqueteElectronico
-    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/tiqueteElectronico"
+    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.4/tiqueteElectronico"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
@@ -2368,7 +2368,7 @@ function genXMLMr()
 
     $xmlString = '<?xml version="1.0" encoding="utf-8"?>
     <MensajeReceptor
-    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/mensajeReceptor"
+    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.4/mensajeReceptor"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
@@ -2509,7 +2509,7 @@ function genXMLFec()
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
     <FacturaElectronicaCompra
-    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronicaCompra"
+    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.4/facturaElectronicaCompra"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Clave>' . $clave . '</Clave>
@@ -3059,7 +3059,7 @@ function genXMLFee()
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
     <FacturaElectronicaExportacion
-    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronicaExportacion"
+    xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.4/facturaElectronicaExportacion"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Clave>' . $clave . '</Clave>
