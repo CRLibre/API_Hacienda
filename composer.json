@@ -1,5 +1,11 @@
 {
-    "require": {},
+    "require": {
+        "php": ">=5.5",
+        "ext-curl": "*",
+        "ext-xml": "*",
+        "ext-openssl": "*",
+        "ext-mysqli": "*"
+    },
     "name": "crlibre/api_hacienda",
     "license": "AGPL-3.0-only",
     "type": "project",
