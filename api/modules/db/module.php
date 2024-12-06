@@ -78,6 +78,7 @@ function db_Connect()
     grace_debug(conf_get('user', 'db'));
     grace_debug("config['db']['host']: ");
     grace_debug(conf_get('host', 'db'));
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     @$dbConn = new mysqli(conf_get('host', 'db'), conf_get('user', 'db'), conf_get('pwd', 'db'), conf_get('name', 'db'));
 
     # Check connection
