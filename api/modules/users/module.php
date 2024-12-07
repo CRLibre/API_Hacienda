@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2024 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -374,14 +374,14 @@ function users_createBasic()
  */
 function users_generateSessionKey($idUser)
 {
-    $q = sprintf("delete from sessions where idUser='" . $idUser . "'");
+    $q = sprintf("delete from sessions where idUser='" . db_escape($idUser) . "'");
     db_query($q, 0);
 
     modules_loader("crypto", "crypto.php");
     $sessionKey = crypto_encrypt(password_hash(time() * rand(0, 1000)));
 
     $q = sprintf("INSERT INTO sessions (idUser, sessionKey, ip, lastAccess) "
-            . "VALUES('%s', '%s', '%s', '%s')", $idUser, $sessionKey, $_SERVER['REMOTE_ADDR'], time());
+            . "VALUES('%s', '%s', '%s', '%s')", db_escape($idUser), $sessionKey, db_escape($_SERVER['REMOTE_ADDR']), time());
 
     db_query($q, 0);
 
@@ -446,7 +446,7 @@ function users_load($by = array())
     $where = "-";
     foreach ($by as $b => $bb)
     {
-        $where .= sprintf(" AND %s = '%s'", $b, $bb);
+        $where .= sprintf(" AND %s = '%s'", db_escape($b), db_escape($bb));
     }
 
     # Replace the first AND
@@ -483,7 +483,7 @@ function users_loadByName($userName)
         return users_createBasic();
     }
 
-    $q = sprintf("SELECT * FROM users WHERE userName = '%s'", $userName);
+    $q = sprintf("SELECT * FROM users WHERE userName = '%s'", db_escape($userName));
 
     $user = db_query($q, 1);
 
@@ -509,7 +509,7 @@ function users_confirmSessionKey()
         FROM sessions
         WHERE sessionKey = '%s'
         AND ip = '%s'
-        AND idUser = '%s'", params_get('sessionKey', ''), $_SERVER['REMOTE_ADDR'], $user->idUser
+        AND idUser = '%s'", db_escape(params_get('sessionKey', '')), db_escape($_SERVER['REMOTE_ADDR']), db_escape($user->idUser)
     );
     $r = db_query($q, 1);
 
@@ -539,7 +539,7 @@ function users_confirmSessionKey()
  */
 function users_destroySession()
 {
-    $q = sprintf("DELETE FROM sessions WHERE sessionKey = '%s' AND ip = '%s'", params_get('sessionKey', ''), $_SERVER['REMOTE_ADDR']);
+    $q = sprintf("DELETE FROM sessions WHERE sessionKey = '%s' AND ip = '%s'", params_get('sessionKey', ''), db_escape($_SERVER['REMOTE_ADDR']));
     db_query($q, 0);
 }
 
@@ -554,11 +554,11 @@ function users_updateLastAccess()
     if (params_get('sessionKey', '') != '' && $user->idUser > 0)
     {
         # Update in the session table
-        $q = sprintf("UPDATE sessions SET lastAccess = '%s' WHERE sessionKey = '%s'", time(), params_get('sessionKey', ''));
+        $q = sprintf("UPDATE sessions SET lastAccess = '%s' WHERE sessionKey = '%s'", time(), db_escape(params_get('sessionKey', '')));
         db_query($q, 0);
 
         # Update in the users table too, this could be a separate process
-        $q = sprintf("UPDATE users SET lastAccess = '%s' WHERE idUser = '%s'", time(), $user->idUser);
+        $q = sprintf("UPDATE users SET lastAccess = '%s' WHERE idUser = '%s'", time(), db_escape($user->idUser));
         db_query($q, 0);
     }
 }
@@ -660,7 +660,7 @@ function _users_update($dets)
         `lastAccess` = '%s',
         `pwd` = %s,
         `avatar` = '%s'
-        WHERE `idUser` = %s", addslashes($newDets['fullName']), users_cleanName($newDets['userName']), $newDets['email'], addslashes($newDets['about']), $newDets['country'], $newDets['status'], $newDets['timestamp'], $newDets['lastAccess'], $newDets['pwd'], $newDets['avatar'], $newDets['idUser']
+        WHERE `idUser` = %s", db_escape(addslashes($newDets['fullName'])), db_escape(users_cleanName($newDets['userName'])), db_escape($newDets['email']), db_escape(addslashes($newDets['about'])), db_escape($newDets['country']), db_escape($newDets['status']), db_escape($newDets['timestamp']), db_escape($newDets['lastAccess']), db_escape($newDets['pwd']), db_escape($newDets['avatar']), db_escape($newDets['idUser'])
     );
 
     return db_query($q, 0);
@@ -714,7 +714,7 @@ function users_personalBgUpload()
 function _users_register($userDets)
 {
     $q = sprintf("INSERT INTO users (fullName, userName, email, about, country, status, timestamp, lastAccess, pwd, avatar,settings)
-        VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $userDets['fullName'], $userDets['userName'], $userDets['email'], addslashes($userDets['about']), $userDets['country'], $userDets['status'], $userDets['timestamp'], $userDets['lastAccess'], users_hash($userDets['pwd']), $userDets['avatar'], $userDets['settings']
+        VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", db_escape($userDets['fullName']), db_escape($userDets['userName']), db_escape($userDets['email']), db_escape(addslashes($userDets['about'])), db_escape($userDets['country']), db_escape($userDets['status']), db_escape($userDets['timestamp']), db_escape($userDets['lastAccess']), users_hash($userDets['pwd']), db_escape($userDets['avatar']), db_escape($userDets['settings'])
     );
     db_query($q, 0);
 }

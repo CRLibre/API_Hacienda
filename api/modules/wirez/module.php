@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2024 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -127,7 +127,7 @@ function wirez_loadContact($wire)
 {
     grace_debug("Getting wirez: " . $wire);
 
-    $q = sprintf("SELECT * FROM wirez_contacts WHERE wire = '%s'", $wire);
+    $q = sprintf("SELECT * FROM wirez_contacts WHERE wire = '%s'", db_escape($wire));
 
     $results = db_query($q, 1);
     return $results;

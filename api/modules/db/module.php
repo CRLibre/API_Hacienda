@@ -139,3 +139,15 @@ function db_query($q, $return = 1)
     else
         return ERROR_DB_NOT_CONNECTED;
 }
+
+/**
+ * Mitigates SQL injection by escaping string parameters
+ * @param $string The string to escape
+ * @return The escaped string
+ */
+functon db_escape($string = '')
+{
+    global $dbConn;
+
+    return $dbConn->real_escape_string($string);
+}
