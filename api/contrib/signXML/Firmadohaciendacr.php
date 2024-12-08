@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2024 CRLibre <https://crlibre.org>
  * Copyright (C) 2017 José Carlos Aguilar Vásquez
  * Firmado para Costa Rica xades EPES
  * Este archivo contiene el proceso de firma en PHP de acuerdo a las especificaciones de Hacienda
@@ -25,7 +25,7 @@
 class Firmadocr
 {
     private static $NODOS_NS = array(
-        "URL" => "https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/",
+        "URL" => "https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.4/",
         '01' => "facturaElectronica",
         '02' => "notaDebitoElectronica",
         '03' => "notaCreditoElectronica",
@@ -37,8 +37,8 @@ class Firmadocr
     
     private static $POLITICA_FIRMA = array(
         "name"      => "",
-        "url"       => "https://atv.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf",
-        "digest"    => "0h7Q3dFHhu0bHbcZEgVc07cEcDlquUeG08HG6Iototo=" // digest en sha256 y base64
+        "url"       => "https://atv.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2024/v4.4/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf",
+        "digest"    => "DWxin1xWOeI8OuWQXazh4VjLWAaCLAA954em7DMh0h8=" // digest en sha256 y base64
     );
 
     private $signTime         = null;

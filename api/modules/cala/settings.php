@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2018 CRLibre <https://crlibre.org>
+ * Copyright (C) 2018-2024 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -106,5 +106,5 @@ $config['grace']['logPath'] = $config['modules']['coreInstall'] . "logs/";
 # Maximum upload size in Mb
 $config['files']['maxUploadSize'] = 2;
 # Default allowed extensions
-$config['files']['allowedExt'] = 'jpg,png,p12,P12,.p12,.P12';
+$config['files']['allowedExt'] = 'jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF,p12,P12,pfx,PFX';
 
