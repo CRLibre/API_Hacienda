@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2024 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -33,16 +33,16 @@ function wirez_messagesGetRecent()
 
         $where = sprintf("WHERE (mm.idSender = %s AND mm.idRecipient = %s)
             OR (mm.idSender = %s AND mm.idRecipient = %s)",
-                $recipient->idUser,
-                $user->idUser,
-                $user->idUser,
-                $recipient->idUser
+                db_escape($recipient->idUser),
+                db_escape($user->idUser),
+                db_escape($user->idUser),
+                db_escape($recipient->idUser)
             );
     }
     else
     {
         $where = sprintf("WHERE (mm.idSender = %s
-            OR mm.idRecipient = %s)", $user->idUser, $user->idUser
+            OR mm.idRecipient = %s)", db_escape($user->idUser), db_escape($user->idUser)
         );
     }
 
@@ -67,9 +67,9 @@ function wirez_messagesGetRecent()
         ORDER BY m.idMsg DESC
         LIMIT %s, %s",
         $where,
-        params_get('lastMessageId', 0),
-        params_get('ini', 0),
-        params_get('end', 10)
+        db_escape(params_get('lastMessageId', 0)),
+        db_escape(params_get('ini', 0)),
+        db_escape(params_get('end', 10))
     );
 
     $allMsgs = db_query($q, 2);

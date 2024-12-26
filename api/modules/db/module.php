@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2024 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -78,6 +78,7 @@ function db_Connect()
     grace_debug(conf_get('user', 'db'));
     grace_debug("config['db']['host']: ");
     grace_debug(conf_get('host', 'db'));
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     @$dbConn = new mysqli(conf_get('host', 'db'), conf_get('user', 'db'), conf_get('pwd', 'db'), conf_get('name', 'db'));
 
     # Check connection
@@ -137,4 +138,16 @@ function db_query($q, $return = 1)
     }
     else
         return ERROR_DB_NOT_CONNECTED;
+}
+
+/**
+ * Mitigates SQL injection by escaping string parameters
+ * @param $string The string to escape
+ * @return The escaped string
+ */
+functon db_escape($string = '')
+{
+    global $dbConn;
+
+    return $dbConn->real_escape_string($string);
 }

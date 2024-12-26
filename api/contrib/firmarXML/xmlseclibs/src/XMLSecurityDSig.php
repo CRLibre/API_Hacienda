@@ -1404,6 +1404,12 @@ class XMLSecurityDSig
         $digestMethodNode->setAttribute('Algorithm', $this::SHA256);
         $digestValueNode = $this->createNewSignNode('DigestValue', $this->signPolicy['digest']);
         $sigPolicyHashNode->appendChild($digestValueNode);
+        $signerRoleNode = $this->createNewXadesNode('SignerRole');
+        $signedSignaturePropertiesNode->appendChild($signerRoleNode);
+        $claimedRolesNode = $this->createNewXadesNode('ClaimedRoles');
+        $signerRoleNode->appendChild($claimedRolesNode);
+        $claimedRoleNode = $this->createNewXadesNode('ClaimedRole', 'Emisor');
+        $claimedRolesNode->appendChild($claimedRoleNode);
         $signedDataObjectPropertiesNode = $this->createNewXadesNode('SignedDataObjectProperties');
         $signedPropertiesNode->appendChild($signedDataObjectPropertiesNode);
         $dataObjectFormatNode = $this->createNewXadesNode('DataObjectFormat', null, [ "ObjectReference" => "#".$this->reference0Id ]);
