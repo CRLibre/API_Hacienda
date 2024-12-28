@@ -32,7 +32,7 @@
  * Tambien se puede llamar desde un metodo de la siguiente manera:
  * modules_loader("clave");       <-- Esta funcion importa el modulo
  * getClave($tipoDocumento="",$tipoCedula = "", $cedula = "", $situacion = "", $codigoPais = "", $consecutivo = "", $codigoSeguridad = "")  <------------ esta funcion retorna la clave
- * */
+ **/
 /*
  * Tipo de comprobante o documento asociado Código
   Factura electrónica 01
