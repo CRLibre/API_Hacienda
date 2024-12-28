@@ -111,7 +111,7 @@ function filesGetUrl($codigo = '')
     if ($codigo == '')
         $codigo = params_get('downloadCode', '');
 
-    $q = sprintf("SELECT * FROM files WHERE downloadCode = '%s'", $codigo);
+    $q = sprintf("SELECT * FROM files WHERE downloadCode = '%s'", db_escape($codigo));
     $file = db_query($q, 1);
     if ($file != ERROR_DB_NO_RESULTS_FOUND)
     {
@@ -263,13 +263,13 @@ function files_upload($type = 'attach', $finalName = false, $ext = false, $maxSi
 function files_save($dets)
 {
     $q = sprintf("INSERT INTO files (md5, name, timestamp, size, idUser, downloadCode, fileType, type)
-        VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", $dets['md5'], $dets['name'], $dets['timestamp'], $dets['size'], $dets['idUser'], $dets['downloadCode'], $dets['fileType'], $dets['type']
+        VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", db_escape($dets['md5']), db_escape($dets['name']), db_escape($dets['timestamp']), db_escape($dets['size']), db_escape($dets['idUser']), db_escape($dets['downloadCode']), db_escape($dets['fileType']), db_escape($dets['type'])
     );
 
     db_query($q, 0);
 
     # Lets find out which file it was
-    $q      = sprintf("SELECT idFile FROM files WHERE downloadCode = '%s'", $dets['downloadCode']);
+    $q      = sprintf("SELECT idFile FROM files WHERE downloadCode = '%s'", db_escape($dets['downloadCode']));
     $idFile = db_query($q, 1);
 
     return $idFile->idFile;
@@ -282,7 +282,7 @@ function files_save($dets)
  */
 function files_load($idFile)
 {
-    $q = sprintf("SELECT * FROM files WHERE idFile = '%s'", $idFile);
+    $q = sprintf("SELECT * FROM files WHERE idFile = '%s'", db_escape($idFile));
     $file = db_query($q, 1);
     if ($file != ERROR_DB_NO_RESULTS_FOUND)
     {
@@ -459,7 +459,7 @@ function files_viewPublic()
  * */
 function files_loadByCode($code, $size = false)
 {
-    $q = sprintf("SELECT * FROM files WHERE downloadCode = '%s'", $code);
+    $q = sprintf("SELECT * FROM files WHERE downloadCode = '%s'", db_escape($code));
     $file = db_query($q, 1);
     if ($file != ERROR_DB_NO_RESULTS_FOUND)
     {

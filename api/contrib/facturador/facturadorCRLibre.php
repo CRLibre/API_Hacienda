@@ -21,14 +21,14 @@ function module_info() {
  */
 
 function getIdUser($sessionKey) {
-    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey`='" . $sessionKey . "'";
+    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey`='" . db_escape($sessionKey) . "'";
     $result = db_query($q, 2);
     $idUser = $result[0]->idUser;
     return $idUser;
 }
 
 function getComapannyIdUser($sessionKey, $idMasterUser) {
-    $q = "SELECT `idUser` FROM `" . $idMasterUser . "_master_sessions` WHERE `sessionKey`='" . $sessionKey . "'";
+    $q = "SELECT `idUser` FROM `" . $idMasterUser . "_master_sessions` WHERE `sessionKey`='" . db_escape($sessionKey) . "'";
     $result = db_query($q, 2);
     $idUser = $result[0]->idUser;
     return $idUser;
@@ -61,10 +61,10 @@ function getMasterInventaryTable() {
 
 function getProdCredentials() {
     $thisSessionkey = params_get("sessionKey");
-    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey`='" . $thisSessionkey . "'";
+    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey`='" . db_escape($thisSessionkey) . "'";
     $result = db_query($q, 2);
     $idUser = $result[0]->idUser;
-    $q = "SELECT `value` FROM `" . $idUser . "_master_config_companny` where `name`= 'prodUserName' or `name`= 'prodPassword' or `name`= 'prodP12Code' or `name`= 'prodPin'";
+    $q = "SELECT `value` FROM `" . db_escape($idUser) . "_master_config_companny` where `name`= 'prodUserName' or `name`= 'prodPassword' or `name`= 'prodP12Code' or `name`= 'prodPin'";
     $result = db_query($q, 2);
 
 
@@ -73,10 +73,10 @@ function getProdCredentials() {
 
 function getStagCredentials() {
     $thisSessionkey = params_get("sessionKey");
-    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey`='" . $thisSessionkey . "'";
+    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey`='" . db_escape($thisSessionkey) . "'";
     $result = db_query($q, 2);
     $idUser = $result[0]->idUser;
-    $q = "SELECT `value` FROM `" . $idUser . "_master_config_companny` where `name`= 'stagUserName' or `name`= 'stagPassword' or `name`= 'stagP12Code' or `name`= 'stagPin'";
+    $q = "SELECT `value` FROM `" . db_escape($idUser) . "_master_config_companny` where `name`= 'stagUserName' or `name`= 'stagPassword' or `name`= 'stagP12Code' or `name`= 'stagPin'";
     $result = db_query($q, 2);
 
 
@@ -87,7 +87,7 @@ function getProdCompannyCredentials() {
     $idMasterUser = params_get("idMasterUser");
     $idUser = $idMasterUser;
     if (confirmSessionKey($idMasterUser) != false) {
-        $q = "SELECT `value` FROM `" . $idUser . "_master_config_companny` where `name`= 'prodUserName' or `name`= 'prodPassword' or `name`= 'prodP12Code' or `name`= 'prodPin'";
+        $q = "SELECT `value` FROM `" . db_escape($idUser) . "_master_config_companny` where `name`= 'prodUserName' or `name`= 'prodPassword' or `name`= 'prodP12Code' or `name`= 'prodPin'";
         $result = db_query($q, 2);
         return $result;
     } else {
@@ -98,7 +98,7 @@ function getProdCompannyCredentials() {
 function getCompannyInformation() {
     $idMasterUser = params_get("idMasterUser");
     if (confirmSessionKey($idMasterUser) != false) {
-        $q = "select `name`,`value` FROM `" . $idMasterUser . "_master_config_companny`   WHERE name='NOMBRE' or name='NCODPAIS' or name='TIPOCAMBIO' or name='situacion' or name='TIPOCED' or name='CEDULA' or name='NOMCOMER' or name='PROVINCIA' or name='CANTON' or name='CANTON' or name='DISTRITO' or name='BARRIO' or name='SENNAS' or name='NNUMER' or name='FCODPAIS' or name='EMAIL' or name='EMAIL' or name='FNUMER' ORDER BY `" . $idMasterUser . "_master_config_companny`.`value` ASC";
+        $q = "select `name`,`value` FROM `" . db_escape($idMasterUser) . "_master_config_companny`   WHERE name='NOMBRE' or name='NCODPAIS' or name='TIPOCAMBIO' or name='situacion' or name='TIPOCED' or name='CEDULA' or name='NOMCOMER' or name='PROVINCIA' or name='CANTON' or name='CANTON' or name='DISTRITO' or name='BARRIO' or name='SENNAS' or name='NNUMER' or name='FCODPAIS' or name='EMAIL' or name='EMAIL' or name='FNUMER' ORDER BY `" . db_escape($idMasterUser) . "_master_config_companny`.`value` ASC";
         $result = db_query($q, 2);
         return $result;
     } else {
@@ -108,7 +108,7 @@ function getCompannyInformation() {
 
 function getCompannyInformationAdmin() {
     $idMasterUser = params_get("idMasterUser");
-    $q = "select `name`,`value` FROM `" . $idMasterUser . "_master_config_companny`   WHERE name='NOMBRE' or name='NCODPAIS' or name='TIPOCAMBIO' or name='situacion' or name='TIPOCED' or name='CEDULA' or name='NOMCOMER' or name='PROVINCIA' or name='CANTON' or name='CANTON' or name='DISTRITO' or name='BARRIO' or name='SENNAS' or name='NNUMER' or name='FCODPAIS' or name='EMAIL' or name='EMAIL' or name='FNUMER' ORDER BY `" . $idMasterUser . "_master_config_companny`.`value` ASC";
+    $q = "select `name`,`value` FROM `" . db_escape($idMasterUser) . "_master_config_companny`   WHERE name='NOMBRE' or name='NCODPAIS' or name='TIPOCAMBIO' or name='situacion' or name='TIPOCED' or name='CEDULA' or name='NOMCOMER' or name='PROVINCIA' or name='CANTON' or name='CANTON' or name='DISTRITO' or name='BARRIO' or name='SENNAS' or name='NNUMER' or name='FCODPAIS' or name='EMAIL' or name='EMAIL' or name='FNUMER' ORDER BY `" . db_escape($idMasterUser) . "_master_config_companny`.`value` ASC";
     $result = db_query($q, 2);
     return $result;
 }
@@ -118,7 +118,7 @@ function getCompannyLocationInformation() {
     $idCanton = params_get("idCanton");
     $idDistrito = params_get("idDistrito");
     $idBarrio = params_get("idBarrio");
-    $q = "SELECT `nombreProvincia`,`nombreCanton`,`nombreDistrito`,`nombreBarrio` FROM `codificacion_mh` WHERE `idProvincia`='" . $idProvincia . "' and `idCanton`='" . $idCanton . "' and `idDistrito`='" . $idDistrito . "' and `idBarrio`='" . $idBarrio . "'";
+    $q = "SELECT `nombreProvincia`,`nombreCanton`,`nombreDistrito`,`nombreBarrio` FROM `codificacion_mh` WHERE `idProvincia`='" . db_escape($idProvincia) . "' and `idCanton`='" . $idCanton . "' and `idDistrito`='" . db_escape($idDistrito) . "' and `idBarrio`='" . db_escape($idBarrio) . "'";
     $result = db_query($q, 2);
     return $result;
 }
@@ -126,7 +126,7 @@ function getCompannyLocationInformation() {
 function compannyUpdateTipoCambio() {
     $idMasterUser = params_get("idMasterUser");
     $tipoCambio = params_get("tipoCambio");
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $tipoCambio . "' WHERE `name`='TIPOCAMBIO'";
+    $q = "UPDATE `" . db_escape($idMasterUser) . "_master_config_companny` SET `value` = '" . db_escape($tipoCambio) . "' WHERE `name`='TIPOCAMBIO'";
     $result = db_query($q, 0);
     return $result;
 }
@@ -138,15 +138,15 @@ function compannyUpdateLocation() {
     $idDistrito = params_get("idDistrito");
     $idBarrio = params_get("idBarrio");
     $sennas = params_get("sennas");
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $idProvincia . "' WHERE `name`='PROVINCIA'";
+    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . db_escape($idProvincia) . "' WHERE `name`='PROVINCIA'";
     db_query($q, 0);
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $idCanton . "' WHERE `name`='CANTON'";
+    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . db_escape($idCanton) . "' WHERE `name`='CANTON'";
     db_query($q, 0);
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $idDistrito . "' WHERE `name`='DISTRITO'";
+    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . db_escape($idDistrito) . "' WHERE `name`='DISTRITO'";
     db_query($q, 0);
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $idBarrio . "' WHERE `name`='BARRIO'";
+    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . db_escape($idBarrio) . "' WHERE `name`='BARRIO'";
     db_query($q, 0);
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $sennas . "' WHERE `name`='SENNAS'";
+    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . db_escape($sennas) . "' WHERE `name`='SENNAS'";
     $result = db_query($q, 0);
     return $result;
 }
@@ -162,21 +162,21 @@ function compannyUpdateInformation() {
     $tipoCedula = params_get("tipoCedula");
     $cedula = params_get("cedula");
 
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $nombre . "' WHERE `name`='NOMBRE'";
+    $q = "UPDATE `" . db_escape($idMasterUser) . "_master_config_companny` SET `value` = '" . db_escape($nombre) . "' WHERE `name`='NOMBRE'";
     db_query($q, 0);
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $nombreComercial . "' WHERE `name`='NOMCOMER'";
+    $q = "UPDATE `" . db_escape($idMasterUser) . "_master_config_companny` SET `value` = '" . db_escape($nombreComercial) . "' WHERE `name`='NOMCOMER'";
     db_query($q, 0);
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $email . "' WHERE `name`='EMAIL'";
+    $q = "UPDATE `" . db_escape($idMasterUser) . "_master_config_companny` SET `value` = '" . db_escape($email) . "' WHERE `name`='EMAIL'";
     db_query($q, 0);
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $codigoPais . "' WHERE `name`='NCODPAIS' or `name`='FCODPAIS'";
+    $q = "UPDATE `" . db_escape($idMasterUser) . "_master_config_companny` SET `value` = '" . db_escape($codigoPais) . "' WHERE `name`='NCODPAIS' or `name`='FCODPAIS'";
     db_query($q, 0);
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $telefono . "' WHERE `name`='NNUMER'";
+    $q = "UPDATE `" . db_escape($idMasterUser) . "_master_config_companny` SET `value` = '" . db_escape($telefono) . "' WHERE `name`='NNUMER'";
     db_query($q, 0);
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $fax . "' WHERE `name`='FNUMER'";
+    $q = "UPDATE `" . db_escape($idMasterUser) . "_master_config_companny` SET `value` = '" . db_escape($fax) . "' WHERE `name`='FNUMER'";
     db_query($q, 0);
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $tipoCedula . "' WHERE `name`='TIPOCED'";
+    $q = "UPDATE `" . db_escape($idMasterUser) . "_master_config_companny` SET `value` = '" . db_escape($tipoCedula) . "' WHERE `name`='TIPOCED'";
     db_query($q, 0);
-    $q = "UPDATE `" . $idMasterUser . "_master_config_companny` SET `value` = '" . $cedula . "' WHERE `name`='CEDULA'";
+    $q = "UPDATE `" . db_escape($idMasterUser) . "_master_config_companny` SET `value` = '" . db_escape($cedula) . "' WHERE `name`='CEDULA'";
     db_query($q, 0);
     return 1;
 }
@@ -194,8 +194,8 @@ function addInventaryProduct() {
 
     $idMasterUser = params_get("idMasterUser");
     if (confirmSessionKey($idMasterUser) != false) {
-        $q = "INSERT INTO `" . $idMasterUser . "_master_inventary_sucursal_" . $idSucursal . "` (`idProducto`, `nombre`, `descripcion`, `unidadMedida`, `precioVenta`, `idImpuesto`, `cantidadImpuesto`, `codigoBarras`, `disponible`) VALUES "
-                . "(NULL, '" . $nombre . "', '" . $descripcion . "', '" . $unidadMedida . "', '" . $precioVenta . "', '" . $idImpuesto . "', '" . $cantidadImpuesto . "', '" . $codigoBarras . "','" . $disponible . "')";
+        $q = "INSERT INTO `" . db_escape($idMasterUser) . "_master_inventary_sucursal_" . db_escape($idSucursal) . "` (`idProducto`, `nombre`, `descripcion`, `unidadMedida`, `precioVenta`, `idImpuesto`, `cantidadImpuesto`, `codigoBarras`, `disponible`) VALUES "
+                . "(NULL, '" . db_escape($nombre) . "', '" . db_escape($descripcion) . "', '" . db_escape($unidadMedida) . "', '" . db_escape($precioVenta) . "', '" . db_escape($idImpuesto) . "', '" . db_escape($cantidadImpuesto) . "', '" . db_escape($codigoBarras) . "','" . db_escape($disponible) . "')";
         $result = db_query($q, 0);
         return $result;
     } else {
@@ -207,7 +207,7 @@ function getStagCompannyCredentials() {
     $idMasterUser = params_get("idMasterUser");
     $idUser = $idMasterUser;
     if (confirmSessionKey($idMasterUser) != false) {
-        $q = "SELECT `value` FROM `" . $idUser . "_master_config_companny` where `name`= 'stagUserName' or `name`= 'stagPassword' or `name`= 'stagP12Code' or `name`= 'stagPin'";
+        $q = "SELECT `value` FROM `" . db_escape($idUser) . "_master_config_companny` where `name`= 'stagUserName' or `name`= 'stagPassword' or `name`= 'stagP12Code' or `name`= 'stagPin'";
         $result = db_query($q, 2);
     } else {
         return false;
@@ -218,9 +218,9 @@ function getStagCompannyCredentials() {
 function getMaxConsecutive() {
     $thisSessionkey = params_get("sessionKey");
     $tipoDoc = params_get("tipoDoc");
-    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey`='" . $thisSessionkey . "'";
+    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey`='" . db_escape($thisSessionkey) . "'";
     $result = db_query($q, 2);
-    $idUser = $result[0]->idUser;
+    $idUser = db_escape($result[0]->idUser);
     $q = "SELECT max(`numeroConsecutivo`) as numeroConsecutivo,`tipoComprobante`,ms.sucursal,mt.terminal`tipoComprobante` from " . $idUser . "_master_consecutive as MC INNER JOIN " . $idUser . "_master_companyusers CU on mc.idUser=cu.idUser INNER JOIN " . $idUser . "_master_terminales as mt on cu.idTerminal=mt.idTerminal INNER JOIN " . $idUser . "_master_sucursales as ms ON cu.idSucursal=ms.idSucursal where mc.idUser='" . $idUser . "'";
     $result = db_query($q, 2);
     return $result;
@@ -228,7 +228,7 @@ function getMaxConsecutive() {
 
 function getActiveReceiver() {
     $idUser = params_get("idMasterUser");
-    $q = "SELECT DISTINCT  `nombreCliente`,`idReceptor`,correoPrincipal,C.nombreProvincia,`telefono`,`tipoCedula`,`numeroCedula` FROM `" . $idUser . "_master_receiver` as R INNER JOIN codificacion_mh as C on R.`idProvincia` =C.idProvincia where estadoCliente='1'";
+    $q = "SELECT DISTINCT  `nombreCliente`,`idReceptor`,correoPrincipal,C.nombreProvincia,`telefono`,`tipoCedula`,`numeroCedula` FROM `" . db_escape($idUser) . "_master_receiver` as R INNER JOIN codificacion_mh as C on R.`idProvincia` =C.idProvincia where estadoCliente='1'";
     $result = db_query($q, 2);
     return $result;
 }
@@ -236,7 +236,7 @@ function getActiveReceiver() {
 function getReceiverById() {
     $idUser = params_get("idMasterUser");
     $idReceptor = params_get("idReceptor");
-    $q = "SELECT * FROM `" . $idUser . "_master_receiver` where estadoCliente='1' and idReceptor='" . $idReceptor . "'";
+    $q = "SELECT * FROM `" . db_escape($idUser) . "_master_receiver` where estadoCliente='1' and idReceptor='" . db_escape($idReceptor) . "'";
     $result = db_query($q, 2);
     return $result;
 }
@@ -245,14 +245,14 @@ function getVouchers() {
     $env = params_get("env");
     $idUser = params_get("idMasterUser");
     grace_debug($idUser);
-    $q = "SELECT `idComprobante`,`consecutivo`,`clave`,`tipoDocumento`,`estado`,`fechaCreacion` FROM `" . $idUser . "_master_vouchers` where env='" . $env . "';";
+    $q = "SELECT `idComprobante`,`consecutivo`,`clave`,`tipoDocumento`,`estado`,`fechaCreacion` FROM `" . db_escape($idUser) . "_master_vouchers` where env='" . db_escape($env) . "';";
     $result = db_query($q, 2);
     return $result;
 }
 
 function getUserPermissionById() {
     $thisSessionkey = params_get("sessionKey");
-    $idMasterUser = getIdUser($thisSessionkey);
+    $idMasterUser = db_escape(getIdUser($thisSessionkey));
     $q = "SELECT R.rolCode,R.descripcion,U.userName,U.FullName,idUser FROM `" . $idMasterUser . "_master_permission` as P INNER JOIN " . $idMasterUser . "_master_rol as R on P.`idRol` = R.idRol INNER join " . $idMasterUser . "_master_users as U on P.`idCompanyUser`=U.idUser where U.status='1'";
     $result = db_query($q, 2);
     return $result;
@@ -262,7 +262,7 @@ function getProductByCode() {
     $idMasterUser = params_get("idMasterUser");
     $sucursal = params_get("sucursal");
     $codigo = params_get("codigo");
-    $q = "SELECT I.`idProducto`,I.descripcion,I.unidadMedida,I.precioVenta, I.cantidadImpuesto,IV.codigo FROM `" . $idMasterUser . "_master_inventary_sucursal_" . $sucursal . "` as I INNER JOIN tipo_impuestos as IV on I.`idImpuesto`=IV.idImpuesto  WHERE `codigoBarras`='" . $codigo . "'";
+    $q = "SELECT I.`idProducto`,I.descripcion,I.unidadMedida,I.precioVenta, I.cantidadImpuesto,IV.codigo FROM `" . db_escape($idMasterUser) . "_master_inventary_sucursal_" . db_escape($sucursal) . "` as I INNER JOIN tipo_impuestos as IV on I.`idImpuesto`=IV.idImpuesto  WHERE `codigoBarras`='" . db_escape($codigo) . "'";
     $result = db_query($q, 2);
     return $result;
 }
@@ -270,7 +270,7 @@ function getProductByCode() {
 function getInventory() {
     $idUser = params_get("idMasterUser");
     $sucursal = params_get("sucursal");
-    $q = "select `idProducto`,`codigoBarras`,`nombre`,`unidadMedida`,`precioVenta`,`disponible` from " . $idUser . "_master_inventary_sucursal_" . $sucursal . ";";
+    $q = "select `idProducto`,`codigoBarras`,`nombre`,`unidadMedida`,`precioVenta`,`disponible` from " . db_escape($idUser) . "_master_inventary_sucursal_" . db_escape($sucursal) . ";";
     insertToLogTable($idUser, $q);
     $result = db_query($q, 2);
     return $result;
@@ -280,10 +280,10 @@ function deleteReciver() {
     $thisSessionkey = params_get("sessionKey");
     $idReceptor = params_get("idReceptor");
     $resp = getMasterTables();
-    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey`='" . $thisSessionkey . "'";
+    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey`='" . db_escape($thisSessionkey) . "'";
     $result = db_query($q, 2);
     $idUser = $result[0]->idUser;
-    $q = "update `" . $idUser . "_master_receiver` set estadoCliente='0' where idReceptor= '" . $idReceptor . "'";
+    $q = "update `" . $idUser . "_master_receiver` set estadoCliente='0' where idReceptor= '" . db_escape($idReceptor) . "'";
     $result = db_query($q, 0);
     return $result;
 }
@@ -292,7 +292,7 @@ function copyInventaryTable($idSucursal, $idUser) {
     $resp = getMasterInventaryTable();
     foreach ($resp as $value) {
         try {
-            $q = "CREATE TABLE " . $idUser . "_master_inventary_sucursal_" . $idSucursal . " LIKE " . $value;
+            $q = "CREATE TABLE " . db_escape($idUser) . "_master_inventary_sucursal_" . db_escape($idSucursal) . " LIKE " . db_escape($value);
             db_query($q, 0);
         } catch (Exception $ex) {
             $arrayResp = array(
@@ -310,7 +310,7 @@ function copyMasterTables() {
     $idUser = getIdUser($thisSessionkey);
     foreach ($resp as $value) {
         try {
-            $q = "CREATE TABLE " . $idUser . "_" . $value . " LIKE " . $value;
+            $q = "CREATE TABLE " . db_escape($idUser) . "_" . db_escape($value) . " LIKE " . db_escape($value);
             db_query($q, 0);
         } catch (Exception $ex) {
             $arrayResp = array(
@@ -320,7 +320,7 @@ function copyMasterTables() {
             return $arrayResp;
         }
     }
-    $q = "INSERT INTO `" . $idUser . "_master_config_companny` (`idConfig`, `name`, `value`, `compannyName`) VALUES
+    $q = "INSERT INTO `" . db_escape($idUser) . "_master_config_companny` (`idConfig`, `name`, `value`, `compannyName`) VALUES
 (1, 'NOMBRE', 'CRLibre.org', 'CRLibre.org'),
 (2, 'TIPOCED', '01', 'CRLibre.org'),
 (3, 'CEDULA', '702320717', 'CRLibre.org'),
@@ -354,7 +354,7 @@ function copyMasterTables() {
 function companny_add_master_Consecutive() {
     $iam = params_get("iam");
     $idMasterUser = params_get('idMasterUser');
-    $idUser = params_get('idUser');
+    $idUser = db_escape(params_get('idUser'));
 
     $q = "INSERT INTO `" . $idMasterUser . "_master_consecutive` (`idConsecutivo`, `ENV`, `companyName`, `numeroConsecutivo`, `tipoComprobante`, `idUser`) "
             . "VALUES "
@@ -382,16 +382,16 @@ function companyStagUsers() {
     $downloadCode = params_get("downloadCode");
     $pinCerti = params_get("pinCerti");
     $password = params_get("password");
-    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey` = '" . $thisSessionkey . "'";
+    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey` = '" . db_escape($thisSessionkey) . "'";
     $result = db_query($q, 2);
-    $idUser = $result[0]->idUser;
-    $q = "update " . $idUser . "_master_config_companny set value = '" . $compannyUserName . "' where name = 'stagUserName'";
+    $idUser = db_escape($result[0]->idUser);
+    $q = "update " . $idUser . "_master_config_companny set value = '" . $compannyUserName) . "' where name = 'stagUserName'";
     db_query($q, 0);
-    $q = "update " . $idUser . "_master_config_companny set value = '" . $password . "' where name = 'stagPassword'";
+    $q = "update " . $idUser . "_master_config_companny set value = '" . db_escape($password) . "' where name = 'stagPassword'";
     db_query($q, 0);
-    $q = "update " . $idUser . "_master_config_companny set value = '" . $downloadCode . "' where name = 'stagP12Code'";
+    $q = "update " . $idUser . "_master_config_companny set value = '" . db_escape($downloadCode) . "' where name = 'stagP12Code'";
     db_query($q, 0);
-    $q = "update " . $idUser . "_master_config_companny set value = '" . $pinCerti . "' where name = 'stagPin'";
+    $q = "update " . $idUser . "_master_config_companny set value = '" . db_escape($pinCerti) . "' where name = 'stagPin'";
     db_query($q, 0);
     return "ok";
 }
@@ -399,9 +399,9 @@ function companyStagUsers() {
 function companyChangeEnv() {
     $thisSessionkey = params_get("sessionKey");
     $envProduccion = params_get("envProduccion");
-    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey` = '" . $thisSessionkey . "'";
+    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey` = '" . db_escape($thisSessionkey) . "'";
     $result = db_query($q, 2);
-    $idUser = $result[0]->idUser;
+    $idUser = db_escape($result[0]->idUser);
     if ($envProduccion == 'true') {
         $q = "update " . $idUser . "_master_config_companny set value = 'api-prod' where name = 'ENV'";
     } else {
@@ -413,7 +413,7 @@ function companyChangeEnv() {
 
 function companyGetEnv() {
     $idMasterUser = params_get("idMasterUser");
-    $q = "select value as 'env' from " . $idMasterUser . "_master_config_companny where name = 'ENV'";
+    $q = "select value as 'env' from " . db_escape($idMasterUser) . "_master_config_companny where name = 'ENV'";
     $result = db_query($q, 2);
     return $result;
 }
@@ -424,28 +424,28 @@ function companyProdUsers() {
     $downloadCode = params_get("downloadCode");
     $password = params_get("password");
     $pinCerti = params_get("pinCerti");
-    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey` = '" . $thisSessionkey . "'";
+    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey` = '" . db_escape($thisSessionkey) . "'";
     $result = db_query($q, 2);
-    $idUser = $result[0]->idUser;
-    $q = "update " . $idUser . "_master_config_companny set value = '" . $compannyUserName . "' where name = 'prodUserName'";
+    $idUser = db_escape($result[0]->idUser);
+    $q = "update " . $idUser . "_master_config_companny set value = '" . db_escape($compannyUserName) . "' where name = 'prodUserName'";
     db_query($q, 0);
-    $q = "update " . $idUser . "_master_config_companny set value = '" . $password . "' where name = 'prodPassword'";
+    $q = "update " . $idUser . "_master_config_companny set value = '" . db_escape($password) . "' where name = 'prodPassword'";
     db_query($q, 0);
-    $q = "update " . $idUser . "_master_config_companny set value = '" . $downloadCode . "' where name = 'prodP12Code'";
+    $q = "update " . $idUser . "_master_config_companny set value = '" . db_escape($downloadCode) . "' where name = 'prodP12Code'";
     db_query($q, 0);
-    $q = "update " . $idUser . "_master_config_companny set value = '" . $pinCerti . "' where name = 'stagPin'";
+    $q = "update " . $idUser . "_master_config_companny set value = '" . db_escape($pinCerti) . "' where name = 'stagPin'";
     db_query($q, 0);
     return "ok";
 }
 
 function createInventary() {
     $thisSessionkey = params_get("sessionKey");
-    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey` = '" . $thisSessionkey . "'";
+    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey` = '" . db_escape($thisSessionkey) . "'";
     $result = db_query($q, 2);
     $idUser = $result[0]->idUser;
     foreach ($resp as $value) {
         try {
-            $q = "CREATE TABLE " . $idUser . "_" . $value . " LIKE " . $value;
+            $q = "CREATE TABLE " . db_escape($idUser) . "_" . db_escape($value) . " LIKE " . db_escape($value);
             db_query($q, 0);
         } catch (Exception $ex) {
             $arrayResp = array(
@@ -461,15 +461,15 @@ function createInventary() {
 function backUpUser() {
     $thisSessionkey = params_get("sessionKey");
     $resp = getMasterTables();
-    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey` = '" . $thisSessionkey . "'";
+    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey` = '" . db_escape($thisSessionkey) . "'";
     $result = db_query($q, 2);
     $idUser = $result[0]->idUser;
-    $backup_file = "C:\\" . $idUser . "_" . time() . "_Respaldo.sql";
+    $backup_file = "C:\\" . db_escape($idUser) . "_" . time() . "_Respaldo.sql";
     $tables = "";
     foreach ($resp as $value) {
         $tables = $tables . $value . ", ";
     }
-    $tables = substr($tables, 0, -1);
+    $tables = db_escape(substr($tables, 0, -1));
     try {
         //$backup_file = $idUser."_".time()."_".$value.".sql";
         $q = "SELECT * INTO OUTFILE '$backup_file' FROM $tables";
@@ -490,7 +490,7 @@ function backUpUser() {
  */
 
 function insertToLogTable($idUser, $json) {
-    $q = "INSERT INTO `" . $idUser . "_master_logs` (`idUser`, `json`) VALUES ('" . $idUser . "', '" . $json . "')";
+    $q = "INSERT INTO `" . db_escape($idUser) . "_master_logs` (`idUser`, `json`) VALUES ('" . db_escape($idUser) . "', '" . db_escape($json) . "')";
     $result = db_query($q, 2);
     return $result;
 }
@@ -507,7 +507,7 @@ function getAllProvinces() {
 
 function getCantons() {
     $idProvince = params_get("idProvince");
-    $q = "SELECT DISTINCT(`nombreCanton`),`idCanton` FROM `codificacion_mh` where `idProvincia` = '" . $idProvince . "'";
+    $q = "SELECT DISTINCT(`nombreCanton`),`idCanton` FROM `codificacion_mh` where `idProvincia` = '" . db_escape($idProvince) . "'";
     $result = db_query($q, 2);
     return $result;
 }
@@ -517,7 +517,7 @@ function getCantons() {
 function getDistrict() {
     $idProvince = params_get("idProvince");
     $idCanton = params_get("idCanton");
-    $q = "SELECT DISTINCT(`nombreDistrito`),`idDistrito` FROM `codificacion_mh` where `idProvincia` = '" . $idProvince . "' and idCanton = '" . $idCanton . "'";
+    $q = "SELECT DISTINCT(`nombreDistrito`),`idDistrito` FROM `codificacion_mh` where `idProvincia` = '" . db_escape($idProvince) . "' and idCanton = '" . db_escape($idCanton) . "'";
     $result = db_query($q, 2);
     return $result;
 }
@@ -528,7 +528,7 @@ function getNeighborhood() {
     $idProvince = params_get("idProvince");
     $idCanton = params_get("idCanton");
     $idDistrito = params_get("idDistrito");
-    $q = "SELECT DISTINCT(`nombreBarrio`),`idBarrio`  FROM `codificacion_mh` where `idProvincia` = '" . $idProvince . "' and idCanton = '" . $idCanton . "' and idDistrito = '" . $idDistrito . "'";
+    $q = "SELECT DISTINCT(`nombreBarrio`),`idBarrio`  FROM `codificacion_mh` where `idProvincia` = '" . db_escape($idProvince) . "' and idCanton = '" . db_escape($idCanton) . "' and idDistrito = '" . $idDistrito . "'";
     $result = db_query($q, 2);
     return $result;
 }
@@ -544,7 +544,7 @@ function getTypeOfId() {
 function getSucursales() {
     $thisSessionkey = params_get("sessionKey");
     $idUser = getIdUser($thisSessionkey);
-    $q = "SELECT `idSucursal`, `nombreSucursal`, `sucursal` FROM `" . $idUser . "_master_sucursales`";
+    $q = "SELECT `idSucursal`, `nombreSucursal`, `sucursal` FROM `" . db_escape($idUser) . "_master_sucursales`";
     $result = db_query($q, 2);
     return $result;
 }
@@ -554,7 +554,7 @@ function addSucursales() {
     $numeroSucursal = params_get("numeroSucursal");
     $nombreSucursal = params_get("nombreSucursal");
     $idUser = getIdUser($thisSessionkey);
-    $q = "INSERT INTO `" . $idUser . "_master_sucursales` (`idSucursal`, `nombreSucursal`, `sucursal`) VALUES (NULL, '" . $nombreSucursal . "', '" . $numeroSucursal . "')";
+    $q = "INSERT INTO `" . $idUser . "_master_sucursales` (`idSucursal`, `nombreSucursal`, `sucursal`) VALUES (NULL, '" . db_escape($nombreSucursal) . "', '" . db_escape($numeroSucursal) . "')";
     $result = db_query($q, 0);
     copyInventaryTable($numeroSucursal, $idUser);
 
@@ -567,7 +567,7 @@ function addTerminal() {
     $nombreTerminal = params_get("nombreTerminal");
     $idSucursal = params_get("idSucursal");
     $idUser = getIdUser($thisSessionkey);
-    $q = "INSERT INTO `" . $idUser . "_master_terminales` (`idTerminal`, `nombreTerminal`, `terminal`, `idSucursal`) VALUES (NULL, '" . $nombreTerminal . "', '" . $numeroTerminal . "', '" . $idSucursal . "')";
+    $q = "INSERT INTO `" . $idUser . "_master_terminales` (`idTerminal`, `nombreTerminal`, `terminal`, `idSucursal`) VALUES (NULL, '" . db_escape($nombreTerminal) . "', '" . db_escape($numeroTerminal) . "', '" . db_escape($idSucursal) . "')";
     $result = db_query($q, 0);
     return $result;
 }
@@ -575,11 +575,11 @@ function addTerminal() {
 function getTerminales() {
     $thisSessionkey = params_get("sessionKey");
     $idSucursal = params_get("idSucursal");
-    $idUser = getIdUser($thisSessionkey);
+    $idUser = db_escape(getIdUser($thisSessionkey));
     if ($idSucursal == "") {
         $q = "SELECT `idTerminal`, `nombreTerminal`, `terminal`, S.nombreSucursal, S.sucursal FROM `" . $idUser . "_master_terminales` as T INNER JOIN " . $idUser . "_master_sucursales as S on T.idSucursal = S.idSucursal";
     } else {
-        $q = "SELECT `idTerminal`, `nombreTerminal`, `terminal`, S.nombreSucursal, S.sucursal FROM `" . $idUser . "_master_terminales` as T INNER JOIN " . $idUser . "_master_sucursales as S on T.idSucursal = S.idSucursal where S.idSucursal = '" . $idSucursal . "'";
+        $q = "SELECT `idTerminal`, `nombreTerminal`, `terminal`, S.nombreSucursal, S.sucursal FROM `" . $idUser . "_master_terminales` as T INNER JOIN " . $idUser . "_master_sucursales as S on T.idSucursal = S.idSucursal where S.idSucursal = '" . db_escape($idSucursal) . "'";
     }
 
     $result = db_query($q, 2);
@@ -610,7 +610,7 @@ function getUnid() {
 
 function getUsersCompanny() {
     $thisSessionkey = params_get("sessionKey");
-    $idUser = getIdUser($thisSessionkey);
+    $idUser = db_escape(getIdUser($thisSessionkey));
 
     $q = "SELECT `idUser`, `fullName`, `email`, `country`, T.nombreTerminal, T.terminal, S.nombreSucursal, S.sucursal FROM `" . $idUser . "_master_users` as U INNER join " . $idUser . "_master_terminales as T on U.`settings` = T.idTerminal INNER join " . $idUser . "_master_sucursales as S on T.idSucursal = S.idSucursal";
     $result = db_query($q, 2);
@@ -619,9 +619,9 @@ function getUsersCompanny() {
 
 function companny_getMyInfo() {
     $iam = params_get("iam");
-    $idMasterUser = params_get('idMasterUser');
+    $idMasterUser = db_escape(params_get('idMasterUser'));
     if (confirmSessionKey($idMasterUser) != false) {
-        $q = "SELECT `idUser`, `fullName`, `email`, `country`, T.nombreTerminal, T.terminal, S.nombreSucursal, S.sucursal FROM `" . $idMasterUser . "_master_users` as U INNER join " . $idMasterUser . "_master_terminales as T on U.`settings` = T.idTerminal INNER join " . $idMasterUser . "_master_sucursales as S on T.idSucursal = S.idSucursal where U.userName = '" . $iam . "'";
+        $q = "SELECT `idUser`, `fullName`, `email`, `country`, T.nombreTerminal, T.terminal, S.nombreSucursal, S.sucursal FROM `" . $idMasterUser . "_master_users` as U INNER join " . $idMasterUser . "_master_terminales as T on U.`settings` = T.idTerminal INNER join " . $idMasterUser . "_master_sucursales as S on T.idSucursal = S.idSucursal where U.userName = '" . db_escape($iam) . "'";
         $result = db_query($q, 2);
         return $result;
     } else {
@@ -645,9 +645,9 @@ function companny_add_voucher() {
     $idComprobanteReferencia = params_get("idComprobanteReferencia");
 
     if (confirmSessionKey($idMasterUser) != false) {
-        $q = "INSERT INTO `" . $idMasterUser . "_master_vouchers` "
+        $q = "INSERT INTO `" . db_escape($idMasterUser) . "_master_vouchers` "
                 . "(`idComprobante`, `consecutivo`, `clave`, `idComprobanteReferencia`, `idUser`, `tipoDocumento`, `estado`, `xmlEnviadoBase64`, `respuestaMHBase64`,  `idReceptor`, `env`) "
-                . "VALUES (NULL, '" . $consecutivo . "', '" . $clave . "','" . $idComprobanteReferencia . "', '" . $idUser . "', '" . $tipoDocumento . "', '" . $estado . "', '" . $xmlEnviadoBase64 . "', '" . $respuestaMHBase64 . "'," . $idReceptor . ", '" . $env . "')";
+                . "VALUES (NULL, '" . db_escape($consecutivo) . "', '" . db_escape($clave) . "','" . db_escape($idComprobanteReferencia) . "', '" . db_escape($idUser) . "', '" . db_escape($tipoDocumento) . "', '" . db_escape($estado) . "', '" . db_escape($xmlEnviadoBase64) . "', '" . db_escape($respuestaMHBase64) . "'," . db_escape($idReceptor) . ", '" . db_escape($env) . "')";
         $result = db_query($q, 0);
         return $result;
     } else {
@@ -656,25 +656,25 @@ function companny_add_voucher() {
 }
 
 function addCompannyReciver() {
-    $nombreCliente = params_get("nombreCliente");
-    $numeroCedula = params_get("numeroCedula");
-    $tipoCedula = params_get("tipoCedula");
-    $telefono = params_get("telefono");
-    $idProvincia = params_get("idProvincia");
-    $idCanton = params_get("idCanton");
-    $idDistrito = params_get("idDistrito");
-    $idBarrio = params_get("idBarrio");
-    $otrasSenas = params_get("otrasSenas");
-    $nombreComercial = params_get("nombreComercial");
-    $correoPrincipal = params_get("correoPrincipal");
-    $copiasCorreo = params_get("copiasCorreo");
-    $numeroFax = params_get("numeroFax");
+    $nombreCliente = db_escape(params_get("nombreCliente"));
+    $numeroCedula = db_escape(params_get("numeroCedula"));
+    $tipoCedula = db_escape(params_get("tipoCedula"));
+    $telefono = db_escape(params_get("telefono"));
+    $idProvincia = db_escape(params_get("idProvincia"));
+    $idCanton = db_escape(params_get("idCanton"));
+    $idDistrito = db_escape(params_get("idDistrito"));
+    $idBarrio = db_escape(params_get("idBarrio"));
+    $otrasSenas = db_escape(params_get("otrasSenas"));
+    $nombreComercial = db_escape(params_get("nombreComercial"));
+    $correoPrincipal = db_escape(params_get("correoPrincipal"));
+    $copiasCorreo = db_escape(params_get("copiasCorreo"));
+    $numeroFax = db_escape(params_get("numeroFax"));
 
     $idMasterUser = params_get('idMasterUser');
-    $compannyUserId = getComapannyIdUser(params_get('sessionKey'), $idMasterUser);
+    $compannyUserId = db_escape(getComapannyIdUser(params_get('sessionKey'), $idMasterUser));
 
     if (confirmSessionKey($idMasterUser) != false) {
-        $q = "INSERT INTO `" . $idMasterUser . "_master_receiver` (`idReceptor`, `idUser`, `nombreCliente`, `numeroCedula`, `tipoCedula`, `telefono`, `idProvincia`, `idCanton`, `idDistrito`, `idBarrio`, `otrasSenas`, `nombreComercial`, `correoPrincipal`, `copiasCorreo`, `codigoPais`, `numeroFax`, `estadoCliente`) "
+        $q = "INSERT INTO `" . db_escape($idMasterUser) . "_master_receiver` (`idReceptor`, `idUser`, `nombreCliente`, `numeroCedula`, `tipoCedula`, `telefono`, `idProvincia`, `idCanton`, `idDistrito`, `idBarrio`, `otrasSenas`, `nombreComercial`, `correoPrincipal`, `copiasCorreo`, `codigoPais`, `numeroFax`, `estadoCliente`) "
                 . "VALUES "
                 . "(NULL, '$compannyUserId', '$nombreCliente', '$numeroCedula', '$tipoCedula', '$telefono', '$idProvincia', '$idCanton', '$idDistrito', '$idBarrio', '$otrasSenas', '$nombreComercial', '$correoPrincipal', '$copiasCorreo', '506', '$numeroFax', '1')";
         $result = db_query($q, 0);
@@ -687,10 +687,10 @@ function addCompannyReciver() {
 function companny_updateConsecutive() {
     $env = params_get("env");
     $tipoDocumento = params_get('tipoDocumento');
-    $idMasterUser = params_get('idMasterUser');
+    $idMasterUser = db_escape(params_get('idMasterUser'));
     $compannyUserId = getComapannyIdUser(params_get('sessionKey'), $idMasterUser);
     if (confirmSessionKey($idMasterUser) != false) {
-        $q = "UPDATE `" . $idMasterUser . "_master_consecutive` SET `numeroConsecutivo` = `numeroConsecutivo`+1 WHERE `" . $idMasterUser . "_master_consecutive`.`idUser` = '" . $compannyUserId . "' and `ENV` = '" . $env . "' and `tipoComprobante` = '" . $tipoDocumento . "'";
+        $q = "UPDATE `" . $idMasterUser . "_master_consecutive` SET `numeroConsecutivo` = `numeroConsecutivo`+1 WHERE `" . $idMasterUser . "_master_consecutive`.`idUser` = '" . db_escape($compannyUserId) . "' and `ENV` = '" . db_escape($env) . "' and `tipoComprobante` = '" . db_escape($tipoDocumento) . "'";
         $result = db_query($q, 0);
         return $result;
     } else {
@@ -701,10 +701,10 @@ function companny_updateConsecutive() {
 function companny_getMyConsecutive() {
     $iam = params_get("iam");
     $tipoComprobante = params_get("tipoComprobante");
-    $idMasterUser = params_get('idMasterUser');
+    $idMasterUser = db_escape(params_get('idMasterUser'));
     $env = params_get('env');
     
-        $q = "SELECT COALESCE(MAX(`numeroConsecutivo`), 0) as consecutivo FROM `" . $idMasterUser . "_master_consecutive` as C INNER join " . $idMasterUser . "_master_users as U on C.idUser = U.idUser where U.userName = '" . $iam . "' and C.ENV='".$env."' and C.`tipoComprobante` = '" . $tipoComprobante . "'";
+        $q = "SELECT COALESCE(MAX(`numeroConsecutivo`), 0) as consecutivo FROM `" . $idMasterUser . "_master_consecutive` as C INNER join " . $idMasterUser . "_master_users as U on C.idUser = U.idUser where U.userName = '" . db_escape($iam) . "' and C.ENV='".db_escape($env)."' and C.`tipoComprobante` = '" . db_escape($tipoComprobante) . "'";
         $result = db_query($q, 2);
         return $result;
 }
@@ -715,8 +715,8 @@ function confirmSessionKey($idMasterUser) {
 
     grace_debug("Confirm the session for this user");
     $q = sprintf("SELECT *
-FROM " . $idMasterUser . "_master_sessions
-WHERE sessionKey = '%s'", params_get('sessionKey', '')
+FROM " . db_escape($idMasterUser) . "_master_sessions
+WHERE sessionKey = '%s'", db_escape(params_get('sessionKey', ''))
     );
     $r = db_query($q, 1);
 

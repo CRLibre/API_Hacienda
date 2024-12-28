@@ -202,6 +202,11 @@ class Firmadocr
                   '</xades:SigPolicyHash>'.
               '</xades:SignaturePolicyId>' .
           '</xades:SignaturePolicyIdentifier>'.
+          '<xades:SignerRole>'.
+              '<xades:ClaimedRoles>'.
+                  '<xades:ClaimedRole>Emisor</xades:ClaimedRole>'.
+              '</xades:ClaimedRoles>'.
+          '</xades:SignerRole>'.
       '</xades:SignedSignatureProperties>'.
       '<xades:SignedDataObjectProperties>'.
           '<xades:DataObjectFormat ObjectReference="#'. $this->Reference0Id . '">'.

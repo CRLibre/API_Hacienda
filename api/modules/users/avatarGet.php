@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2024 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -38,7 +38,7 @@ function users_avatarGet()
         $avatarPath = files_createPath($user->idUser, "avatar");
 
         # Get the file name
-        $q = sprintf("SELECT * FROM files WHERE idFile = '%s'", $user->avatar);
+        $q = sprintf("SELECT * FROM files WHERE idFile = '%s'", db_escape($user->avatar));
         $avatarDets = db_query($q, 1);
 
         # Change the name according to the requested size

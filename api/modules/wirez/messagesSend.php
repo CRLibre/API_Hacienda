@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2024 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -50,12 +50,12 @@ function wirez_messagesSend()
     $q = sprintf("INSERT INTO wirez_msgs (timestamp, ip, idSender, idRecipient, text, attachments, idConversation)
         VALUES('%s','%s','%s','%s','%s','%s','%s')",
             time(),
-            $_SERVER['REMOTE_ADDR'],
-            $user->idUser,
-            $recipient->idUser,
-            addslashes(json_decode(params_get('text',''), ENT_QUOTES)),
+            db_escape($_SERVER['REMOTE_ADDR']),
+            db_escape($user->idUser),
+            db_escape($recipient->idUser),
+            db_escape(addslashes(json_decode(params_get('text',''), ENT_QUOTES))),
             '',
-            $idConversation
+            db_escape($idConversation)
     );
 
     $r = db_query($q, 0);
@@ -72,15 +72,15 @@ function wirez_conversationsCreate($idUser, $subject, $idRecipient)
     $timestamp = time();
 
     $insert = sprintf("INSERT INTO conversations (idUser, idRecipient, timestamp, subject) VALUES('%s', '%s', '%s', '%s')",
-        $idUser,
-        $idRecipient,
+        db_escape($idUser),
+        db_escape($idRecipient),
         $timestamp,
-        $subject);
+        db_escape($subject);
 
     $r = db_query($insert, 0);
 
     # Now I need to know the id of the conversation
-    $q = sprintf("SELECT idConversation FROM conversations WHERE timestamp = '%s' AND idUser = '%s'", $timestamp, $idUser);
+    $q = sprintf("SELECT idConversation FROM conversations WHERE timestamp = '%s' AND idUser = '%s'", $timestamp, db_escape($idUser));
 
     $r = db_query($q, 1);
 
