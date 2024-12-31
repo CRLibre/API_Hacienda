@@ -145,7 +145,7 @@ function db_query($q, $return = 1)
  * @param $string The string to escape
  * @return The escaped string
  */
-functon db_escape($string = '')
+function db_escape($string = '')
 {
     global $dbConn;
 
