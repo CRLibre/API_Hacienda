@@ -25,6 +25,7 @@ function genXML()
     $DetalleServicio        = json_decode(params_get("detalles"));
     $tipoDocumento          = params_get("tipoDocumento");
     $clave                  = params_get("clave");
+    $proveedorSistemas      = params_get("proveedor_sistemas");
     $consecutivo            = params_get("consecutivo");
     $fechaEmision           = params_get("fecha_emision");
     // Datos emisor
