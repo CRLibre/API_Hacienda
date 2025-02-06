@@ -35,6 +35,7 @@ function genXMLFe()
 {
     // Datos contribuyente
     $clave                          = params_get("clave");
+    $proveedorSistemas              = params_get("proveedor_sistemas");
     $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
@@ -151,6 +152,7 @@ function genXMLFe()
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Clave>' . $clave . '</Clave>
+        <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
         <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
         <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
         <FechaEmision>' . $fechaEmision . '</FechaEmision>
@@ -614,6 +616,7 @@ function genXMLNC()
 
     // Datos contribuyente
     $clave                          = params_get("clave");
+    $proveedorSistemas              = params_get("proveedor_sistemas");
     $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
@@ -728,6 +731,7 @@ function genXMLNC()
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
+    <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
     <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
     <FechaEmision>' . $fechaEmision . '</FechaEmision>
@@ -1196,6 +1200,7 @@ function genXMLND()
 
     // Datos contribuyente
     $clave                          = params_get("clave");
+    $proveedorSistemas              = params_get("proveedor_sistemas");
     $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
@@ -1310,6 +1315,7 @@ function genXMLND()
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
+    <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
     <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
     <FechaEmision>' . $fechaEmision . '</FechaEmision>
@@ -1774,6 +1780,7 @@ function genXMLTE()
 
     // Datos contribuyente
     $clave                          = params_get("clave");
+    $proveedorSistemas              = params_get("proveedor_sistemas");
     $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
@@ -1890,6 +1897,7 @@ function genXMLTE()
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
+    <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
     <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
     <FechaEmision>' . $fechaEmision . '</FechaEmision>
@@ -2398,6 +2406,7 @@ function genXMLFec()
 {
     // Datos contribuyente
     $clave                          = params_get("clave");
+    $proveedorSistemas              = params_get("proveedor_sistemas");
     $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
@@ -2513,6 +2522,7 @@ function genXMLFec()
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Clave>' . $clave . '</Clave>
+        <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
         <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
         <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
         <FechaEmision>' . $fechaEmision . '</FechaEmision>
@@ -2971,6 +2981,7 @@ function genXMLFec()
 function genXMLFee()
 {
     $clave                          = params_get("clave");
+    $proveedorSistemas              = params_get("proveedor_sistemas");
     $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
@@ -3063,6 +3074,7 @@ function genXMLFee()
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Clave>' . $clave . '</Clave>
+        <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
         <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
         <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
         <FechaEmision>' . $fechaEmision . '</FechaEmision>
@@ -3548,7 +3560,7 @@ function genXMLFee()
 
 
 /* * ************************************************** */
-/* Funcion de prueba                                 */
+/* Funcion de prueba                                    */
 /* * ************************************************** */
 
 function test()
