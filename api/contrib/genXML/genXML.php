@@ -19,8 +19,8 @@
 /* * ************************************************** */
 /* Constantes de validacion                             */
 /* * ************************************************** */
-const TIPODOCREFVALUES = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '99');
-const CODIDOREFVALUES = array('01','02','04','05','99');
+define("TIPODOCREFVALUES", array('01', '02', '03', '04', '05', '06', '07', '08', '09', '99'));
+define('CODIDOREFVALUES', array('01','02','04','05','99'));
 const CODIGOACTIVIDADSIZE = 6;
 const EMISORNOMBREMAXSIZE = 100;
 const RECEPTORNOMBREMAXSIZE = 100;
@@ -36,7 +36,8 @@ function genXMLFe()
     // Datos contribuyente
     $clave                          = params_get("clave");
     $proveedorSistemas              = params_get("proveedor_sistemas");
-    $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadEmisor          = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadReceptor        = params_get("codigo_actividad_receptor");
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
 
@@ -119,9 +120,9 @@ function genXMLFe()
         grace_debug(params_get("medios_pago"));
 
     // Validate string sizes
-    $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
-    if (strlen($codigoActividad) != CODIGOACTIVIDADSIZE)
-        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividad is ".$codigoActividad);
+    $codigoActividadEmisor = str_pad($codigoActividadEmisor, 6, "0", STR_PAD_LEFT);
+    if (strlen($codigoActividadEmisor) != CODIGOACTIVIDADSIZE)
+        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividadEmisor is ".$codigoActividadEmisor);
 
     if (strlen($emisorNombre) > EMISORNOMBREMAXSIZE)
         error_log("emisorNombreSize: ".EMISORNOMBREMAXSIZE." is greater than emisorNombre: ".$emisorNombre);
@@ -153,7 +154,19 @@ function genXMLFe()
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Clave>' . $clave . '</Clave>
         <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
-        <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
+        <CodigoActividadEmisor>' . $codigoActividadEmisor . '</CodigoActividadEmisor>';
+
+    if ( isset($codigoActividadReceptor) && $codigoActividadReceptor != "")
+    {
+        $codigoActividadReceptor = str_pad($codigoActividadReceptor, 6, "0", STR_PAD_LEFT);
+        if (strlen($codigoActividadReceptor) != CODIGOACTIVIDADSIZE)
+            error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividadReceptor is ".$codigoActividadReceptor);
+
+        $xmlString .= '
+        <CodigoActividadReceptor>' . $codigoActividadReceptor . '</CodigoActividadReceptor>';
+    }
+
+    $xmlString .= '
         <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
         <FechaEmision>' . $fechaEmision . '</FechaEmision>
         <Emisor>
@@ -617,7 +630,8 @@ function genXMLNC()
     // Datos contribuyente
     $clave                          = params_get("clave");
     $proveedorSistemas              = params_get("proveedor_sistemas");
-    $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadEmisor          = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadReceptor        = params_get("codigo_actividad_receptor");
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
 
@@ -698,9 +712,9 @@ function genXMLNC()
         grace_debug(params_get("medios_pago"));
 
     // Validate string sizes
-    $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
-    if (strlen($codigoActividad) != CODIGOACTIVIDADSIZE)
-        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividad is ".$codigoActividad);
+    $codigoActividadEmisor = str_pad($codigoActividadEmisor, 6, "0", STR_PAD_LEFT);
+    if (strlen($codigoActividadEmisor) != CODIGOACTIVIDADSIZE)
+        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividadEmisor is ".$codigoActividadEmisor);
 
     if (strlen($emisorNombre) > EMISORNOMBREMAXSIZE)
         error_log("emisorNombreSize: ".EMISORNOMBREMAXSIZE." is greater than emisorNombre: ".$emisorNombre);
@@ -732,7 +746,19 @@ function genXMLNC()
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
     <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
-    <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
+    <CodigoActividadEmisor>' . $codigoActividadEmisor . '</CodigoActividadEmisor>';
+
+    if ( isset($codigoActividadReceptor) && $codigoActividadReceptor != "")
+    {
+        $codigoActividadReceptor = str_pad($codigoActividadReceptor, 6, "0", STR_PAD_LEFT);
+        if (strlen($codigoActividadReceptor) != CODIGOACTIVIDADSIZE)
+            error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividadReceptor is ".$codigoActividadReceptor);
+
+        $xmlString .= '
+        <CodigoActividadReceptor>' . $codigoActividadReceptor . '</CodigoActividadReceptor>';
+    }
+
+    $xmlString .= '
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
     <FechaEmision>' . $fechaEmision . '</FechaEmision>
     <Emisor>
@@ -1201,7 +1227,8 @@ function genXMLND()
     // Datos contribuyente
     $clave                          = params_get("clave");
     $proveedorSistemas              = params_get("proveedor_sistemas");
-    $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadEmisor          = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadReceptor        = params_get("codigo_actividad_receptor");
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
 
@@ -1282,9 +1309,9 @@ function genXMLND()
         grace_debug(params_get("medios_pago"));
 
     // Validate string sizes
-    $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
-    if (strlen($codigoActividad) != CODIGOACTIVIDADSIZE)
-        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividad is ".$codigoActividad);
+    $codigoActividadEmisor = str_pad($codigoActividadEmisor, 6, "0", STR_PAD_LEFT);
+    if (strlen($codigoActividadEmisor) != CODIGOACTIVIDADSIZE)
+        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividadEmisor is ".$codigoActividadEmisor);
 
     if (strlen($emisorNombre) > EMISORNOMBREMAXSIZE)
         error_log("emisorNombreSize: ".EMISORNOMBREMAXSIZE." is greater than emisorNombre: ".$emisorNombre);
@@ -1316,7 +1343,19 @@ function genXMLND()
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
     <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
-    <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
+    <CodigoActividadEmisor>' . $codigoActividadEmisor . '</CodigoActividadEmisor>';
+
+    if ( isset($codigoActividadReceptor) && $codigoActividadReceptor != "")
+    {
+        $codigoActividadReceptor = str_pad($codigoActividadReceptor, 6, "0", STR_PAD_LEFT);
+        if (strlen($codigoActividadReceptor) != CODIGOACTIVIDADSIZE)
+            error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividadReceptor is ".$codigoActividadReceptor);
+
+        $xmlString .= '
+        <CodigoActividadReceptor>' . $codigoActividadReceptor . '</CodigoActividadReceptor>';
+    }
+
+    $xmlString .= '
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
     <FechaEmision>' . $fechaEmision . '</FechaEmision>
     <Emisor>
@@ -1781,7 +1820,7 @@ function genXMLTE()
     // Datos contribuyente
     $clave                          = params_get("clave");
     $proveedorSistemas              = params_get("proveedor_sistemas");
-    $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadEmisor          = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
 
@@ -1864,9 +1903,9 @@ function genXMLTE()
         grace_debug(params_get("medios_pago"));
 
     // Validate string sizes
-    $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
-    if (strlen($codigoActividad) != CODIGOACTIVIDADSIZE)
-        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividad is ".$codigoActividad);
+    $codigoActividadEmisor = str_pad($codigoActividadEmisor, 6, "0", STR_PAD_LEFT);
+    if (strlen($codigoActividadEmisor) != CODIGOACTIVIDADSIZE)
+        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividadEmisor is ".$codigoActividadEmisor);
 
     if (strlen($emisorNombre) > EMISORNOMBREMAXSIZE)
         error_log("emisorNombreSize: ".EMISORNOMBREMAXSIZE." is greater than emisorNombre: ".$emisorNombre);
@@ -1898,7 +1937,7 @@ function genXMLTE()
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Clave>' . $clave . '</Clave>
     <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
-    <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
+    <CodigoActividadEmisor>' . $codigoActividadEmisor . '</CodigoActividadEmisor>
     <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
     <FechaEmision>' . $fechaEmision . '</FechaEmision>
     <Emisor>
@@ -2407,7 +2446,8 @@ function genXMLFec()
     // Datos contribuyente
     $clave                          = params_get("clave");
     $proveedorSistemas              = params_get("proveedor_sistemas");
-    $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadEmisor          = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadReceptor        = params_get("codigo_actividad_receptor");
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
 
@@ -2489,9 +2529,13 @@ function genXMLFec()
         grace_debug(params_get("medios_pago"));
 
     // Validate string sizes
-    $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
-    if (strlen($codigoActividad) != CODIGOACTIVIDADSIZE)
-        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividad is ".$codigoActividad);
+    $codigoActividadEmisor = str_pad($codigoActividadEmisor, 6, "0", STR_PAD_LEFT);
+    if (strlen($codigoActividadEmisor) != CODIGOACTIVIDADSIZE)
+        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividadEmisor is ".$codigoActividadEmisor);
+
+    $codigoActividadReceptor = str_pad($codigoActividadReceptor, 6, "0", STR_PAD_LEFT);
+    if (strlen($codigoActividadReceptor) != CODIGOACTIVIDADSIZE)
+        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividadReceptor is ".$codigoActividadReceptor);
 
     if (strlen($emisorNombre) > EMISORNOMBREMAXSIZE)
         error_log("emisorNombreSize: ".EMISORNOMBREMAXSIZE." is greater than emisorNombre: ".$emisorNombre);
@@ -2523,7 +2567,8 @@ function genXMLFec()
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Clave>' . $clave . '</Clave>
         <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
-        <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
+        <CodigoActividadEmisor>' . $codigoActividadEmisor . '</CodigoActividadEmisor>
+        <CodigoActividadReceptor>' . $codigoActividadReceptor . '</CodigoActividadReceptor>
         <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
         <FechaEmision>' . $fechaEmision . '</FechaEmision>
         <Emisor>
@@ -2982,7 +3027,7 @@ function genXMLFee()
 {
     $clave                          = params_get("clave");
     $proveedorSistemas              = params_get("proveedor_sistemas");
-    $codigoActividad                = params_get("codigo_actividad");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadEmisor          = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
     $emisorNombre                   = params_get("emisor_nombre");
@@ -3041,9 +3086,9 @@ function genXMLFee()
         grace_debug(params_get("medio_pago"));
 
     // Validate string sizes
-    $codigoActividad = str_pad($codigoActividad, 6, "0", STR_PAD_LEFT);
-    if (strlen($codigoActividad) != CODIGOACTIVIDADSIZE)
-        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividad is ".$codigoActividad);
+    $codigoActividadEmisor = str_pad($codigoActividadEmisor, 6, "0", STR_PAD_LEFT);
+    if (strlen($codigoActividadEmisor) != CODIGOACTIVIDADSIZE)
+        error_log("codigoActividadSize is: ".CODIGOACTIVIDADSIZE." and codigoActividadEmisor is ".$codigoActividadEmisor);
 
     if (strlen($emisorNombre) > EMISORNOMBREMAXSIZE)
         error_log("emisorNombreSize: ".EMISORNOMBREMAXSIZE." is greater than emisorNombre: ".$emisorNombre);
@@ -3075,7 +3120,7 @@ function genXMLFee()
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Clave>' . $clave . '</Clave>
         <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
-        <CodigoActividad>' . $codigoActividad . '</CodigoActividad>
+        <CodigoActividadEmisor>' . $codigoActividadEmisor . '</CodigoActividadEmisor>
         <NumeroConsecutivo>' . $consecutivo . '</NumeroConsecutivo>
         <FechaEmision>' . $fechaEmision . '</FechaEmision>
         <Emisor>

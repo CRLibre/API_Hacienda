@@ -57,7 +57,8 @@ function genXML_init()
             'params' => array(
                 array("key" => "clave",                             "def" => "",        "req" => true),
                 array("key" => "proveedor_sistemas",                "def" => "",        "req" => true),
-                array("key" => "codigo_actividad",                  "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad_emisor",           "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad_receptor",         "def" => "",        "req" => false),
                 array("key" => "consecutivo",                       "def" => "",        "req" => true),
                 array("key" => "fecha_emision",                     "def" => "",        "req" => true),
                 array("key" => "emisor_nombre",                     "def" => "",        "req" => true),
@@ -132,7 +133,8 @@ function genXML_init()
             'params'        => array(
                 array("key" => "clave",                             "def" => "",        "req" => true),
                 array("key" => "proveedor_sistemas",                "def" => "",        "req" => true),
-                array("key" => "codigo_actividad",                  "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad_emisor",           "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad_receptor",         "def" => "",        "req" => false),
                 array("key" => "consecutivo",                       "def" => "",        "req" => true),
                 array("key" => "fecha_emision",                     "def" => "",        "req" => true),
                 array("key" => "emisor_nombre",                     "def" => "",        "req" => true),
@@ -208,7 +210,8 @@ function genXML_init()
             'params' => array(
                 array("key" => "clave",                             "def" => "",        "req" => true),
                 array("key" => "proveedor_sistemas",                "def" => "",        "req" => true),
-                array("key" => "codigo_actividad",                  "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad_emisor",           "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad_receptor",         "def" => "",        "req" => false),
                 array("key" => "consecutivo",                       "def" => "",        "req" => true),
                 array("key" => "fecha_emision",                     "def" => "",        "req" => true),
                 array("key" => "emisor_nombre",                     "def" => "",        "req" => true),
@@ -284,7 +287,7 @@ function genXML_init()
             'params' => array(
                 array("key" => "clave",                             "def" => "",        "req" => true),
                 array("key" => "proveedor_sistemas",                "def" => "",        "req" => true),
-                array("key" => "codigo_actividad",                  "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad_emisor",           "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
                 array("key" => "consecutivo",                       "def" => "",        "req" => true),
                 array("key" => "fecha_emision",                     "def" => "",        "req" => true),
                 array("key" => "emisor_nombre",                     "def" => "",        "req" => true),
@@ -360,7 +363,8 @@ function genXML_init()
             'params' => array(
                 array("key" => "clave",                             "def" => "",        "req" => true),
                 array("key" => "proveedor_sistemas",                "def" => "",        "req" => true),
-                array("key" => "codigo_actividad",                  "def" => "",        "req" => true),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad_emisor",           "def" => "",        "req" => false),    // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+                array("key" => "codigo_actividad_receptor",         "def" => "",        "req" => true),
                 array("key" => "consecutivo",                       "def" => "",        "req" => true),
                 array("key" => "fecha_emision",                     "def" => "",        "req" => true),
                 array("key" => "emisor_nombre",                     "def" => "",        "req" => true),
@@ -434,7 +438,7 @@ function genXML_init()
             'params' => array(
                 array("key" => "clave",                           "def" => "", "req" => true),
                 array("key" => "proveedor_sistemas",              "def" => "",        "req" => true),
-                array("key" => "codigo_actividad",                "def" => "", "req" => true),
+                array("key" => "codigo_actividad_emisor",         "def" => "", "req" => true),
                 array("key" => "consecutivo",                     "def" => "", "req" => true),
                 array("key" => "fecha_emision",                   "def" => "", "req" => true),
                 array("key" => "emisor_nombre",                   "def" => "", "req" => true),
