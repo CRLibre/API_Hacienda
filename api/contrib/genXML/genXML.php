@@ -56,6 +56,7 @@ function genXMLFe()
     $emisorCodPaisFax               = params_get("emisor_cod_pais_fax");
     $emisorFax                      = params_get("emisor_fax");
     $emisorEmail                    = params_get("emisor_email");
+    $registroFiscal8707             = params_get("registrofiscal8707");
 
     // Datos receptor
     $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
@@ -175,6 +176,11 @@ function genXMLFe()
                 <Tipo>' . $emisorTipoIdentif . '</Tipo>
                 <Numero>' . $emisorNumIdentif . '</Numero>
             </Identificacion>';
+
+    if ( isset($registroFiscal8707) && $registroFiscal8707 != "")
+        $xmlString .= '
+        <Registrofiscal8707>' . $registroFiscal8707 . '</Registrofiscal8707>';
+
     if ( isset($emisorNombreComercial) && $emisorNombreComercial != "")
         $xmlString .= '
         <NombreComercial>' . $emisorNombreComercial . '</NombreComercial>';
@@ -650,6 +656,7 @@ function genXMLNC()
     $emisorCodPaisFax               = params_get("emisor_cod_pais_fax");
     $emisorFax                      = params_get("emisor_fax");
     $emisorEmail                    = params_get("emisor_email");
+    $registroFiscal8707             = params_get("registrofiscal8707");
 
     // Datos receptor
     $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
@@ -767,6 +774,11 @@ function genXMLNC()
             <Tipo>' . $emisorTipoIdentif . '</Tipo>
             <Numero>' . $emisorNumIdentif . '</Numero>
         </Identificacion>';
+
+    if ( isset($registroFiscal8707) && $registroFiscal8707 != "")
+        $xmlString .= '
+        <Registrofiscal8707>' . $registroFiscal8707 . '</Registrofiscal8707>';
+
     if ( isset($emisorNombreComercial) && $emisorNombreComercial != "")
         $xmlString .= '
         <NombreComercial>' . $emisorNombreComercial . '</NombreComercial>';
@@ -1247,6 +1259,7 @@ function genXMLND()
     $emisorCodPaisFax               = params_get("emisor_cod_pais_fax");
     $emisorFax                      = params_get("emisor_fax");
     $emisorEmail                    = params_get("emisor_email");
+    $registroFiscal8707             = params_get("registrofiscal8707");
 
     // Datos receptor
     $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
@@ -1364,6 +1377,11 @@ function genXMLND()
             <Tipo>' . $emisorTipoIdentif . '</Tipo>
             <Numero>' . $emisorNumIdentif . '</Numero>
         </Identificacion>';
+
+    if ( isset($registroFiscal8707) && $registroFiscal8707 != "")
+        $xmlString .= '
+        <Registrofiscal8707>' . $registroFiscal8707 . '</Registrofiscal8707>';
+
     if ( isset($emisorNombreComercial) && $emisorNombreComercial != "")
         $xmlString .= '
         <NombreComercial>' . $emisorNombreComercial . '</NombreComercial>';
@@ -1839,6 +1857,7 @@ function genXMLTE()
     $emisorCodPaisFax               = params_get("emisor_cod_pais_fax");
     $emisorFax                      = params_get("emisor_fax");
     $emisorEmail                    = params_get("emisor_email");
+    $registroFiscal8707             = params_get("registrofiscal8707");
 
     // Datos receptor
     $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
@@ -1946,6 +1965,11 @@ function genXMLTE()
             <Tipo>' . $emisorTipoIdentif . '</Tipo>
             <Numero>' . $emisorNumIdentif . '</Numero>
         </Identificacion>';
+
+    if ( isset($registroFiscal8707) && $registroFiscal8707 != "")
+        $xmlString .= '
+        <Registrofiscal8707>' . $registroFiscal8707 . '</Registrofiscal8707>';
+
     if ( isset($emisorNombreComercial) && $emisorNombreComercial != "")
         $xmlString .= '
         <NombreComercial>' . $emisorNombreComercial . '</NombreComercial>';
@@ -2466,6 +2490,7 @@ function genXMLFec()
     $emisorCodPaisFax               = params_get("emisor_cod_pais_fax");
     $emisorFax                      = params_get("emisor_fax");
     $emisorEmail                    = params_get("emisor_email");
+    $registroFiscal8707             = params_get("registrofiscal8707");
 
     // Datos receptor
     $omitir_receptor                = params_get("omitir_receptor");        // Deprecated
@@ -2577,6 +2602,11 @@ function genXMLFec()
                 <Tipo>' . $emisorTipoIdentif . '</Tipo>
                 <Numero>' . $emisorNumIdentif . '</Numero>
             </Identificacion>';
+
+    if ( isset($registroFiscal8707) && $registroFiscal8707 != "")
+        $xmlString .= '
+        <Registrofiscal8707>' . $registroFiscal8707 . '</Registrofiscal8707>';
+
     if ( isset($emisorNombreComercial) && $emisorNombreComercial != "")
         $xmlString .= '
         <NombreComercial>' . $emisorNombreComercial . '</NombreComercial>';
@@ -3030,6 +3060,7 @@ function genXMLFee()
     $codigoActividadEmisor          = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
     $consecutivo                    = params_get("consecutivo");
     $fechaEmision                   = params_get("fecha_emision");
+
     $emisorNombre                   = params_get("emisor_nombre");
     $emisorTipoIdentif              = params_get("emisor_tipo_identif");
     $emisorNumIdentif               = params_get("emisor_num_identif");
@@ -3044,6 +3075,8 @@ function genXMLFee()
     $emisorCodPaisFax               = params_get("emisor_cod_pais_fax");
     $emisorFax                      = params_get("emisor_fax");
     $emisorEmail                    = params_get("emisor_email");
+    $registroFiscal8707             = params_get("registrofiscal8707");
+
     $receptorNombre                 = params_get("receptor_nombre");
     $receptorTipoIdentif            = params_get("receptor_tipo_identif");
     $receptorNumIdentif             = params_get("receptor_num_identif");
@@ -3055,6 +3088,7 @@ function genXMLFee()
     $receptorCodPaisFax             = params_get("receptor_cod_pais_fax");
     $receptorFax                    = params_get("receptor_fax");
     $receptorEmail                  = params_get("receptor_email");
+
     $condVenta                      = params_get("condicion_venta");
     $plazoCredito                   = params_get("plazo_credito");
     $medioPago                      = json_decode(params_get("medio_pago"));
@@ -3062,6 +3096,7 @@ function genXMLFee()
     $otrosCargos                    = json_decode(params_get("otrosCargos"));
     $codMoneda                      = params_get("cod_moneda");
     $tipoCambio                     = params_get("tipo_cambio");
+
     $totalServGravados              = params_get("total_serv_gravados");
     $totalServExentos               = params_get("total_serv_exentos");
     $totalMercGravadas              = params_get("total_merc_gravada");
@@ -3074,6 +3109,7 @@ function genXMLFee()
     $totalImp                       = params_get("total_impuestos");
     $totalOtrosCargos               = params_get("totalOtrosCargos");
     $totalComprobante               = params_get("total_comprobante");
+    
     $informacionReferencia          = json_decode(params_get("informacionReferencia"));
     $otros                          = json_decode(params_get("otros"));
 
@@ -3129,6 +3165,11 @@ function genXMLFee()
                 <Tipo>' . $emisorTipoIdentif . '</Tipo>
                 <Numero>' . $emisorNumIdentif . '</Numero>
             </Identificacion>';
+
+    if ( isset($registroFiscal8707) && $registroFiscal8707 != "")
+        $xmlString .= '
+        <Registrofiscal8707>' . $registroFiscal8707 . '</Registrofiscal8707>';
+
     if ( isset($emisorNombreComercial) && $emisorNombreComercial != "")
         $xmlString .= '
         <NombreComercial>' . $emisorNombreComercial . '</NombreComercial>';
