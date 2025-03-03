@@ -79,6 +79,7 @@ function genXMLFe()
 
     // Detalles de tiquete / Factura
     $condVenta                      = params_get("condicion_venta");
+    $condVentaOtros                 = params_get("condicion_venta_otros");
     $plazoCredito                   = params_get("plazo_credito");
     $medioPago                      = params_get("medio_pago");
     $codMoneda                      = params_get("cod_moneda");
@@ -308,6 +309,11 @@ function genXMLFe()
 
     $xmlString .= '
         <CondicionVenta>' . $condVenta . '</CondicionVenta>';
+
+    if ( isset($condVentaOtros) && $condVentaOtros != "" ){
+        $xmlString .= '
+        <CondicionVentaOtros>' . $condVentaOtros . '</CondicionVentaOtros>';
+    }
 
     if ( isset($plazoCredito) && $plazoCredito != "" )
     $xmlString .= '
@@ -679,6 +685,7 @@ function genXMLNC()
 
     // Detalles de tiquete / Factura
     $condVenta                      = params_get("condicion_venta");
+    $condVentaOtros                 = params_get("condicion_venta_otros");
     $plazoCredito                   = params_get("plazo_credito");
     $medioPago                      = params_get("medio_pago");
     $codMoneda                      = params_get("cod_moneda");
@@ -910,6 +917,11 @@ function genXMLNC()
 
     $xmlString .= '
     <CondicionVenta>' . $condVenta . '</CondicionVenta>';
+
+    if ( isset($condVentaOtros) && $condVentaOtros != "" ){
+        $xmlString .= '
+        <CondicionVentaOtros>' . $condVentaOtros . '</CondicionVentaOtros>';
+    }
 
     if ( isset($plazoCredito) && $plazoCredito != "" )
     $xmlString .= '
@@ -1282,6 +1294,7 @@ function genXMLND()
 
     // Detalles de tiquete / Factura
     $condVenta                      = params_get("condicion_venta");
+    $condVentaOtros                 = params_get("condicion_venta_otros");
     $plazoCredito                   = params_get("plazo_credito");
     $medioPago                      = params_get("medio_pago");
     $codMoneda                      = params_get("cod_moneda");
@@ -1510,6 +1523,11 @@ function genXMLND()
 
     $xmlString .= '
     <CondicionVenta>' . $condVenta . '</CondicionVenta>';
+
+    if ( isset($condVentaOtros) && $condVentaOtros != "" ){
+        $xmlString .= '
+        <CondicionVentaOtros>' . $condVentaOtros . '</CondicionVentaOtros>';
+    }
 
     if ( isset($plazoCredito) && $plazoCredito != "" )
     $xmlString .= '
@@ -1880,6 +1898,7 @@ function genXMLTE()
 
     // Detalles de tiquete / Factura
     $condVenta                      = params_get("condicion_venta");
+    $condVentaOtros                 = params_get("condicion_venta_otros");
     $plazoCredito                   = params_get("plazo_credito");
     $medioPago                      = params_get("medio_pago");
     $codMoneda                      = params_get("cod_moneda");
@@ -2083,6 +2102,11 @@ function genXMLTE()
 
     $xmlString .= '
     <CondicionVenta>' . $condVenta . '</CondicionVenta>';
+
+    if ( isset($condVentaOtros) && $condVentaOtros != "" ){
+        $xmlString .= '
+        <CondicionVentaOtros>' . $condVentaOtros . '</CondicionVentaOtros>';
+    }
 
     if ( isset($plazoCredito) && $plazoCredito != "" )
     $xmlString .= '
@@ -2513,6 +2537,7 @@ function genXMLFec()
 
     // Detalles de tiquete / Factura
     $condVenta                      = params_get("condicion_venta");
+    $condVentaOtros                 = params_get("condicion_venta_otros");
     $plazoCredito                   = params_get("plazo_credito");
     $medioPago                      = params_get("medio_pago");
     $codMoneda                      = params_get("cod_moneda");
@@ -2735,6 +2760,11 @@ function genXMLFec()
 
     $xmlString .= '
         <CondicionVenta>' . $condVenta . '</CondicionVenta>';
+
+    if ( isset($condVentaOtros) && $condVentaOtros != "" ){
+        $xmlString .= '
+        <CondicionVentaOtros>' . $condVentaOtros . '</CondicionVentaOtros>';
+    }
 
     if ( isset($plazoCredito) && $plazoCredito != "" )
     $xmlString .= '
@@ -3090,6 +3120,7 @@ function genXMLFee()
     $receptorEmail                  = params_get("receptor_email");
 
     $condVenta                      = params_get("condicion_venta");
+    $condVentaOtros                 = params_get("condicion_venta_otros");
     $plazoCredito                   = params_get("plazo_credito");
     $medioPago                      = json_decode(params_get("medio_pago"));
     $detalles                       = json_decode(params_get("detalles"));
@@ -3280,9 +3311,13 @@ function genXMLFee()
         $xmlString .= '</Receptor>';
     }
 
-
     $xmlString .= '
         <CondicionVenta>' . $condVenta . '</CondicionVenta>';
+
+    if ( isset($condVentaOtros) && $condVentaOtros != "" ){
+        $xmlString .= '
+        <CondicionVentaOtros>' . $condVentaOtros . '</CondicionVentaOtros>';
+    }
 
     if ( isset($plazoCredito) && $plazoCredito != "" )
     $xmlString .= '
