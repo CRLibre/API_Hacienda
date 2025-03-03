@@ -319,18 +319,6 @@ function genXMLFe()
     $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
 
-    if ( isset($medioPago) && $medioPago != "" && $medioPago != 0 )
-    $xmlString .= '
-        <MedioPago>' . $medioPago . '</MedioPago>';
-    else
-        //mediosPago 4 nodos nada más
-        if ( isset($mediosPago) && $mediosPago != ""){
-            foreach ($mediosPago as $o)
-            {
-                $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
-            }
-        }
-
     $xmlString .= '
         <DetalleServicio>';
 
@@ -570,6 +558,13 @@ function genXMLFe()
     if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
+
+    if ( isset($mediosPago) && $mediosPago != ""){
+        foreach ($mediosPago as $o)
+        {
+            $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
+        }
+    }
 
     $xmlString .= '
         <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
@@ -927,18 +922,6 @@ function genXMLNC()
     $xmlString .= '
     <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
 
-    if ( isset($medioPago) && $medioPago != "" && $medioPago != 0 )
-    $xmlString .= '
-        <MedioPago>' . $medioPago . '</MedioPago>';
-    else
-        //mediosPago 4 nodos nada más
-        if ( isset($mediosPago) && $mediosPago != ""){
-            foreach ($mediosPago as $o)
-            {
-                $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
-            }
-        }
-
     $xmlString .= '
     <DetalleServicio>';
 
@@ -1183,6 +1166,13 @@ function genXMLNC()
     if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
+
+    if ( isset($mediosPago) && $mediosPago != ""){
+        foreach ($mediosPago as $o)
+        {
+            $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
+        }
+    }
 
     $xmlString .= '
         <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
@@ -1533,18 +1523,6 @@ function genXMLND()
     $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
 
-    if ( isset($medioPago) && $medioPago != "" && $medioPago != 0 )
-    $xmlString .= '
-        <MedioPago>' . $medioPago . '</MedioPago>';
-    else
-        //mediosPago 4 nodos nada más
-        if ( isset($mediosPago) && $mediosPago != ""){
-            foreach ($mediosPago as $o)
-            {
-                $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
-            }
-        }
-
     $xmlString .= '
     <DetalleServicio>';
 
@@ -1787,6 +1765,13 @@ function genXMLND()
     if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
+
+    if ( isset($mediosPago) && $mediosPago != ""){
+        foreach ($mediosPago as $o)
+        {
+            $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
+        }
+    }
 
     $xmlString .= '
         <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
@@ -2112,18 +2097,6 @@ function genXMLTE()
     $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
 
-    if ( isset($medioPago) && $medioPago != "" && $medioPago != 0 )
-    $xmlString .= '
-        <MedioPago>' . $medioPago . '</MedioPago>';
-    else
-        //mediosPago 4 nodos nada más
-        if ( isset($mediosPago) && $mediosPago != ""){
-            foreach ($mediosPago as $o)
-            {
-                $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
-            }
-        }
-
     $xmlString .='<DetalleServicio>';
 
     // cant - unidad medida - detalle - precio unitario - monto total - subtotal - monto total linea - Monto desc -Naturaleza Desc - Impuesto : Codigo / Tarifa / Monto
@@ -2370,6 +2343,13 @@ function genXMLTE()
     if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
+
+    if ( isset($mediosPago) && $mediosPago != ""){
+        foreach ($mediosPago as $o)
+        {
+            $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
+        }
+    }
 
     $xmlString .= '
         <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
@@ -2770,18 +2750,6 @@ function genXMLFec()
     $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
 
-    if ( isset($medioPago) && $medioPago != "" && $medioPago != 0 )
-    $xmlString .= '
-        <MedioPago>' . $medioPago . '</MedioPago>';
-    else
-        //mediosPago 4 nodos nada más
-        if ( isset($mediosPago) && $mediosPago != ""){
-            foreach ($mediosPago as $o)
-            {
-                $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
-            }
-        }
-
     $xmlString .= '
         <DetalleServicio>';
 
@@ -3017,6 +2985,13 @@ function genXMLFec()
     if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
+
+    if ( isset($mediosPago) && $mediosPago != ""){
+        foreach ($mediosPago as $o)
+        {
+            $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
+        }
+    }
 
     $xmlString .= '
         <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
@@ -3323,27 +3298,6 @@ function genXMLFee()
     $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
 
-    // JSON DE EJEMPLO
-    // {
-    //     "medioPago": [
-    //         "01",
-    //         "02",
-    //         "03"
-    //     ]
-    // }
-
-    if (isset($medioPago) && !empty($medioPago)) {
-        // Iteramos sobre los elementos de otroContenido
-        foreach ($medioPago->medioPago as $c) {
-            $xmlString .= '<MedioPago>' . $c . '</MedioPago>';
-        }
-    }
-
-    // XML Resultante
-    // <MedioPago>01</MedioPago>
-	// <MedioPago>02</MedioPago>
-	// <MedioPago>03</MedioPago>
-
     $xmlString .= '
         <DetalleServicio>';
 
@@ -3553,6 +3507,28 @@ function genXMLFee()
     if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
+
+    // JSON DE EJEMPLO
+    // {
+    //     "medioPago": [
+    //         "01",
+    //         "02",
+    //         "03"
+    //     ]
+    // }
+
+    if (isset($medioPago) && !empty($medioPago)) {
+        // Iteramos sobre los elementos de otroContenido
+        foreach ($medioPago->medioPago as $c) {
+            $xmlString .= '<MedioPago>' . $c . '</MedioPago>';
+        }
+    }
+
+    // XML Resultante
+    // <MedioPago>01</MedioPago>
+    // <MedioPago>02</MedioPago>
+    // <MedioPago>03</MedioPago>
+
 
     $xmlString .= '
         <TotalComprobante>' . $totalComprobante . '</TotalComprobante>
