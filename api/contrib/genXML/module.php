@@ -478,7 +478,7 @@ function genXML_init()
                 array("key" => "receptor_email",                  "def" => "", "req" => false),
                 array("key" => "registrofiscal8707",              "def" => "", "req" => false),
                 array("key" => "condicion_venta",                 "def" => "", "req" => true),
-                array("key" => "condicion_venta_otros",             "def" => "",        "req" => false),
+                array("key" => "condicion_venta_otros",           "def" => "", "req" => false),
                 array("key" => "plazo_credito",                   "def" => "", "req" => false),
                 array("key" => "medio_pago",                      "def" => "", "req" => false),
                 array("key" => "detalles",                        "def" => "", "req" => true),
