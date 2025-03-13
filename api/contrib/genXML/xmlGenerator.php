@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @deprecated
+ *
+ * @return $this
+ */
 function genXML()
 {
     $detalle                = params_get("detalle");
