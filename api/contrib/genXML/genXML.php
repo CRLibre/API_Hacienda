@@ -97,9 +97,11 @@ function genXMLFe()
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
     $totalImp                       = params_get("total_impuestos");
+    $totalImpAsumidoEmisorFabrica   = params_get("total_impuestos_asumidos_fabrica");
     $totalIVADevuelto               = params_get("totalIVADevuelto");
     $totalOtrosCargos               = params_get("totalOtrosCargos");
     $totalComprobante               = params_get("total_comprobante");
+
     $otros                          = params_get("otros");
     $otrosType                      = params_get("otrosType");
     $infoRefeTipoDoc                = params_get("infoRefeTipoDoc");
@@ -516,6 +518,10 @@ function genXMLFe()
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
 
+    if ($totalImpAsumidoEmisorFabrica != '')
+        $xmlString .= '
+        <TotalImpAsumEmisorFabrica>' . $totalImpAsumidoEmisorFabrica . '</TotalImpAsumEmisorFabrica>';
+
     if ($totalIVADevuelto != '')
         $xmlString .= '
         <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
@@ -659,9 +665,11 @@ function genXMLNC()
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
     $totalImp                       = params_get("total_impuestos");
+    $totalImpAsumidoEmisorFabrica   = params_get("total_impuestos_asumidos_fabrica");
     $totalIVADevuelto               = params_get("totalIVADevuelto");
     $totalOtrosCargos               = params_get("totalOtrosCargos");
     $totalComprobante               = params_get("total_comprobante");
+
     $otros                          = params_get("otros");
     $otrosType                      = params_get("otrosType");
     $infoRefeTipoDoc                = params_get("infoRefeTipoDoc");
@@ -1087,6 +1095,10 @@ function genXMLNC()
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
 
+    if ($totalImpAsumidoEmisorFabrica != '')
+        $xmlString .= '
+        <TotalImpAsumEmisorFabrica>' . $totalImpAsumidoEmisorFabrica . '</TotalImpAsumEmisorFabrica>';
+
     if ($totalIVADevuelto != '')
         $xmlString .= '
         <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
@@ -1226,6 +1238,7 @@ function genXMLND()
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
     $totalImp                       = params_get("total_impuestos");
+    $totalImpAsumidoEmisorFabrica   = params_get("total_impuestos_asumidos_fabrica");
     $totalIVADevuelto               = params_get("totalIVADevuelto");
     $totalOtrosCargos               = params_get("totalOtrosCargos");
     $totalComprobante               = params_get("total_comprobante");
@@ -1650,6 +1663,10 @@ function genXMLND()
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
 
+    if ($totalImpAsumidoEmisorFabrica != '')
+        $xmlString .= '
+        <TotalImpAsumEmisorFabrica>' . $totalImpAsumidoEmisorFabrica . '</TotalImpAsumEmisorFabrica>';
+
     if ($totalIVADevuelto != '')
         $xmlString .= '
         <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
@@ -1789,9 +1806,11 @@ function genXMLTE()
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
     $totalImp                       = params_get("total_impuestos");
+    $totalImpAsumidoEmisorFabrica   = params_get("total_impuestos_asumidos_fabrica");
     $totalIVADevuelto               = params_get("totalIVADevuelto");
     $totalOtrosCargos               = params_get("totalOtrosCargos");
     $totalComprobante               = params_get("total_comprobante");
+
     $otros                          = params_get("otros");
     $otrosType                      = params_get("otrosType");
     $infoRefeTipoDoc                = params_get("infoRefeTipoDoc");
@@ -2209,6 +2228,10 @@ function genXMLTE()
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
 
+    if ($totalImpAsumidoEmisorFabrica != '')
+        $xmlString .= '
+        <TotalImpAsumEmisorFabrica>' . $totalImpAsumidoEmisorFabrica . '</TotalImpAsumEmisorFabrica>';
+
     if ($totalIVADevuelto != '')
         $xmlString .= '
         <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
@@ -2404,6 +2427,8 @@ function genXMLFec()
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
     $totalImp                       = params_get("total_impuestos");
+    $totalImpAsumidoEmisorFabrica   = params_get("total_impuestos_asumidos_fabrica");
+
     $totalOtrosCargos               = params_get("totalOtrosCargos");
     $totalComprobante               = params_get("total_comprobante");
     $otros                          = params_get("otros");
@@ -2815,6 +2840,10 @@ function genXMLFec()
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
 
+    if ($totalImpAsumidoEmisorFabrica != '')
+        $xmlString .= '
+        <TotalImpAsumEmisorFabrica>' . $totalImpAsumidoEmisorFabrica . '</TotalImpAsumEmisorFabrica>';
+
     if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
@@ -2942,6 +2971,7 @@ function genXMLFee()
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
     $totalImp                       = params_get("total_impuestos");
+    $totalImpAsumidoEmisorFabrica   = params_get("total_impuestos_asumidos_fabrica");
     $totalOtrosCargos               = params_get("totalOtrosCargos");
     $totalComprobante               = params_get("total_comprobante");
     
@@ -3317,6 +3347,10 @@ function genXMLFee()
     if ($totalImp != '')
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
+
+    if ($totalImpAsumidoEmisorFabrica != '')
+        $xmlString .= '
+        <TotalImpAsumEmisorFabrica>' . $totalImpAsumidoEmisorFabrica . '</TotalImpAsumEmisorFabrica>';
 
     if ( isset($totalOtrosCargos) && $totalOtrosCargos != "")
         $xmlString .= '
