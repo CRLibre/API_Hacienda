@@ -87,12 +87,15 @@ function genXMLFe()
     $totalServGravados              = params_get("total_serv_gravados");
     $totalServExentos               = params_get("total_serv_exentos");
     $totalServExonerados            = params_get("total_serv_exonerados");
+    $totalServNoSujeto              = params_get("total_serv_no_sujeto");
     $totalMercGravadas              = params_get("total_merc_gravada");
     $totalMercExentas               = params_get("total_merc_exenta");
     $totalMercExonerada             = params_get("total_merc_exonerada");
+    $totalMercNoSujeta              = params_get("total_merc_no_sujeta");
     $totalGravados                  = params_get("total_gravados");
     $totalExento                    = params_get("total_exento");
     $totalExonerado                 = params_get("total_exonerado");
+    $totalNoSujeto                  = params_get("total_no_sujeto");
     $totalVentas                    = params_get("total_ventas");
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
@@ -345,6 +348,7 @@ function genXMLFe()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
+
             if (isset($c->codigo) && $c->codigo != "")
                 $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
@@ -480,6 +484,10 @@ function genXMLFe()
         $xmlString .= '
         <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
 
+    if ($totalServNoSujeto != '')
+        $xmlString .= '
+        <TotalServNoSujeto>' . $totalServNoSujeto . '</TotalServNoSujeto>';
+
     if ($totalMercGravadas != '')
         $xmlString .= '
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
@@ -492,6 +500,10 @@ function genXMLFe()
         $xmlString .= '
         <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
 
+    if ($totalMercNoSujeta != '')
+        $xmlString .= '
+        <TotalMercNoSujeta>' . $totalMercNoSujeta . '</TotalMercNoSujeta>';
+
     if ($totalGravados != '')
         $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>';
@@ -503,6 +515,10 @@ function genXMLFe()
     if ($totalExonerado != '')
         $xmlString .= '
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
+
+    if ($totalNoSujeto != '')
+        $xmlString .= '
+        <TotalNoSujeto>' . $totalNoSujeto . '</TotalNoSujeto>';
 
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
@@ -655,12 +671,15 @@ function genXMLNC()
     $totalServGravados              = params_get("total_serv_gravados");
     $totalServExentos               = params_get("total_serv_exentos");
     $totalServExonerados            = params_get("total_serv_exonerados");
+    $totalServNoSujeto              = params_get("total_serv_no_sujeto");
     $totalMercGravadas              = params_get("total_merc_gravada");
     $totalMercExentas               = params_get("total_merc_exenta");
     $totalMercExonerada             = params_get("total_merc_exonerada");
+    $totalMercNoSujeta              = params_get("total_merc_no_sujeta");
     $totalGravados                  = params_get("total_gravados");
     $totalExento                    = params_get("total_exento");
     $totalExonerado                 = params_get("total_exonerado");
+    $totalNoSujeto                  = params_get("total_no_sujeto");
     $totalVentas                    = params_get("total_ventas");
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
@@ -1057,6 +1076,10 @@ function genXMLNC()
         $xmlString .= '
         <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
 
+    if ($totalServNoSujeto != '')
+        $xmlString .= '
+        <TotalServNoSujeto>' . $totalServNoSujeto . '</TotalServNoSujeto>';
+
     if ($totalMercGravadas != '')
         $xmlString .= '
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
@@ -1069,6 +1092,10 @@ function genXMLNC()
         $xmlString .= '
         <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
 
+    if ($totalMercNoSujeta != '')
+        $xmlString .= '
+        <TotalMercNoSujeta>' . $totalMercNoSujeta . '</TotalMercNoSujeta>';
+
     if ($totalGravados != '')
         $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>';
@@ -1080,6 +1107,10 @@ function genXMLNC()
     if ($totalExonerado != '')
         $xmlString .= '
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
+
+    if ($totalNoSujeto != '')
+        $xmlString .= '
+        <TotalNoSujeto>' . $totalNoSujeto . '</TotalNoSujeto>';
 
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
@@ -1228,12 +1259,15 @@ function genXMLND()
     $totalServGravados              = params_get("total_serv_gravados");
     $totalServExentos               = params_get("total_serv_exentos");
     $totalServExonerados            = params_get("total_serv_exonerados");
+    $totalServNoSujeto              = params_get("total_serv_no_sujeto");
     $totalMercGravadas              = params_get("total_merc_gravada");
     $totalMercExentas               = params_get("total_merc_exenta");
     $totalMercExonerada             = params_get("total_merc_exonerada");
+    $totalMercNoSujeta              = params_get("total_merc_no_sujeta");
     $totalGravados                  = params_get("total_gravados");
     $totalExento                    = params_get("total_exento");
     $totalExonerado                 = params_get("total_exonerado");
+    $totalNoSujeto                  = params_get("total_no_sujeto");
     $totalVentas                    = params_get("total_ventas");
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
@@ -1625,6 +1659,10 @@ function genXMLND()
         $xmlString .= '
         <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
 
+    if ($totalServNoSujeto != '')
+        $xmlString .= '
+        <TotalServNoSujeto>' . $totalServNoSujeto . '</TotalServNoSujeto>';
+
     if ($totalMercGravadas != '')
         $xmlString .= '
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
@@ -1637,6 +1675,10 @@ function genXMLND()
         $xmlString .= '
         <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
 
+    if ($totalMercNoSujeta != '')
+        $xmlString .= '
+        <TotalMercNoSujeta>' . $totalMercNoSujeta . '</TotalMercNoSujeta>';
+
     if ($totalGravados != '')
         $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>';
@@ -1648,6 +1690,10 @@ function genXMLND()
     if ($totalExonerado != '')
         $xmlString .= '
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
+
+    if ($totalNoSujeto != '')
+        $xmlString .= '
+        <TotalNoSujeto>' . $totalNoSujeto . '</TotalNoSujeto>';
 
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
@@ -1796,12 +1842,15 @@ function genXMLTE()
     $totalServGravados              = params_get("total_serv_gravados");
     $totalServExentos               = params_get("total_serv_exentos");
     $totalServExonerados            = params_get("total_serv_exonerados");
+    $totalServNoSujeto              = params_get("total_serv_no_sujeto");
     $totalMercGravadas              = params_get("total_merc_gravada");
     $totalMercExentas               = params_get("total_merc_exenta");
     $totalMercExonerada             = params_get("total_merc_exonerada");
+    $totalMercNoSujeta              = params_get("total_merc_no_sujeta");
     $totalGravados                  = params_get("total_gravados");
     $totalExento                    = params_get("total_exento");
     $totalExonerado                 = params_get("total_exonerado");
+    $totalNoSujeto                  = params_get("total_no_sujeto");
     $totalVentas                    = params_get("total_ventas");
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
@@ -2190,6 +2239,10 @@ function genXMLTE()
         $xmlString .= '
         <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
 
+    if ($totalServNoSujeto != '')
+        $xmlString .= '
+        <TotalServNoSujeto>' . $totalServNoSujeto . '</TotalServNoSujeto>';
+
     if ($totalMercGravadas != '')
         $xmlString .= '
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
@@ -2202,6 +2255,10 @@ function genXMLTE()
         $xmlString .= '
         <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
 
+    if ($totalMercNoSujeta != '')
+        $xmlString .= '
+        <TotalMercNoSujeta>' . $totalMercNoSujeta . '</TotalMercNoSujeta>';
+
     if ($totalGravados != '')
         $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>';
@@ -2213,6 +2270,10 @@ function genXMLTE()
     if ($totalExonerado != '')
         $xmlString .= '
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
+
+    if ($totalNoSujeto != '')
+        $xmlString .= '
+        <TotalNoSujeto>' . $totalNoSujeto . '</TotalNoSujeto>';
 
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
@@ -2417,12 +2478,15 @@ function genXMLFec()
     $totalServGravados              = params_get("total_serv_gravados");
     $totalServExentos               = params_get("total_serv_exentos");
     $totalServExonerados            = params_get("total_serv_exonerados");
+    $totalServNoSujeto              = params_get("total_serv_no_sujeto");
     $totalMercGravadas              = params_get("total_merc_gravada");
     $totalMercExentas               = params_get("total_merc_exenta");
     $totalMercExonerada             = params_get("total_merc_exonerada");
+    $totalMercNoSujeta              = params_get("total_merc_no_sujeta");
     $totalGravados                  = params_get("total_gravados");
     $totalExento                    = params_get("total_exento");
     $totalExonerado                 = params_get("total_exonerado");
+    $totalNoSujeto                  = params_get("total_no_sujeto");
     $totalVentas                    = params_get("total_ventas");
     $totalDescuentos                = params_get("total_descuentos");
     $totalVentasNeta                = params_get("total_ventas_neta");
@@ -2802,6 +2866,10 @@ function genXMLFec()
         $xmlString .= '
         <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
 
+    if ($totalServNoSujeto != '')
+        $xmlString .= '
+        <TotalServNoSujeto>' . $totalServNoSujeto . '</TotalServNoSujeto>';
+
     if ($totalMercGravadas != '')
         $xmlString .= '
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
@@ -2814,6 +2882,10 @@ function genXMLFec()
         $xmlString .= '
         <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
 
+    if ($totalMercNoSujeta != '')
+        $xmlString .= '
+        <TotalMercNoSujeta>' . $totalMercNoSujeta . '</TotalMercNoSujeta>';
+
     if ($totalGravados != '')
         $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>';
@@ -2825,6 +2897,10 @@ function genXMLFec()
     if ($totalExonerado != '')
         $xmlString .= '
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
+
+    if ($totalNoSujeto != '')
+        $xmlString .= '
+        <TotalNoSujeto>' . $totalNoSujeto . '</TotalNoSujeto>';
 
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
