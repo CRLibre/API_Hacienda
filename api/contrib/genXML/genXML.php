@@ -118,6 +118,9 @@ function genXMLFe()
     $otrosCargos                     = json_decode(params_get("otrosCargos"));
     $mediosPago                     = json_decode(params_get("medios_pago"));
 
+    // Resumen
+    $totalDesgloseImpuesto = json_decode(params_get("totalDesgloseImpuesto"));
+
     grace_debug(params_get("detalles"));
 
     if ( isset($otrosCargos) && $otrosCargos != "")
@@ -125,6 +128,9 @@ function genXMLFe()
 
     if ( isset($mediosPago) && $mediosPago != "")
         grace_debug(params_get("medios_pago"));
+
+    if ( isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "")
+        grace_debug(params_get("totalDesgloseImpuesto"));
 
     // Validate string sizes
     $codigoActividadEmisor = str_pad($codigoActividadEmisor, 6, "0", STR_PAD_LEFT);
@@ -530,6 +536,24 @@ function genXMLFe()
     $xmlString .= '
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>';
 
+    // Add logic for TotalDesgloseImpuesto
+    if (isset($totalDesgloseImpuesto) && !empty($totalDesgloseImpuesto)) {
+        foreach ($totalDesgloseImpuesto as $impuesto) {
+            $xmlString .= '
+            <TotalDesgloseImpuesto>';
+            if (isset($impuesto->Codigo)) {
+                $xmlString .= '<Codigo>' . $impuesto->Codigo . '</Codigo>';
+            }
+            if (isset($impuesto->CodigoTarifaIVA)) {
+                $xmlString .= '<CodigoTarifaIVA>' . $impuesto->CodigoTarifaIVA . '</CodigoTarifaIVA>';
+            }
+            if (isset($impuesto->TotalMontoImpuesto)) {
+                $xmlString .= '<TotalMontoImpuesto>' . $impuesto->TotalMontoImpuesto . '</TotalMontoImpuesto>';
+            }
+            $xmlString .= '</TotalDesgloseImpuesto>';
+        }
+    }
+
     if ($totalImp != '')
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
@@ -701,12 +725,17 @@ function genXMLNC()
     $detalles                       = json_decode(params_get("detalles"));
     $otrosCargos                     = json_decode(params_get("otrosCargos"));
     $mediosPago                     = json_decode(params_get("medios_pago"));
+    // Resumen
+    $totalDesgloseImpuesto = json_decode(params_get("totalDesgloseImpuesto"));
 
     if ( isset($otrosCargos) && $otrosCargos != "")
         grace_debug(params_get("otrosCargos"));
 
     if ( isset($mediosPago) && $mediosPago != "")
         grace_debug(params_get("medios_pago"));
+
+    if ( isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "")
+        grace_debug(params_get("totalDesgloseImpuesto"));
 
     // Validate string sizes
     $codigoActividadEmisor = str_pad($codigoActividadEmisor, 6, "0", STR_PAD_LEFT);
@@ -1122,6 +1151,24 @@ function genXMLNC()
     $xmlString .= '
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>';
 
+    // Add logic for TotalDesgloseImpuesto
+    if (isset($totalDesgloseImpuesto) && !empty($totalDesgloseImpuesto)) {
+        foreach ($totalDesgloseImpuesto as $impuesto) {
+            $xmlString .= '
+            <TotalDesgloseImpuesto>';
+            if (isset($impuesto->Codigo)) {
+                $xmlString .= '<Codigo>' . $impuesto->Codigo . '</Codigo>';
+            }
+            if (isset($impuesto->CodigoTarifaIVA)) {
+                $xmlString .= '<CodigoTarifaIVA>' . $impuesto->CodigoTarifaIVA . '</CodigoTarifaIVA>';
+            }
+            if (isset($impuesto->TotalMontoImpuesto)) {
+                $xmlString .= '<TotalMontoImpuesto>' . $impuesto->TotalMontoImpuesto . '</TotalMontoImpuesto>';
+            }
+            $xmlString .= '</TotalDesgloseImpuesto>';
+        }
+    }
+
     if ($totalImp != '')
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
@@ -1288,12 +1335,17 @@ function genXMLND()
     $detalles                       = json_decode(params_get("detalles"));
     $otrosCargos                     = json_decode(params_get("otrosCargos"));
     $mediosPago                     = json_decode(params_get("medios_pago"));
+    // Resumen
+    $totalDesgloseImpuesto = json_decode(params_get("totalDesgloseImpuesto"));
 
     if ( isset($otrosCargos) && $otrosCargos != "")
         grace_debug(params_get("otrosCargos"));
 
     if ( isset($mediosPago) && $mediosPago != "")
         grace_debug(params_get("medios_pago"));
+
+    if ( isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "")
+        grace_debug(params_get("totalDesgloseImpuesto"));
 
     // Validate string sizes
     $codigoActividadEmisor = str_pad($codigoActividadEmisor, 6, "0", STR_PAD_LEFT);
@@ -1705,6 +1757,24 @@ function genXMLND()
     $xmlString .= '
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>';
 
+    // Add logic for TotalDesgloseImpuesto
+    if (isset($totalDesgloseImpuesto) && !empty($totalDesgloseImpuesto)) {
+        foreach ($totalDesgloseImpuesto as $impuesto) {
+            $xmlString .= '
+            <TotalDesgloseImpuesto>';
+            if (isset($impuesto->Codigo)) {
+                $xmlString .= '<Codigo>' . $impuesto->Codigo . '</Codigo>';
+            }
+            if (isset($impuesto->CodigoTarifaIVA)) {
+                $xmlString .= '<CodigoTarifaIVA>' . $impuesto->CodigoTarifaIVA . '</CodigoTarifaIVA>';
+            }
+            if (isset($impuesto->TotalMontoImpuesto)) {
+                $xmlString .= '<TotalMontoImpuesto>' . $impuesto->TotalMontoImpuesto . '</TotalMontoImpuesto>';
+            }
+            $xmlString .= '</TotalDesgloseImpuesto>';
+        }
+    }
+
     if ($totalImp != '')
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
@@ -1872,6 +1942,8 @@ function genXMLTE()
     $detalles                       = json_decode(params_get("detalles"));
     $otrosCargos                     = json_decode(params_get("otrosCargos"));
     $mediosPago                     = json_decode(params_get("medios_pago"));
+    // Resumen
+    $totalDesgloseImpuesto = json_decode(params_get("totalDesgloseImpuesto"));
 
     grace_debug(params_get("detalles"));
 
@@ -1880,6 +1952,9 @@ function genXMLTE()
 
     if ( isset($mediosPago) && $mediosPago != "")
         grace_debug(params_get("medios_pago"));
+
+    if ( isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "")
+        grace_debug(params_get("totalDesgloseImpuesto"));
 
     // Validate string sizes
     $codigoActividadEmisor = str_pad($codigoActividadEmisor, 6, "0", STR_PAD_LEFT);
@@ -2285,6 +2360,24 @@ function genXMLTE()
     $xmlString .= '
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>';
 
+    // Add logic for TotalDesgloseImpuesto
+    if (isset($totalDesgloseImpuesto) && !empty($totalDesgloseImpuesto)) {
+        foreach ($totalDesgloseImpuesto as $impuesto) {
+            $xmlString .= '
+            <TotalDesgloseImpuesto>';
+            if (isset($impuesto->Codigo)) {
+                $xmlString .= '<Codigo>' . $impuesto->Codigo . '</Codigo>';
+            }
+            if (isset($impuesto->CodigoTarifaIVA)) {
+                $xmlString .= '<CodigoTarifaIVA>' . $impuesto->CodigoTarifaIVA . '</CodigoTarifaIVA>';
+            }
+            if (isset($impuesto->TotalMontoImpuesto)) {
+                $xmlString .= '<TotalMontoImpuesto>' . $impuesto->TotalMontoImpuesto . '</TotalMontoImpuesto>';
+            }
+            $xmlString .= '</TotalDesgloseImpuesto>';
+        }
+    }
+
     if ($totalImp != '')
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
@@ -2507,6 +2600,8 @@ function genXMLFec()
     $detalles                       = json_decode(params_get("detalles"));
     $otrosCargos                     = json_decode(params_get("otrosCargos"));
     $mediosPago                     = json_decode(params_get("medios_pago"));
+    // Resumen
+    $totalDesgloseImpuesto = json_decode(params_get("totalDesgloseImpuesto"));
 
     grace_debug(params_get("detalles"));
 
@@ -2515,6 +2610,9 @@ function genXMLFec()
 
     if ( isset($mediosPago) && $mediosPago != "")
         grace_debug(params_get("medios_pago"));
+
+    if ( isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "")
+        grace_debug(params_get("totalDesgloseImpuesto"));
 
     // Validate string sizes
     $codigoActividadEmisor = str_pad($codigoActividadEmisor, 6, "0", STR_PAD_LEFT);
@@ -2912,6 +3010,24 @@ function genXMLFec()
     $xmlString .= '
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>';
 
+    // Add logic for TotalDesgloseImpuesto
+    if (isset($totalDesgloseImpuesto) && !empty($totalDesgloseImpuesto)) {
+        foreach ($totalDesgloseImpuesto as $impuesto) {
+            $xmlString .= '
+            <TotalDesgloseImpuesto>';
+            if (isset($impuesto->Codigo)) {
+                $xmlString .= '<Codigo>' . $impuesto->Codigo . '</Codigo>';
+            }
+            if (isset($impuesto->CodigoTarifaIVA)) {
+                $xmlString .= '<CodigoTarifaIVA>' . $impuesto->CodigoTarifaIVA . '</CodigoTarifaIVA>';
+            }
+            if (isset($impuesto->TotalMontoImpuesto)) {
+                $xmlString .= '<TotalMontoImpuesto>' . $impuesto->TotalMontoImpuesto . '</TotalMontoImpuesto>';
+            }
+            $xmlString .= '</TotalDesgloseImpuesto>';
+        }
+    }
+
     if ($totalImp != '')
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
@@ -3053,6 +3169,8 @@ function genXMLFee()
     
     $informacionReferencia          = json_decode(params_get("informacionReferencia"));
     $otros                          = json_decode(params_get("otros"));
+    // Resumen
+    $totalDesgloseImpuesto = json_decode(params_get("totalDesgloseImpuesto"));
 
     grace_debug(params_get("detalles"));
 
@@ -3061,6 +3179,9 @@ function genXMLFee()
 
     if ( isset($medioPago) && $medioPago != "")
         grace_debug(params_get("medio_pago"));
+
+    if ( isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "")
+        grace_debug(params_get("totalDesgloseImpuesto"));
 
     // Validate string sizes
     $codigoActividadEmisor = str_pad($codigoActividadEmisor, 6, "0", STR_PAD_LEFT);
@@ -3419,6 +3540,24 @@ function genXMLFee()
 
     $xmlString .= '
         <TotalVentaNeta>' . $totalVentasNeta . '</TotalVentaNeta>';
+
+    // Add logic for TotalDesgloseImpuesto
+    if (isset($totalDesgloseImpuesto) && !empty($totalDesgloseImpuesto)) {
+        foreach ($totalDesgloseImpuesto as $impuesto) {
+            $xmlString .= '
+            <TotalDesgloseImpuesto>';
+            if (isset($impuesto->Codigo)) {
+                $xmlString .= '<Codigo>' . $impuesto->Codigo . '</Codigo>';
+            }
+            if (isset($impuesto->CodigoTarifaIVA)) {
+                $xmlString .= '<CodigoTarifaIVA>' . $impuesto->CodigoTarifaIVA . '</CodigoTarifaIVA>';
+            }
+            if (isset($impuesto->TotalMontoImpuesto)) {
+                $xmlString .= '<TotalMontoImpuesto>' . $impuesto->TotalMontoImpuesto . '</TotalMontoImpuesto>';
+            }
+            $xmlString .= '</TotalDesgloseImpuesto>';
+        }
+    }
 
     if ($totalImp != '')
         $xmlString .= '
