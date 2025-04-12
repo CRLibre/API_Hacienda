@@ -81,7 +81,6 @@ function genXMLFe()
     $condVenta                      = params_get("condicion_venta");
     $condVentaOtros                 = params_get("condicion_venta_otros");
     $plazoCredito                   = params_get("plazo_credito");
-    $medioPago                      = params_get("medio_pago");
     $codMoneda                      = params_get("cod_moneda");
     $tipoCambio                     = params_get("tipo_cambio");
     $totalServGravados              = params_get("total_serv_gravados");
@@ -570,10 +569,27 @@ function genXMLFe()
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
 
-    if ( isset($mediosPago) && $mediosPago != ""){
-        foreach ($mediosPago as $o)
-        {
-            $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
+    if (isset($mediosPago) && !empty($mediosPago)) {
+        foreach ($mediosPago as $o) {
+            $xmlString .= '
+            <MedioPago>';
+
+            // Add TipoMedioPago
+            if (isset($o->tipoMedioPago) && !empty($o->tipoMedioPago)) {
+                $xmlString .= '<TipoMedioPago>' . $o->tipoMedioPago . '</TipoMedioPago>';
+            }
+
+            // Add MedioPagoOtros (only if TipoMedioPago is "99")
+            if (isset($o->tipoMedioPago) && $o->tipoMedioPago === "99" && isset($o->medioPagoOtros) && !empty($o->medioPagoOtros)) {
+                $xmlString .= '<MedioPagoOtros>' . htmlspecialchars($o->medioPagoOtros) . '</MedioPagoOtros>';
+            }
+
+            // Add TotalMedioPago
+            if (isset($o->totalMedioPago) && is_numeric($o->totalMedioPago)) {
+                $xmlString .= '<TotalMedioPago>' . number_format($o->totalMedioPago, 2, '.', '') . '</TotalMedioPago>';
+            }
+
+            $xmlString .= '</MedioPago>';
         }
     }
 
@@ -689,7 +705,6 @@ function genXMLNC()
     $condVenta                      = params_get("condicion_venta");
     $condVentaOtros                 = params_get("condicion_venta_otros");
     $plazoCredito                   = params_get("plazo_credito");
-    $medioPago                      = params_get("medio_pago");
     $codMoneda                      = params_get("cod_moneda");
     $tipoCambio                     = params_get("tipo_cambio");
     $totalServGravados              = params_get("total_serv_gravados");
@@ -1185,10 +1200,27 @@ function genXMLNC()
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
 
-    if ( isset($mediosPago) && $mediosPago != ""){
-        foreach ($mediosPago as $o)
-        {
-            $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
+    if (isset($mediosPago) && !empty($mediosPago)) {
+        foreach ($mediosPago as $o) {
+            $xmlString .= '
+            <MedioPago>';
+
+            // Add TipoMedioPago
+            if (isset($o->tipoMedioPago) && !empty($o->tipoMedioPago)) {
+                $xmlString .= '<TipoMedioPago>' . $o->tipoMedioPago . '</TipoMedioPago>';
+            }
+
+            // Add MedioPagoOtros (only if TipoMedioPago is "99")
+            if (isset($o->tipoMedioPago) && $o->tipoMedioPago === "99" && isset($o->medioPagoOtros) && !empty($o->medioPagoOtros)) {
+                $xmlString .= '<MedioPagoOtros>' . htmlspecialchars($o->medioPagoOtros) . '</MedioPagoOtros>';
+            }
+
+            // Add TotalMedioPago
+            if (isset($o->totalMedioPago) && is_numeric($o->totalMedioPago)) {
+                $xmlString .= '<TotalMedioPago>' . number_format($o->totalMedioPago, 2, '.', '') . '</TotalMedioPago>';
+            }
+
+            $xmlString .= '</MedioPago>';
         }
     }
 
@@ -1300,7 +1332,6 @@ function genXMLND()
     $condVenta                      = params_get("condicion_venta");
     $condVentaOtros                 = params_get("condicion_venta_otros");
     $plazoCredito                   = params_get("plazo_credito");
-    $medioPago                      = params_get("medio_pago");
     $codMoneda                      = params_get("cod_moneda");
     $tipoCambio                     = params_get("tipo_cambio");
     $totalServGravados              = params_get("total_serv_gravados");
@@ -1791,10 +1822,27 @@ function genXMLND()
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
 
-    if ( isset($mediosPago) && $mediosPago != ""){
-        foreach ($mediosPago as $o)
-        {
-            $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
+    if (isset($mediosPago) && !empty($mediosPago)) {
+        foreach ($mediosPago as $o) {
+            $xmlString .= '
+            <MedioPago>';
+
+            // Add TipoMedioPago
+            if (isset($o->tipoMedioPago) && !empty($o->tipoMedioPago)) {
+                $xmlString .= '<TipoMedioPago>' . $o->tipoMedioPago . '</TipoMedioPago>';
+            }
+
+            // Add MedioPagoOtros (only if TipoMedioPago is "99")
+            if (isset($o->tipoMedioPago) && $o->tipoMedioPago === "99" && isset($o->medioPagoOtros) && !empty($o->medioPagoOtros)) {
+                $xmlString .= '<MedioPagoOtros>' . htmlspecialchars($o->medioPagoOtros) . '</MedioPagoOtros>';
+            }
+
+            // Add TotalMedioPago
+            if (isset($o->totalMedioPago) && is_numeric($o->totalMedioPago)) {
+                $xmlString .= '<TotalMedioPago>' . number_format($o->totalMedioPago, 2, '.', '') . '</TotalMedioPago>';
+            }
+
+            $xmlString .= '</MedioPago>';
         }
     }
 
@@ -1906,7 +1954,6 @@ function genXMLTE()
     $condVenta                      = params_get("condicion_venta");
     $condVentaOtros                 = params_get("condicion_venta_otros");
     $plazoCredito                   = params_get("plazo_credito");
-    $medioPago                      = params_get("medio_pago");
     $codMoneda                      = params_get("cod_moneda");
     $tipoCambio                     = params_get("tipo_cambio");
     $totalServGravados              = params_get("total_serv_gravados");
@@ -2394,10 +2441,27 @@ function genXMLTE()
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
 
-    if ( isset($mediosPago) && $mediosPago != ""){
-        foreach ($mediosPago as $o)
-        {
-            $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
+    if (isset($mediosPago) && !empty($mediosPago)) {
+        foreach ($mediosPago as $o) {
+            $xmlString .= '
+            <MedioPago>';
+
+            // Add TipoMedioPago
+            if (isset($o->tipoMedioPago) && !empty($o->tipoMedioPago)) {
+                $xmlString .= '<TipoMedioPago>' . $o->tipoMedioPago . '</TipoMedioPago>';
+            }
+
+            // Add MedioPagoOtros (only if TipoMedioPago is "99")
+            if (isset($o->tipoMedioPago) && $o->tipoMedioPago === "99" && isset($o->medioPagoOtros) && !empty($o->medioPagoOtros)) {
+                $xmlString .= '<MedioPagoOtros>' . htmlspecialchars($o->medioPagoOtros) . '</MedioPagoOtros>';
+            }
+
+            // Add TotalMedioPago
+            if (isset($o->totalMedioPago) && is_numeric($o->totalMedioPago)) {
+                $xmlString .= '<TotalMedioPago>' . number_format($o->totalMedioPago, 2, '.', '') . '</TotalMedioPago>';
+            }
+
+            $xmlString .= '</MedioPago>';
         }
     }
 
@@ -2565,7 +2629,6 @@ function genXMLFec()
     $condVenta                      = params_get("condicion_venta");
     $condVentaOtros                 = params_get("condicion_venta_otros");
     $plazoCredito                   = params_get("plazo_credito");
-    $medioPago                      = params_get("medio_pago");
     $codMoneda                      = params_get("cod_moneda");
     $tipoCambio                     = params_get("tipo_cambio");
     $totalServGravados              = params_get("total_serv_gravados");
@@ -3040,10 +3103,27 @@ function genXMLFec()
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
 
-    if ( isset($mediosPago) && $mediosPago != ""){
-        foreach ($mediosPago as $o)
-        {
-            $xmlString .= '<MedioPago>' . $o->codigo . '</MedioPago>';
+    if (isset($mediosPago) && !empty($mediosPago)) {
+        foreach ($mediosPago as $o) {
+            $xmlString .= '
+            <MedioPago>';
+
+            // Add TipoMedioPago
+            if (isset($o->tipoMedioPago) && !empty($o->tipoMedioPago)) {
+                $xmlString .= '<TipoMedioPago>' . $o->tipoMedioPago . '</TipoMedioPago>';
+            }
+
+            // Add MedioPagoOtros (only if TipoMedioPago is "99")
+            if (isset($o->tipoMedioPago) && $o->tipoMedioPago === "99" && isset($o->medioPagoOtros) && !empty($o->medioPagoOtros)) {
+                $xmlString .= '<MedioPagoOtros>' . htmlspecialchars($o->medioPagoOtros) . '</MedioPagoOtros>';
+            }
+
+            // Add TotalMedioPago
+            if (isset($o->totalMedioPago) && is_numeric($o->totalMedioPago)) {
+                $xmlString .= '<TotalMedioPago>' . number_format($o->totalMedioPago, 2, '.', '') . '</TotalMedioPago>';
+            }
+
+            $xmlString .= '</MedioPago>';
         }
     }
 
@@ -3147,7 +3227,6 @@ function genXMLFee()
     $condVenta                      = params_get("condicion_venta");
     $condVentaOtros                 = params_get("condicion_venta_otros");
     $plazoCredito                   = params_get("plazo_credito");
-    $medioPago                      = json_decode(params_get("medio_pago"));
     $detalles                       = json_decode(params_get("detalles"));
     $otrosCargos                    = json_decode(params_get("otrosCargos"));
     $codMoneda                      = params_get("cod_moneda");
@@ -3177,9 +3256,6 @@ function genXMLFee()
     if ( isset($otrosCargos) && $otrosCargos != "")
         grace_debug(params_get("otrosCargos"));
 
-    if ( isset($medioPago) && $medioPago != "")
-        grace_debug(params_get("medio_pago"));
-
     if ( isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "")
         grace_debug(params_get("totalDesgloseImpuesto"));
 
@@ -3202,13 +3278,6 @@ function genXMLFee()
             error_log("otrosCargos: ".count($otrosCargos->otrosCargos)." is greater than 15");
             //Delimita el array a solo 4 elementos
             $otrosCargos->otrosCargos = array_slice($otrosCargos->otrosCargos, 0, 15);
-        }
-
-    if ( isset($medioPago) && !empty($medioPago))
-        if (count($medioPago->medioPago) > 4){
-            error_log("medioPago: ".count($medioPago->medioPago)." is greater than 4");
-            //Delimita el array a solo 4 elementos
-            $medioPago->medioPago = array_slice($medioPago->medioPago, 0, 4);
         }
 
     $xmlString = '<?xml version = "1.0" encoding = "utf-8"?>
@@ -3571,26 +3640,29 @@ function genXMLFee()
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
 
-    // JSON DE EJEMPLO
-    // {
-    //     "medioPago": [
-    //         "01",
-    //         "02",
-    //         "03"
-    //     ]
-    // }
+    if (isset($mediosPago) && !empty($mediosPago)) {
+        foreach ($mediosPago as $o) {
+            $xmlString .= '
+            <MedioPago>';
 
-    if (isset($medioPago) && !empty($medioPago)) {
-        // Iteramos sobre los elementos de otroContenido
-        foreach ($medioPago->medioPago as $c) {
-            $xmlString .= '<MedioPago>' . $c . '</MedioPago>';
+            // Add TipoMedioPago
+            if (isset($o->tipoMedioPago) && !empty($o->tipoMedioPago)) {
+                $xmlString .= '<TipoMedioPago>' . $o->tipoMedioPago . '</TipoMedioPago>';
+            }
+
+            // Add MedioPagoOtros (only if TipoMedioPago is "99")
+            if (isset($o->tipoMedioPago) && $o->tipoMedioPago === "99" && isset($o->medioPagoOtros) && !empty($o->medioPagoOtros)) {
+                $xmlString .= '<MedioPagoOtros>' . htmlspecialchars($o->medioPagoOtros) . '</MedioPagoOtros>';
+            }
+
+            // Add TotalMedioPago
+            if (isset($o->totalMedioPago) && is_numeric($o->totalMedioPago)) {
+                $xmlString .= '<TotalMedioPago>' . number_format($o->totalMedioPago, 2, '.', '') . '</TotalMedioPago>';
+            }
+
+            $xmlString .= '</MedioPago>';
         }
     }
-
-    // XML Resultante
-    // <MedioPago>01</MedioPago>
-    // <MedioPago>02</MedioPago>
-    // <MedioPago>03</MedioPago>
 
 
     $xmlString .= '
