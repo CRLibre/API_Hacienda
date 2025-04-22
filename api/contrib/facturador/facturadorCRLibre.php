@@ -385,7 +385,7 @@ function companyStagUsers() {
     $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey` = '" . db_escape($thisSessionkey) . "'";
     $result = db_query($q, 2);
     $idUser = db_escape($result[0]->idUser);
-    $q = "update " . $idUser . "_master_config_companny set value = '" . $compannyUserName) . "' where name = 'stagUserName'";
+    $q = "update " . $idUser . "_master_config_companny set value = '" . $compannyUserName . "' where name = 'stagUserName'";
     db_query($q, 0);
     $q = "update " . $idUser . "_master_config_companny set value = '" . db_escape($password) . "' where name = 'stagPassword'";
     db_query($q, 0);
