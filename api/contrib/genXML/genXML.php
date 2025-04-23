@@ -691,15 +691,90 @@ function genXMLFe()
 
     }
 
-    if ($otros != '' && $otrosType != '') {
-        $tipos = array("Otros", "OtroTexto", "OtroContenido");
-        if (in_array($otrosType, $tipos)) {
-            $xmlString .= '
-                <Otros>
-            <' . $otrosType . '>' . $otros . '</' . $otrosType . '>
-            </Otros>';
+    // JSON de ejemplo
+    //    {
+    //        "otroTexto": {
+    //        "codigo": "COD1",
+    //    "texto": "Texto opcional 1"
+    //  },
+    //  "otroContenido": [
+    //    {
+    //        "codigo": "CONT1",
+    //      "contenidoEstructurado": {
+    //        "ContactoDesarrollador": {
+    //            "Correo": "developer@example.com",
+    //          "Nombre": "Developer Name",
+    //          "Telefono": "+123456789"
+    //        }
+    //      }
+    //    },
+    //    {
+    //        "codigo": "CONT2",
+    //      "contenidoEstructurado": {
+    //        "SoporteTecnico": {
+    //            "Correo": "support@example.com",
+    //          "Nombre": "Support Team",
+    //          "Telefono": "+987654321"
+    //        }
+    //      }
+    //    }
+    //  ]
+    //}
+
+    if (isset($otros) && !empty($otros)) {
+        $xmlString .= '<Otros>';
+
+        // Handle OtroTexto elements
+        if (isset($otros->otroTexto)) {
+            $xmlString .= '<OtroTexto';
+            if (isset($otros->otroTexto->codigo)) {
+                $xmlString .= ' codigo="' . htmlspecialchars($otros->otroTexto->codigo) . '"';
+            }
+            $xmlString .= '>' . htmlspecialchars($otros->otroTexto->texto) . '</OtroTexto>';
         }
+
+        // Handle OtroContenido elements
+        if (isset($otros->otroContenido)) {
+            foreach ($otros->otroContenido as $item) {
+                $xmlString .= '<OtroContenido';
+                if (isset($item->codigo)) {
+                    $xmlString .= ' codigo="' . htmlspecialchars($item->codigo) . '"';
+                }
+                $xmlString .= '>';
+                if (isset($item->contenidoEstructurado)) {
+                    foreach ($item->contenidoEstructurado as $element => $content) {
+                        $xmlString .= '<' . $element . ' xmlns="https://www.grupoice.com">';
+                        foreach ($content as $nestedElement => $nestedContent) {
+                            $xmlString .= '<' . $nestedElement . '>' . htmlspecialchars($nestedContent) . '</' . $nestedElement . '>';
+                        }
+                        $xmlString .= '</' . $element . '>';
+                    }
+                }
+                $xmlString .= '</OtroContenido>';
+            }
+        }
+
+        $xmlString .= '</Otros>';
     }
+
+    // XML Resultante
+    //<Otros>
+    //    <OtroTexto codigo="COD1">Texto opcional 1</OtroTexto>
+    //    <OtroContenido codigo="CONT1">
+    //        <ContactoDesarrollador xmlns="https://www.grupoice.com">
+    //            <Correo>developer@example.com</Correo>
+    //            <Nombre>Developer Name</Nombre>
+    //            <Telefono>+123456789</Telefono>
+    //        </ContactoDesarrollador>
+    //    </OtroContenido>
+    //    <OtroContenido codigo="CONT2">
+    //        <SoporteTecnico xmlns="https://www.grupoice.com">
+    //            <Correo>support@example.com</Correo>
+    //            <Nombre>Support Team</Nombre>
+    //            <Telefono>+987654321</Telefono>
+    //        </SoporteTecnico>
+    //    </OtroContenido>
+    //</Otros>
 
     $xmlString .= '
     </FacturaElectronica>';
@@ -1371,15 +1446,90 @@ function genXMLNC()
     $xmlString .= '
     </InformacionReferencia>';
 
-    if ($otros != '' && $otrosType != '') {
-        $tipos = array("Otros", "OtroTexto", "OtroContenido");
-        if (in_array($otrosType, $tipos)) {
-            $xmlString .= '
-                <Otros>
-            <' . $otrosType . '>' . $otros . '</' . $otrosType . '>
-            </Otros>';
+    // JSON de ejemplo
+    //    {
+    //        "otroTexto": {
+    //        "codigo": "COD1",
+    //    "texto": "Texto opcional 1"
+    //  },
+    //  "otroContenido": [
+    //    {
+    //        "codigo": "CONT1",
+    //      "contenidoEstructurado": {
+    //        "ContactoDesarrollador": {
+    //            "Correo": "developer@example.com",
+    //          "Nombre": "Developer Name",
+    //          "Telefono": "+123456789"
+    //        }
+    //      }
+    //    },
+    //    {
+    //        "codigo": "CONT2",
+    //      "contenidoEstructurado": {
+    //        "SoporteTecnico": {
+    //            "Correo": "support@example.com",
+    //          "Nombre": "Support Team",
+    //          "Telefono": "+987654321"
+    //        }
+    //      }
+    //    }
+    //  ]
+    //}
+
+    if (isset($otros) && !empty($otros)) {
+        $xmlString .= '<Otros>';
+
+        // Handle OtroTexto elements
+        if (isset($otros->otroTexto)) {
+            $xmlString .= '<OtroTexto';
+            if (isset($otros->otroTexto->codigo)) {
+                $xmlString .= ' codigo="' . htmlspecialchars($otros->otroTexto->codigo) . '"';
+            }
+            $xmlString .= '>' . htmlspecialchars($otros->otroTexto->texto) . '</OtroTexto>';
         }
+
+        // Handle OtroContenido elements
+        if (isset($otros->otroContenido)) {
+            foreach ($otros->otroContenido as $item) {
+                $xmlString .= '<OtroContenido';
+                if (isset($item->codigo)) {
+                    $xmlString .= ' codigo="' . htmlspecialchars($item->codigo) . '"';
+                }
+                $xmlString .= '>';
+                if (isset($item->contenidoEstructurado)) {
+                    foreach ($item->contenidoEstructurado as $element => $content) {
+                        $xmlString .= '<' . $element . ' xmlns="https://www.grupoice.com">';
+                        foreach ($content as $nestedElement => $nestedContent) {
+                            $xmlString .= '<' . $nestedElement . '>' . htmlspecialchars($nestedContent) . '</' . $nestedElement . '>';
+                        }
+                        $xmlString .= '</' . $element . '>';
+                    }
+                }
+                $xmlString .= '</OtroContenido>';
+            }
+        }
+
+        $xmlString .= '</Otros>';
     }
+
+    // XML Resultante
+    //<Otros>
+    //    <OtroTexto codigo="COD1">Texto opcional 1</OtroTexto>
+    //    <OtroContenido codigo="CONT1">
+    //        <ContactoDesarrollador xmlns="https://www.grupoice.com">
+    //            <Correo>developer@example.com</Correo>
+    //            <Nombre>Developer Name</Nombre>
+    //            <Telefono>+123456789</Telefono>
+    //        </ContactoDesarrollador>
+    //    </OtroContenido>
+    //    <OtroContenido codigo="CONT2">
+    //        <SoporteTecnico xmlns="https://www.grupoice.com">
+    //            <Correo>support@example.com</Correo>
+    //            <Nombre>Support Team</Nombre>
+    //            <Telefono>+987654321</Telefono>
+    //        </SoporteTecnico>
+    //    </OtroContenido>
+    //</Otros>
 
     $xmlString .= '
     </NotaCreditoElectronica>';
@@ -2049,15 +2199,90 @@ function genXMLND()
     $xmlString .= '
     </InformacionReferencia>';
 
-    if ($otros != '' && $otrosType != '') {
-        $tipos = array("Otros", "OtroTexto", "OtroContenido");
-        if (in_array($otrosType, $tipos)) {
-            $xmlString .= '
-                <Otros>
-            <' . $otrosType . '>' . $otros . '</' . $otrosType . '>
-            </Otros>';
+    // JSON de ejemplo
+    //    {
+    //        "otroTexto": {
+    //        "codigo": "COD1",
+    //    "texto": "Texto opcional 1"
+    //  },
+    //  "otroContenido": [
+    //    {
+    //        "codigo": "CONT1",
+    //      "contenidoEstructurado": {
+    //        "ContactoDesarrollador": {
+    //            "Correo": "developer@example.com",
+    //          "Nombre": "Developer Name",
+    //          "Telefono": "+123456789"
+    //        }
+    //      }
+    //    },
+    //    {
+    //        "codigo": "CONT2",
+    //      "contenidoEstructurado": {
+    //        "SoporteTecnico": {
+    //            "Correo": "support@example.com",
+    //          "Nombre": "Support Team",
+    //          "Telefono": "+987654321"
+    //        }
+    //      }
+    //    }
+    //  ]
+    //}
+
+    if (isset($otros) && !empty($otros)) {
+        $xmlString .= '<Otros>';
+
+        // Handle OtroTexto elements
+        if (isset($otros->otroTexto)) {
+            $xmlString .= '<OtroTexto';
+            if (isset($otros->otroTexto->codigo)) {
+                $xmlString .= ' codigo="' . htmlspecialchars($otros->otroTexto->codigo) . '"';
+            }
+            $xmlString .= '>' . htmlspecialchars($otros->otroTexto->texto) . '</OtroTexto>';
         }
+
+        // Handle OtroContenido elements
+        if (isset($otros->otroContenido)) {
+            foreach ($otros->otroContenido as $item) {
+                $xmlString .= '<OtroContenido';
+                if (isset($item->codigo)) {
+                    $xmlString .= ' codigo="' . htmlspecialchars($item->codigo) . '"';
+                }
+                $xmlString .= '>';
+                if (isset($item->contenidoEstructurado)) {
+                    foreach ($item->contenidoEstructurado as $element => $content) {
+                        $xmlString .= '<' . $element . ' xmlns="https://www.grupoice.com">';
+                        foreach ($content as $nestedElement => $nestedContent) {
+                            $xmlString .= '<' . $nestedElement . '>' . htmlspecialchars($nestedContent) . '</' . $nestedElement . '>';
+                        }
+                        $xmlString .= '</' . $element . '>';
+                    }
+                }
+                $xmlString .= '</OtroContenido>';
+            }
+        }
+
+        $xmlString .= '</Otros>';
     }
+
+    // XML Resultante
+    //<Otros>
+    //    <OtroTexto codigo="COD1">Texto opcional 1</OtroTexto>
+    //    <OtroContenido codigo="CONT1">
+    //        <ContactoDesarrollador xmlns="https://www.grupoice.com">
+    //            <Correo>developer@example.com</Correo>
+    //            <Nombre>Developer Name</Nombre>
+    //            <Telefono>+123456789</Telefono>
+    //        </ContactoDesarrollador>
+    //    </OtroContenido>
+    //    <OtroContenido codigo="CONT2">
+    //        <SoporteTecnico xmlns="https://www.grupoice.com">
+    //            <Correo>support@example.com</Correo>
+    //            <Nombre>Support Team</Nombre>
+    //            <Telefono>+987654321</Telefono>
+    //        </SoporteTecnico>
+    //    </OtroContenido>
+    //</Otros>
 
     $xmlString .= '
         </NotaDebitoElectronica>';
@@ -2723,15 +2948,90 @@ function genXMLTE()
 
     }
 
-    if ($otros != '' && $otrosType != '') {
-        $tipos = array("Otros", "OtroTexto", "OtroContenido");
-        if (in_array($otrosType, $tipos)) {
-            $xmlString .= '
-                <Otros>
-            <' . $otrosType . '>' . $otros . '</' . $otrosType . '>
-            </Otros>';
+    // JSON de ejemplo
+    //    {
+    //        "otroTexto": {
+    //        "codigo": "COD1",
+    //    "texto": "Texto opcional 1"
+    //  },
+    //  "otroContenido": [
+    //    {
+    //        "codigo": "CONT1",
+    //      "contenidoEstructurado": {
+    //        "ContactoDesarrollador": {
+    //            "Correo": "developer@example.com",
+    //          "Nombre": "Developer Name",
+    //          "Telefono": "+123456789"
+    //        }
+    //      }
+    //    },
+    //    {
+    //        "codigo": "CONT2",
+    //      "contenidoEstructurado": {
+    //        "SoporteTecnico": {
+    //            "Correo": "support@example.com",
+    //          "Nombre": "Support Team",
+    //          "Telefono": "+987654321"
+    //        }
+    //      }
+    //    }
+    //  ]
+    //}
+
+    if (isset($otros) && !empty($otros)) {
+        $xmlString .= '<Otros>';
+
+        // Handle OtroTexto elements
+        if (isset($otros->otroTexto)) {
+            $xmlString .= '<OtroTexto';
+            if (isset($otros->otroTexto->codigo)) {
+                $xmlString .= ' codigo="' . htmlspecialchars($otros->otroTexto->codigo) . '"';
+            }
+            $xmlString .= '>' . htmlspecialchars($otros->otroTexto->texto) . '</OtroTexto>';
         }
+
+        // Handle OtroContenido elements
+        if (isset($otros->otroContenido)) {
+            foreach ($otros->otroContenido as $item) {
+                $xmlString .= '<OtroContenido';
+                if (isset($item->codigo)) {
+                    $xmlString .= ' codigo="' . htmlspecialchars($item->codigo) . '"';
+                }
+                $xmlString .= '>';
+                if (isset($item->contenidoEstructurado)) {
+                    foreach ($item->contenidoEstructurado as $element => $content) {
+                        $xmlString .= '<' . $element . ' xmlns="https://www.grupoice.com">';
+                        foreach ($content as $nestedElement => $nestedContent) {
+                            $xmlString .= '<' . $nestedElement . '>' . htmlspecialchars($nestedContent) . '</' . $nestedElement . '>';
+                        }
+                        $xmlString .= '</' . $element . '>';
+                    }
+                }
+                $xmlString .= '</OtroContenido>';
+            }
+        }
+
+        $xmlString .= '</Otros>';
     }
+
+    // XML Resultante
+    //<Otros>
+    //    <OtroTexto codigo="COD1">Texto opcional 1</OtroTexto>
+    //    <OtroContenido codigo="CONT1">
+    //        <ContactoDesarrollador xmlns="https://www.grupoice.com">
+    //            <Correo>developer@example.com</Correo>
+    //            <Nombre>Developer Name</Nombre>
+    //            <Telefono>+123456789</Telefono>
+    //        </ContactoDesarrollador>
+    //    </OtroContenido>
+    //    <OtroContenido codigo="CONT2">
+    //        <SoporteTecnico xmlns="https://www.grupoice.com">
+    //            <Correo>support@example.com</Correo>
+    //            <Nombre>Support Team</Nombre>
+    //            <Telefono>+987654321</Telefono>
+    //        </SoporteTecnico>
+    //    </OtroContenido>
+    //</Otros>
 
     $xmlString .= '
     </TiqueteElectronico>';
@@ -3441,15 +3741,90 @@ function genXMLFec()
 
     }
 
-    if ($otros != '' && $otrosType != '') {
-        $tipos = array("Otros", "OtroTexto", "OtroContenido");
-        if (in_array($otrosType, $tipos)) {
-            $xmlString .= '
-                <Otros>
-            <' . $otrosType . '>' . $otros . '</' . $otrosType . '>
-            </Otros>';
+    // JSON de ejemplo
+    //    {
+    //        "otroTexto": {
+    //        "codigo": "COD1",
+    //    "texto": "Texto opcional 1"
+    //  },
+    //  "otroContenido": [
+    //    {
+    //        "codigo": "CONT1",
+    //      "contenidoEstructurado": {
+    //        "ContactoDesarrollador": {
+    //            "Correo": "developer@example.com",
+    //          "Nombre": "Developer Name",
+    //          "Telefono": "+123456789"
+    //        }
+    //      }
+    //    },
+    //    {
+    //        "codigo": "CONT2",
+    //      "contenidoEstructurado": {
+    //        "SoporteTecnico": {
+    //            "Correo": "support@example.com",
+    //          "Nombre": "Support Team",
+    //          "Telefono": "+987654321"
+    //        }
+    //      }
+    //    }
+    //  ]
+    //}
+
+    if (isset($otros) && !empty($otros)) {
+        $xmlString .= '<Otros>';
+
+        // Handle OtroTexto elements
+        if (isset($otros->otroTexto)) {
+            $xmlString .= '<OtroTexto';
+            if (isset($otros->otroTexto->codigo)) {
+                $xmlString .= ' codigo="' . htmlspecialchars($otros->otroTexto->codigo) . '"';
+            }
+            $xmlString .= '>' . htmlspecialchars($otros->otroTexto->texto) . '</OtroTexto>';
         }
+
+        // Handle OtroContenido elements
+        if (isset($otros->otroContenido)) {
+            foreach ($otros->otroContenido as $item) {
+                $xmlString .= '<OtroContenido';
+                if (isset($item->codigo)) {
+                    $xmlString .= ' codigo="' . htmlspecialchars($item->codigo) . '"';
+                }
+                $xmlString .= '>';
+                if (isset($item->contenidoEstructurado)) {
+                    foreach ($item->contenidoEstructurado as $element => $content) {
+                        $xmlString .= '<' . $element . ' xmlns="https://www.grupoice.com">';
+                        foreach ($content as $nestedElement => $nestedContent) {
+                            $xmlString .= '<' . $nestedElement . '>' . htmlspecialchars($nestedContent) . '</' . $nestedElement . '>';
+                        }
+                        $xmlString .= '</' . $element . '>';
+                    }
+                }
+                $xmlString .= '</OtroContenido>';
+            }
+        }
+
+        $xmlString .= '</Otros>';
     }
+
+    // XML Resultante
+    //<Otros>
+    //    <OtroTexto codigo="COD1">Texto opcional 1</OtroTexto>
+    //    <OtroContenido codigo="CONT1">
+    //        <ContactoDesarrollador xmlns="https://www.grupoice.com">
+    //            <Correo>developer@example.com</Correo>
+    //            <Nombre>Developer Name</Nombre>
+    //            <Telefono>+123456789</Telefono>
+    //        </ContactoDesarrollador>
+    //    </OtroContenido>
+    //    <OtroContenido codigo="CONT2">
+    //        <SoporteTecnico xmlns="https://www.grupoice.com">
+    //            <Correo>support@example.com</Correo>
+    //            <Nombre>Support Team</Nombre>
+    //            <Telefono>+987654321</Telefono>
+    //        </SoporteTecnico>
+    //    </OtroContenido>
+    //</Otros>
 
     $xmlString .= '
     </FacturaElectronicaCompra>';
@@ -3963,28 +4338,26 @@ function genXMLFee()
     </ResumenFactura>';
 
     // JSON de ejemplo
-    /*
-    {
-        "1": {
-        "tipoDoc": "01",
-        "tipoDocOtro": "Factura Comercial",
-        "numero": "50620032400020536006000100001010000000017100000017",
-        "fechaEmision": "2024-04-02T12:00:00-06:00",
-        "codigo": "99",
-        "codigoOTro": "Referencia Especial",
-        "razon": "Falta de información"
-    },
-        "2": {
-            "tipoDoc": "02",
-            "tipoDocOtro": "Nota de Crédito",
-            "numero": "50620032400020536006000100001010000000017200000018",
-            "fechaEmision": "2024-04-03T12:00:00-06:00",
-            "codigo": "04",
-            "codigoOTro": "Referencia Adicional",
-            "razon": "Corrección de datos"
-        }
-    }
-    */
+    //    {
+    //        "informacionReferencia": [
+    //        {
+    //            "tipoDoc": "01",
+    //          "tipoDocOtro": "Factura",
+    //          "numero": "50620032400020536006000100001010000000017100000017",
+    //          "fechaEmision": "2023-10-01T12:00:00",
+    //          "codigo": "99",
+    //          "codigoOtro": "OTRO1",
+    //          "razon": "Corrección de datos"
+    //        },
+    //        {
+    //            "tipoDoc": "02",
+    //          "numero": "50620032400020536006000100001010000000017200000018",
+    //          "fechaEmision": "2023-10-02T15:30:00",
+    //          "codigo": "01",
+    //          "razon": "Devolución de producto"
+    //        }
+    //      ]
+    //    }
 
     if (isset($informacionReferencia) && $informacionReferencia != "") {
         if (count((array)$informacionReferencia) > 10) {
@@ -4019,9 +4392,9 @@ function genXMLFee()
                     <Codigo>' . $i->codigo . '</Codigo>';
                 }
 
-                if (isset($i->codigoOtro) && $i->codigoOTro != "") {
+                if (isset($i->codigoOtro) && $i->codigoOtro != "") {
                     $xmlString .= '
-                    <CodigoReferenciaOTRO>' . $i->codigoOTro . '</CodigoReferenciaOTRO>';
+                    <CodigoReferenciaOTRO>' . $i->codigoOtro . '</CodigoReferenciaOTRO>';
                 }
 
                 if (isset($i->razon) && $i->razon != "") {
@@ -4035,47 +4408,77 @@ function genXMLFee()
     }
 
     // XML Resultante
-    // <InformacionReferencia>
-    // 	<TipoDoc>01</TipoDoc>
-    // 	<Numero>50620032400020536006000100001010000000017100000017</Numero>
-    // 	<FechaEmision>2024-04-02T12:00:00-06:00</FechaEmision>
-    // 	<Codigo>01</Codigo>
-    // 	<Razon>Falta de informacion</Razon>
-    // </InformacionReferencia>
+    //<InformacionReferencia>
+    //    <TipoDocIR>01</TipoDocIR>
+    //    <TipoDocRefOTRO>Factura</TipoDocRefOTRO>
+    //    <Numero>50620032400020536006000100001010000000017100000017</Numero>
+    //    <FechaEmisionIR>2023-10-01T12:00:00</FechaEmisionIR>
+    //    <Codigo>99</Codigo>
+    //    <CodigoReferenciaOTRO>OTRO1</CodigoReferenciaOTRO>
+    //    <Razon>Corrección de datos</Razon>
+    //</InformacionReferencia>
+    //<InformacionReferencia>
+    //    <TipoDocIR>02</TipoDocIR>
+    //    <Numero>50620032400020536006000100001010000000017200000018</Numero>
+    //    <FechaEmisionIR>2023-10-02T15:30:00</FechaEmisionIR>
+    //    <Codigo>01</Codigo>
+    //    <Razon>Devolución de producto</Razon>
+    //</InformacionReferencia>
 
     // -----------------------------------------------------------------------------------------------------
 
     // JSON de ejemplo
-    // {
-    //     "otroContenido": [
-    //         {
-    //             "codigo": "CONT1",
-    //             "contenidoEstructurado": {
-    //                 "ContactoDesarrollador": {
-    //                     "Correo": "operacionesfacturaelectronica@ice.go.cr",
-    //                     "Nombre": "Equipo Operaciones Factura Electronica",
-    //                     "Telefono": "+506 800-400-0000"
-    //                 }
-    //             }
-    //         }
-    //     ],
-    //     "otroTexto": {
-    //         "codigo": "COD1",
-    //         "texto": "Texto opcional 1"
-    //     }
-    // }
+    //    {
+    //        "otroTexto": {
+    //        "codigo": "COD1",
+    //    "texto": "Texto opcional 1"
+    //  },
+    //  "otroContenido": [
+    //    {
+    //        "codigo": "CONT1",
+    //      "contenidoEstructurado": {
+    //        "ContactoDesarrollador": {
+    //            "Correo": "developer@example.com",
+    //          "Nombre": "Developer Name",
+    //          "Telefono": "+123456789"
+    //        }
+    //      }
+    //    },
+    //    {
+    //        "codigo": "CONT2",
+    //      "contenidoEstructurado": {
+    //        "SoporteTecnico": {
+    //            "Correo": "support@example.com",
+    //          "Nombre": "Support Team",
+    //          "Telefono": "+987654321"
+    //        }
+    //      }
+    //    }
+    //  ]
+    //}
 
     if (isset($otros) && !empty($otros)) {
         $xmlString .= '<Otros>';
+
+        // Handle OtroTexto elements
         if (isset($otros->otroTexto)) {
-            $xmlString .= '<OtroTexto codigo="' . $otros->otroTexto->codigo . '">' . $otros->otroTexto->texto . '</OtroTexto>';
+            $xmlString .= '<OtroTexto';
+            if (isset($otros->otroTexto->codigo)) {
+                $xmlString .= ' codigo="' . htmlspecialchars($otros->otroTexto->codigo) . '"';
+            }
+            $xmlString .= '>' . htmlspecialchars($otros->otroTexto->texto) . '</OtroTexto>';
         }
+
+        // Handle OtroContenido elements
         if (isset($otros->otroContenido)) {
             foreach ($otros->otroContenido as $item) {
-                $xmlString .= '<OtroContenido>';
+                $xmlString .= '<OtroContenido';
+                if (isset($item->codigo)) {
+                    $xmlString .= ' codigo="' . htmlspecialchars($item->codigo) . '"';
+                }
+                $xmlString .= '>';
                 if (isset($item->contenidoEstructurado)) {
                     foreach ($item->contenidoEstructurado as $element => $content) {
-                        // Construimos el XML para objetos anidados
                         $xmlString .= '<' . $element . ' xmlns="https://www.grupoice.com">';
                         foreach ($content as $nestedElement => $nestedContent) {
                             $xmlString .= '<' . $nestedElement . '>' . htmlspecialchars($nestedContent) . '</' . $nestedElement . '>';
@@ -4086,17 +4489,28 @@ function genXMLFee()
                 $xmlString .= '</OtroContenido>';
             }
         }
+
         $xmlString .= '</Otros>';
     }
 
     // XML Resultante
-    // <OtroContenido>
-    //     <ContactoDesarrollador xmlns="https://www.grupoice.com">
-    //         <Nombre>Equipo Operaciones Factura Electronica</Nombre>
-    //         <Correo>operacionesfacturaelectronica@ice.go.cr</Correo>
-    //         <Telefono>+506 800-400-0000</Telefono>
-    //     </ContactoDesarrollador>
-    // </OtroContenido>
+    //<Otros>
+    //    <OtroTexto codigo="COD1">Texto opcional 1</OtroTexto>
+    //    <OtroContenido codigo="CONT1">
+    //        <ContactoDesarrollador xmlns="https://www.grupoice.com">
+    //            <Correo>developer@example.com</Correo>
+    //            <Nombre>Developer Name</Nombre>
+    //            <Telefono>+123456789</Telefono>
+    //        </ContactoDesarrollador>
+    //    </OtroContenido>
+    //    <OtroContenido codigo="CONT2">
+    //        <SoporteTecnico xmlns="https://www.grupoice.com">
+    //            <Correo>support@example.com</Correo>
+    //            <Nombre>Support Team</Nombre>
+    //            <Telefono>+987654321</Telefono>
+    //        </SoporteTecnico>
+    //    </OtroContenido>
+    //</Otros>
 
     $xmlString .= '
     </FacturaElectronicaExportacion>';
