@@ -89,3 +89,23 @@ La que se llama www contiene un archivo de configuración, en donde se modifican
 
 #### Observations
 * ALTER TABLE files MODIFY COLUMN md5 VARCHAR(40);
+
+#### Ejecutar los Test Cases:
+Se tiene una carpeta con pruebas unitarias en tests/. 
+Las pruebas escritas con PHPUnit, y se pueden ejecutar con el siguiente commando:
+```./vendor/bin/phpunit --stderr --debug --bootstrap vendor/autoload.php tests/api_contrib_genXML.php```
+
+
+# 📢 Aviso Importante - Licencia y Colaboración Obligatoria 📢
+
+Este proyecto está licenciado bajo la **Licencia GNU Affero General Public License v3 (AGPL v3)**.  
+**Todos los usuarios y desarrolladores que utilicen, modifiquen o distribuyan este módulo están obligados a colaborar en su mantenimiento y mejora, conforme a los términos de la licencia.**
+
+## 🔹 Condiciones principales
+- Cualquier modificación o mejora debe ser publicada y compartida con la comunidad bajo la misma licencia AGPL v3.
+- Si el módulo se utiliza en entornos privados o en servicios web, el código fuente debe estar disponible para todos los usuarios que interactúen con él.
+- Se espera que todos los beneficiarios del módulo contribuyan con **correcciones, mejoras o documentación** para asegurar su evolución y mantenimiento.
+
+💡 _El incumplimiento de estas condiciones podría considerarse una violación de los términos de la licencia AGPL v3._
+
+---

@@ -39,3 +39,5 @@ Desktop.ini
 .gitsecret/keys/random_seed
 !*.secret
 random_seed
+junit-report.html
+junit-report.xml
