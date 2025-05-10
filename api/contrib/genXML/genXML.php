@@ -407,7 +407,7 @@ function genXMLFe()
 
         $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
 
-        if (isset($d->IVACobradoFabrica) && $d->$IVACobradoFabrica != "") {
+        if (isset($d->IVACobradoFabrica) && $d->IVACobradoFabrica != "") {
             $xmlString .= '<IVACobradoFabrica>' . $IVACobradoFabrica . '</IVACobradoFabrica>';
         }
 
@@ -1166,7 +1166,7 @@ function genXMLNC()
 
         $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
 
-        if (isset($d->IVACobradoFabrica) && $d->$IVACobradoFabrica != "") {
+        if (isset($d->IVACobradoFabrica) && $d->IVACobradoFabrica != "") {
             $xmlString .= '<IVACobradoFabrica>' . $IVACobradoFabrica . '</IVACobradoFabrica>';
         }
 
@@ -1925,7 +1925,7 @@ function genXMLND()
 
         $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
 
-        if (isset($d->IVACobradoFabrica) && $d->$IVACobradoFabrica != "") {
+        if (isset($d->IVACobradoFabrica) && $d->IVACobradoFabrica != "") {
             $xmlString .= '<IVACobradoFabrica>' . $IVACobradoFabrica . '</IVACobradoFabrica>';
         }
 
@@ -2673,7 +2673,7 @@ function genXMLTE()
 
         $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
 
-        if (isset($d->IVACobradoFabrica) && $d->$IVACobradoFabrica != "") {
+        if (isset($d->IVACobradoFabrica) && $d->IVACobradoFabrica != "") {
             $xmlString .= '<IVACobradoFabrica>' . $IVACobradoFabrica . '</IVACobradoFabrica>';
         }
 
