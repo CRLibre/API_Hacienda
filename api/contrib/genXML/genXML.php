@@ -437,15 +437,24 @@ function genXMLFe()
                 if (isset($i->exoneracion) && $i->exoneracion != "") {
                     $xmlString .= '
                     <Exoneracion>
-                        <TipoDocumento>' . $i->exoneracion->tipoDocumento . '</TipoDocumento>
+                        <TipoDocumentoEX1>' . $i->exoneracion->tipoDocumento . '</TipoDocumentoEX1>
+                        if (isset($i->exoneracion->tipoDocumentoOtro) && !empty($i->exoneracion->tipoDocumentoOtro)) {
+                            <TipoDocumentoOTRO>' . $i->exoneracion->tipoDocumentoOtro . '</TipoDocumentoOTRO>
+                        }
                         <NumeroDocumento>' . $i->exoneracion->numeroDocumento . '</NumeroDocumento>
+                        if (isset($i->exoneracion->numeroArticulo) && !empty($i->exoneracion->numeroArticulo)) {
+                            <Articulo>' . $i->exoneracion->numeroArticulo . '</Articulo>
+                        }
+                        if (isset($i->exoneracion->numeroInciso) && !empty($i->exoneracion->numeroInciso)) {
+                            <Inciso>' . $i->exoneracion->numeroInciso . '</Inciso>
+                        }
                         <NombreInstitucion>' . $i->exoneracion->nombreInstitucion . '</NombreInstitucion>';
                     if (isset($i->exoneracion->nombreInstitucionOtros) && !empty($i->exoneracion->nombreInstitucionOtros)) {
                         $xmlString .= '<NombreInstitucionOtros>' . $i->exoneracion->nombreInstitucionOtros . '</NombreInstitucionOtros>';
                     }
                     $xmlString .= '
-                        <FechaEmision>' . $i->exoneracion->fechaEmision . '</FechaEmision>
-                        <PorcentajeExoneracion>' . $i->exoneracion->porcentajeExoneracion . '</PorcentajeExoneracion>
+                        <FechaEmisionEX>' . $i->exoneracion->fechaEmision . '</FechaEmisionEX>
+                        <TarifaExonerada>' . $i->exoneracion->tarifaExoneracion . '</TarifaExonerada>
                         <MontoExoneracion>' . $i->exoneracion->montoExoneracion . '</MontoExoneracion>
                     </Exoneracion>';
                 }
@@ -1213,15 +1222,24 @@ function genXMLNC()
                 if (isset($i->exoneracion) && $i->exoneracion != "") {
                     $xmlString .= '
                     <Exoneracion>
-                        <TipoDocumento>' . $i->exoneracion->tipoDocumento . '</TipoDocumento>
+                        <TipoDocumentoEX1>' . $i->exoneracion->tipoDocumento . '</TipoDocumentoEX1>
+                        if (isset($i->exoneracion->tipoDocumentoOtro) && !empty($i->exoneracion->tipoDocumentoOtro)) {
+                            <TipoDocumentoOTRO>' . $i->exoneracion->tipoDocumentoOtro . '</TipoDocumentoOTRO>
+                        }
                         <NumeroDocumento>' . $i->exoneracion->numeroDocumento . '</NumeroDocumento>
+                        if (isset($i->exoneracion->numeroArticulo) && !empty($i->exoneracion->numeroArticulo)) {
+                            <Articulo>' . $i->exoneracion->numeroArticulo . '</Articulo>
+                        }
+                        if (isset($i->exoneracion->numeroInciso) && !empty($i->exoneracion->numeroInciso)) {
+                            <Inciso>' . $i->exoneracion->numeroInciso . '</Inciso>
+                        }
                         <NombreInstitucion>' . $i->exoneracion->nombreInstitucion . '</NombreInstitucion>';
                     if (isset($i->exoneracion->nombreInstitucionOtros) && !empty($i->exoneracion->nombreInstitucionOtros)) {
                         $xmlString .= '<NombreInstitucionOtros>' . $i->exoneracion->nombreInstitucionOtros . '</NombreInstitucionOtros>';
                     }
                     $xmlString .= '
-                        <FechaEmision>' . $i->exoneracion->fechaEmision . '</FechaEmision>
-                        <PorcentajeExoneracion>' . $i->exoneracion->porcentajeExoneracion . '</PorcentajeExoneracion>
+                        <FechaEmisionEX>' . $i->exoneracion->fechaEmision . '</FechaEmisionEX>
+                        <TarifaExonerada>' . $i->exoneracion->tarifaExoneracion . '</TarifaExonerada>
                         <MontoExoneracion>' . $i->exoneracion->montoExoneracion . '</MontoExoneracion>
                     </Exoneracion>';
                 }
@@ -1983,15 +2001,24 @@ function genXMLND()
                 if (isset($i->exoneracion) && $i->exoneracion != "") {
                     $xmlString .= '
                     <Exoneracion>
-                        <TipoDocumento>' . $i->exoneracion->tipoDocumento . '</TipoDocumento>
+                        <TipoDocumentoEX1>' . $i->exoneracion->tipoDocumento . '</TipoDocumentoEX1>
+                        if (isset($i->exoneracion->tipoDocumentoOtro) && !empty($i->exoneracion->tipoDocumentoOtro)) {
+                            <TipoDocumentoOTRO>' . $i->exoneracion->tipoDocumentoOtro . '</TipoDocumentoOTRO>
+                        }
                         <NumeroDocumento>' . $i->exoneracion->numeroDocumento . '</NumeroDocumento>
+                        if (isset($i->exoneracion->numeroArticulo) && !empty($i->exoneracion->numeroArticulo)) {
+                            <Articulo>' . $i->exoneracion->numeroArticulo . '</Articulo>
+                        }
+                        if (isset($i->exoneracion->numeroInciso) && !empty($i->exoneracion->numeroInciso)) {
+                            <Inciso>' . $i->exoneracion->numeroInciso . '</Inciso>
+                        }
                         <NombreInstitucion>' . $i->exoneracion->nombreInstitucion . '</NombreInstitucion>';
                     if (isset($i->exoneracion->nombreInstitucionOtros) && !empty($i->exoneracion->nombreInstitucionOtros)) {
                         $xmlString .= '<NombreInstitucionOtros>' . $i->exoneracion->nombreInstitucionOtros . '</NombreInstitucionOtros>';
                     }
                     $xmlString .= '
-                        <FechaEmision>' . $i->exoneracion->fechaEmision . '</FechaEmision>
-                        <PorcentajeExoneracion>' . $i->exoneracion->porcentajeExoneracion . '</PorcentajeExoneracion>
+                        <FechaEmisionEX>' . $i->exoneracion->fechaEmision . '</FechaEmisionEX>
+                        <TarifaExonerada>' . $i->exoneracion->tarifaExoneracion . '</TarifaExonerada>
                         <MontoExoneracion>' . $i->exoneracion->montoExoneracion . '</MontoExoneracion>
                     </Exoneracion>';
                 }
@@ -2744,15 +2771,24 @@ function genXMLTE()
                 if (isset($i->exoneracion) && $i->exoneracion != "") {
                     $xmlString .= '
                     <Exoneracion>
-                        <TipoDocumento>' . $i->exoneracion->tipoDocumento . '</TipoDocumento>
+                        <TipoDocumentoEX1>' . $i->exoneracion->tipoDocumento . '</TipoDocumentoEX1>
+                        if (isset($i->exoneracion->tipoDocumentoOtro) && !empty($i->exoneracion->tipoDocumentoOtro)) {
+                            <TipoDocumentoOTRO>' . $i->exoneracion->tipoDocumentoOtro . '</TipoDocumentoOTRO>
+                        }
                         <NumeroDocumento>' . $i->exoneracion->numeroDocumento . '</NumeroDocumento>
+                        if (isset($i->exoneracion->numeroArticulo) && !empty($i->exoneracion->numeroArticulo)) {
+                            <Articulo>' . $i->exoneracion->numeroArticulo . '</Articulo>
+                        }
+                        if (isset($i->exoneracion->numeroInciso) && !empty($i->exoneracion->numeroInciso)) {
+                            <Inciso>' . $i->exoneracion->numeroInciso . '</Inciso>
+                        }
                         <NombreInstitucion>' . $i->exoneracion->nombreInstitucion . '</NombreInstitucion>';
                     if (isset($i->exoneracion->nombreInstitucionOtros) && !empty($i->exoneracion->nombreInstitucionOtros)) {
                         $xmlString .= '<NombreInstitucionOtros>' . $i->exoneracion->nombreInstitucionOtros . '</NombreInstitucionOtros>';
                     }
                     $xmlString .= '
-                        <FechaEmision>' . $i->exoneracion->fechaEmision . '</FechaEmision>
-                        <PorcentajeExoneracion>' . $i->exoneracion->porcentajeExoneracion . '</PorcentajeExoneracion>
+                        <FechaEmisionEX>' . $i->exoneracion->fechaEmision . '</FechaEmisionEX>
+                        <TarifaExonerada>' . $i->exoneracion->tarifaExoneracion . '</TarifaExonerada>
                         <MontoExoneracion>' . $i->exoneracion->montoExoneracion . '</MontoExoneracion>
                     </Exoneracion>';
                 }
@@ -3556,15 +3592,24 @@ function genXMLFec()
                 if (isset($i->exoneracion) && $i->exoneracion != "") {
                     $xmlString .= '
                     <Exoneracion>
-                        <TipoDocumento>' . $i->exoneracion->tipoDocumento . '</TipoDocumento>
+                        <TipoDocumentoEX1>' . $i->exoneracion->tipoDocumento . '</TipoDocumentoEX1>
+                        if (isset($i->exoneracion->tipoDocumentoOtro) && !empty($i->exoneracion->tipoDocumentoOtro)) {
+                            <TipoDocumentoOTRO>' . $i->exoneracion->tipoDocumentoOtro . '</TipoDocumentoOTRO>
+                        }
                         <NumeroDocumento>' . $i->exoneracion->numeroDocumento . '</NumeroDocumento>
+                        if (isset($i->exoneracion->numeroArticulo) && !empty($i->exoneracion->numeroArticulo)) {
+                            <Articulo>' . $i->exoneracion->numeroArticulo . '</Articulo>
+                        }
+                        if (isset($i->exoneracion->numeroInciso) && !empty($i->exoneracion->numeroInciso)) {
+                            <Inciso>' . $i->exoneracion->numeroInciso . '</Inciso>
+                        }
                         <NombreInstitucion>' . $i->exoneracion->nombreInstitucion . '</NombreInstitucion>';
                     if (isset($i->exoneracion->nombreInstitucionOtros) && !empty($i->exoneracion->nombreInstitucionOtros)) {
                         $xmlString .= '<NombreInstitucionOtros>' . $i->exoneracion->nombreInstitucionOtros . '</NombreInstitucionOtros>';
                     }
                     $xmlString .= '
-                        <FechaEmision>' . $i->exoneracion->fechaEmision . '</FechaEmision>
-                        <PorcentajeExoneracion>' . $i->exoneracion->porcentajeExoneracion . '</PorcentajeExoneracion>
+                        <FechaEmisionEX>' . $i->exoneracion->fechaEmision . '</FechaEmisionEX>
+                        <TarifaExonerada>' . $i->exoneracion->tarifaExoneracion . '</TarifaExonerada>
                         <MontoExoneracion>' . $i->exoneracion->montoExoneracion . '</MontoExoneracion>
                     </Exoneracion>';
                 }
