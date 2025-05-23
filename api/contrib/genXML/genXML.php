@@ -369,30 +369,42 @@ function genXMLFe()
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->descuento) && is_string($d->descuento) && strlen($d->descuento) != 0) {
-            //Delimita el array a solo 5 elementos
-            if (count($d->descuento) > 5) {
-                error_log("descuento: " . count($d->descuento) . " is greater than 5");
-            }
-            $d->descuento = array_slice($d->descuento, 0, 5);
-            foreach ($d->descuento as $dsc) {
-                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "") {
-                    $xmlString .= '<Descuento>
-                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
-                    </Descuento>';
-                }
-            }
-        }
+        if (isset($d->descuento) && !empty($d->descuento)) {
+            $descuentoArray = (array)$d->descuento;
 
-        if (isset($d->descuentoLinea) && $d->descuentoLinea != "" && $d->descuentoLinea != 0) {
-            foreach ($d->descuentoLinea as $dsc) {
-                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "") {
+            if (count($descuentoArray) > 5) {
+                error_log("descuento: " . count($descuentoArray) . " is greater than 5");
+            }
+            $descuentoArray = array_slice($descuentoArray, 0, 5);
+
+            foreach ($descuentoArray as $descuentos) {
+                $c = (array)$descuentos;
+                if (
+                    is_array($c) &&
+                    isset($c['montoDescuento']) && $c['montoDescuento'] !== "" &&
+                    isset($c['codigoDescuento']) && $c['codigoDescuento'] !== ""
+                ) {
                     $xmlString .= '
-                    <Descuento>
-                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
-                    </Descuento>';
+                <Descuento>
+                    <MontoDescuento>' . $c['montoDescuento'] . '</MontoDescuento>
+                    <CodigoDescuento>' . $c['codigoDescuento'] . '</CodigoDescuento>';
+                    // CodigoDescuentoOTRO: obligatorio si codigoDescuento == "99" y existe el campo
+                    if (
+                        isset($c['codigoDescuento']) && $c['codigoDescuento'] === "99" &&
+                        isset($c['codigoDescuentoOTRO']) &&
+                        strlen($c['codigoDescuentoOTRO']) >= 5 && strlen($c['codigoDescuentoOTRO']) <= 100
+                    ) {
+                        $xmlString .= '<CodigoDescuentoOTRO>' . htmlspecialchars($c['codigoDescuentoOTRO']) . '</CodigoDescuentoOTRO>';
+                    }
+                    // NaturalezaDescuento: minOccurs=0, longitud 3-80
+                    if (
+                        isset($c['naturalezaDescuento']) &&
+                        strlen($c['naturalezaDescuento']) >= 3 && strlen($c['naturalezaDescuento']) <= 80
+                    ) {
+                        $xmlString .= '<NaturalezaDescuento>' . htmlspecialchars($c['naturalezaDescuento']) . '</NaturalezaDescuento>';
+                    }
+                    $xmlString .= '
+                </Descuento>';
                 }
             }
         }
@@ -1146,30 +1158,42 @@ function genXMLNC()
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->descuento) && is_string($d->descuento) && strlen($d->descuento) != 0) {
-            //Delimita el array a solo 5 elementos
-            if (count($d->descuento) > 5) {
-                error_log("descuento: " . count($d->descuento) . " is greater than 5");
-            }
-            $d->descuento = array_slice($d->descuento, 0, 5);
-            foreach ($d->descuento as $dsc) {
-                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "") {
-                    $xmlString .= '<Descuento>
-                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
-                    </Descuento>';
-                }
-            }
-        }
+        if (isset($d->descuento) && !empty($d->descuento)) {
+            $descuentoArray = (array)$d->descuento;
 
-        if (isset($d->descuentoLinea) && $d->descuentoLinea != "" && $d->descuentoLinea != 0) {
-            foreach ($d->descuentoLinea as $dsc) {
-                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "") {
+            if (count($descuentoArray) > 5) {
+                error_log("descuento: " . count($descuentoArray) . " is greater than 5");
+            }
+            $descuentoArray = array_slice($descuentoArray, 0, 5);
+
+            foreach ($descuentoArray as $descuentos) {
+                $c = (array)$descuentos;
+                if (
+                    is_array($c) &&
+                    isset($c['montoDescuento']) && $c['montoDescuento'] !== "" &&
+                    isset($c['codigoDescuento']) && $c['codigoDescuento'] !== ""
+                ) {
                     $xmlString .= '
-                    <Descuento>
-                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
-                    </Descuento>';
+                <Descuento>
+                    <MontoDescuento>' . $c['montoDescuento'] . '</MontoDescuento>
+                    <CodigoDescuento>' . $c['codigoDescuento'] . '</CodigoDescuento>';
+                    // CodigoDescuentoOTRO: obligatorio si codigoDescuento == "99" y existe el campo
+                    if (
+                        isset($c['codigoDescuento']) && $c['codigoDescuento'] === "99" &&
+                        isset($c['codigoDescuentoOTRO']) &&
+                        strlen($c['codigoDescuentoOTRO']) >= 5 && strlen($c['codigoDescuentoOTRO']) <= 100
+                    ) {
+                        $xmlString .= '<CodigoDescuentoOTRO>' . htmlspecialchars($c['codigoDescuentoOTRO']) . '</CodigoDescuentoOTRO>';
+                    }
+                    // NaturalezaDescuento: minOccurs=0, longitud 3-80
+                    if (
+                        isset($c['naturalezaDescuento']) &&
+                        strlen($c['naturalezaDescuento']) >= 3 && strlen($c['naturalezaDescuento']) <= 80
+                    ) {
+                        $xmlString .= '<NaturalezaDescuento>' . htmlspecialchars($c['naturalezaDescuento']) . '</NaturalezaDescuento>';
+                    }
+                    $xmlString .= '
+                </Descuento>';
                 }
             }
         }
@@ -1920,30 +1944,42 @@ function genXMLND()
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->descuento) && is_string($d->descuento) && strlen($d->descuento) != 0) {
-            //Delimita el array a solo 5 elementos
-            if (count($d->descuento) > 5) {
-                error_log("descuento: " . count($d->descuento) . " is greater than 5");
-            }
-            $d->descuento = array_slice($d->descuento, 0, 5);
-            foreach ($d->descuento as $dsc) {
-                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "") {
-                    $xmlString .= '<Descuento>
-                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
-                    </Descuento>';
-                }
-            }
-        }
+        if (isset($d->descuento) && !empty($d->descuento)) {
+            $descuentoArray = (array)$d->descuento;
 
-        if (isset($d->descuentoLinea) && $d->descuentoLinea != "" && $d->descuentoLinea != 0) {
-            foreach ($d->descuentoLinea as $dsc) {
-                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "") {
+            if (count($descuentoArray) > 5) {
+                error_log("descuento: " . count($descuentoArray) . " is greater than 5");
+            }
+            $descuentoArray = array_slice($descuentoArray, 0, 5);
+
+            foreach ($descuentoArray as $descuentos) {
+                $c = (array)$descuentos;
+                if (
+                    is_array($c) &&
+                    isset($c['montoDescuento']) && $c['montoDescuento'] !== "" &&
+                    isset($c['codigoDescuento']) && $c['codigoDescuento'] !== ""
+                ) {
                     $xmlString .= '
-                    <Descuento>
-                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
-                    </Descuento>';
+                <Descuento>
+                    <MontoDescuento>' . $c['montoDescuento'] . '</MontoDescuento>
+                    <CodigoDescuento>' . $c['codigoDescuento'] . '</CodigoDescuento>';
+                    // CodigoDescuentoOTRO: obligatorio si codigoDescuento == "99" y existe el campo
+                    if (
+                        isset($c['codigoDescuento']) && $c['codigoDescuento'] === "99" &&
+                        isset($c['codigoDescuentoOTRO']) &&
+                        strlen($c['codigoDescuentoOTRO']) >= 5 && strlen($c['codigoDescuentoOTRO']) <= 100
+                    ) {
+                        $xmlString .= '<CodigoDescuentoOTRO>' . htmlspecialchars($c['codigoDescuentoOTRO']) . '</CodigoDescuentoOTRO>';
+                    }
+                    // NaturalezaDescuento: minOccurs=0, longitud 3-80
+                    if (
+                        isset($c['naturalezaDescuento']) &&
+                        strlen($c['naturalezaDescuento']) >= 3 && strlen($c['naturalezaDescuento']) <= 80
+                    ) {
+                        $xmlString .= '<NaturalezaDescuento>' . htmlspecialchars($c['naturalezaDescuento']) . '</NaturalezaDescuento>';
+                    }
+                    $xmlString .= '
+                </Descuento>';
                 }
             }
         }
@@ -2679,30 +2715,42 @@ function genXMLTE()
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->descuento) && is_string($d->descuento) && strlen($d->descuento) != 0) {
-            //Delimita el array a solo 5 elementos
-            if (count($d->descuento) > 5) {
-                error_log("descuento: " . count($d->descuento) . " is greater than 5");
-            }
-            $d->descuento = array_slice($d->descuento, 0, 5);
-            foreach ($d->descuento as $dsc) {
-                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "") {
-                    $xmlString .= '<Descuento>
-                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
-                    </Descuento>';
-                }
-            }
-        }
+        if (isset($d->descuento) && !empty($d->descuento)) {
+            $descuentoArray = (array)$d->descuento;
 
-        if (isset($d->descuentoLinea) && $d->descuentoLinea != "" && $d->descuentoLinea != 0) {
-            foreach ($d->descuentoLinea as $dsc) {
-                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "") {
+            if (count($descuentoArray) > 5) {
+                error_log("descuento: " . count($descuentoArray) . " is greater than 5");
+            }
+            $descuentoArray = array_slice($descuentoArray, 0, 5);
+
+            foreach ($descuentoArray as $descuentos) {
+                $c = (array)$descuentos;
+                if (
+                    is_array($c) &&
+                    isset($c['montoDescuento']) && $c['montoDescuento'] !== "" &&
+                    isset($c['codigoDescuento']) && $c['codigoDescuento'] !== ""
+                ) {
                     $xmlString .= '
-                    <Descuento>
-                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
-                    </Descuento>';
+                <Descuento>
+                    <MontoDescuento>' . $c['montoDescuento'] . '</MontoDescuento>
+                    <CodigoDescuento>' . $c['codigoDescuento'] . '</CodigoDescuento>';
+                    // CodigoDescuentoOTRO: obligatorio si codigoDescuento == "99" y existe el campo
+                    if (
+                        isset($c['codigoDescuento']) && $c['codigoDescuento'] === "99" &&
+                        isset($c['codigoDescuentoOTRO']) &&
+                        strlen($c['codigoDescuentoOTRO']) >= 5 && strlen($c['codigoDescuentoOTRO']) <= 100
+                    ) {
+                        $xmlString .= '<CodigoDescuentoOTRO>' . htmlspecialchars($c['codigoDescuentoOTRO']) . '</CodigoDescuentoOTRO>';
+                    }
+                    // NaturalezaDescuento: minOccurs=0, longitud 3-80
+                    if (
+                        isset($c['naturalezaDescuento']) &&
+                        strlen($c['naturalezaDescuento']) >= 3 && strlen($c['naturalezaDescuento']) <= 80
+                    ) {
+                        $xmlString .= '<NaturalezaDescuento>' . htmlspecialchars($c['naturalezaDescuento']) . '</NaturalezaDescuento>';
+                    }
+                    $xmlString .= '
+                </Descuento>';
                 }
             }
         }
@@ -3500,30 +3548,42 @@ function genXMLFec()
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
-        if (isset($d->descuento) && is_string($d->descuento) && strlen($d->descuento) != 0) {
-            //Delimita el array a solo 5 elementos
-            if (count($d->descuento) > 5) {
-                error_log("descuento: " . count($d->descuento) . " is greater than 5");
-            }
-            $d->descuento = array_slice($d->descuento, 0, 5);
-            foreach ($d->descuento as $dsc) {
-                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "") {
-                    $xmlString .= '<Descuento>
-                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
-                    </Descuento>';
-                }
-            }
-        }
+        if (isset($d->descuento) && !empty($d->descuento)) {
+            $descuentoArray = (array)$d->descuento;
 
-        if (isset($d->descuentoLinea) && $d->descuentoLinea != "" && $d->descuentoLinea != 0) {
-            foreach ($d->descuentoLinea as $dsc) {
-                if (isset($dsc->montoDescuento) && $dsc->montoDescuento != "" && isset($dsc->naturalezaDescuento) && $dsc->naturalezaDescuento != "") {
+            if (count($descuentoArray) > 5) {
+                error_log("descuento: " . count($descuentoArray) . " is greater than 5");
+            }
+            $descuentoArray = array_slice($descuentoArray, 0, 5);
+
+            foreach ($descuentoArray as $descuentos) {
+                $c = (array)$descuentos;
+                if (
+                    is_array($c) &&
+                    isset($c['montoDescuento']) && $c['montoDescuento'] !== "" &&
+                    isset($c['codigoDescuento']) && $c['codigoDescuento'] !== ""
+                ) {
                     $xmlString .= '
-                    <Descuento>
-                        <MontoDescuento>' . $dsc->montoDescuento . '</MontoDescuento>
-                        <NaturalezaDescuento>' . $dsc->naturalezaDescuento . '</NaturalezaDescuento>
-                    </Descuento>';
+                <Descuento>
+                    <MontoDescuento>' . $c['montoDescuento'] . '</MontoDescuento>
+                    <CodigoDescuento>' . $c['codigoDescuento'] . '</CodigoDescuento>';
+                    // CodigoDescuentoOTRO: obligatorio si codigoDescuento == "99" y existe el campo
+                    if (
+                        isset($c['codigoDescuento']) && $c['codigoDescuento'] === "99" &&
+                        isset($c['codigoDescuentoOTRO']) &&
+                        strlen($c['codigoDescuentoOTRO']) >= 5 && strlen($c['codigoDescuentoOTRO']) <= 100
+                    ) {
+                        $xmlString .= '<CodigoDescuentoOTRO>' . htmlspecialchars($c['codigoDescuentoOTRO']) . '</CodigoDescuentoOTRO>';
+                    }
+                    // NaturalezaDescuento: minOccurs=0, longitud 3-80
+                    if (
+                        isset($c['naturalezaDescuento']) &&
+                        strlen($c['naturalezaDescuento']) >= 3 && strlen($c['naturalezaDescuento']) <= 80
+                    ) {
+                        $xmlString .= '<NaturalezaDescuento>' . htmlspecialchars($c['naturalezaDescuento']) . '</NaturalezaDescuento>';
+                    }
+                    $xmlString .= '
+                </Descuento>';
                 }
             }
         }
@@ -4211,25 +4271,41 @@ function genXMLFee()
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
         if (isset($d->descuento) && !empty($d->descuento)) {
-            // Convertir el objeto $d->descuento en un array
             $descuentoArray = (array)$d->descuento;
 
-            // Delimitar el array a solo 5 elementos
             if (count($descuentoArray) > 5) {
                 error_log("descuento: " . count($descuentoArray) . " is greater than 5");
             }
             $descuentoArray = array_slice($descuentoArray, 0, 5);
 
-            // Iterar sobre los elementos del array
             foreach ($descuentoArray as $descuentos) {
                 $c = (array)$descuentos;
-                // Verificar si el elemento es un array asociativo
-                if (is_array($c) && isset($c['montoDescuento']) && $c['montoDescuento'] != "" && isset($c['naturalezaDescuento']) && $c['naturalezaDescuento'] != "") {
+                if (
+                    is_array($c) &&
+                    isset($c['montoDescuento']) && $c['montoDescuento'] !== "" &&
+                    isset($c['codigoDescuento']) && $c['codigoDescuento'] !== ""
+                ) {
                     $xmlString .= '
-                        <Descuento>
-                            <MontoDescuento>' . $c['montoDescuento'] . '</MontoDescuento>
-                            <NaturalezaDescuento>' . $c['naturalezaDescuento'] . '</NaturalezaDescuento>
-                        </Descuento>';
+                <Descuento>
+                    <MontoDescuento>' . $c['montoDescuento'] . '</MontoDescuento>
+                    <CodigoDescuento>' . $c['codigoDescuento'] . '</CodigoDescuento>';
+                    // CodigoDescuentoOTRO: obligatorio si codigoDescuento == "99" y existe el campo
+                    if (
+                        isset($c['codigoDescuento']) && $c['codigoDescuento'] === "99" &&
+                        isset($c['codigoDescuentoOTRO']) &&
+                        strlen($c['codigoDescuentoOTRO']) >= 5 && strlen($c['codigoDescuentoOTRO']) <= 100
+                    ) {
+                        $xmlString .= '<CodigoDescuentoOTRO>' . htmlspecialchars($c['codigoDescuentoOTRO']) . '</CodigoDescuentoOTRO>';
+                    }
+                    // NaturalezaDescuento: minOccurs=0, longitud 3-80
+                    if (
+                        isset($c['naturalezaDescuento']) &&
+                        strlen($c['naturalezaDescuento']) >= 3 && strlen($c['naturalezaDescuento']) <= 80
+                    ) {
+                        $xmlString .= '<NaturalezaDescuento>' . htmlspecialchars($c['naturalezaDescuento']) . '</NaturalezaDescuento>';
+                    }
+                    $xmlString .= '
+                </Descuento>';
                 }
             }
         }
