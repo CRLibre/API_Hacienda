@@ -367,13 +367,16 @@ function genXMLFe()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-
         if (isset($c->codigo) && $c->codigo != "") {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
         $xmlString .= '
-            <Detalle>' . $d->detalle . '</Detalle>
+            <Detalle>' . $d->detalle . '</Detalle>';
+        if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
+            $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
+        }
+        $xmlString .= '
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
@@ -1155,7 +1158,11 @@ function genXMLNC()
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
         $xmlString .= '
-            <Detalle>' . $d->detalle . '</Detalle>
+            <Detalle>' . $d->detalle . '</Detalle>';
+        if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
+            $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
+        }
+        $xmlString .= '
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
@@ -1934,7 +1941,11 @@ function genXMLND()
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
         $xmlString .= '
-            <Detalle>' . $d->detalle . '</Detalle>
+            <Detalle>' . $d->detalle . '</Detalle>';
+        if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
+            $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
+        }
+        $xmlString .= '
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
@@ -2704,7 +2715,11 @@ function genXMLTE()
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
         $xmlString .= '
-            <Detalle>' . $d->detalle . '</Detalle>
+            <Detalle>' . $d->detalle . '</Detalle>';
+        if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
+            $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
+        }
+        $xmlString .= '
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
@@ -3532,7 +3547,11 @@ function genXMLFec()
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
         $xmlString .= '
-            <Detalle>' . $d->detalle . '</Detalle>
+            <Detalle>' . $d->detalle . '</Detalle>';
+        if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
+            $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
+        }
+        $xmlString .= '
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
@@ -4236,7 +4255,11 @@ function genXMLFee()
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
         $xmlString .= '
-            <Detalle>' . $d->detalle . '</Detalle>
+            <Detalle>' . $d->detalle . '</Detalle>';
+        if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
+            $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
+        }
+        $xmlString .= '
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
 
