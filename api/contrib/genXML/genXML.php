@@ -322,10 +322,8 @@ function genXMLFe()
         <LineaDetalle>
             <NumeroLinea>' . $l . '</NumeroLinea>';
 
-        if (isset($d->codigo) && $d->codigo != "") {
-            $xmlString .= '
-            <Codigo>' . $d->codigo . '</Codigo>';
-        }
+        $xmlString .= '
+            <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
 
         if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
             //Delimita el array a solo 5 elementos
@@ -334,22 +332,6 @@ function genXMLFe()
             }
             $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
             foreach ($d->codigoComercial as $c) {
-                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                    <CodigoComercial>
-                        <Tipo>' . $c->tipo . '</Tipo>';
-                }
-                if (isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                        <Codigo>' . $c->codigo . '</Codigo>';
-                }
-                $xmlString .= '
-                    </CodigoComercial>';
-            }
-        }
-
-        if (isset($d->codigoComercialLinea) && $d->codigoComercialLinea != "" && $d->codigoComercialLinea != 0) {
-            foreach ($d->codigoComercialLinea as $c) {
                 if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
                     $xmlString .= '
                     <CodigoComercial>
@@ -1112,9 +1094,9 @@ function genXMLNC()
             $xmlString .= '<PartidaArancelaria>' . $d->partidaArancelaria . '</PartidaArancelaria>';
         }
 
-        if (isset($d->codigo) && $d->codigo != "") {
+        if (isset($d->codigoCABYS) && $d->codigoCABYS != "") {
             $xmlString .= '
-            <Codigo>' . $d->codigo . '</Codigo>';
+            <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
         }
 
         if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
@@ -1124,22 +1106,6 @@ function genXMLNC()
             }
             $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
             foreach ($d->codigoComercial as $c) {
-                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                    <CodigoComercial>
-                        <Tipo>' . $c->tipo . '</Tipo>';
-                }
-                if (isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                        <Codigo>' . $c->codigo . '</Codigo>';
-                }
-                $xmlString .= '
-                    </CodigoComercial>';
-            }
-        }
-
-        if (isset($d->codigoComercialLinea) && $d->codigoComercialLinea != "" && $d->codigoComercialLinea != 0) {
-            foreach ($d->codigoComercialLinea as $c) {
                 if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
                     $xmlString .= '
                     <CodigoComercial>
@@ -1899,9 +1865,9 @@ function genXMLND()
             $xmlString .= '<PartidaArancelaria>' . $d->partidaArancelaria . '</PartidaArancelaria>';
         }
 
-        if (isset($d->codigo) && $d->codigo != "") {
+        if (isset($d->codigoCABYS) && $d->codigoCABYS != "") {
             $xmlString .= '
-            <Codigo>' . $d->codigo . '</Codigo>';
+            <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
         }
 
         if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
@@ -1911,22 +1877,6 @@ function genXMLND()
             }
             $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
             foreach ($d->codigoComercial as $c) {
-                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                    <CodigoComercial>
-                        <Tipo>' . $c->tipo . '</Tipo>';
-                }
-                if (isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                        <Codigo>' . $c->codigo . '</Codigo>';
-                }
-                $xmlString .= '
-                    </CodigoComercial>';
-            }
-        }
-
-        if (isset($d->codigoComercialLinea) && $d->codigoComercialLinea != "" && $d->codigoComercialLinea != 0) {
-            foreach ($d->codigoComercialLinea as $c) {
                 if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
                     $xmlString .= '
                     <CodigoComercial>
@@ -2677,10 +2627,8 @@ function genXMLTE()
         <LineaDetalle>
             <NumeroLinea>' . $l . '</NumeroLinea>';
 
-        if (isset($d->codigo) && $d->codigo != "") {
-            $xmlString .= '
-            <Codigo>' . $d->codigo . '</Codigo>';
-        }
+        $xmlString .= '
+            <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
 
         if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
             //Delimita el array a solo 5 elementos
@@ -2689,22 +2637,6 @@ function genXMLTE()
             }
             $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
             foreach ($d->codigoComercial as $c) {
-                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                    <CodigoComercial>
-                        <Tipo>' . $c->tipo . '</Tipo>';
-                }
-                if (isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                        <Codigo>' . $c->codigo . '</Codigo>';
-                }
-                $xmlString .= '
-                    </CodigoComercial>';
-            }
-        }
-
-        if (isset($d->codigoComercialLinea) && $d->codigoComercialLinea != "" && $d->codigoComercialLinea != 0) {
-            foreach ($d->codigoComercialLinea as $c) {
                 if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
                     $xmlString .= '
                     <CodigoComercial>
@@ -3509,10 +3441,8 @@ function genXMLFec()
         <LineaDetalle>
             <NumeroLinea>' . $l . '</NumeroLinea>';
 
-        if (isset($d->codigo) && $d->codigo != "") {
-            $xmlString .= '
-            <Codigo>' . $d->codigo . '</Codigo>';
-        }
+        $xmlString .= '
+            <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
 
         if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
             //Delimita el array a solo 5 elementos
@@ -3521,22 +3451,6 @@ function genXMLFec()
             }
             $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
             foreach ($d->codigoComercial as $c) {
-                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                    <CodigoComercial>
-                        <Tipo>' . $c->tipo . '</Tipo>';
-                }
-                if (isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                        <Codigo>' . $c->codigo . '</Codigo>';
-                }
-                $xmlString .= '
-                    </CodigoComercial>';
-            }
-        }
-
-        if (isset($d->codigoComercialLinea) && $d->codigoComercialLinea != "" && $d->codigoComercialLinea != 0) {
-            foreach ($d->codigoComercialLinea as $c) {
                 if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
                     $xmlString .= '
                     <CodigoComercial>
@@ -4233,10 +4147,8 @@ function genXMLFee()
             <PartidaArancelaria>' . $d->partidaArancelaria . '</PartidaArancelaria>';
         }
 
-        if (isset($d->codigo) && $d->codigo != "") {
-            $xmlString .= '
-            <Codigo>' . $d->codigo . '</Codigo>';
-        }
+        $xmlString .= '
+            <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
 
         if (isset($d->codigoComercial) && !empty($d->codigoComercial)) {
             // Convertir el objeto $d->codigoComercial en un array
