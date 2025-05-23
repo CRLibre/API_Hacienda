@@ -325,24 +325,27 @@ function genXMLFe()
         $xmlString .= '
             <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
 
-        if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
-            //Delimita el array a solo 5 elementos
-            if (count($d->codigoComercial) > 5) {
-                error_log("codigoComercial: " . count($d->codigoComercial) . " is greater than 5");
+        if (isset($d->codigoComercial) && !empty($d->codigoComercial)) {
+            // Convertir el objeto $d->codigoComercial en un array
+            $codigoComercialArray = (array)$d->codigoComercial;
+
+            // Delimitar el array a solo 5 elementos
+            if (count($codigoComercialArray) > 5) {
+                error_log("codigoComercial: " . count($codigoComercialArray) . " is greater than 5");
             }
-            $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
-            foreach ($d->codigoComercial as $c) {
-                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
+            $codigoComercialArray = array_slice($codigoComercialArray, 0, 5);
+
+            // Iterar sobre los elementos del array
+            foreach ($codigoComercialArray as $codigos) {
+                $c = (array)$codigos;
+                // Verificar si el elemento es un array asociativo
+                if (is_array($c) && isset($c['tipo']) && $c['tipo'] != "" && isset($c['codigo']) && $c['codigo'] != "") {
                     $xmlString .= '
-                    <CodigoComercial>
-                        <Tipo>' . $c->tipo . '</Tipo>';
+                        <CodigoComercial>
+                            <Tipo>' . $c['tipo'] . '</Tipo>
+                            <Codigo>' . $c['codigo'] . '</Codigo>
+                        </CodigoComercial>';
                 }
-                if (isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                        <Codigo>' . $c->codigo . '</Codigo>';
-                }
-                $xmlString .= '
-                    </CodigoComercial>';
             }
         }
 
@@ -1099,24 +1102,27 @@ function genXMLNC()
             <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
         }
 
-        if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
-            //Delimita el array a solo 5 elementos
-            if (count($d->codigoComercial) > 5) {
-                error_log("codigoComercial: " . count($d->codigoComercial) . " is greater than 5");
+        if (isset($d->codigoComercial) && !empty($d->codigoComercial)) {
+            // Convertir el objeto $d->codigoComercial en un array
+            $codigoComercialArray = (array)$d->codigoComercial;
+
+            // Delimitar el array a solo 5 elementos
+            if (count($codigoComercialArray) > 5) {
+                error_log("codigoComercial: " . count($codigoComercialArray) . " is greater than 5");
             }
-            $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
-            foreach ($d->codigoComercial as $c) {
-                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
+            $codigoComercialArray = array_slice($codigoComercialArray, 0, 5);
+
+            // Iterar sobre los elementos del array
+            foreach ($codigoComercialArray as $codigos) {
+                $c = (array)$codigos;
+                // Verificar si el elemento es un array asociativo
+                if (is_array($c) && isset($c['tipo']) && $c['tipo'] != "" && isset($c['codigo']) && $c['codigo'] != "") {
                     $xmlString .= '
-                    <CodigoComercial>
-                        <Tipo>' . $c->tipo . '</Tipo>';
+                        <CodigoComercial>
+                            <Tipo>' . $c['tipo'] . '</Tipo>
+                            <Codigo>' . $c['codigo'] . '</Codigo>
+                        </CodigoComercial>';
                 }
-                if (isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                        <Codigo>' . $c->codigo . '</Codigo>';
-                }
-                $xmlString .= '
-                    </CodigoComercial>';
             }
         }
 
@@ -1870,24 +1876,27 @@ function genXMLND()
             <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
         }
 
-        if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
-            //Delimita el array a solo 5 elementos
-            if (count($d->codigoComercial) > 5) {
-                error_log("codigoComercial: " . count($d->codigoComercial) . " is greater than 5");
+        if (isset($d->codigoComercial) && !empty($d->codigoComercial)) {
+            // Convertir el objeto $d->codigoComercial en un array
+            $codigoComercialArray = (array)$d->codigoComercial;
+
+            // Delimitar el array a solo 5 elementos
+            if (count($codigoComercialArray) > 5) {
+                error_log("codigoComercial: " . count($codigoComercialArray) . " is greater than 5");
             }
-            $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
-            foreach ($d->codigoComercial as $c) {
-                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
+            $codigoComercialArray = array_slice($codigoComercialArray, 0, 5);
+
+            // Iterar sobre los elementos del array
+            foreach ($codigoComercialArray as $codigos) {
+                $c = (array)$codigos;
+                // Verificar si el elemento es un array asociativo
+                if (is_array($c) && isset($c['tipo']) && $c['tipo'] != "" && isset($c['codigo']) && $c['codigo'] != "") {
                     $xmlString .= '
-                    <CodigoComercial>
-                        <Tipo>' . $c->tipo . '</Tipo>';
+                        <CodigoComercial>
+                            <Tipo>' . $c['tipo'] . '</Tipo>
+                            <Codigo>' . $c['codigo'] . '</Codigo>
+                        </CodigoComercial>';
                 }
-                if (isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                        <Codigo>' . $c->codigo . '</Codigo>';
-                }
-                $xmlString .= '
-                    </CodigoComercial>';
             }
         }
 
@@ -2630,24 +2639,27 @@ function genXMLTE()
         $xmlString .= '
             <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
 
-        if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
-            //Delimita el array a solo 5 elementos
-            if (count($d->codigoComercial) > 5) {
-                error_log("codigoComercial: " . count($d->codigoComercial) . " is greater than 5");
+        if (isset($d->codigoComercial) && !empty($d->codigoComercial)) {
+            // Convertir el objeto $d->codigoComercial en un array
+            $codigoComercialArray = (array)$d->codigoComercial;
+
+            // Delimitar el array a solo 5 elementos
+            if (count($codigoComercialArray) > 5) {
+                error_log("codigoComercial: " . count($codigoComercialArray) . " is greater than 5");
             }
-            $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
-            foreach ($d->codigoComercial as $c) {
-                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
+            $codigoComercialArray = array_slice($codigoComercialArray, 0, 5);
+
+            // Iterar sobre los elementos del array
+            foreach ($codigoComercialArray as $codigos) {
+                $c = (array)$codigos;
+                // Verificar si el elemento es un array asociativo
+                if (is_array($c) && isset($c['tipo']) && $c['tipo'] != "" && isset($c['codigo']) && $c['codigo'] != "") {
                     $xmlString .= '
-                    <CodigoComercial>
-                        <Tipo>' . $c->tipo . '</Tipo>';
+                        <CodigoComercial>
+                            <Tipo>' . $c['tipo'] . '</Tipo>
+                            <Codigo>' . $c['codigo'] . '</Codigo>
+                        </CodigoComercial>';
                 }
-                if (isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                        <Codigo>' . $c->codigo . '</Codigo>';
-                }
-                $xmlString .= '
-                    </CodigoComercial>';
             }
         }
 
@@ -3444,24 +3456,27 @@ function genXMLFec()
         $xmlString .= '
             <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
 
-        if (isset($d->codigoComercial) && is_string($d->codigoComercial) && strlen($d->codigoComercial) != 0) {
-            //Delimita el array a solo 5 elementos
-            if (count($d->codigoComercial) > 5) {
-                error_log("codigoComercial: " . count($d->codigoComercial) . " is greater than 5");
+        if (isset($d->codigoComercial) && !empty($d->codigoComercial)) {
+            // Convertir el objeto $d->codigoComercial en un array
+            $codigoComercialArray = (array)$d->codigoComercial;
+
+            // Delimitar el array a solo 5 elementos
+            if (count($codigoComercialArray) > 5) {
+                error_log("codigoComercial: " . count($codigoComercialArray) . " is greater than 5");
             }
-            $d->codigoComercial = array_slice($d->codigoComercial, 0, 5);
-            foreach ($d->codigoComercial as $c) {
-                if (isset($c->tipo) && $c->tipo != "" && isset($c->codigo) && $c->codigo != "") {
+            $codigoComercialArray = array_slice($codigoComercialArray, 0, 5);
+
+            // Iterar sobre los elementos del array
+            foreach ($codigoComercialArray as $codigos) {
+                $c = (array)$codigos;
+                // Verificar si el elemento es un array asociativo
+                if (is_array($c) && isset($c['tipo']) && $c['tipo'] != "" && isset($c['codigo']) && $c['codigo'] != "") {
                     $xmlString .= '
-                    <CodigoComercial>
-                        <Tipo>' . $c->tipo . '</Tipo>';
+                        <CodigoComercial>
+                            <Tipo>' . $c['tipo'] . '</Tipo>
+                            <Codigo>' . $c['codigo'] . '</Codigo>
+                        </CodigoComercial>';
                 }
-                if (isset($c->codigo) && $c->codigo != "") {
-                    $xmlString .= '
-                        <Codigo>' . $c->codigo . '</Codigo>';
-                }
-                $xmlString .= '
-                    </CodigoComercial>';
             }
         }
 
