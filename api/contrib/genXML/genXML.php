@@ -367,7 +367,11 @@ function genXMLFe()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-        if (isset($c->codigo) && $c->codigo != "") {
+        if (isset($d->tipoTransaccion) && $d->tipoTransaccion != "") {
+            $xmlString .= '
+                <TipoTransaccion>' . $d->tipoTransaccion . '</TipoTransaccion>';
+        }
+        if (isset($d->unidadMedidaComercial) && $d->unidadMedidaComercial != "") {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
@@ -1153,7 +1157,11 @@ function genXMLNC()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-        if (isset($c->codigo) && $c->codigo != "") {
+        if (isset($d->tipoTransaccion) && $d->tipoTransaccion != "") {
+            $xmlString .= '
+                <TipoTransaccion>' . $d->tipoTransaccion . '</TipoTransaccion>';
+        }
+        if (isset($d->unidadMedidaComercial) && $d->unidadMedidaComercial != "") {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
@@ -1936,7 +1944,11 @@ function genXMLND()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-        if (isset($c->codigo) && $c->codigo != "") {
+        if (isset($d->tipoTransaccion) && $d->tipoTransaccion != "") {
+            $xmlString .= '
+                <TipoTransaccion>' . $d->tipoTransaccion . '</TipoTransaccion>';
+        }
+        if (isset($d->unidadMedidaComercial) && $d->unidadMedidaComercial != "") {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
@@ -2710,7 +2722,7 @@ function genXMLTE()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-        if (isset($c->codigo) && $c->codigo != "") {
+        if (isset($d->unidadMedidaComercial) && $d->unidadMedidaComercial != "") {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
@@ -3542,7 +3554,11 @@ function genXMLFec()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-        if (isset($c->codigo) && $c->codigo != "") {
+        if (isset($d->tipoTransaccion) && $d->tipoTransaccion != "") {
+            $xmlString .= '
+                <TipoTransaccion>' . $d->tipoTransaccion . '</TipoTransaccion>';
+        }
+        if (isset($d->unidadMedidaComercial) && $d->unidadMedidaComercial != "") {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
@@ -4250,6 +4266,10 @@ function genXMLFee()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
+        if (isset($d->tipoTransaccion) && $d->tipoTransaccion != "") {
+            $xmlString .= '
+                <TipoTransaccion>' . $d->tipoTransaccion . '</TipoTransaccion>';
+        }
         if (isset($d->unidadMedidaComercial) && $d->unidadMedidaComercial != "") {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
