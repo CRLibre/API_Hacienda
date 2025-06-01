@@ -699,6 +699,7 @@ function genXMLFe()
                         if (isset($i->exoneracion->numeroInciso) && !empty($i->exoneracion->numeroInciso)) {
                             <Inciso>' . $i->exoneracion->numeroInciso . '</Inciso>
                         }
+
                         <NombreInstitucion>' . $i->exoneracion->nombreInstitucion . '</NombreInstitucion>';
                     if (isset($i->exoneracion->nombreInstitucionOtros) && !empty($i->exoneracion->nombreInstitucionOtros)) {
                         $xmlString .= '<NombreInstitucionOtros>' . $i->exoneracion->nombreInstitucionOtros . '</NombreInstitucionOtros>';
