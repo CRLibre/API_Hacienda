@@ -365,6 +365,90 @@ function genXMLFe()
         if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
+
+        if (isset($d->detalleSurtido) && is_array($d->detalleSurtido) && count($d->detalleSurtido) > 0) {
+            $xmlString .= '<DetalleSurtido>';
+            $lineas = array_slice($d->detalleSurtido, 0, 20);
+            foreach ($lineas as $linea) {
+                $xmlString .= '<LineaDetalleSurtido>';
+                $xmlString .= '<CodigoCABYSSurtido>' . $linea->codigoCABYSSurtido . '</CodigoCABYSSurtido>';
+                if (isset($linea->codigoComercialSurtido) && is_array($linea->codigoComercialSurtido)) {
+                    $codigos = array_slice($linea->codigoComercialSurtido, 0, 5);
+                    foreach ($codigos as $codigo) {
+                        $xmlString .= '<CodigoComercialSurtido>';
+                        $xmlString .= '<TipoSurtido>' . $codigo->tipoSurtido . '</TipoSurtido>';
+                        $xmlString .= '<CodigoSurtido>' . $codigo->codigoSurtido . '</CodigoSurtido>';
+                        $xmlString .= '</CodigoComercialSurtido>';
+                    }
+                }
+                $xmlString .= '<CantidadSurtido>' . $linea->cantidadSurtido . '</CantidadSurtido>';
+                $xmlString .= '<UnidadMedidaSurtido>' . $linea->unidadMedidaSurtido . '</UnidadMedidaSurtido>';
+                if (isset($linea->unidadMedidaComercialSurtido)) {
+                    $xmlString .= '<UnidadMedidaComercialSurtido>' . $linea->unidadMedidaComercialSurtido . '</UnidadMedidaComercialSurtido>';
+                }
+                $xmlString .= '<DetalleSurtido>' . $linea->detalleSurtido . '</DetalleSurtido>';
+                $xmlString .= '<PrecioUnitarioSurtido>' . $linea->precioUnitarioSurtido . '</PrecioUnitarioSurtido>';
+                $xmlString .= '<MontoTotalSurtido>' . $linea->montoTotalSurtido . '</MontoTotalSurtido>';
+                if (isset($linea->descuentoSurtido) && is_array($linea->descuentoSurtido)) {
+                    $descuentos = array_slice($linea->descuentoSurtido, 0, 5);
+                    foreach ($descuentos as $desc) {
+                        $xmlString .= '<DescuentoSurtido>';
+                        $xmlString .= '<MontoDescuentoSurtido>' . $desc->montoDescuentoSurtido . '</MontoDescuentoSurtido>';
+                        $xmlString .= '<CodigoDescuentoSurtido>' . $desc->codigoDescuentoSurtido . '</CodigoDescuentoSurtido>';
+                        if (isset($desc->descuentoSurtidoOtros)) {
+                            $xmlString .= '<DescuentoSurtidoOtros>' . $desc->descuentoSurtidoOtros . '</DescuentoSurtidoOtros>';
+                        }
+                        $xmlString .= '</DescuentoSurtido>';
+                    }
+                }
+                $xmlString .= '<SubTotalSurtido>' . $linea->subTotalSurtido . '</SubTotalSurtido>';
+                if (isset($linea->ivaCobradoFabricaSurtido)) {
+                    $xmlString .= '<IVACobradoFabricaSurtido>' . $linea->ivaCobradoFabricaSurtido . '</IVACobradoFabricaSurtido>';
+                }
+                $xmlString .= '<BaseImponibleSurtido>' . $linea->baseImponibleSurtido . '</BaseImponibleSurtido>';
+                if (isset($linea->impuestoSurtido) && is_array($linea->impuestoSurtido)) {
+                    $impuestos = array_slice($linea->impuestoSurtido, 0, 1000);
+                    foreach ($impuestos as $imp) {
+                        $xmlString .= '<ImpuestoSurtido>';
+                        $xmlString .= '<CodigoImpuestoSurtido>' . $imp->codigoImpuestoSurtido . '</CodigoImpuestoSurtido>';
+                        if (isset($imp->codigoImpuestoOTROSurtido)) {
+                            $xmlString .= '<CodigoImpuestoOTROSurtido>' . $imp->codigoImpuestoOTROSurtido . '</CodigoImpuestoOTROSurtido>';
+                        }
+                        if (isset($imp->codigoTarifaIVASurtido)) {
+                            $xmlString .= '<CodigoTarifaIVASurtido>' . $imp->codigoTarifaIVASurtido . '</CodigoTarifaIVASurtido>';
+                        }
+                        if (isset($imp->tarifaSurtido)) {
+                            $xmlString .= '<TarifaSurtido>' . $imp->tarifaSurtido . '</TarifaSurtido>';
+                        }
+                        if (isset($imp->datosImpuestoEspecificoSurtido)) {
+                            $e = $imp->datosImpuestoEspecificoSurtido;
+                            $xmlString .= '<DatosImpuestoEspecificoSurtido>';
+                            if (isset($e->cantidadUnidadMedidaSurtido)) {
+                                $xmlString .= '<CantidadUnidadMedidaSurtido>' . $e->cantidadUnidadMedidaSurtido . '</CantidadUnidadMedidaSurtido>';
+                            }
+                            if (isset($e->porcentajeSurtido)) {
+                                $xmlString .= '<PorcentajeSurtido>' . $e->porcentajeSurtido . '</PorcentajeSurtido>';
+                            }
+                            if (isset($e->proporcionSurtido)) {
+                                $xmlString .= '<ProporcionSurtido>' . $e->proporcionSurtido . '</ProporcionSurtido>';
+                            }
+                            if (isset($e->volumenUnidadConsumoSurtido)) {
+                                $xmlString .= '<VolumenUnidadConsumoSurtido>' . $e->volumenUnidadConsumoSurtido . '</VolumenUnidadConsumoSurtido>';
+                            }
+                            if (isset($e->impuestoUnidadSurtido)) {
+                                $xmlString .= '<ImpuestoUnidadSurtido>' . $e->impuestoUnidadSurtido . '</ImpuestoUnidadSurtido>';
+                            }
+                            $xmlString .= '</DatosImpuestoEspecificoSurtido>';
+                        }
+                        $xmlString .= '<MontoImpuestoSurtido>' . $imp->montoImpuestoSurtido . '</MontoImpuestoSurtido>';
+                        $xmlString .= '</ImpuestoSurtido>';
+                    }
+                }
+                $xmlString .= '</LineaDetalleSurtido>';
+            }
+            $xmlString .= '</DetalleSurtido>';
+        }
+
         $xmlString .= '
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
@@ -1189,6 +1273,90 @@ function genXMLNC()
         if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
+
+        if (isset($d->detalleSurtido) && is_array($d->detalleSurtido) && count($d->detalleSurtido) > 0) {
+            $xmlString .= '<DetalleSurtido>';
+            $lineas = array_slice($d->detalleSurtido, 0, 20);
+            foreach ($lineas as $linea) {
+                $xmlString .= '<LineaDetalleSurtido>';
+                $xmlString .= '<CodigoCABYSSurtido>' . $linea->codigoCABYSSurtido . '</CodigoCABYSSurtido>';
+                if (isset($linea->codigoComercialSurtido) && is_array($linea->codigoComercialSurtido)) {
+                    $codigos = array_slice($linea->codigoComercialSurtido, 0, 5);
+                    foreach ($codigos as $codigo) {
+                        $xmlString .= '<CodigoComercialSurtido>';
+                        $xmlString .= '<TipoSurtido>' . $codigo->tipoSurtido . '</TipoSurtido>';
+                        $xmlString .= '<CodigoSurtido>' . $codigo->codigoSurtido . '</CodigoSurtido>';
+                        $xmlString .= '</CodigoComercialSurtido>';
+                    }
+                }
+                $xmlString .= '<CantidadSurtido>' . $linea->cantidadSurtido . '</CantidadSurtido>';
+                $xmlString .= '<UnidadMedidaSurtido>' . $linea->unidadMedidaSurtido . '</UnidadMedidaSurtido>';
+                if (isset($linea->unidadMedidaComercialSurtido)) {
+                    $xmlString .= '<UnidadMedidaComercialSurtido>' . $linea->unidadMedidaComercialSurtido . '</UnidadMedidaComercialSurtido>';
+                }
+                $xmlString .= '<DetalleSurtido>' . $linea->detalleSurtido . '</DetalleSurtido>';
+                $xmlString .= '<PrecioUnitarioSurtido>' . $linea->precioUnitarioSurtido . '</PrecioUnitarioSurtido>';
+                $xmlString .= '<MontoTotalSurtido>' . $linea->montoTotalSurtido . '</MontoTotalSurtido>';
+                if (isset($linea->descuentoSurtido) && is_array($linea->descuentoSurtido)) {
+                    $descuentos = array_slice($linea->descuentoSurtido, 0, 5);
+                    foreach ($descuentos as $desc) {
+                        $xmlString .= '<DescuentoSurtido>';
+                        $xmlString .= '<MontoDescuentoSurtido>' . $desc->montoDescuentoSurtido . '</MontoDescuentoSurtido>';
+                        $xmlString .= '<CodigoDescuentoSurtido>' . $desc->codigoDescuentoSurtido . '</CodigoDescuentoSurtido>';
+                        if (isset($desc->descuentoSurtidoOtros)) {
+                            $xmlString .= '<DescuentoSurtidoOtros>' . $desc->descuentoSurtidoOtros . '</DescuentoSurtidoOtros>';
+                        }
+                        $xmlString .= '</DescuentoSurtido>';
+                    }
+                }
+                $xmlString .= '<SubTotalSurtido>' . $linea->subTotalSurtido . '</SubTotalSurtido>';
+                if (isset($linea->ivaCobradoFabricaSurtido)) {
+                    $xmlString .= '<IVACobradoFabricaSurtido>' . $linea->ivaCobradoFabricaSurtido . '</IVACobradoFabricaSurtido>';
+                }
+                $xmlString .= '<BaseImponibleSurtido>' . $linea->baseImponibleSurtido . '</BaseImponibleSurtido>';
+                if (isset($linea->impuestoSurtido) && is_array($linea->impuestoSurtido)) {
+                    $impuestos = array_slice($linea->impuestoSurtido, 0, 1000);
+                    foreach ($impuestos as $imp) {
+                        $xmlString .= '<ImpuestoSurtido>';
+                        $xmlString .= '<CodigoImpuestoSurtido>' . $imp->codigoImpuestoSurtido . '</CodigoImpuestoSurtido>';
+                        if (isset($imp->codigoImpuestoOTROSurtido)) {
+                            $xmlString .= '<CodigoImpuestoOTROSurtido>' . $imp->codigoImpuestoOTROSurtido . '</CodigoImpuestoOTROSurtido>';
+                        }
+                        if (isset($imp->codigoTarifaIVASurtido)) {
+                            $xmlString .= '<CodigoTarifaIVASurtido>' . $imp->codigoTarifaIVASurtido . '</CodigoTarifaIVASurtido>';
+                        }
+                        if (isset($imp->tarifaSurtido)) {
+                            $xmlString .= '<TarifaSurtido>' . $imp->tarifaSurtido . '</TarifaSurtido>';
+                        }
+                        if (isset($imp->datosImpuestoEspecificoSurtido)) {
+                            $e = $imp->datosImpuestoEspecificoSurtido;
+                            $xmlString .= '<DatosImpuestoEspecificoSurtido>';
+                            if (isset($e->cantidadUnidadMedidaSurtido)) {
+                                $xmlString .= '<CantidadUnidadMedidaSurtido>' . $e->cantidadUnidadMedidaSurtido . '</CantidadUnidadMedidaSurtido>';
+                            }
+                            if (isset($e->porcentajeSurtido)) {
+                                $xmlString .= '<PorcentajeSurtido>' . $e->porcentajeSurtido . '</PorcentajeSurtido>';
+                            }
+                            if (isset($e->proporcionSurtido)) {
+                                $xmlString .= '<ProporcionSurtido>' . $e->proporcionSurtido . '</ProporcionSurtido>';
+                            }
+                            if (isset($e->volumenUnidadConsumoSurtido)) {
+                                $xmlString .= '<VolumenUnidadConsumoSurtido>' . $e->volumenUnidadConsumoSurtido . '</VolumenUnidadConsumoSurtido>';
+                            }
+                            if (isset($e->impuestoUnidadSurtido)) {
+                                $xmlString .= '<ImpuestoUnidadSurtido>' . $e->impuestoUnidadSurtido . '</ImpuestoUnidadSurtido>';
+                            }
+                            $xmlString .= '</DatosImpuestoEspecificoSurtido>';
+                        }
+                        $xmlString .= '<MontoImpuestoSurtido>' . $imp->montoImpuestoSurtido . '</MontoImpuestoSurtido>';
+                        $xmlString .= '</ImpuestoSurtido>';
+                    }
+                }
+                $xmlString .= '</LineaDetalleSurtido>';
+            }
+            $xmlString .= '</DetalleSurtido>';
+        }
+
         $xmlString .= '
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
@@ -2009,6 +2177,90 @@ function genXMLND()
         if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
+
+        if (isset($d->detalleSurtido) && is_array($d->detalleSurtido) && count($d->detalleSurtido) > 0) {
+            $xmlString .= '<DetalleSurtido>';
+            $lineas = array_slice($d->detalleSurtido, 0, 20);
+            foreach ($lineas as $linea) {
+                $xmlString .= '<LineaDetalleSurtido>';
+                $xmlString .= '<CodigoCABYSSurtido>' . $linea->codigoCABYSSurtido . '</CodigoCABYSSurtido>';
+                if (isset($linea->codigoComercialSurtido) && is_array($linea->codigoComercialSurtido)) {
+                    $codigos = array_slice($linea->codigoComercialSurtido, 0, 5);
+                    foreach ($codigos as $codigo) {
+                        $xmlString .= '<CodigoComercialSurtido>';
+                        $xmlString .= '<TipoSurtido>' . $codigo->tipoSurtido . '</TipoSurtido>';
+                        $xmlString .= '<CodigoSurtido>' . $codigo->codigoSurtido . '</CodigoSurtido>';
+                        $xmlString .= '</CodigoComercialSurtido>';
+                    }
+                }
+                $xmlString .= '<CantidadSurtido>' . $linea->cantidadSurtido . '</CantidadSurtido>';
+                $xmlString .= '<UnidadMedidaSurtido>' . $linea->unidadMedidaSurtido . '</UnidadMedidaSurtido>';
+                if (isset($linea->unidadMedidaComercialSurtido)) {
+                    $xmlString .= '<UnidadMedidaComercialSurtido>' . $linea->unidadMedidaComercialSurtido . '</UnidadMedidaComercialSurtido>';
+                }
+                $xmlString .= '<DetalleSurtido>' . $linea->detalleSurtido . '</DetalleSurtido>';
+                $xmlString .= '<PrecioUnitarioSurtido>' . $linea->precioUnitarioSurtido . '</PrecioUnitarioSurtido>';
+                $xmlString .= '<MontoTotalSurtido>' . $linea->montoTotalSurtido . '</MontoTotalSurtido>';
+                if (isset($linea->descuentoSurtido) && is_array($linea->descuentoSurtido)) {
+                    $descuentos = array_slice($linea->descuentoSurtido, 0, 5);
+                    foreach ($descuentos as $desc) {
+                        $xmlString .= '<DescuentoSurtido>';
+                        $xmlString .= '<MontoDescuentoSurtido>' . $desc->montoDescuentoSurtido . '</MontoDescuentoSurtido>';
+                        $xmlString .= '<CodigoDescuentoSurtido>' . $desc->codigoDescuentoSurtido . '</CodigoDescuentoSurtido>';
+                        if (isset($desc->descuentoSurtidoOtros)) {
+                            $xmlString .= '<DescuentoSurtidoOtros>' . $desc->descuentoSurtidoOtros . '</DescuentoSurtidoOtros>';
+                        }
+                        $xmlString .= '</DescuentoSurtido>';
+                    }
+                }
+                $xmlString .= '<SubTotalSurtido>' . $linea->subTotalSurtido . '</SubTotalSurtido>';
+                if (isset($linea->ivaCobradoFabricaSurtido)) {
+                    $xmlString .= '<IVACobradoFabricaSurtido>' . $linea->ivaCobradoFabricaSurtido . '</IVACobradoFabricaSurtido>';
+                }
+                $xmlString .= '<BaseImponibleSurtido>' . $linea->baseImponibleSurtido . '</BaseImponibleSurtido>';
+                if (isset($linea->impuestoSurtido) && is_array($linea->impuestoSurtido)) {
+                    $impuestos = array_slice($linea->impuestoSurtido, 0, 1000);
+                    foreach ($impuestos as $imp) {
+                        $xmlString .= '<ImpuestoSurtido>';
+                        $xmlString .= '<CodigoImpuestoSurtido>' . $imp->codigoImpuestoSurtido . '</CodigoImpuestoSurtido>';
+                        if (isset($imp->codigoImpuestoOTROSurtido)) {
+                            $xmlString .= '<CodigoImpuestoOTROSurtido>' . $imp->codigoImpuestoOTROSurtido . '</CodigoImpuestoOTROSurtido>';
+                        }
+                        if (isset($imp->codigoTarifaIVASurtido)) {
+                            $xmlString .= '<CodigoTarifaIVASurtido>' . $imp->codigoTarifaIVASurtido . '</CodigoTarifaIVASurtido>';
+                        }
+                        if (isset($imp->tarifaSurtido)) {
+                            $xmlString .= '<TarifaSurtido>' . $imp->tarifaSurtido . '</TarifaSurtido>';
+                        }
+                        if (isset($imp->datosImpuestoEspecificoSurtido)) {
+                            $e = $imp->datosImpuestoEspecificoSurtido;
+                            $xmlString .= '<DatosImpuestoEspecificoSurtido>';
+                            if (isset($e->cantidadUnidadMedidaSurtido)) {
+                                $xmlString .= '<CantidadUnidadMedidaSurtido>' . $e->cantidadUnidadMedidaSurtido . '</CantidadUnidadMedidaSurtido>';
+                            }
+                            if (isset($e->porcentajeSurtido)) {
+                                $xmlString .= '<PorcentajeSurtido>' . $e->porcentajeSurtido . '</PorcentajeSurtido>';
+                            }
+                            if (isset($e->proporcionSurtido)) {
+                                $xmlString .= '<ProporcionSurtido>' . $e->proporcionSurtido . '</ProporcionSurtido>';
+                            }
+                            if (isset($e->volumenUnidadConsumoSurtido)) {
+                                $xmlString .= '<VolumenUnidadConsumoSurtido>' . $e->volumenUnidadConsumoSurtido . '</VolumenUnidadConsumoSurtido>';
+                            }
+                            if (isset($e->impuestoUnidadSurtido)) {
+                                $xmlString .= '<ImpuestoUnidadSurtido>' . $e->impuestoUnidadSurtido . '</ImpuestoUnidadSurtido>';
+                            }
+                            $xmlString .= '</DatosImpuestoEspecificoSurtido>';
+                        }
+                        $xmlString .= '<MontoImpuestoSurtido>' . $imp->montoImpuestoSurtido . '</MontoImpuestoSurtido>';
+                        $xmlString .= '</ImpuestoSurtido>';
+                    }
+                }
+                $xmlString .= '</LineaDetalleSurtido>';
+            }
+            $xmlString .= '</DetalleSurtido>';
+        }
+
         $xmlString .= '
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
@@ -2814,6 +3066,90 @@ function genXMLTE()
         if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
+
+        if (isset($d->detalleSurtido) && is_array($d->detalleSurtido) && count($d->detalleSurtido) > 0) {
+            $xmlString .= '<DetalleSurtido>';
+            $lineas = array_slice($d->detalleSurtido, 0, 20);
+            foreach ($lineas as $linea) {
+                $xmlString .= '<LineaDetalleSurtido>';
+                $xmlString .= '<CodigoCABYSSurtido>' . $linea->codigoCABYSSurtido . '</CodigoCABYSSurtido>';
+                if (isset($linea->codigoComercialSurtido) && is_array($linea->codigoComercialSurtido)) {
+                    $codigos = array_slice($linea->codigoComercialSurtido, 0, 5);
+                    foreach ($codigos as $codigo) {
+                        $xmlString .= '<CodigoComercialSurtido>';
+                        $xmlString .= '<TipoSurtido>' . $codigo->tipoSurtido . '</TipoSurtido>';
+                        $xmlString .= '<CodigoSurtido>' . $codigo->codigoSurtido . '</CodigoSurtido>';
+                        $xmlString .= '</CodigoComercialSurtido>';
+                    }
+                }
+                $xmlString .= '<CantidadSurtido>' . $linea->cantidadSurtido . '</CantidadSurtido>';
+                $xmlString .= '<UnidadMedidaSurtido>' . $linea->unidadMedidaSurtido . '</UnidadMedidaSurtido>';
+                if (isset($linea->unidadMedidaComercialSurtido)) {
+                    $xmlString .= '<UnidadMedidaComercialSurtido>' . $linea->unidadMedidaComercialSurtido . '</UnidadMedidaComercialSurtido>';
+                }
+                $xmlString .= '<DetalleSurtido>' . $linea->detalleSurtido . '</DetalleSurtido>';
+                $xmlString .= '<PrecioUnitarioSurtido>' . $linea->precioUnitarioSurtido . '</PrecioUnitarioSurtido>';
+                $xmlString .= '<MontoTotalSurtido>' . $linea->montoTotalSurtido . '</MontoTotalSurtido>';
+                if (isset($linea->descuentoSurtido) && is_array($linea->descuentoSurtido)) {
+                    $descuentos = array_slice($linea->descuentoSurtido, 0, 5);
+                    foreach ($descuentos as $desc) {
+                        $xmlString .= '<DescuentoSurtido>';
+                        $xmlString .= '<MontoDescuentoSurtido>' . $desc->montoDescuentoSurtido . '</MontoDescuentoSurtido>';
+                        $xmlString .= '<CodigoDescuentoSurtido>' . $desc->codigoDescuentoSurtido . '</CodigoDescuentoSurtido>';
+                        if (isset($desc->descuentoSurtidoOtros)) {
+                            $xmlString .= '<DescuentoSurtidoOtros>' . $desc->descuentoSurtidoOtros . '</DescuentoSurtidoOtros>';
+                        }
+                        $xmlString .= '</DescuentoSurtido>';
+                    }
+                }
+                $xmlString .= '<SubTotalSurtido>' . $linea->subTotalSurtido . '</SubTotalSurtido>';
+                if (isset($linea->ivaCobradoFabricaSurtido)) {
+                    $xmlString .= '<IVACobradoFabricaSurtido>' . $linea->ivaCobradoFabricaSurtido . '</IVACobradoFabricaSurtido>';
+                }
+                $xmlString .= '<BaseImponibleSurtido>' . $linea->baseImponibleSurtido . '</BaseImponibleSurtido>';
+                if (isset($linea->impuestoSurtido) && is_array($linea->impuestoSurtido)) {
+                    $impuestos = array_slice($linea->impuestoSurtido, 0, 1000);
+                    foreach ($impuestos as $imp) {
+                        $xmlString .= '<ImpuestoSurtido>';
+                        $xmlString .= '<CodigoImpuestoSurtido>' . $imp->codigoImpuestoSurtido . '</CodigoImpuestoSurtido>';
+                        if (isset($imp->codigoImpuestoOTROSurtido)) {
+                            $xmlString .= '<CodigoImpuestoOTROSurtido>' . $imp->codigoImpuestoOTROSurtido . '</CodigoImpuestoOTROSurtido>';
+                        }
+                        if (isset($imp->codigoTarifaIVASurtido)) {
+                            $xmlString .= '<CodigoTarifaIVASurtido>' . $imp->codigoTarifaIVASurtido . '</CodigoTarifaIVASurtido>';
+                        }
+                        if (isset($imp->tarifaSurtido)) {
+                            $xmlString .= '<TarifaSurtido>' . $imp->tarifaSurtido . '</TarifaSurtido>';
+                        }
+                        if (isset($imp->datosImpuestoEspecificoSurtido)) {
+                            $e = $imp->datosImpuestoEspecificoSurtido;
+                            $xmlString .= '<DatosImpuestoEspecificoSurtido>';
+                            if (isset($e->cantidadUnidadMedidaSurtido)) {
+                                $xmlString .= '<CantidadUnidadMedidaSurtido>' . $e->cantidadUnidadMedidaSurtido . '</CantidadUnidadMedidaSurtido>';
+                            }
+                            if (isset($e->porcentajeSurtido)) {
+                                $xmlString .= '<PorcentajeSurtido>' . $e->porcentajeSurtido . '</PorcentajeSurtido>';
+                            }
+                            if (isset($e->proporcionSurtido)) {
+                                $xmlString .= '<ProporcionSurtido>' . $e->proporcionSurtido . '</ProporcionSurtido>';
+                            }
+                            if (isset($e->volumenUnidadConsumoSurtido)) {
+                                $xmlString .= '<VolumenUnidadConsumoSurtido>' . $e->volumenUnidadConsumoSurtido . '</VolumenUnidadConsumoSurtido>';
+                            }
+                            if (isset($e->impuestoUnidadSurtido)) {
+                                $xmlString .= '<ImpuestoUnidadSurtido>' . $e->impuestoUnidadSurtido . '</ImpuestoUnidadSurtido>';
+                            }
+                            $xmlString .= '</DatosImpuestoEspecificoSurtido>';
+                        }
+                        $xmlString .= '<MontoImpuestoSurtido>' . $imp->montoImpuestoSurtido . '</MontoImpuestoSurtido>';
+                        $xmlString .= '</ImpuestoSurtido>';
+                    }
+                }
+                $xmlString .= '</LineaDetalleSurtido>';
+            }
+            $xmlString .= '</DetalleSurtido>';
+        }
+
         $xmlString .= '
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
@@ -4413,6 +4749,90 @@ function genXMLFee()
         if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
+
+        if (isset($d->detalleSurtido) && is_array($d->detalleSurtido) && count($d->detalleSurtido) > 0) {
+            $xmlString .= '<DetalleSurtido>';
+            $lineas = array_slice($d->detalleSurtido, 0, 20);
+            foreach ($lineas as $linea) {
+                $xmlString .= '<LineaDetalleSurtido>';
+                $xmlString .= '<CodigoCABYSSurtido>' . $linea->codigoCABYSSurtido . '</CodigoCABYSSurtido>';
+                if (isset($linea->codigoComercialSurtido) && is_array($linea->codigoComercialSurtido)) {
+                    $codigos = array_slice($linea->codigoComercialSurtido, 0, 5);
+                    foreach ($codigos as $codigo) {
+                        $xmlString .= '<CodigoComercialSurtido>';
+                        $xmlString .= '<TipoSurtido>' . $codigo->tipoSurtido . '</TipoSurtido>';
+                        $xmlString .= '<CodigoSurtido>' . $codigo->codigoSurtido . '</CodigoSurtido>';
+                        $xmlString .= '</CodigoComercialSurtido>';
+                    }
+                }
+                $xmlString .= '<CantidadSurtido>' . $linea->cantidadSurtido . '</CantidadSurtido>';
+                $xmlString .= '<UnidadMedidaSurtido>' . $linea->unidadMedidaSurtido . '</UnidadMedidaSurtido>';
+                if (isset($linea->unidadMedidaComercialSurtido)) {
+                    $xmlString .= '<UnidadMedidaComercialSurtido>' . $linea->unidadMedidaComercialSurtido . '</UnidadMedidaComercialSurtido>';
+                }
+                $xmlString .= '<DetalleSurtido>' . $linea->detalleSurtido . '</DetalleSurtido>';
+                $xmlString .= '<PrecioUnitarioSurtido>' . $linea->precioUnitarioSurtido . '</PrecioUnitarioSurtido>';
+                $xmlString .= '<MontoTotalSurtido>' . $linea->montoTotalSurtido . '</MontoTotalSurtido>';
+                if (isset($linea->descuentoSurtido) && is_array($linea->descuentoSurtido)) {
+                    $descuentos = array_slice($linea->descuentoSurtido, 0, 5);
+                    foreach ($descuentos as $desc) {
+                        $xmlString .= '<DescuentoSurtido>';
+                        $xmlString .= '<MontoDescuentoSurtido>' . $desc->montoDescuentoSurtido . '</MontoDescuentoSurtido>';
+                        $xmlString .= '<CodigoDescuentoSurtido>' . $desc->codigoDescuentoSurtido . '</CodigoDescuentoSurtido>';
+                        if (isset($desc->descuentoSurtidoOtros)) {
+                            $xmlString .= '<DescuentoSurtidoOtros>' . $desc->descuentoSurtidoOtros . '</DescuentoSurtidoOtros>';
+                        }
+                        $xmlString .= '</DescuentoSurtido>';
+                    }
+                }
+                $xmlString .= '<SubTotalSurtido>' . $linea->subTotalSurtido . '</SubTotalSurtido>';
+                if (isset($linea->ivaCobradoFabricaSurtido)) {
+                    $xmlString .= '<IVACobradoFabricaSurtido>' . $linea->ivaCobradoFabricaSurtido . '</IVACobradoFabricaSurtido>';
+                }
+                $xmlString .= '<BaseImponibleSurtido>' . $linea->baseImponibleSurtido . '</BaseImponibleSurtido>';
+                if (isset($linea->impuestoSurtido) && is_array($linea->impuestoSurtido)) {
+                    $impuestos = array_slice($linea->impuestoSurtido, 0, 1000);
+                    foreach ($impuestos as $imp) {
+                        $xmlString .= '<ImpuestoSurtido>';
+                        $xmlString .= '<CodigoImpuestoSurtido>' . $imp->codigoImpuestoSurtido . '</CodigoImpuestoSurtido>';
+                        if (isset($imp->codigoImpuestoOTROSurtido)) {
+                            $xmlString .= '<CodigoImpuestoOTROSurtido>' . $imp->codigoImpuestoOTROSurtido . '</CodigoImpuestoOTROSurtido>';
+                        }
+                        if (isset($imp->codigoTarifaIVASurtido)) {
+                            $xmlString .= '<CodigoTarifaIVASurtido>' . $imp->codigoTarifaIVASurtido . '</CodigoTarifaIVASurtido>';
+                        }
+                        if (isset($imp->tarifaSurtido)) {
+                            $xmlString .= '<TarifaSurtido>' . $imp->tarifaSurtido . '</TarifaSurtido>';
+                        }
+                        if (isset($imp->datosImpuestoEspecificoSurtido)) {
+                            $e = $imp->datosImpuestoEspecificoSurtido;
+                            $xmlString .= '<DatosImpuestoEspecificoSurtido>';
+                            if (isset($e->cantidadUnidadMedidaSurtido)) {
+                                $xmlString .= '<CantidadUnidadMedidaSurtido>' . $e->cantidadUnidadMedidaSurtido . '</CantidadUnidadMedidaSurtido>';
+                            }
+                            if (isset($e->porcentajeSurtido)) {
+                                $xmlString .= '<PorcentajeSurtido>' . $e->porcentajeSurtido . '</PorcentajeSurtido>';
+                            }
+                            if (isset($e->proporcionSurtido)) {
+                                $xmlString .= '<ProporcionSurtido>' . $e->proporcionSurtido . '</ProporcionSurtido>';
+                            }
+                            if (isset($e->volumenUnidadConsumoSurtido)) {
+                                $xmlString .= '<VolumenUnidadConsumoSurtido>' . $e->volumenUnidadConsumoSurtido . '</VolumenUnidadConsumoSurtido>';
+                            }
+                            if (isset($e->impuestoUnidadSurtido)) {
+                                $xmlString .= '<ImpuestoUnidadSurtido>' . $e->impuestoUnidadSurtido . '</ImpuestoUnidadSurtido>';
+                            }
+                            $xmlString .= '</DatosImpuestoEspecificoSurtido>';
+                        }
+                        $xmlString .= '<MontoImpuestoSurtido>' . $imp->montoImpuestoSurtido . '</MontoImpuestoSurtido>';
+                        $xmlString .= '</ImpuestoSurtido>';
+                    }
+                }
+                $xmlString .= '</LineaDetalleSurtido>';
+            }
+            $xmlString .= '</DetalleSurtido>';
+        }
+
         $xmlString .= '
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
