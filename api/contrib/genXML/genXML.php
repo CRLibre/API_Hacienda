@@ -424,6 +424,15 @@ function genXMLFe()
                 $xmlString .= '
                 <Impuesto>
                     <Codigo>' . $i->codigo . '</Codigo>';
+
+                // Add <CodigoImpuestoOTRO> if required
+                if (
+                    isset($i->codigo) && $i->codigo == "99" &&
+                    isset($i->codigoImpuestoOtro) && !empty($i->codigoImpuestoOtro)
+                ) {
+                    $xmlString .= '<CodigoImpuestoOTRO>' . $i->codigoImpuestoOtro . '</CodigoImpuestoOTRO>';
+                }
+
                 if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
                     $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
                 }
@@ -434,6 +443,32 @@ function genXMLFe()
 
                 if (isset($i->factorIVA) && $i->factorIVA != "") {
                     $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                }
+
+                if (
+                    isset($i->codigo) &&
+                    in_array($i->codigo, ["03", "04", "05", "06"]) &&
+                    isset($i->datosImpuestoEspecifico) &&
+                    is_object($i->datosImpuestoEspecifico)
+                ) {
+                    $datosImpuestoEsp = $i->datosImpuestoEspecifico;
+                    $xmlString .= '<DatosImpuestoEspecifico>';
+                    if (isset($datosImpuestoEsp->cantidadUnidadMedida)) {
+                        $xmlString .= '<CantidadUnidadMedida>' . $datosImpuestoEsp->cantidadUnidadMedida . '</CantidadUnidadMedida>';
+                    }
+                    if (isset($datosImpuestoEsp->porcentaje)) {
+                        $xmlString .= '<Porcentaje>' . $datosImpuestoEsp->porcentaje . '</Porcentaje>';
+                    }
+                    if (isset($datosImpuestoEsp->proporcion)) {
+                        $xmlString .= '<Proporcion>' . $datosImpuestoEsp->proporcion . '</Proporcion>';
+                    }
+                    if (isset($datosImpuestoEsp->volumenUnidadConsumo)) {
+                        $xmlString .= '<VolumenUnidadConsumo>' . $datosImpuestoEsp->volumenUnidadConsumo . '</VolumenUnidadConsumo>';
+                    }
+                    if (isset($datosImpuestoEsp->impuestoUnidad)) {
+                        $xmlString .= '<ImpuestoUnidad>' . $datosImpuestoEsp->impuestoUnidad . '</ImpuestoUnidad>';
+                    }
+                    $xmlString .= '</DatosImpuestoEspecifico>';
                 }
 
                 $xmlString .= '<Monto>' . $i->monto . '</Monto>';
@@ -1212,6 +1247,14 @@ function genXMLNC()
                 $xmlString .= '<Impuesto>
                 <Codigo>' . $i->codigo . '</Codigo>';
 
+                // Add <CodigoImpuestoOTRO> if required
+                if (
+                    isset($i->codigo) && $i->codigo == "99" &&
+                    isset($i->codigoImpuestoOtro) && !empty($i->codigoImpuestoOtro)
+                ) {
+                    $xmlString .= '<CodigoImpuestoOTRO>' . $i->codigoImpuestoOtro . '</CodigoImpuestoOTRO>';
+                }
+
                 if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
                     $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
                 }
@@ -1222,6 +1265,32 @@ function genXMLNC()
 
                 if (isset($i->factorIVA) && $i->factorIVA != "") {
                     $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                }
+
+                if (
+                    isset($i->codigo) &&
+                    in_array($i->codigo, ["03", "04", "05", "06"]) &&
+                    isset($i->datosImpuestoEspecifico) &&
+                    is_object($i->datosImpuestoEspecifico)
+                ) {
+                    $datosImpuestoEsp = $i->datosImpuestoEspecifico;
+                    $xmlString .= '<DatosImpuestoEspecifico>';
+                    if (isset($datosImpuestoEsp->cantidadUnidadMedida)) {
+                        $xmlString .= '<CantidadUnidadMedida>' . $datosImpuestoEsp->cantidadUnidadMedida . '</CantidadUnidadMedida>';
+                    }
+                    if (isset($datosImpuestoEsp->porcentaje)) {
+                        $xmlString .= '<Porcentaje>' . $datosImpuestoEsp->porcentaje . '</Porcentaje>';
+                    }
+                    if (isset($datosImpuestoEsp->proporcion)) {
+                        $xmlString .= '<Proporcion>' . $datosImpuestoEsp->proporcion . '</Proporcion>';
+                    }
+                    if (isset($datosImpuestoEsp->volumenUnidadConsumo)) {
+                        $xmlString .= '<VolumenUnidadConsumo>' . $datosImpuestoEsp->volumenUnidadConsumo . '</VolumenUnidadConsumo>';
+                    }
+                    if (isset($datosImpuestoEsp->impuestoUnidad)) {
+                        $xmlString .= '<ImpuestoUnidad>' . $datosImpuestoEsp->impuestoUnidad . '</ImpuestoUnidad>';
+                    }
+                    $xmlString .= '</DatosImpuestoEspecifico>';
                 }
 
                 $xmlString .= '<Monto>' . $i->monto . '</Monto>';
@@ -1998,6 +2067,14 @@ function genXMLND()
                 $xmlString .= '<Impuesto>
                 <Codigo>' . $i->codigo . '</Codigo>';
 
+                // Add <CodigoImpuestoOTRO> if required
+                if (
+                    isset($i->codigo) && $i->codigo == "99" &&
+                    isset($i->codigoImpuestoOtro) && !empty($i->codigoImpuestoOtro)
+                ) {
+                    $xmlString .= '<CodigoImpuestoOTRO>' . $i->codigoImpuestoOtro . '</CodigoImpuestoOTRO>';
+                }
+
                 if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
                     $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
                 }
@@ -2008,6 +2085,32 @@ function genXMLND()
 
                 if (isset($i->factorIVA) && $i->factorIVA != "") {
                     $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                }
+
+                if (
+                    isset($i->codigo) &&
+                    in_array($i->codigo, ["03", "04", "05", "06"]) &&
+                    isset($i->datosImpuestoEspecifico) &&
+                    is_object($i->datosImpuestoEspecifico)
+                ) {
+                    $datosImpuestoEsp = $i->datosImpuestoEspecifico;
+                    $xmlString .= '<DatosImpuestoEspecifico>';
+                    if (isset($datosImpuestoEsp->cantidadUnidadMedida)) {
+                        $xmlString .= '<CantidadUnidadMedida>' . $datosImpuestoEsp->cantidadUnidadMedida . '</CantidadUnidadMedida>';
+                    }
+                    if (isset($datosImpuestoEsp->porcentaje)) {
+                        $xmlString .= '<Porcentaje>' . $datosImpuestoEsp->porcentaje . '</Porcentaje>';
+                    }
+                    if (isset($datosImpuestoEsp->proporcion)) {
+                        $xmlString .= '<Proporcion>' . $datosImpuestoEsp->proporcion . '</Proporcion>';
+                    }
+                    if (isset($datosImpuestoEsp->volumenUnidadConsumo)) {
+                        $xmlString .= '<VolumenUnidadConsumo>' . $datosImpuestoEsp->volumenUnidadConsumo . '</VolumenUnidadConsumo>';
+                    }
+                    if (isset($datosImpuestoEsp->impuestoUnidad)) {
+                        $xmlString .= '<ImpuestoUnidad>' . $datosImpuestoEsp->impuestoUnidad . '</ImpuestoUnidad>';
+                    }
+                    $xmlString .= '</DatosImpuestoEspecifico>';
                 }
 
                 $xmlString .= '<Monto>' . $i->monto . '</Monto>';
@@ -2769,6 +2872,15 @@ function genXMLTE()
                 $xmlString .= '
                 <Impuesto>
                     <Codigo>' . $i->codigo . '</Codigo>';
+
+                // Add <CodigoImpuestoOTRO> if required
+                if (
+                    isset($i->codigo) && $i->codigo == "99" &&
+                    isset($i->codigoImpuestoOtro) && !empty($i->codigoImpuestoOtro)
+                ) {
+                    $xmlString .= '<CodigoImpuestoOTRO>' . $i->codigoImpuestoOtro . '</CodigoImpuestoOTRO>';
+                }
+
                 if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
                     $xmlString .= '
                     <CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
@@ -2782,6 +2894,32 @@ function genXMLTE()
                 if (isset($i->factorIVA) && $i->factorIVA != "") {
                     $xmlString .= '
                     <FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                }
+
+                if (
+                    isset($i->codigo) &&
+                    in_array($i->codigo, ["03", "04", "05", "06"]) &&
+                    isset($i->datosImpuestoEspecifico) &&
+                    is_object($i->datosImpuestoEspecifico)
+                ) {
+                    $datosImpuestoEsp = $i->datosImpuestoEspecifico;
+                    $xmlString .= '<DatosImpuestoEspecifico>';
+                    if (isset($datosImpuestoEsp->cantidadUnidadMedida)) {
+                        $xmlString .= '<CantidadUnidadMedida>' . $datosImpuestoEsp->cantidadUnidadMedida . '</CantidadUnidadMedida>';
+                    }
+                    if (isset($datosImpuestoEsp->porcentaje)) {
+                        $xmlString .= '<Porcentaje>' . $datosImpuestoEsp->porcentaje . '</Porcentaje>';
+                    }
+                    if (isset($datosImpuestoEsp->proporcion)) {
+                        $xmlString .= '<Proporcion>' . $datosImpuestoEsp->proporcion . '</Proporcion>';
+                    }
+                    if (isset($datosImpuestoEsp->volumenUnidadConsumo)) {
+                        $xmlString .= '<VolumenUnidadConsumo>' . $datosImpuestoEsp->volumenUnidadConsumo . '</VolumenUnidadConsumo>';
+                    }
+                    if (isset($datosImpuestoEsp->impuestoUnidad)) {
+                        $xmlString .= '<ImpuestoUnidad>' . $datosImpuestoEsp->impuestoUnidad . '</ImpuestoUnidad>';
+                    }
+                    $xmlString .= '</DatosImpuestoEspecifico>';
                 }
 
                 $xmlString .= '
@@ -3599,6 +3737,15 @@ function genXMLFec()
                 $xmlString .= '
                 <Impuesto>
                     <Codigo>' . $i->codigo . '</Codigo>';
+
+                // Add <CodigoImpuestoOTRO> if required
+                if (
+                    isset($i->codigo) && $i->codigo == "99" &&
+                    isset($i->codigoImpuestoOtro) && !empty($i->codigoImpuestoOtro)
+                ) {
+                    $xmlString .= '<CodigoImpuestoOTRO>' . $i->codigoImpuestoOtro . '</CodigoImpuestoOTRO>';
+                }
+
                 if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
                     $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
                 }
@@ -4318,6 +4465,14 @@ function genXMLFee()
                 <Impuesto>';
                 if (isset($i->codigo) && $i->codigo != "") {
                     $xmlString .= '<Codigo>' . $i->codigo . '</Codigo>';
+                }
+
+                // Add <CodigoImpuestoOTRO> if required
+                if (
+                    isset($i->codigo) && $i->codigo == "99" &&
+                    isset($i->codigoImpuestoOtro) && !empty($i->codigoImpuestoOtro)
+                ) {
+                    $xmlString .= '<CodigoImpuestoOTRO>' . $i->codigoImpuestoOtro . '</CodigoImpuestoOTRO>';
                 }
 
                 if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
