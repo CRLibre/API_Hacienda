@@ -434,7 +434,7 @@ function genXMLFe()
                 }
 
                 if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
-                    $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
+                    $xmlString .= '<CodigoTarifaIVA>' . $i->codigoTarifa . '</CodigoTarifaIVA>';
                 }
 
                 if (isset($i->tarifa) && $i->tarifa != "") {
@@ -442,7 +442,7 @@ function genXMLFe()
                 }
 
                 if (isset($i->factorIVA) && $i->factorIVA != "") {
-                    $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                    $xmlString .= '<FactorCalculoIVA>' . $i->factorIVA . '</FactorCalculoIVA>';
                 }
 
                 if (
@@ -1256,7 +1256,7 @@ function genXMLNC()
                 }
 
                 if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
-                    $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
+                    $xmlString .= '<CodigoTarifaIVA>' . $i->codigoTarifa . '</CodigoTarifaIVA>';
                 }
 
                 if (isset($i->tarifa) && $i->tarifa != "") {
@@ -1264,7 +1264,7 @@ function genXMLNC()
                 }
 
                 if (isset($i->factorIVA) && $i->factorIVA != "") {
-                    $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                    $xmlString .= '<FactorCalculoIVA>' . $i->factorIVA . '</FactorCalculoIVA>';
                 }
 
                 if (
@@ -2076,7 +2076,7 @@ function genXMLND()
                 }
 
                 if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
-                    $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
+                    $xmlString .= '<CodigoTarifaIVA>' . $i->codigoTarifa . '</CodigoTarifaIVA>';
                 }
 
                 if (isset($i->tarifa) && $i->tarifa != "") {
@@ -2084,7 +2084,7 @@ function genXMLND()
                 }
 
                 if (isset($i->factorIVA) && $i->factorIVA != "") {
-                    $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                    $xmlString .= '<FactorCalculoIVA>' . $i->factorIVA . '</FactorCalculoIVA>';
                 }
 
                 if (
@@ -2883,7 +2883,7 @@ function genXMLTE()
 
                 if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
                     $xmlString .= '
-                    <CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
+                    <CodigoTarifaIVA>' . $i->codigoTarifa . '</CodigoTarifaIVA>';
                 }
 
                 if (isset($i->tarifa) && $i->tarifa != "") {
@@ -2893,7 +2893,7 @@ function genXMLTE()
 
                 if (isset($i->factorIVA) && $i->factorIVA != "") {
                     $xmlString .= '
-                    <FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                    <FactorCalculoIVA>' . $i->factorIVA . '</FactorCalculoIVA>';
                 }
 
                 if (
@@ -3747,7 +3747,7 @@ function genXMLFec()
                 }
 
                 if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
-                    $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
+                    $xmlString .= '<CodigoTarifaIVA>' . $i->codigoTarifa . '</CodigoTarifaIVA>';
                 }
 
                 if (isset($i->tarifa) && $i->tarifa != "") {
@@ -3755,7 +3755,7 @@ function genXMLFec()
                 }
 
                 if (isset($i->factorIVA) && $i->factorIVA != "") {
-                    $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                    $xmlString .= '<FactorCalculoIVA>' . $i->factorIVA . '</FactorCalculoIVA>';
                 }
 
                 $xmlString .= '<Monto>' . $i->monto . '</Monto>';
@@ -4476,7 +4476,7 @@ function genXMLFee()
                 }
 
                 if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
-                    $xmlString .= '<CodigoTarifa>' . $i->codigoTarifa . '</CodigoTarifa>';
+                    $xmlString .= '<CodigoTarifaIVA>' . $i->codigoTarifa . '</CodigoTarifaIVA>';
                 }
 
                 if (isset($i->tarifa) && $i->tarifa != "") {
@@ -4484,7 +4484,7 @@ function genXMLFee()
                 }
 
                 if (isset($i->factorIVA) && $i->factorIVA != "") {
-                    $xmlString .= '<FactorIVA>' . $i->factorIVA . '</FactorIVA>';
+                    $xmlString .= '<FactorCalculoIVA>' . $i->factorIVA . '</FactorCalculoIVA>';
                 }
 
                 if (isset($i->monto) && $i->monto != "") {
