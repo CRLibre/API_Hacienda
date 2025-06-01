@@ -309,12 +309,133 @@ function genXMLFe()
     $xmlString .= '
         <DetalleServicio>';
 
-    // cant - unidad medida - detalle - precio unitario - monto total - subtotal - monto total linea - Monto desc -Naturaleza Desc - Impuesto : Codigo / Tarifa / Monto
     /* EJEMPLO DE DETALLES
+      [
       {
-      "1":["1","Sp","Honorarios","100000","100000","100000","100000","1000","Pronto pago",{"Imp": [{"cod": 122,"tarifa": 1,"monto": 100},{"cod": 133,"tarifa": 1,"monto": 1300}]}],
-      "2":["1","Sp","Honorarios","100000","100000","100000","100000"]
+        "codigoCABYS": "101010101",
+        "codigoComercial": [
+          { "tipo": "01", "codigo": "A123" },
+          { "tipo": "02", "codigo": "B456" }
+        ],
+        "cantidad": 2,
+        "unidadMedida": "Unid",
+        "tipoTransaccion": "Venta",
+        "unidadMedidaComercial": "Caja",
+        "detalle": "Medicamento genérico",
+        "numeroVINoSerie": "VIN123456789",
+        "registroMedicamento": "REG-CR-2024-0001",
+        "formaFarmaceutica": "TAB",
+        "detalleSurtido": [
+          {
+            "codigoCABYSSurtido": "202020202",
+            "codigoComercialSurtido": [
+              { "tipoSurtido": "01", "codigoSurtido": "S123" }
+            ],
+            "cantidadSurtido": 1,
+            "unidadMedidaSurtido": "Unid",
+            "unidadMedidaComercialSurtido": "Blister",
+            "detalleSurtido": "Surtido de medicamento",
+            "precioUnitarioSurtido": 120.00,
+            "montoTotalSurtido": 120.00,
+            "descuentoSurtido": [
+              {
+                "montoDescuentoSurtido": 10.00,
+                "codigoDescuentoSurtido": "01",
+                "descuentoSurtidoOtros": "Descuento especial"
+              }
+            ],
+            "subTotalSurtido": 110.00,
+            "ivaCobradoFabricaSurtido": 5.00,
+            "baseImponibleSurtido": 105.00,
+            "impuestoSurtido": [
+              {
+                "codigoImpuestoSurtido": "01",
+                "codigoTarifaIVASurtido": "08",
+                "tarifaSurtido": 13.00,
+                "montoImpuestoSurtido": 13.65,
+                "datosImpuestoEspecificoSurtido": {
+                  "cantidadUnidadMedidaSurtido": 1,
+                  "porcentajeSurtido": 5.0,
+                  "proporcionSurtido": 0.5,
+                  "volumenUnidadConsumoSurtido": 0.1,
+                  "impuestoUnidadSurtido": 2.00
+                }
+              }
+            ]
+          }
+        ],
+        "precioUnitario": 150.00,
+        "montoTotal": 300.00,
+        "descuento": [
+          {
+            "montoDescuento": 20.00,
+            "codigoDescuento": "99",
+            "codigoDescuentoOTRO": "DESC-OTRO-001",
+            "naturalezaDescuento": "Descuento por promoción"
+          }
+        ],
+        "subTotal": 280.00,
+        "IVACobradoFabrica": 10.00,
+        "baseImponible": 270.00,
+        "impuesto": [
+          {
+            "codigo": "01",
+            "codigoTarifa": "08",
+            "tarifa": 13.00,
+            "factorIVA": 1.0,
+            "monto": 35.10,
+            "exoneracion": {
+              "tipoDocumento": "01",
+              "tipoDocumentoOtro": "OTRODOC",
+              "numeroDocumento": "EXON-2024-001",
+              "numeroArticulo": "ART-01",
+              "numeroInciso": "INC-01",
+              "nombreInstitucion": "Ministerio de Salud",
+              "nombreInstitucionOtros": "Otra Institución",
+              "fechaEmision": "2024-06-01",
+              "tarifaExoneracion": 50.0,
+              "montoExoneracion": 17.55
+            }
+          },
+          {
+            "codigo": "03",
+            "codigoTarifa": "01",
+            "tarifa": 2.00,
+            "factorIVA": 0.5,
+            "monto": 5.00,
+            "datosImpuestoEspecifico": {
+              "cantidadUnidadMedida": 2,
+              "porcentaje": 10.0,
+              "proporcion": 0.2,
+              "volumenUnidadConsumo": 0.5,
+              "impuestoUnidad": 1.00
+            }
+          }
+        ],
+        "impuestoAsumidoEmisorFabrica": 2.00,
+        "impuestoNeto": 22.55,
+        "montoTotalLinea": 302.55
+      },
+      {
+        "codigoCABYS": "303030303",
+        "cantidad": 1,
+        "unidadMedida": "Kg",
+        "detalle": "Producto sin surtido ni descuentos",
+        "precioUnitario": 50.00,
+        "montoTotal": 50.00,
+        "subTotal": 50.00,
+        "baseImponible": 50.00,
+        "impuesto": [
+          {
+            "codigo": "01",
+            "codigoTarifa": "08",
+            "tarifa": 13.00,
+            "monto": 6.50
+          }
+        ],
+        "montoTotalLinea": 56.50
       }
+    ]
      */
     $l = 1;
     foreach ($detalles as $d) {
@@ -364,6 +485,13 @@ function genXMLFe()
             <Detalle>' . $d->detalle . '</Detalle>';
         if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
+        }
+
+        if (isset($d->registroMedicamento) && $d->registroMedicamento !== "") {
+            $xmlString .= '<RegistroMedicamento>' . htmlspecialchars($d->registroMedicamento) . '</RegistroMedicamento>';
+        }
+        if (isset($d->formaFarmaceutica) && $d->formaFarmaceutica !== "") {
+            $xmlString .= '<FormaFarmaceutica>' . htmlspecialchars($d->formaFarmaceutica) . '</FormaFarmaceutica>';
         }
 
         if (isset($d->detalleSurtido) && is_array($d->detalleSurtido) && count($d->detalleSurtido) > 0) {
@@ -1274,6 +1402,13 @@ function genXMLNC()
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
 
+        if (isset($d->registroMedicamento) && $d->registroMedicamento !== "") {
+            $xmlString .= '<RegistroMedicamento>' . htmlspecialchars($d->registroMedicamento) . '</RegistroMedicamento>';
+        }
+        if (isset($d->formaFarmaceutica) && $d->formaFarmaceutica !== "") {
+            $xmlString .= '<FormaFarmaceutica>' . htmlspecialchars($d->formaFarmaceutica) . '</FormaFarmaceutica>';
+        }
+
         if (isset($d->detalleSurtido) && is_array($d->detalleSurtido) && count($d->detalleSurtido) > 0) {
             $xmlString .= '<DetalleSurtido>';
             $lineas = array_slice($d->detalleSurtido, 0, 20);
@@ -2178,6 +2313,13 @@ function genXMLND()
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
 
+        if (isset($d->registroMedicamento) && $d->registroMedicamento !== "") {
+            $xmlString .= '<RegistroMedicamento>' . htmlspecialchars($d->registroMedicamento) . '</RegistroMedicamento>';
+        }
+        if (isset($d->formaFarmaceutica) && $d->formaFarmaceutica !== "") {
+            $xmlString .= '<FormaFarmaceutica>' . htmlspecialchars($d->formaFarmaceutica) . '</FormaFarmaceutica>';
+        }
+
         if (isset($d->detalleSurtido) && is_array($d->detalleSurtido) && count($d->detalleSurtido) > 0) {
             $xmlString .= '<DetalleSurtido>';
             $lineas = array_slice($d->detalleSurtido, 0, 20);
@@ -3065,6 +3207,13 @@ function genXMLTE()
             <Detalle>' . $d->detalle . '</Detalle>';
         if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
+        }
+
+        if (isset($d->registroMedicamento) && $d->registroMedicamento !== "") {
+            $xmlString .= '<RegistroMedicamento>' . htmlspecialchars($d->registroMedicamento) . '</RegistroMedicamento>';
+        }
+        if (isset($d->formaFarmaceutica) && $d->formaFarmaceutica !== "") {
+            $xmlString .= '<FormaFarmaceutica>' . htmlspecialchars($d->formaFarmaceutica) . '</FormaFarmaceutica>';
         }
 
         if (isset($d->detalleSurtido) && is_array($d->detalleSurtido) && count($d->detalleSurtido) > 0) {
@@ -4018,6 +4167,14 @@ function genXMLFec()
         if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
+
+        if (isset($d->registroMedicamento) && $d->registroMedicamento !== "") {
+            $xmlString .= '<RegistroMedicamento>' . htmlspecialchars($d->registroMedicamento) . '</RegistroMedicamento>';
+        }
+        if (isset($d->formaFarmaceutica) && $d->formaFarmaceutica !== "") {
+            $xmlString .= '<FormaFarmaceutica>' . htmlspecialchars($d->formaFarmaceutica) . '</FormaFarmaceutica>';
+        }
+
         $xmlString .= '
             <PrecioUnitario>' . $d->precioUnitario . '</PrecioUnitario>
             <MontoTotal>' . $d->montoTotal . '</MontoTotal>';
@@ -4748,6 +4905,13 @@ function genXMLFee()
             <Detalle>' . $d->detalle . '</Detalle>';
         if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
+        }
+
+        if (isset($d->registroMedicamento) && $d->registroMedicamento !== "") {
+            $xmlString .= '<RegistroMedicamento>' . htmlspecialchars($d->registroMedicamento) . '</RegistroMedicamento>';
+        }
+        if (isset($d->formaFarmaceutica) && $d->formaFarmaceutica !== "") {
+            $xmlString .= '<FormaFarmaceutica>' . htmlspecialchars($d->formaFarmaceutica) . '</FormaFarmaceutica>';
         }
 
         if (isset($d->detalleSurtido) && is_array($d->detalleSurtido) && count($d->detalleSurtido) > 0) {
