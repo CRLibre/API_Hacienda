@@ -163,6 +163,8 @@ class api_contrib_genXML_FE extends TestCase
                                     "monto" => 6.50
                                 ]
                             ],
+                            "impuestoAsumidoEmisorFabrica" => 0.00,
+                            "impuestoNeto" => 6.50,
                             "montoTotalLinea" => 56.50
                         ]
                     ]),
@@ -337,7 +339,7 @@ class api_contrib_genXML_FE extends TestCase
 
         $dom = new DOMDocument();
         $dom->loadXML($xmlString);
-        $xsdPath = __DIR__ . '/../www/xsd/FacturaElectronica_V4.4.xsd';
+        $xsdPath = __DIR__ . '/../www/xsd/FacturaElectronica_V4.4-noSign.xsd';
 
         if (!$dom->schemaValidate($xsdPath)) {
             $errors = libxml_get_errors();
@@ -347,5 +349,77 @@ class api_contrib_genXML_FE extends TestCase
             }, $errors);
             $this->fail("XML Schema Validation Errors:\n" . implode("\n", $errorMessages));
         }
+    }
+
+    public function testGenXMLFeReceptor()
+    {
+        $result = genXMLFe();
+        $xmlString = base64_decode($result['xml']);
+        $xml = new SimpleXMLElement($xmlString);
+
+        $this->assertEquals('Cliente ABC', (string)$xml->Receptor->Nombre);
+        $this->assertEquals('02', (string)$xml->Receptor->Identificacion->Tipo);
+        $this->assertEquals('206540123', (string)$xml->Receptor->Identificacion->Numero);
+        $this->assertEquals('cliente@example.com', (string)$xml->Receptor->CorreoElectronico);
+    }
+
+    public function testGenXMLFeResumenFactura()
+    {
+        $result = genXMLFe();
+        $xmlString = base64_decode($result['xml']);
+        $xml = new SimpleXMLElement($xmlString);
+
+        $this->assertEquals('1000.00', (string)$xml->ResumenFactura->TotalVentaNeta);
+        $this->assertEquals('1000.00', (string)$xml->ResumenFactura->TotalComprobante);
+
+        $medioPagos = $xml->ResumenFactura->MedioPago;
+        $this->assertEquals('01', (string)$medioPagos[0]->TipoMedioPago);
+        $this->assertEquals('1000.50', (string)$medioPagos[0]->TotalMedioPago);
+        $this->assertEquals('02', (string)$medioPagos[1]->TipoMedioPago);
+        $this->assertEquals('500.00', (string)$medioPagos[1]->TotalMedioPago);
+        $this->assertEquals('99', (string)$medioPagos[2]->TipoMedioPago);
+        $this->assertEquals('Custom Payment', (string)$medioPagos[2]->MedioPagoOtros);
+        $this->assertEquals('250.75', (string)$medioPagos[2]->TotalMedioPago);
+    }
+
+    public function testGenXMLFeEmisor()
+    {
+        $result = genXMLFe();
+        $xmlString = base64_decode($result['xml']);
+        $xml = new SimpleXMLElement($xmlString);
+
+        $this->assertEquals('Empresa XYZ', (string)$xml->Emisor->Nombre);
+        $this->assertEquals('01', (string)$xml->Emisor->Identificacion->Tipo);
+        $this->assertEquals('3101234567', (string)$xml->Emisor->Identificacion->Numero);
+        $this->assertEquals('3', (string)$xml->Emisor->Ubicacion->Provincia);
+        $this->assertEquals('01', (string)$xml->Emisor->Ubicacion->Canton);
+        $this->assertEquals('01', (string)$xml->Emisor->Ubicacion->Distrito);
+        $this->assertEquals('Dirección de prueba', (string)$xml->Emisor->Ubicacion->OtrasSenas);
+        $this->assertEquals('empresa@example.com', (string)$xml->Emisor->CorreoElectronico);
+    }
+
+    public function testGenXMLFeDetalleServicio()
+    {
+        $result = genXMLFe();
+        $xmlString = base64_decode($result['xml']);
+        $xml = new SimpleXMLElement($xmlString);
+
+        $linea = $xml->DetalleServicio->LineaDetalle[0];
+        $this->assertEquals('1', (string)$linea->NumeroLinea);
+        $this->assertEquals('0111100000100', (string)$linea->CodigoCABYS);
+        $this->assertEquals('2', (string)$linea->Cantidad);
+        $this->assertEquals('Unid', (string)$linea->UnidadMedida);
+        $this->assertEquals('01', (string)$linea->TipoTransaccion);
+        $this->assertEquals('Caja', (string)$linea->UnidadMedidaComercial);
+        $this->assertEquals('Medicamento genérico', (string)$linea->Detalle);
+        $this->assertEquals('VIN123456789', (string)$linea->NumeroVINoSerie);
+        $this->assertEquals('REG-CR-2024-0001', (string)$linea->RegistroMedicamento);
+        $this->assertEquals('TAB', (string)$linea->FormaFarmaceutica);
+        $this->assertEquals('150', (string)$linea->PrecioUnitario);
+        $this->assertEquals('300', (string)$linea->MontoTotal);
+        $this->assertEquals('280', (string)$linea->SubTotal);
+        $this->assertEquals('01', (string)$linea->IVACobradoFabrica);
+        $this->assertEquals('270', (string)$linea->BaseImponible);
+        $this->assertEquals('302.55', (string)$linea->MontoTotalLinea);
     }
 }

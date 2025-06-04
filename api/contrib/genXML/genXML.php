@@ -707,12 +707,8 @@ function genXMLFe()
             }
         }
 
-        if (isset($d->impuestoAsumidoEmisorFabrica) && $d->impuestoAsumidoEmisorFabrica != "") {
-            $xmlString .= '<ImpuestoAsumidoEmisorFabrica>' . $d->impuestoAsumidoEmisorFabrica . '</ImpuestoAsumidoEmisorFabrica>';
-        }
-        if (isset($d->impuestoNeto) && $d->impuestoNeto != "") {
-            $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
-        }
+        $xmlString .= '<ImpuestoAsumidoEmisorFabrica>' . $d->impuestoAsumidoEmisorFabrica . '</ImpuestoAsumidoEmisorFabrica>';
+        $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
@@ -762,6 +758,12 @@ function genXMLFe()
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
             <TipoCambio>' . $tipoCambio . '</TipoCambio>
         </CodigoTipoMoneda>';
+    } else {
+        $xmlString .= '
+    <CodigoTipoMoneda>
+        <CodigoMoneda>CRC</CodigoMoneda>
+        <TipoCambio>1</TipoCambio>
+    </CodigoTipoMoneda>';
     }
 
     if ($totalServGravados != '') {
@@ -1587,9 +1589,7 @@ function genXMLNC()
         if (isset($d->impuestoAsumidoEmisorFabrica) && $d->impuestoAsumidoEmisorFabrica != "") {
             $xmlString .= '<ImpuestoAsumidoEmisorFabrica>' . $d->impuestoAsumidoEmisorFabrica . '</ImpuestoAsumidoEmisorFabrica>';
         }
-        if (isset($d->impuestoNeto) && $d->impuestoNeto != "") {
-            $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
-        }
+        $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
@@ -1640,6 +1640,12 @@ function genXMLNC()
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
             <TipoCambio>' . $tipoCambio . '</TipoCambio>
         </CodigoTipoMoneda>';
+    } else {
+        $xmlString .= '
+    <CodigoTipoMoneda>
+        <CodigoMoneda>CRC</CodigoMoneda>
+        <TipoCambio>1</TipoCambio>
+    </CodigoTipoMoneda>';
     }
 
     if ($totalServGravados != '') {
@@ -2469,9 +2475,7 @@ function genXMLND()
         if (isset($d->impuestoAsumidoEmisorFabrica) && $d->impuestoAsumidoEmisorFabrica != "") {
             $xmlString .= '<ImpuestoAsumidoEmisorFabrica>' . $d->impuestoAsumidoEmisorFabrica . '</ImpuestoAsumidoEmisorFabrica>';
         }
-        if (isset($d->impuestoNeto) && $d->impuestoNeto != "") {
-            $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
-        }
+        $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
@@ -2522,6 +2526,12 @@ function genXMLND()
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
             <TipoCambio>' . $tipoCambio . '</TipoCambio>
         </CodigoTipoMoneda>';
+    } else {
+        $xmlString .= '
+    <CodigoTipoMoneda>
+        <CodigoMoneda>CRC</CodigoMoneda>
+        <TipoCambio>1</TipoCambio>
+    </CodigoTipoMoneda>';
     }
 
     if ($totalServGravados != '') {
@@ -3335,12 +3345,8 @@ function genXMLTE()
                 </Impuesto>';
             }
         }
-        if (isset($d->impuestoAsumidoEmisorFabrica) && $d->impuestoAsumidoEmisorFabrica != "") {
-            $xmlString .= '<ImpuestoAsumidoEmisorFabrica>' . $d->impuestoAsumidoEmisorFabrica . '</ImpuestoAsumidoEmisorFabrica>';
-        }
-        if (isset($d->impuestoNeto) && $d->impuestoNeto != "") {
-            $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
-        }
+        $xmlString .= '<ImpuestoAsumidoEmisorFabrica>' . $d->impuestoAsumidoEmisorFabrica . '</ImpuestoAsumidoEmisorFabrica>';
+        $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
@@ -3391,6 +3397,12 @@ function genXMLTE()
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
             <TipoCambio>' . $tipoCambio . '</TipoCambio>
         </CodigoTipoMoneda>';
+    } else {
+        $xmlString .= '
+    <CodigoTipoMoneda>
+        <CodigoMoneda>CRC</CodigoMoneda>
+        <TipoCambio>1</TipoCambio>
+    </CodigoTipoMoneda>';
     }
 
     if ($totalServGravados != '') {
@@ -4146,9 +4158,7 @@ function genXMLFec()
             }
         }
 
-        if (isset($d->impuestoNeto) && $d->impuestoNeto != "") {
-            $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
-        }
+        $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
         $xmlString .= '</LineaDetalle>';
         $l++;
@@ -4198,6 +4208,12 @@ function genXMLFec()
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
             <TipoCambio>' . $tipoCambio . '</TipoCambio>
         </CodigoTipoMoneda>';
+    } else {
+        $xmlString .= '
+    <CodigoTipoMoneda>
+        <CodigoMoneda>CRC</CodigoMoneda>
+        <TipoCambio>1</TipoCambio>
+    </CodigoTipoMoneda>';
     }
 
     if ($totalServGravados != '') {
@@ -5017,12 +5033,18 @@ function genXMLFee()
     $xmlString .= '
     <ResumenFactura>';
 
-    if ($codMoneda != '' && $tipoCambio != '' && $tipoCambio != 0) {
+    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
             <TipoCambio>' . $tipoCambio . '</TipoCambio>
         </CodigoTipoMoneda>';
+    } else {
+        $xmlString .= '
+    <CodigoTipoMoneda>
+        <CodigoMoneda>CRC</CodigoMoneda>
+        <TipoCambio>1</TipoCambio>
+    </CodigoTipoMoneda>';
     }
 
     if ($totalServGravados != '') {

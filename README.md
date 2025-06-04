@@ -149,6 +149,10 @@ Convertir el archivo junit-report.xml a HTML:
 Instalar junit2html:
 ```./vendor/bin/junit2html```
 
+Ejecutar test específico:
+
+```./vendor/bin/phpunit --log-junit junit-report.xml --stderr --debug --bootstrap vendor/autoload.php --filter testGenXMLFeFullStructure  tests/api_contrib_genXML_FE.php```
+
 # 📢 Aviso Importante - Licencia y Colaboración Obligatoria 📢
 
 Este proyecto está licenciado bajo la **Licencia GNU Affero General Public
