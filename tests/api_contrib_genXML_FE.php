@@ -40,6 +40,64 @@ class api_contrib_genXML_FE extends TestCase
                     "total_ventas" => "1000.00",
                     "total_ventas_neta" => "1000.00",
                     "total_comprobante" => "1000.00",
+
+
+                    "receptor_identif_extranjero" => "P123456789", // Example: passport or foreign ID
+                    "receptor_otras_senas_extranjero" => "123 Main St, Miami, FL, USA", // Example: foreign address
+                    "registrofiscal8707" => "REG-8707-001", // Example: fiscal registry number
+                    "condicion_venta_otros" => "Venta especial", // Example: description for other sale condition
+
+                    "codigo_actividad_receptor" => "502101",
+                    "emisor_nombre_comercial" => "Comercial XYZ",
+                    "emisor_barrio" => "Barrio01",
+                    "emisor_cod_pais_tel" => "506",
+                    "emisor_tel" => "22223333",
+                    "receptor_identif_extranjero" => "",
+                    "receptor_nombre_comercial" => "Comercial ABC",
+                    "receptor_provincia" => "4",
+                    "receptor_canton" => "02",
+                    "receptor_distrito" => "03",
+                    "receptor_barrio" => "Barrio02",
+                    "receptor_otras_senas" => "Calle 123, Edificio ABC",
+                    "receptor_otras_senas_extranjero" => "",
+                    "receptor_cod_pais_tel" => "506",
+                    "receptor_tel" => "88887777",
+                    "registrofiscal8707" => "",
+                    "condicion_venta_otros" => "",
+                    "plazo_credito" => "30",
+                    "total_serv_gravados" => "0.00",
+                    "total_serv_exentos" => "200000.00",
+                    "total_serv_exonerados" => "0.00",
+                    "total_serv_no_sujeto" => "0.00",
+                    "total_merc_gravada" => "0.00",
+                    "total_merc_exenta" => "0.00",
+                    "total_merc_exonerada" => "0.00",
+                    "total_merc_no_sujeta" => "0.00",
+                    "total_gravados" => "0.00",
+                    "total_exento" => "200000.00",
+                    "total_exonerado" => "0.00",
+                    "total_no_sujeto" => "0.00",
+                    "total_descuentos" => "100.00",
+                    "totalDesgloseImpuesto" => "0.00",
+                    "total_impuestos" => "0.00",
+                    "total_impuestos_asumidos_fabrica" => "0.00",
+                    "totalIVADevuelto" => "0.00",
+                    "totalOtrosCargos" => "0.00",
+                    "otrosCargos" => json_encode([
+                        [
+                            "tipoDocumentoOC" => "01",
+                            "numeroDocumento" => "DOC-123",
+                            "detalle" => "Cargo por servicio adicional",
+                            "montoCargo" => 150.00
+                        ],
+                        [
+                            "tipoDocumentoOC" => "02",
+                            "numeroDocumento" => "DOC-456",
+                            "detalle" => "Cargo por gestión",
+                            "montoCargo" => 75.50
+                        ]
+                    ]),
+
                     "detalles" => json_encode([
                         [
                             "codigoCABYS" => "0111100000100",
