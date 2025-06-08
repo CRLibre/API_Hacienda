@@ -347,7 +347,7 @@ function users_logMeIn()
         grace_debug("Able to login");
         return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName,'idUser'=>$user->idUser);
     }
-    else if ($user->pwd == md5_hash(params_get('pwd', '')))
+    else if ($user->pwd === md5_hash(params_get('pwd', '')))
     {
         // Create a token
         grace_debug("Able to login");
