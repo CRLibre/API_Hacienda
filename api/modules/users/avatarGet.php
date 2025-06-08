@@ -29,8 +29,7 @@ function users_avatarGet()
 
     if ($user->avatar == "")
     {
-        $user->avatar = params_get('fall_back', '');
-        files_presentFile($user->avatar, false);
+        files_presentFile(base64_decode('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')); // 1x1 px transparent GIF
     }
     else
     {
@@ -43,11 +42,13 @@ function users_avatarGet()
 
         # Change the name according to the requested size
         $user->avatar = $avatarPath . str_replace("avatar_def", "avatar_def_" . params_get('size', '25'), $avatarDets->name);
-        if (!file_exists($user->avatar))
             $user->avatar = params_get('fall_back', '');
     }
 
-    files_presentFile($user->avatar, false);
+    if (!file_exists($user->avatar))
+        files_presentFile(base64_decode('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')); // 1x1 px transparent GIF
+    else
+        files_presentFile($user->avatar, false);
 }
 
 /**
