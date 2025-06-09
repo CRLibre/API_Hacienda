@@ -27,9 +27,11 @@ function users_avatarGet()
     # Get the details about the person
     $user = users_load(array('userName' => params_get('userName', '')));
 
+    $transparentGif = base64_decode('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+
     if ($user->avatar == "")
     {
-        files_presentFile(base64_decode('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')); // 1x1 px transparent GIF
+        files_presentFile($transparentGif);
     }
     else
     {
@@ -45,7 +47,7 @@ function users_avatarGet()
     }
 
     if (!file_exists($user->avatar))
-        files_presentFile(base64_decode('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')); // 1x1 px transparent GIF
+        files_presentFile($transparentGif);
     else
         files_presentFile($user->avatar, false);
 }
