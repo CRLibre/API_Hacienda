@@ -42,7 +42,6 @@ function users_avatarGet()
 
         # Change the name according to the requested size
         $user->avatar = $avatarPath . str_replace("avatar_def", "avatar_def_" . params_get('size', '25'), $avatarDets->name);
-            $user->avatar = params_get('fall_back', '');
     }
 
     if (!file_exists($user->avatar))

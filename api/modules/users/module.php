@@ -109,7 +109,7 @@ function users_init()
         array(
             'r'         => 'users_get_list',
             'action'    => 'users_getList',
-            'access'    => 'users_openAccess',
+            'access'    => 'users_noAccess',
             'params'    => array(array("key" => "like", "def" => "", "req" => false)),
             'file'      => 'getList.php'
         ),
@@ -249,6 +249,14 @@ function users_init()
 function users_openAccess()
 {
     return true;
+}
+
+/**
+ * Dummy function, just call me if you want to disable access to anyone
+ */
+function users_noAccess()
+{
+    return false;
 }
 
 function users_loggedIn()
