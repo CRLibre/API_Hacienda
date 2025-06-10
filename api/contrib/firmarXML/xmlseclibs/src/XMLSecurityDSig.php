@@ -283,11 +283,11 @@ class XMLSecurityDSig
     public function setSignPolicy(){
         $xmlns = $this->xmlFirstChild->getAttribute('xmlns');
         switch ($xmlns){
-            case (strpos($xmlns, 'v4.3') !== false):
+            case (strpos($xmlns, 'v4.4') !== false):
                 $this->signPolicy = [
                     "name" 		=> "",
-                    "url" 		=> "https://atv.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.3/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf",
-                    "digest" 	=> "0h7Q3dFHhu0bHbcZEgVc07cEcDlquUeG08HG6Iototo=" // Base64_Encode(Hash_File(SHA_256))
+                    "url" 		=> "https://cdn.comprobanteselectronicos.go.cr/xml-schemas/Resoluci%C3%B3n_General_sobre_disposiciones_t%C3%A9cnicas_comprobantes_electr%C3%B3nicos_para_efectos_tributarios.pdf",
+                    "digest" 	=> "DWxin1xWOeI8OuWQXazh4VjLWAaCLAA954em7DMh0h8=" // Base64_Encode(Hash_File(SHA_256))
                 ];
                 break;
             default:
@@ -1404,6 +1404,12 @@ class XMLSecurityDSig
         $digestMethodNode->setAttribute('Algorithm', $this::SHA256);
         $digestValueNode = $this->createNewSignNode('DigestValue', $this->signPolicy['digest']);
         $sigPolicyHashNode->appendChild($digestValueNode);
+        $signerRoleNode = $this->createNewXadesNode('SignerRole');
+        $signedSignaturePropertiesNode->appendChild($signerRoleNode);
+        $claimedRolesNode = $this->createNewXadesNode('ClaimedRoles');
+        $signerRoleNode->appendChild($claimedRolesNode);
+        $claimedRoleNode = $this->createNewXadesNode('ClaimedRole', 'Emisor');
+        $claimedRolesNode->appendChild($claimedRoleNode);
         $signedDataObjectPropertiesNode = $this->createNewXadesNode('SignedDataObjectProperties');
         $signedPropertiesNode->appendChild($signedDataObjectPropertiesNode);
         $dataObjectFormatNode = $this->createNewXadesNode('DataObjectFormat', null, [ "ObjectReference" => "#".$this->reference0Id ]);

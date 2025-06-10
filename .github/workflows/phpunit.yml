@@ -1,0 +1,38 @@
+name: PHPUnit Tests
+
+on:
+  push:
+    branches:
+      - v4.4
+      - dev
+      - master
+      - feature/issue-68/implement-basic-phpunit-for-genXML
+  pull_request:
+    branches:
+      - v4.4
+      - dev
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Runs on a GitHub-hosted VM
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, dom, curl
+          coverage: none
+
+      - name: Install Dependencies
+        run: |
+          composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Run PHPUnit Tests
+        run: |
+          ./vendor/bin/phpunit --stderr --debug --bootstrap vendor/autoload.php tests/api_contrib_genXML_FE.php
+
