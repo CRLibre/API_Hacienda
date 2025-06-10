@@ -24,14 +24,14 @@
 /**
  * Boot up procedure
  */
-function ubicacion_bootMeUp() {
-    // Just booting up
-}
+// function ubicacion_bootMeUp() {
+//     // Just booting up
+// }
 
 /**
  * Initialize module
  */
-function ubicacion_init() {
+function ubicacion() {
     $paths = array(
         array(
             'r' => 'provincias',
@@ -95,30 +95,31 @@ function ubicacion_init() {
  * Get all provinces
  */
 function getProvincias() {
-    try {
-        $db = db_connect();
-        if (!$db) {
-            return array('status' => 'error', 'message' => 'Error de conexión a la base de datos');
+        try {
+            $db = db_connect();
+            if (!$db) {
+                return array('status' => 'error', 'message' => 'Error de conexión a la base de datos');
+            }
+            
+            $query = "SELECT DISTINCT idProvincia, nombreProvincia 
+                    FROM codificacion_mh 
+                    ORDER BY idProvincia";
+            
+            $result = $db->query($query);
+            if (!$result) {
+                return array('status' => 'error', 'message' => 'Error al obtener provincias: ' . $db->error);
+            }
+            
+            $data = $result->fetch_all(MYSQLI_ASSOC);
+            if (empty($data)) {
+                return array('status' => 'error', 'message' => 'No se encontraron provincias en la base de datos');
+            }
+            
+            return array('status' => 'success', 'data' => $data);
+        } catch (Exception $e) {
+            return array('status' => 'error', 'message' => 'Error: ' . $e->getMessage());
         }
-        
-        $query = "SELECT DISTINCT idProvincia, nombreProvincia 
-                  FROM codificacion_mh 
-                  ORDER BY idProvincia";
-        
-        $result = $db->query($query);
-        if (!$result) {
-            return array('status' => 'error', 'message' => 'Error al obtener provincias: ' . $db->error);
-        }
-        
-        $data = $result->fetch_all(MYSQLI_ASSOC);
-        if (empty($data)) {
-            return array('status' => 'error', 'message' => 'No se encontraron provincias en la base de datos');
-        }
-        
-        return array('status' => 'success', 'data' => $data);
-    } catch (Exception $e) {
-        return array('status' => 'error', 'message' => 'Error: ' . $e->getMessage());
-    }
+    
 }
 
 /**
@@ -272,7 +273,7 @@ function getUbicacionCompleta($params) {
 /**
  * Get the permissions for this module
  */
-function ubicacion_access() {
+function ubicacion_log() {
     $perms = array(
         array(
             'name' => 'Acceder a datos de ubicación',
