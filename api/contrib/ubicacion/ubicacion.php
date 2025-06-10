@@ -95,113 +95,178 @@ function ubicacion_init() {
  * Get all provinces
  */
 function getProvincias() {
-    $db = db_connect();
-    $query = "SELECT DISTINCT idProvincia, nombreProvincia 
-              FROM codificacion_mh 
-              ORDER BY idProvincia";
-    
-    $result = $db->query($query);
-    if (!$result) {
-        return array('status' => 'error', 'message' => 'Error al obtener provincias');
+    try {
+        $db = db_connect();
+        if (!$db) {
+            return array('status' => 'error', 'message' => 'Error de conexión a la base de datos');
+        }
+        
+        $query = "SELECT DISTINCT idProvincia, nombreProvincia 
+                  FROM codificacion_mh 
+                  ORDER BY idProvincia";
+        
+        $result = $db->query($query);
+        if (!$result) {
+            return array('status' => 'error', 'message' => 'Error al obtener provincias: ' . $db->error);
+        }
+        
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        if (empty($data)) {
+            return array('status' => 'error', 'message' => 'No se encontraron provincias en la base de datos');
+        }
+        
+        return array('status' => 'success', 'data' => $data);
+    } catch (Exception $e) {
+        return array('status' => 'error', 'message' => 'Error: ' . $e->getMessage());
     }
-    
-    return array('status' => 'success', 'data' => $result->fetch_all(MYSQLI_ASSOC));
 }
 
 /**
  * Get cantones by provincia
  */
 function getCantones($params) {
-    $db = db_connect();
-    $idProvincia = $db->real_escape_string($params['provincia']);
-    
-    $query = "SELECT DISTINCT idCanton, nombreCanton 
-              FROM codificacion_mh 
-              WHERE idProvincia = '$idProvincia' 
-              ORDER BY idCanton";
-    
-    $result = $db->query($query);
-    if (!$result) {
-        return array('status' => 'error', 'message' => 'Error al obtener cantones');
+    try {
+        $db = db_connect();
+        if (!$db) {
+            return array('status' => 'error', 'message' => 'Error de conexión a la base de datos');
+        }
+        
+        $idProvincia = $db->real_escape_string($params['provincia']);
+        
+        $query = "SELECT DISTINCT idCanton, nombreCanton 
+                  FROM codificacion_mh 
+                  WHERE idProvincia = '$idProvincia' 
+                  ORDER BY idCanton";
+        
+        $result = $db->query($query);
+        if (!$result) {
+            return array('status' => 'error', 'message' => 'Error al obtener cantones: ' . $db->error);
+        }
+        
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        if (empty($data)) {
+            return array('status' => 'error', 'message' => 'No se encontraron cantones para la provincia especificada');
+        }
+        
+        return array('status' => 'success', 'data' => $data);
+    } catch (Exception $e) {
+        return array('status' => 'error', 'message' => 'Error: ' . $e->getMessage());
     }
-    
-    return array('status' => 'success', 'data' => $result->fetch_all(MYSQLI_ASSOC));
 }
 
 /**
  * Get distritos by canton
  */
 function getDistritos($params) {
-    $db = db_connect();
-    $idProvincia = $db->real_escape_string($params['provincia']);
-    $idCanton = $db->real_escape_string($params['canton']);
-    
-    $query = "SELECT DISTINCT idDistrito, nombreDistrito 
-              FROM codificacion_mh 
-              WHERE idProvincia = '$idProvincia' 
-              AND idCanton = '$idCanton' 
-              ORDER BY idDistrito";
-    
-    $result = $db->query($query);
-    if (!$result) {
-        return array('status' => 'error', 'message' => 'Error al obtener distritos');
+    try {
+        $db = db_connect();
+        if (!$db) {
+            return array('status' => 'error', 'message' => 'Error de conexión a la base de datos');
+        }
+        
+        $idProvincia = $db->real_escape_string($params['provincia']);
+        $idCanton = $db->real_escape_string($params['canton']);
+        
+        $query = "SELECT DISTINCT idDistrito, nombreDistrito 
+                  FROM codificacion_mh 
+                  WHERE idProvincia = '$idProvincia' 
+                  AND idCanton = '$idCanton' 
+                  ORDER BY idDistrito";
+        
+        $result = $db->query($query);
+        if (!$result) {
+            return array('status' => 'error', 'message' => 'Error al obtener distritos: ' . $db->error);
+        }
+        
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        if (empty($data)) {
+            return array('status' => 'error', 'message' => 'No se encontraron distritos para el cantón especificado');
+        }
+        
+        return array('status' => 'success', 'data' => $data);
+    } catch (Exception $e) {
+        return array('status' => 'error', 'message' => 'Error: ' . $e->getMessage());
     }
-    
-    return array('status' => 'success', 'data' => $result->fetch_all(MYSQLI_ASSOC));
 }
 
 /**
  * Get barrios by distrito
  */
 function getBarrios($params) {
-    $db = db_connect();
-    $idProvincia = $db->real_escape_string($params['provincia']);
-    $idCanton = $db->real_escape_string($params['canton']);
-    $idDistrito = $db->real_escape_string($params['distrito']);
-    
-    $query = "SELECT DISTINCT idBarrio, nombreBarrio 
-              FROM codificacion_mh 
-              WHERE idProvincia = '$idProvincia' 
-              AND idCanton = '$idCanton' 
-              AND idDistrito = '$idDistrito' 
-              ORDER BY idBarrio";
-    
-    $result = $db->query($query);
-    if (!$result) {
-        return array('status' => 'error', 'message' => 'Error al obtener barrios');
+    try {
+        $db = db_connect();
+        if (!$db) {
+            return array('status' => 'error', 'message' => 'Error de conexión a la base de datos');
+        }
+        
+        $idProvincia = $db->real_escape_string($params['provincia']);
+        $idCanton = $db->real_escape_string($params['canton']);
+        $idDistrito = $db->real_escape_string($params['distrito']);
+        
+        $query = "SELECT DISTINCT idBarrio, nombreBarrio 
+                  FROM codificacion_mh 
+                  WHERE idProvincia = '$idProvincia' 
+                  AND idCanton = '$idCanton' 
+                  AND idDistrito = '$idDistrito' 
+                  ORDER BY idBarrio";
+        
+        $result = $db->query($query);
+        if (!$result) {
+            return array('status' => 'error', 'message' => 'Error al obtener barrios: ' . $db->error);
+        }
+        
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        if (empty($data)) {
+            return array('status' => 'error', 'message' => 'No se encontraron barrios para el distrito especificado');
+        }
+        
+        return array('status' => 'success', 'data' => $data);
+    } catch (Exception $e) {
+        return array('status' => 'error', 'message' => 'Error: ' . $e->getMessage());
     }
-    
-    return array('status' => 'success', 'data' => $result->fetch_all(MYSQLI_ASSOC));
 }
 
 /**
  * Get complete location information
  */
 function getUbicacionCompleta($params) {
-    $db = db_connect();
-    $idProvincia = $db->real_escape_string($params['provincia']);
-    $where = "WHERE idProvincia = '$idProvincia'";
-    
-    if (isset($params['canton'])) {
-        $idCanton = $db->real_escape_string($params['canton']);
-        $where .= " AND idCanton = '$idCanton'";
+    try {
+        $db = db_connect();
+        if (!$db) {
+            return array('status' => 'error', 'message' => 'Error de conexión a la base de datos');
+        }
+        
+        $idProvincia = $db->real_escape_string($params['provincia']);
+        $where = "WHERE idProvincia = '$idProvincia'";
+        
+        if (isset($params['canton'])) {
+            $idCanton = $db->real_escape_string($params['canton']);
+            $where .= " AND idCanton = '$idCanton'";
+        }
+        if (isset($params['distrito'])) {
+            $idDistrito = $db->real_escape_string($params['distrito']);
+            $where .= " AND idDistrito = '$idDistrito'";
+        }
+        if (isset($params['barrio'])) {
+            $idBarrio = $db->real_escape_string($params['barrio']);
+            $where .= " AND idBarrio = '$idBarrio'";
+        }
+        
+        $query = "SELECT * FROM codificacion_mh $where";
+        $result = $db->query($query);
+        if (!$result) {
+            return array('status' => 'error', 'message' => 'Error al obtener ubicación: ' . $db->error);
+        }
+        
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        if (empty($data)) {
+            return array('status' => 'error', 'message' => 'No se encontró la ubicación especificada');
+        }
+        
+        return array('status' => 'success', 'data' => $data);
+    } catch (Exception $e) {
+        return array('status' => 'error', 'message' => 'Error: ' . $e->getMessage());
     }
-    if (isset($params['distrito'])) {
-        $idDistrito = $db->real_escape_string($params['distrito']);
-        $where .= " AND idDistrito = '$idDistrito'";
-    }
-    if (isset($params['barrio'])) {
-        $idBarrio = $db->real_escape_string($params['barrio']);
-        $where .= " AND idBarrio = '$idBarrio'";
-    }
-    
-    $query = "SELECT * FROM codificacion_mh $where";
-    $result = $db->query($query);
-    if (!$result) {
-        return array('status' => 'error', 'message' => 'Error al obtener ubicación');
-    }
-    
-    return array('status' => 'success', 'data' => $result->fetch_all(MYSQLI_ASSOC));
 }
 
 /**
