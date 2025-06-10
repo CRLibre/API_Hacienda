@@ -125,13 +125,20 @@ function getProvincias() {
 /**
  * Get cantones by provincia
  */
-function getCantones($params) {
+function getCantones($params = array()) {
+    if (!isset($params['provincia'])) {
+        if (isset($_GET['provincia'])) {
+            $params['provincia'] = $_GET['provincia'];
+        }
+    }
+    if (!isset($params['provincia'])) {
+        return array('status' => 'error', 'message' => 'Falta el parámetro provincia');
+    }
     try {
         $db = db_connect();
         if (!$db) {
             return array('status' => 'error', 'message' => 'Error de conexión a la base de datos');
         }
-        
         $idProvincia = $db->real_escape_string($params['provincia']);
         
         $query = "SELECT DISTINCT idCanton, nombreCanton 
@@ -158,7 +165,16 @@ function getCantones($params) {
 /**
  * Get distritos by canton
  */
-function getDistritos($params) {
+function getDistritos($params = array()) {
+    if (!isset($params['provincia']) || !isset($params['canton'])) {
+        if (isset($_GET['provincia']) && isset($_GET['canton'])) {
+            $params['provincia'] = $_GET['provincia'];
+            $params['canton'] = $_GET['canton'];
+        }
+    }
+    if (!isset($params['provincia'])) {
+        return array('status' => 'error', 'message' => 'Faltan parámetros: provincia y canton son requeridos');
+    }
     try {
         $db = db_connect();
         if (!$db) {
@@ -193,7 +209,15 @@ function getDistritos($params) {
 /**
  * Get barrios by distrito
  */
-function getBarrios($params) {
+function getBarrios($params = array()) {
+    if (!isset($params['provincia']) || !isset($params['canton']) || !isset($params['distrito'])) {
+        if (isset($_GET['provincia']))  $params['provincia']  = $_GET['provincia'];
+        if (isset($_GET['canton']))     $params['canton']     = $_GET['canton'];
+        if (isset($_GET['distrito']))   $params['distrito']   = $_GET['distrito'];
+    }
+    if (!isset($params['provincia']) || !isset($params['canton']) || !isset($params['distrito'])) {
+        return array('status' => 'error', 'message' => 'Faltan parámetros: provincia, canton y distrito son requeridos');
+    }
     try {
         $db = db_connect();
         if (!$db) {
