@@ -1,35 +1,51 @@
-version: '3.5'
+version: "3.5"
 services:
-    php-apache:
-        build:
-            context: .
-            dockerfile: ./docker-php-apache/Dockerfile
-        ports:
-            - 8080:80
-            - 8443:443
-        # env_file: ./docker-php-apache/php-apache.env
-        environment: 
-            CRLIBRE_API_HACIENDA_DB_HOST: 'mariadb'                   # 
-            CRLIBRE_API_HACIENDA_DB_NAME: 'testdb'                    # 
-            CRLIBRE_API_HACIENDA_DB_USER: 'testuser'                  # 
-            CRLIBRE_API_HACIENDA_DB_PASSWORD: 'testpassword'          # 
-        depends_on:
-            - 'mariadb'
-        links:
-            - 'mariadb:database'
-    mariadb:
-        image: mariadb:10.11.4
-        ports:
-            - 4407:3306
-        volumes:
-            - ./recursos/sql:/docker-entrypoint-initdb.d
-            - /var/lib/mysql
-        environment:
-            TZ: "America/Costa_Rica"
-            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
-            MYSQL_ROOT_PASSWORD: "rootpwd"
-            MYSQL_USER: 'testuser'
-            MYSQL_PASSWORD: 'testpassword'
-            MYSQL_DATABASE: 'testdb'
-        restart: always
-        tty: true
+  php-apache:
+    container_name: ${APP_CONTAINER_NAME:-crlibre-app}
+    build:
+      context: .
+      dockerfile: ./docker-php-apache/Dockerfile
+    ports:
+      - 8080:80
+      - 8443:443
+    env_file:
+      - ./docker-php-apache/php-apache.env
+    environment:
+      CRLIBRE_API_HACIENDA_DB_HOST: ${CRLIBRE_API_HACIENDA_DB_HOST:-mariadb}
+      CRLIBRE_API_HACIENDA_DB_NAME: ${DB_NAME:-testdb}
+      CRLIBRE_API_HACIENDA_DB_USER: ${DB_USER:-testuser}
+      CRLIBRE_API_HACIENDA_DB_PASSWORD: ${DB_PASSWORD:-testpassword}
+    depends_on:
+      - "mariadb"
+    networks:
+      - crlibrenet
+    volumes:
+      - ./www/settings.php:/var/www/html/settings.php
+      - ./api:/var/www/html/api
+  mariadb:
+    image: mariadb:10.11.4
+    container_name: ${MARIADB_CONTAINER_NAME:-crlibre-mariadb}
+    ports:
+      - 4407:3306
+    env_file:
+      - ./docker-php-apache/php-apache.env
+    volumes:
+      - ./recursos/sql:/docker-entrypoint-initdb.d
+      - ./mysql-data:/var/lib/mysql
+    environment:
+      TZ: "America/Costa_Rica"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpwd}
+      MYSQL_USER: ${DB_USER:-testuser}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-testpassword}
+      MYSQL_DATABASE: ${DB_NAME:-testdb}
+    restart: always
+    tty: true
+    networks:
+      - crlibrenet
+
+networks:
+  crlibrenet:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"

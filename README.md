@@ -22,6 +22,8 @@ Electrónica** requerido por el Ministerio de Hacienda de Costa Rica.
 
 #### Documentación general sobre la Factura Electrónica en Costa Rica
 
+
+=======
 De forma complementaria al proyecto de este API creamos dos repositorios
 relacionados con la facturación electrónica
 
@@ -53,7 +55,6 @@ propio manteniendo control de sus datos sensibles.
     * [Sistema de Preguntas y Respuestas de la Comunidad](https://crlibre.org/qa/)
     * [Grupos de CHAT de CRLibre.org](https://crlibre.org/chats/)
     * [Grupo de Facebook CRLibre](https://www.facebook.com/groups/105812240170199/)
-
 ## Sobre este API
 
 **Trabajo en proceso [lo estamos creando en conjunto](THANKS.md)**
@@ -73,14 +74,16 @@ ubicación de en donde se encontrará el resto de cosas o bien, la carpeta api.
 
 ## Requerimientos mínimos
 
-* PHP >= 5.5.0
-* MySQL o MariaDB ([MySQLi](http://php.net/manual/en/book.mysqli.php))
-* [cURL](http://php.net/manual/en/book.curl.php)
-* [php-xml](http://php.net/manual/en/book.simplexml.php)
-* [OpenSSL](http://php.net/manual/en/book.openssl.php)
+- PHP >= 5.5.0
+- MySQL o MariaDB ([MySQLi](http://php.net/manual/en/book.mysqli.php))
+- [cURL](http://php.net/manual/en/book.curl.php)
+- [php-xml](http://php.net/manual/en/book.simplexml.php)
+- [OpenSSL](http://php.net/manual/en/book.openssl.php)
 
 ### Conectores/Clientes del API
 
+
+=======
 * Conector en .NET https://github.com/CRLibre/fe-hacienda-cr-dotnet
 * Conector en
   JavaScript: https://github.com/CRLibre/CalaAPI/tree/master/conectores/js
