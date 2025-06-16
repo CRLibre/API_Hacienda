@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2025 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -30,7 +30,7 @@ function crypto_init()
         array(
             'r'         => 'encrypt',
             'action'    => 'crypto_encrypt',
-            'access'    => 'users_openAccess',
+            'access'    => 'users_noAccess',
             'params'    => array(
                 array("key" => "textEncrypt", "def" => "", "req" => true)
             ),
@@ -40,7 +40,7 @@ function crypto_init()
         array(
             'r'         => 'desencrypt',
             'action'    => 'crypto_desencrypt',
-            'access'    => 'users_openAccess',
+            'access'    => 'users_noAccess',
             'params'    => array(
                 array("key" => "textDesEncrypt", "def" => "0", "req" => false)
             ),
