@@ -109,7 +109,7 @@ function users_init()
         array(
             'r'         => 'users_get_list',
             'action'    => 'users_getList',
-            'access'    => 'users_openAccess',
+            'access'    => 'users_noAccess',
             'params'    => array(array("key" => "like", "def" => "", "req" => false)),
             'file'      => 'getList.php'
         ),
@@ -251,6 +251,14 @@ function users_openAccess()
     return true;
 }
 
+/**
+ * Dummy function, just call me if you want to disable access to anyone
+ */
+function users_noAccess()
+{
+    return false;
+}
+
 function users_loggedIn()
 {
     global $user;
@@ -347,7 +355,7 @@ function users_logMeIn()
         grace_debug("Able to login");
         return array('sessionKey' => users_generateSessionKey($user->idUser), 'userName' => $user->userName,'idUser'=>$user->idUser);
     }
-    else if ($user->pwd == md5_hash(params_get('pwd', '')))
+    else if ($user->pwd === md5_hash(params_get('pwd', '')))
     {
         // Create a token
         grace_debug("Able to login");

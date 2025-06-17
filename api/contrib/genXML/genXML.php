@@ -65,7 +65,6 @@ function genXMLFe()
     $receptorNombre = params_get("receptor_nombre");
     $receptorTipoIdentif = params_get("receptor_tipo_identif");
     $receptorNumIdentif = params_get("receptor_num_identif");
-    $receptorIdentifExtranjero = params_get("receptor_identif_extranjero");
     $receptorNombreComercial = params_get("receptor_nombre_comercial");
     $receptorProvincia = params_get("receptor_provincia");
     $receptorCanton = params_get("receptor_canton");
@@ -238,13 +237,6 @@ function genXMLFe()
             <Tipo>' . $receptorTipoIdentif . '</Tipo>
             <Numero>' . $receptorNumIdentif . '</Numero>
         </Identificacion>';
-
-    if ($receptorIdentifExtranjero != '' && $receptorIdentifExtranjero != '') {
-        $xmlString .= '
-            <IdentificacionExtranjero>'
-            . $receptorIdentifExtranjero .
-            '</IdentificacionExtranjero>';
-    }
 
     if (isset($receptorNombreComercial) && $receptorNombreComercial != "") {
         $xmlString .= '
@@ -1058,7 +1050,6 @@ function genXMLNC()
     $receptorNombre = params_get("receptor_nombre");
     $receptorTipoIdentif = params_get("receptor_tipo_identif");
     $receptorNumIdentif = params_get("receptor_num_identif");
-    $receptorIdentifExtranjero = params_get("receptor_identif_extranjero");
     $receptorNombreComercial = params_get("receptor_nombre_comercial");
     $receptorProvincia = params_get("receptor_provincia");
     $receptorCanton = params_get("receptor_canton");
@@ -1230,13 +1221,6 @@ function genXMLNC()
                 <Tipo>' . $receptorTipoIdentif . '</Tipo>
                 <Numero>' . $receptorNumIdentif . '</Numero>
             </Identificacion>';
-        }
-
-        if ($receptorIdentifExtranjero != '' && $receptorIdentifExtranjero != '') {
-            $xmlString .= '
-            <IdentificacionExtranjero>'
-                . $receptorIdentifExtranjero .
-                '</IdentificacionExtranjero>';
         }
 
         if (isset($receptorNombreComercial) && $receptorNombreComercial != "") {
@@ -1946,7 +1930,6 @@ function genXMLND()
     $receptorNombre = params_get("receptor_nombre");
     $receptorTipoIdentif = params_get("receptor_tipo_identif");
     $receptorNumIdentif = params_get("receptor_num_identif");
-    $receptorIdentifExtranjero = params_get("receptor_identif_extranjero");
     $receptorNombreComercial = params_get("receptor_nombre_comercial");
     $receptorProvincia = params_get("receptor_provincia");
     $receptorCanton = params_get("receptor_canton");
@@ -2116,13 +2099,6 @@ function genXMLND()
                 <Tipo>' . $receptorTipoIdentif . '</Tipo>
                 <Numero>' . $receptorNumIdentif . '</Numero>
             </Identificacion>';
-        }
-
-        if ($receptorIdentifExtranjero != '' && $receptorIdentifExtranjero != '') {
-            $xmlString .= '
-            <IdentificacionExtranjero>'
-                . $receptorIdentifExtranjero .
-                '</IdentificacionExtranjero>';
         }
 
         if (isset($receptorNombreComercial) && $receptorNombreComercial != "") {
@@ -2831,7 +2807,6 @@ function genXMLTE()
     $receptorNombre = params_get("receptor_nombre");
     $receptorTipoIdentif = params_get("receptor_tipo_identif");
     $receptorNumIdentif = params_get("receptor_num_identif");
-    $receptorIdentifExtranjero = params_get("receptor_identif_extranjero");
     $receptorNombreComercial = params_get("receptor_nombre_comercial");
     $receptorProvincia = params_get("receptor_provincia");
     $receptorCanton = params_get("receptor_canton");
@@ -2994,13 +2969,6 @@ function genXMLTE()
                 <Tipo>' . $receptorTipoIdentif . '</Tipo>
                 <Numero>' . $receptorNumIdentif . '</Numero>
             </Identificacion>';
-        }
-
-        if ($receptorIdentifExtranjero != '' && $receptorIdentifExtranjero != '') {
-            $xmlString .= '
-            <IdentificacionExtranjero>'
-                . $receptorIdentifExtranjero .
-                '</IdentificacionExtranjero>';
         }
 
         if (isset($receptorNombreComercial) && $receptorNombreComercial != "") {
@@ -3759,7 +3727,6 @@ function genXMLFec()
     $receptorNombre = params_get("receptor_nombre");
     $receptorTipoIdentif = params_get("receptor_tipo_identif");
     $receptorNumIdentif = params_get("receptor_num_identif");
-    $receptorIdentifExtranjero = params_get("receptor_identif_extranjero");
     $receptorNombreComercial = params_get("receptor_nombre_comercial");
     $receptorProvincia = params_get("receptor_provincia");
     $receptorCanton = params_get("receptor_canton");
@@ -3930,13 +3897,6 @@ function genXMLFec()
             <Tipo>' . $receptorTipoIdentif . '</Tipo>
             <Numero>' . $receptorNumIdentif . '</Numero>
         </Identificacion>';
-
-    if ($receptorIdentifExtranjero != '' && $receptorIdentifExtranjero != '') {
-        $xmlString .= '
-            <IdentificacionExtranjero>'
-            . $receptorIdentifExtranjero .
-            '</IdentificacionExtranjero>';
-    }
 
     if (isset($receptorNombreComercial) && $receptorNombreComercial != "") {
         $xmlString .= '
@@ -4502,7 +4462,6 @@ function genXMLFee()
     $receptorNombre = params_get("receptor_nombre");
     $receptorTipoIdentif = params_get("receptor_tipo_identif");
     $receptorNumIdentif = params_get("receptor_num_identif");
-    $receptorIdentifExtranjero = params_get("receptor_identif_extranjero");
     $receptorNombreComercial = params_get("receptor_nombre_comercial");
     $receptorOtrasSenasExtranjero = params_get("receptor_otras_senas_extranjero");
     $receptorCodPaisTel = params_get("receptor_cod_pais_tel");
@@ -4638,13 +4597,6 @@ function genXMLFee()
             <Tipo>' . $receptorTipoIdentif . '</Tipo>
             <Numero>' . $receptorNumIdentif . '</Numero>
         </Identificacion>';
-    }
-
-    if ($receptorIdentifExtranjero != '' && $receptorIdentifExtranjero != '') {
-        $xmlString .= '
-        <IdentificacionExtranjero>'
-            . $receptorIdentifExtranjero .
-            '</IdentificacionExtranjero>';
     }
 
     if (isset($receptorNombreComercial) && $receptorNombreComercial != "") {

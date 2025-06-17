@@ -30,7 +30,7 @@ function crypto_init()
         array(
             'r'         => 'encrypt',
             'action'    => 'crypto_encrypt',
-            'access'    => 'users_openAccess',
+            'access'    => 'users_noAccess',
             'params'    => array(
                 array("key" => "textEncrypt", "def" => "", "req" => true)
             ),
@@ -40,7 +40,7 @@ function crypto_init()
         array(
             'r'         => 'desencrypt',
             'action'    => 'crypto_desencrypt',
-            'access'    => 'users_openAccess',
+            'access'    => 'users_noAccess',
             'params'    => array(
                 array("key" => "textDesEncrypt", "def" => "0", "req" => false)
             ),
