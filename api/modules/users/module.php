@@ -386,7 +386,7 @@ function users_generateSessionKey($idUser)
     db_query($q, 0);
 
     modules_loader("crypto", "crypto.php");
-    $sessionKey = crypto_encrypt(password_hash(time() * rand(0, 1000)));
+    $sessionKey = crypto_encrypt(password_hash(time() * rand(0, 1000), PASSWORD_DEFAULT));
 
     $q = sprintf("INSERT INTO sessions (idUser, sessionKey, ip, lastAccess) "
             . "VALUES('%s', '%s', '%s', '%s')", db_escape($idUser), $sessionKey, db_escape($_SERVER['REMOTE_ADDR']), time());

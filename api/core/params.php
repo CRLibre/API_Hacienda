@@ -42,15 +42,11 @@ function params_set($p, $val = false, $override = false)
 {
     global $params;
 
-    if (is_array($val))
-    {
-        foreach ($val as $vv => $v)
-        {
+    if (is_array($val)) {
+        foreach ($val as $vv => $v) {
             _params_set($vv, $v, $override);
         }
-
-    }
-    else
+    } else
         _params_set($p, $val, $override);
 
     return $params[$p];
@@ -59,7 +55,7 @@ function params_set($p, $val = false, $override = false)
 /**
  * Helper function to actually store the params
  */
-function _params_set($p, $val = false, $override)
+function _params_set($p, $val = false, $override = false)
 {
     global $params;
 
@@ -77,10 +73,8 @@ function _params_set($p, $val = false, $override)
  */
 function params_verifyRequest($keys)
 {
-    foreach($keys as $key)
-    {
-        if (params_get($key["key"], '') === '')
-        {
+    foreach ($keys as $key) {
+        if (params_get($key["key"], '') === '') {
             grace_debug("Missing param: " . $key["key"]);
             if ($key["req"])
                 tools_reply(ERROR_BAD_REQUEST, true);
@@ -91,7 +85,6 @@ function params_verifyRequest($keys)
             }
         }
     }
-
 }
 
 /**
@@ -113,8 +106,7 @@ function params_cliLoadOpts($allParams)
     $longOpts = array();
 
     # Extract only the params
-    foreach ($allParams as $param)
-    {
+    foreach ($allParams as $param) {
         if (isset($param['params']))
             $params[] = $param['params'];
     }
@@ -123,18 +115,14 @@ function params_cliLoadOpts($allParams)
     $params = $params[0];
 
     print_r($params);
-    foreach ($params as $p)
-    {
+    foreach ($params as $p) {
         $longOpt = $p['key'];
         $opts .= $p['cli'];
         # Is it mandatory?
-        if ($p['req'])
-        {
+        if ($p['req']) {
             $opts .= ":";
             $longOpt .= ":";
-        }
-        else
-        {
+        } else {
             $opts .= "::";
             $longOpt .= "::";
         }
@@ -148,14 +136,13 @@ function params_cliLoadOpts($allParams)
     $args = getopt($opts, $longOpts);
 
     # Now, lets extract them :)
-    foreach ($params as $p)
-    {
+    foreach ($params as $p) {
         # Was it sent as longOpt?
         if (isset($args[$p['key']]))
             params_set($p['key'], $args[$p['key']]);
         else if (isset($args[$p['cli']]))
             params_set($p['key'], $args[$p['cli']]);
-        else if($p['req'] == false) # If it is optional, I will load the default value?
+        else if ($p['req'] == false) # If it is optional, I will load the default value?
             params_set($p['key'], $p['def']);
     }
 
@@ -168,6 +155,4 @@ function params_cliLoadOpts($allParams)
 /**
  * This are the core basic params required to function
  */
-function core_getBasicParams()
-{
-}
+function core_getBasicParams() {}
