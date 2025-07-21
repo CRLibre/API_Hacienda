@@ -6,7 +6,6 @@ on:
       - v4.4
       - dev
       - master
-      - feature/issue-68/implement-basic-phpunit-for-genXML
   pull_request:
     branches:
       - v4.4
