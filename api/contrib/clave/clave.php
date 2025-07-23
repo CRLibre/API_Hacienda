@@ -77,7 +77,7 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
     }
 
     if (!ctype_digit($terminal)) {
-        return "El parametro sucursal no es numeral";
+        return "El parametro terminal no es numeral";
     } else if (strlen($terminal) < 5) {
         $terminal = str_pad($terminal, 5, "0", STR_PAD_LEFT);
     } else if (strlen($terminal) > 5) {
