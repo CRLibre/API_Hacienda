@@ -20,13 +20,18 @@
 global $config;
 
 # Cargar config del .env 
-$env = file_get_contents(__DIR__."/../.env");
-$lines = explode("\n",$env);
+$envFilePath = __DIR__ . "/../.env";
+if (file_exists($envFilePath)) {
+  $env = file_get_contents($envFilePath);
+  $lines = explode("\n", $env);
 
-foreach($lines as $line){
-  preg_match("/([^#]+)\=(.*)/",$line,$matches);
-  if(isset($matches[2])){ putenv(trim($line)); }
-} 
+  foreach ($lines as $line) {
+    preg_match("/^\s*([^#][^=]*)=(.*)$/", $line, $matches);
+    if (isset($matches[2])) {
+      putenv(trim($line));
+    }
+  }
+}
 
 #####################################################################################
 #
@@ -111,11 +116,11 @@ $config['users']['sessionLifetime'] = getenv('sessionLifetime');
 /*******************************************************************************
  * You should not need to touch anything beyond this point
  */
- 
+
 
 
 # List of core modules
-$config['modules']['core']     = array('cala','db', 'users', 'files', 'geoloc', 'wirez', 'crypto');
+$config['modules']['core']     = array('cala', 'db', 'users', 'files', 'geoloc', 'wirez', 'crypto');
 # List of core modules to load always, you can overide this list
 $config['modules']['coreLoad'] = array('cala', 'db', 'users', 'crypto');
 
