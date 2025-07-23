@@ -24,7 +24,7 @@ global $params;
 function params_get($p, $def = false)
 {
     global $params;
-
+    
     # Get them all
     if ($p === false)
         return $params;
@@ -75,9 +75,10 @@ function params_verifyRequest($keys)
 {
     foreach ($keys as $key) {
         if (params_get($key["key"], '') === '') {
-            grace_debug("Missing param: " . $key["key"]);
+            $msg = "Falta el parametro requerido: " . $key["key"];
+            grace_debug($msg);
             if ($key["req"])
-                tools_reply(ERROR_BAD_REQUEST, true);
+                tools_reply($msg, true);
             else # Set the default value
             {
                 grace_debug("Using default");

@@ -20,12 +20,15 @@ function tools_reply($response, $killMe = false)
 {
     if ($killMe)
     {
-        /* do something some day */
+        $response = "ERROR: " . $response;
     }
 
     if (params_get('replyType', 'json') == 'json')
     {
-        _tools_reply(tools_returnJson(array('resp' => $response)));
+        _tools_reply(tools_returnJson(array(
+            'status' => ($killMe ? 'error' : 'ok'),
+            'resp' => $response
+        )));
         # There will be other reply types soon...
     //}
     //elseif(params_get('replyType', 'json') == 'plain')
