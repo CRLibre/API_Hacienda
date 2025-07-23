@@ -18,28 +18,76 @@
 
 function tools_reply($response, $killMe = false)
 {
-    if ($killMe)
-    {
-        /* do something some day */
+    switch ($response) {
+        case ERROR_USERS_NO_VALID:
+            http_response_code(400);
+            $response = "Usuario no válido";
+            $killMe = true;
+            break;
+        case ERROR_USERS_WRONG_LOGIN_INFO:
+            http_response_code(401);
+            $response = "Información de acceso incorrecta";
+            $killMe = true;
+            break;
+        case ERROR_USERS_NO_VALID_SESSION:
+            http_response_code(440);
+            $response = "Sesión no válida o expirada";
+            $killMe = true;
+            break;
+        case ERROR_USERS_ACCESS_DENIED:
+            http_response_code(403);
+            $response = "Acceso denegado";
+            $killMe = true;
+            break;
+        case ERROR_USERS_EXISTS:
+            http_response_code(409);
+            $response = "El usuario ya existe";
+            $killMe = true;
+            break;
+        default:
+            http_response_code(200);
     }
 
-    if (params_get('replyType', 'json') == 'json')
-    {
-        _tools_reply(tools_returnJson(array('resp' => $response)));
-        # There will be other reply types soon...
-    //}
-    //elseif(params_get('replyType', 'json') == 'plain')
-    //{
-        # Reply all other replyTypes
+    if (is_array($response) && isset($response['Status'])) {
+        switch ($response['Status']) {
+            case 'error':
+                http_response_code(500);
+                $killMe = true;
+                break;
+            case 'ok':
+                http_response_code(200);
+                break;
+            default:
+                http_response_code(400);
+                $killMe = true;
+        }
+        $response = $response['text'];
     }
-    else
-    {
+
+    if ($killMe) {
+        if (is_string($response)) {
+            $response = "ERROR: " . $response;
+        }
+    } else {
+        http_response_code(200);
+    }
+
+    if (params_get('replyType', 'json') == 'json') {
+        _tools_reply(tools_returnJson(array(
+            'status' => ($killMe ? 'error' : 'ok'),
+            'resp' => $response
+        )));
+        # There will be other reply types soon...
+        //}
+        //elseif(params_get('replyType', 'json') == 'plain')
+        //{
+        # Reply all other replyTypes
+    } else {
         if (conf_get('mode', 'core', 'web') == 'cli')
             $response .= "\n";
 
         _tools_reply($response);
     }
-
 }
 
 function _tools_reply($response)
@@ -58,8 +106,7 @@ function _tools_reply($response)
 
 function tools_returnJson($response, $addHeaders = true)
 {
-    if ($addHeaders && conf_get('mode', 'core', 'web') != 'cli')
-    {
+    if ($addHeaders && conf_get('mode', 'core', 'web') != 'cli') {
         header('Content-Type: text/html; charset=utf-8');
         header('Content-Type: application/json');
     }
@@ -72,12 +119,11 @@ function tools_returnJson($response, $addHeaders = true)
  */
 function tools_proccesPath($paths)
 {
+
     grace_debug("Looking for path: " . params_get('r'));
 
-    foreach ($paths as $p)
-    {
-        if ($p['r'] == params_get('r'))
-        {
+    foreach ($paths as $p) {
+        if ($p['r'] == params_get('r')) {
             grace_debug("Found path: " . $p['r']);
             if (isset($p['params']))
                 params_verifyRequest($p['params']);
@@ -91,13 +137,11 @@ function tools_proccesPath($paths)
             if (isset($p['file']))
                 modules_loader(params_get('w'), $p['file']);
 
-            if (function_exists($p['action']))
-            {
+            if (function_exists($p['action'])) {
                 grace_debug("Found function: " . $p['action']);
                 $response = call_user_func($p['action']);
                 return $response;
-            }
-            else
+            } else
                 return ERROR_BAD_REQUEST;
         }
     }
@@ -126,16 +170,14 @@ function tools_loadLibrary($which)
 {
     global $config;
 
-    $path = conf_get('coreInstall', 'modules', '') .  "core/" .$which;
+    $path = conf_get('coreInstall', 'modules', '') .  "core/" . $which;
 
     grace_debug("Loading library: " . $path);
 
-    if (file_exists($path))
-    {
+    if (file_exists($path)) {
         grace_debug("Found library");
         include_once($which);
         return true;
-    }
-    else
+    } else
         return false;
 }

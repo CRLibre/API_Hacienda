@@ -65,20 +65,14 @@ function users_bootMeUp()
 function users_loadCurrentUser()
 {
     global $user;
+    
     # If I am running on emebed mode I don't have any users, so I will just load it from the session
     $user = users_load(array('userName' => params_get('iam', '')));
-    /*
-      if(conf_get('embeded', 'core', false)){
-      $user = users_createBasic();
-      $tmpUserId = users_confirmSessionKey();
-      $user->idUser = $tmpUserId;
-      }else{
-      }
-     */
 }
 
 function users_init()
 {
+    
     $paths = array(
         # Register a new user
         # Method = POST
@@ -386,7 +380,7 @@ function users_generateSessionKey($idUser)
     db_query($q, 0);
 
     modules_loader("crypto", "crypto.php");
-    $sessionKey = crypto_encrypt(password_hash(time() * rand(0, 1000)));
+    $sessionKey = crypto_encrypt(password_hash(time() * rand(0, 1000), PASSWORD_DEFAULT));
 
     $q = sprintf("INSERT INTO sessions (idUser, sessionKey, ip, lastAccess) "
             . "VALUES('%s', '%s', '%s', '%s')", db_escape($idUser), $sessionKey, db_escape($_SERVER['REMOTE_ADDR']), time());
