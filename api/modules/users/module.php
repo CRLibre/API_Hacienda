@@ -65,20 +65,14 @@ function users_bootMeUp()
 function users_loadCurrentUser()
 {
     global $user;
+    
     # If I am running on emebed mode I don't have any users, so I will just load it from the session
     $user = users_load(array('userName' => params_get('iam', '')));
-    /*
-      if(conf_get('embeded', 'core', false)){
-      $user = users_createBasic();
-      $tmpUserId = users_confirmSessionKey();
-      $user->idUser = $tmpUserId;
-      }else{
-      }
-     */
 }
 
 function users_init()
 {
+    
     $paths = array(
         # Register a new user
         # Method = POST

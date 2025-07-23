@@ -58,8 +58,7 @@ function boot_itUp($mode = 'web')
     # @todo Call the current requested module first in case it wants to change the core modules to be loaded
     boot_loadAllCoreModules();
 
-    if ($mode != 'web')
-    {
+    if ($mode != 'web') {
         // Set mode
         conf_set('mode', 'core', 'cli');
         params_cliLoadOpts(cala_init());
@@ -84,13 +83,12 @@ function boot_initThisPath()
      */
     $f = preg_replace("/[\n\r\f]+/m", "", params_get('w', 'core') . "_init");
 
-    if (function_exists($f))
-    {
+    if (function_exists($f)) {
         grace_debug("Function found");
         $response = tools_proccesPath(call_user_func($f));
-    }
-    else
+    } else {
         $response = "Module not found";
+    }
 
     tools_reply($response);
 }
@@ -103,8 +101,7 @@ function boot_loadAllCoreModules()
 {
     grace_debug("Loading all core modules");
 
-    foreach (conf_get('coreLoad', 'modules') as $module)
-    {
+    foreach (conf_get('coreLoad', 'modules') as $module) {
         grace_debug("Loading module: " . $module);
         modules_loader($module);
     }

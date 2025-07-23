@@ -39,7 +39,7 @@ function clave_init()
                 array("key" => "tipoDocumento", "def" => "", "req" => true),
                 array("key" => "tipoCedula", "def" => "", "req" => true),
                 array("key" => "cedula", "def" => "", "req" => true),
-                array("key" => "codigoPais", "def" => "", "req" => true),
+                array("key" => "codigoPais", "def" => "", "req" => false),
                 array("key" => "consecutivo", "def" => "", "req" => true),
                 array("key" => "situacion", "def" => "", "req" => true),
                 array("key" => "terminal", "def" => "", "req" => false),
