@@ -434,7 +434,7 @@ function genXMLFe()
     $l = 1;
     
     foreach ($detalles as $d) {
-        
+
         foreach (["codigoCABYS","subTotal","impuestoAsumidoEmisorFabrica","impuestoNeto"] as $requiredField) {
             if (!isset($d->{$requiredField}) || $d->{$requiredField} === '') {
                 tools_reply("Se requiere el campo $requiredField en el detalle #$l", true);
@@ -445,11 +445,6 @@ function genXMLFe()
         <LineaDetalle>
             <NumeroLinea>' . $l . '</NumeroLinea>';
 
-        if(!isset($d->codigoCABYS) || $d->codigoCABYS == "") {
-            error_log("codigoCABYS is required in LineaDetalle");
-            tools_reply("Se requiere el codigoCABYS en el detalle #$l", true);
-            continue; // Skip this line if codigoCABYS is not set
-        }
         $xmlString .= '
             <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
 

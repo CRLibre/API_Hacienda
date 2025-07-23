@@ -85,7 +85,7 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
     }
 
     if (!ctype_digit($consecutivo)) {
-        return "El parametro sucursal no es numeral";
+        return "El parametro consecutivo no es numeral";
     } else if (strlen($consecutivo) < 10) {
         $consecutivo = str_pad($consecutivo, 10, "0", STR_PAD_LEFT);
     } else if (strlen($consecutivo) > 10) {
@@ -93,7 +93,7 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
     }
 
     if (!ctype_digit($codigoSeguridad)) {
-        return "El parametro sucursal no es numeral";
+        return "El parametro codigoSeguridad no es numeral";
     } else if (strlen($codigoSeguridad) < 8) {
         $codigoSeguridad = str_pad($codigoSeguridad, 8, "0", STR_PAD_LEFT);
     } else if (strlen($codigoSeguridad) > 8) {
@@ -180,14 +180,14 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
         "sininternet"   => 3
     );
 
-    $situacion = $situaciones[strtolower($situacion)] ?? null;
+    $codSituacion = $situaciones[strtolower($situacion)] ?? null;
 
-    if ($situacion === null) {
+    if ($codSituacion === null) {
         return "No se encuentra el tipo de situacion [$situacion]";
     }
 
     // Crea la clave 
-    $clave = $codigoPais . $dia . $mes . $ano . $identificacion . $consecutivoFinal . $situacion . $codigoSeguridad;
+    $clave = $codigoPais . $dia . $mes . $ano . $identificacion . $consecutivoFinal . $codSituacion . $codigoSeguridad;
     $arrayResp = array(
         "clave" => "$clave",
         "consecutivo" => "$consecutivoFinal",
