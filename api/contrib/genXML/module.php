@@ -117,7 +117,7 @@ function genXML_init()
                 array("key" => "total_comprobante", "def" => "", "req" => true),
                 array("key" => "otros", "def" => "", "req" => false),
                 array("key" => "detalles", "def" => "", "req" => true),
-                array("key" => "informacion_referencia", "def" => "", "req" => true),
+                array("key" => "informacion_referencia", "def" => "", "req" => false),
                 array("key" => "otrosCargos", "def" => "", "req" => false)
             ),
             'file' => 'genXML.php'
@@ -338,7 +338,7 @@ function genXML_init()
                 array("key" => "otros", "def" => "", "req" => false),
                 array("key" => "otrosType", "def" => "", "req" => false),
                 array("key" => "detalles", "def" => "", "req" => true),
-                array("key" => "informacion_referencia", "def" => "", "req" => true),
+                array("key" => "informacion_referencia", "def" => "", "req" => false),
                 array("key" => "otrosCargos", "def" => "", "req" => false)
             ),
             'file' => 'genXML.php'
@@ -450,7 +450,7 @@ function genXML_init()
                 array("key" => "condicion_venta", "def" => "", "req" => true),
                 array("key" => "condicion_venta_otros", "def" => "", "req" => false),
                 array("key" => "plazo_credito", "def" => "", "req" => false),
-                array("key" => "medio_pago", "def" => "", "req" => false),
+                array("key" => "medios_pago", "def" => "", "req" => false),
                 array("key" => "detalles", "def" => "", "req" => true),
                 array("key" => "otrosCargos", "def" => "", "req" => false),
                 array("key" => "cod_moneda", "def" => "", "req" => true),
@@ -469,7 +469,7 @@ function genXML_init()
                 array("key" => "total_impuestos_asumidos_fabrica", "def" => "", "req" => false),
                 array("key" => "totalOtrosCargos", "def" => "", "req" => false),
                 array("key" => "total_comprobante", "def" => "", "req" => true),
-                array("key" => "informacion_referencia", "def" => "", "req" => true),
+                array("key" => "informacion_referencia", "def" => "", "req" => false),
                 array("key" => "otros", "def" => "", "req" => false)
             ),
             'file' => 'genXML.php'
