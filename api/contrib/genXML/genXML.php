@@ -4492,6 +4492,8 @@ function genXMLFee()
 
     $informacionReferencia = json_decode(params_get("informacion_referencia"));
     $otros = json_decode(params_get('otros'));
+    $mediosPago = json_decode(params_get("medios_pago"));
+
     // Resumen
     $totalDesgloseImpuesto = json_decode(params_get("totalDesgloseImpuesto"));
 
