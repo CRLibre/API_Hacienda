@@ -40,7 +40,7 @@ function genXMLFe()
     // Datos contribuyente
     $clave = params_get("clave");
     $proveedorSistemas = params_get("proveedor_sistemas");
-    $codigoActividadEmisor = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadEmisor = params_get("codigo_actividad_emisor");        
     $codigoActividadReceptor = params_get("codigo_actividad_receptor");
     $consecutivo = params_get("consecutivo");
     $fechaEmision = params_get("fecha_emision");
@@ -422,8 +422,17 @@ function genXMLFe()
       }
     ]
      */
+
     $l = 1;
+    
     foreach ($detalles as $d) {
+
+        foreach (["codigoCABYS","subTotal","impuestoAsumidoEmisorFabrica","impuestoNeto"] as $requiredField) {
+            if (!isset($d->{$requiredField}) || $d->{$requiredField} === '') {
+                tools_reply("Se requiere el campo $requiredField en el detalle #$l", true);
+            }
+        }
+
         $xmlString .= '
         <LineaDetalle>
             <NumeroLinea>' . $l . '</NumeroLinea>';
@@ -1025,7 +1034,7 @@ function genXMLNC()
     // Datos contribuyente
     $clave = params_get("clave");
     $proveedorSistemas = params_get("proveedor_sistemas");
-    $codigoActividadEmisor = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadEmisor = params_get("codigo_actividad_emisor");        
     $codigoActividadReceptor = params_get("codigo_actividad_receptor");
     $consecutivo = params_get("consecutivo");
     $fechaEmision = params_get("fecha_emision");
@@ -1905,7 +1914,7 @@ function genXMLND()
     // Datos contribuyente
     $clave = params_get("clave");
     $proveedorSistemas = params_get("proveedor_sistemas");
-    $codigoActividadEmisor = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadEmisor = params_get("codigo_actividad_emisor");        
     $codigoActividadReceptor = params_get("codigo_actividad_receptor");
     $consecutivo = params_get("consecutivo");
     $fechaEmision = params_get("fecha_emision");
@@ -2783,7 +2792,7 @@ function genXMLTE()
     // Datos contribuyente
     $clave = params_get("clave");
     $proveedorSistemas = params_get("proveedor_sistemas");
-    $codigoActividadEmisor = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadEmisor = params_get("codigo_actividad_emisor");        
     $consecutivo = params_get("consecutivo");
     $fechaEmision = params_get("fecha_emision");
 
@@ -3652,7 +3661,7 @@ function genXMLMr()
     $mensaje = params_get("mensaje");                                    // 1 - Aceptado, 2 - Aceptado Parcialmente, 3 - Rechazado
     $detalleMensaje = params_get("detalle_mensaje");
     $montoTotalImpuesto = params_get("monto_total_impuesto");                       // d18,5 opcional /obligatorio si comprobante tenga impuesto
-    $codigoActividad = params_get("codigo_actividad");                            // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividad = params_get("codigo_actividad");                            
     $totalFactura = params_get("total_factura");                              // d18,5
     $numeroConsecutivoReceptor = params_get("numero_consecutivo_receptor");                // d{20,20} numeracion consecutiva de los mensajes de confirmacion
 
@@ -3701,7 +3710,7 @@ function genXMLFec()
     // Datos contribuyente
     $clave = params_get("clave");
     $proveedorSistemas = params_get("proveedor_sistemas");
-    $codigoActividadEmisor = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadEmisor = params_get("codigo_actividad_emisor");        
     $codigoActividadReceptor = params_get("codigo_actividad_receptor");
     $consecutivo = params_get("consecutivo");
     $fechaEmision = params_get("fecha_emision");
@@ -4441,7 +4450,7 @@ function genXMLFee()
 {
     $clave = params_get("clave");
     $proveedorSistemas = params_get("proveedor_sistemas");
-    $codigoActividadEmisor = params_get("codigo_actividad_emisor");        // https://cloud-cube.s3.amazonaws.com/sp5z9nxkd1ra/public/assets/json/actividades_por_codigo.json
+    $codigoActividadEmisor = params_get("codigo_actividad_emisor");        
     $consecutivo = params_get("consecutivo");
     $fechaEmision = params_get("fecha_emision");
 

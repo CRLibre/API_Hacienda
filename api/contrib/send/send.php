@@ -20,72 +20,31 @@ function send()
 {
     $datos = null;
     $apiTo  = params_get("client_id");
-    $url    = ($apiTo == 'api-stag' ? "https://api-sandbox.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : ($apiTo == 'api-prod' ? "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : null)); 
+    $url    = ($apiTo == 'api-stag' ? "https://api-sandbox.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : ($apiTo == 'api-prod' ? "https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/" : null));
 
-    if (params_get("recp_tipoIdentificacion") == "" or params_get("recp_numeroIdentificacion") == "") 
-    {
-        if (params_get('callbackUrl') == "")
-        {
-            $datos = array(
-                'clave'             => params_get('clave'),
-                'fecha'             => params_get("fecha"),
-                'emisor'            => array(
-                                        'tipoIdentificacion'    => params_get("emi_tipoIdentificacion"),
-                                        'numeroIdentificacion'  => params_get("emi_numeroIdentificacion")
-                ),
-                'comprobanteXml'    => params_get("comprobanteXml")
-            );
-        }
-        else
-        {
-            $datos = array(
-                'clave'             => params_get('clave'),
-                'fecha'             => params_get("fecha"),
-                'emisor'            => array(
-                                        'tipoIdentificacion'    => params_get("emi_tipoIdentificacion"),
-                                        'numeroIdentificacion'  => params_get("emi_numeroIdentificacion")
-                ),
-                'comprobanteXml'    => params_get("comprobanteXml"),
-                'callbackUrl'       => params_get('callbackUrl')
-            );
-        }
-    }
-    else
-    {
-        if (params_get('callbackUrl') == "")
-        {
-            $datos = array(
-                'clave'         => params_get('clave'),
-                'fecha'         => params_get("fecha"),
-                'emisor'        => array(
-                                    'tipoIdentificacion'    => params_get("emi_tipoIdentificacion"),
-                                    'numeroIdentificacion'  => params_get("emi_numeroIdentificacion")
-                ),
-                'receptor'      => array(
-                                    'tipoIdentificacion'    => params_get("recp_tipoIdentificacion"),
-                                    'numeroIdentificacion'  => params_get("recp_numeroIdentificacion")
-                ),
-                'comprobanteXml' => params_get("comprobanteXml")
-            );
-        } else {
-            $datos = array(
-                'clave'     => params_get('clave'),
-                'fecha'     => params_get("fecha"),
-                'emisor'    => array(
-                                'tipoIdentificacion'    => params_get("emi_tipoIdentificacion"),
-                                'numeroIdentificacion'  => params_get("emi_numeroIdentificacion")
-                ),
-                'receptor'  => array(
-                                'tipoIdentificacion'    => params_get("recp_tipoIdentificacion"),
-                                'numeroIdentificacion'  => params_get("recp_numeroIdentificacion")
-                ),
-                'comprobanteXml'    => params_get("comprobanteXml"),
-                'callbackUrl'       => params_get('callbackUrl')
-            );
-        }
+    $datos = array(
+        'clave'     => params_get('clave'),
+        'fecha'     => params_get("fecha"),
+        'emisor'    => array(
+            'tipoIdentificacion'    => params_get("emi_tipoIdentificacion"),
+            'numeroIdentificacion'  => params_get("emi_numeroIdentificacion")
+        ),
+        'receptor'  => array(
+            'tipoIdentificacion'    => params_get("recp_tipoIdentificacion"),
+            'numeroIdentificacion'  => params_get("recp_numeroIdentificacion")
+        ),
+        'comprobanteXml'    => params_get("comprobanteXml"),
+        'callbackUrl'       => params_get('callbackUrl')
+    );
+
+    if (params_get('callbackUrl') == "") {
+        unset($datos['callbackUrl']);
     }
 
-    //$datosJ= http_build_query($datos);
+    if (params_get("recp_tipoIdentificacion") == "" or params_get("recp_numeroIdentificacion") == "") {
+        unset($datos['receptor']);
+    }
+
     $mensaje = json_encode($datos);
     grace_debug("JSON:" . $mensaje);
 
@@ -106,17 +65,14 @@ function send()
     $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     $err = curl_error($curl);
     curl_close($curl);
-    if ($err)
-    {
+    if ($err) {
         $arrayResp = array(
             "Status"    => $status,
             "to"        => $apiTo,
             "text"      => $err
         );
         return $arrayResp;
-    }
-    else
-    {
+    } else {
         $arrayResp = array(
             "Status"    => $status,
             "text"      => explode("\n", $respuesta)
@@ -134,18 +90,16 @@ function sendMensaje()
         'clave'     => params_get('clave'),
         'fecha'     => params_get("fecha"),
         'emisor'    => array(
-                        'tipoIdentificacion'    => params_get("emi_tipoIdentificacion"),
-                        'numeroIdentificacion'  => params_get("emi_numeroIdentificacion")
+            'tipoIdentificacion'    => params_get("emi_tipoIdentificacion"),
+            'numeroIdentificacion'  => params_get("emi_numeroIdentificacion")
         ),
         'receptor'  => array(
-                        'tipoIdentificacion'    => params_get("recp_tipoIdentificacion"),
-                        'numeroIdentificacion'  => params_get("recp_numeroIdentificacion")
+            'tipoIdentificacion'    => params_get("recp_tipoIdentificacion"),
+            'numeroIdentificacion'  => params_get("recp_numeroIdentificacion")
         ),
         'consecutivoReceptor'   => str_pad(params_get("consecutivoReceptor"), 20, "0", STR_PAD_LEFT),
         'comprobanteXml'        => params_get("comprobanteXml")
     );
-
-    //$datosJ= http_build_query($datos);
 
     $mensaje = json_encode($datos);
 
@@ -166,17 +120,14 @@ function sendMensaje()
     $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     $err = curl_error($curl);
     curl_close($curl);
-    if ($err)
-    {
+    if ($err) {
         $arrayResp = array(
             "Status"    => $status,
             "to"        => $apiTo,
             "text"      => $err
         );
         return $arrayResp;
-    }
-    else
-    {
+    } else {
         $arrayResp = array(
             "Status"    => $status,
             "text"      => explode("\n", $respuesta)
@@ -194,13 +145,11 @@ function sendTE()
         'clave'     => params_get('clave'),
         'fecha'     => params_get("fecha"),
         'emisor'    => array(
-                        'tipoIdentificacion'    => params_get("emi_tipoIdentificacion"),
-                        'numeroIdentificacion'  => params_get("emi_numeroIdentificacion")
+            'tipoIdentificacion'    => params_get("emi_tipoIdentificacion"),
+            'numeroIdentificacion'  => params_get("emi_numeroIdentificacion")
         ),
         'comprobanteXml' => params_get("comprobanteXml")
     );
-
-    //$datosJ= http_build_query($datos);
 
     $mensaje = json_encode($datos);
 
@@ -221,17 +170,14 @@ function sendTE()
     $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     $err = curl_error($curl);
     curl_close($curl);
-    if ($err)
-    {
+    if ($err) {
         $arrayResp = array(
             "Status"    => $status,
             "to"        => $apiTo,
             "text"      => $err
         );
         return $arrayResp;
-    }
-    else
-    {
+    } else {
         $arrayResp = array(
             "Status"    => $status,
             "text"      => explode("\n", $respuesta)
@@ -239,5 +185,3 @@ function sendTE()
         return $arrayResp;
     }
 }
-
-?>

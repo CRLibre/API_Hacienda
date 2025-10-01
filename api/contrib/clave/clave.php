@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Funcion para generar clave
-/*
+/**
+ * Funcion para generar clave
  * Esta funcion se puede llamar desde GET POST si se envian los siguientes parametros
  * w=clave
  * r=getClave
@@ -32,263 +32,162 @@
  * Tambien se puede llamar desde un metodo de la siguiente manera:
  * modules_loader("clave");       <-- Esta funcion importa el modulo
  * getClave($tipoDocumento="",$tipoCedula = "", $cedula = "", $situacion = "", $codigoPais = "", $consecutivo = "", $codigoSeguridad = "")  <------------ esta funcion retorna la clave
+ *
+ * - Tipo de comprobante o documento asociado Código
+ *      Factura electrónica 01
+ *      Nota de débito electrónica 02
+ *      Nota de crédito electrónica 03
+ *      Tiquete Electrónico 04
+ *      Confirmación de aceptación del comprobante electrónico 05
+ *      Confirmación de aceptación parcial del comprobante electrónico 06
+ *      Confirmación de rechazo del comprobante electrónico 07
  */
-/*
- * Tipo de comprobante o documento asociado Código
-  Factura electrónica 01
-  Nota de débito electrónica 02
-  Nota de crédito electrónica 03
-  Tiquete Electrónico 04
-  Confirmación de aceptación del comprobante electrónico 05
-  Confirmación de aceptación parcial del comprobante
-  electrónico
-  06
-  Confirmación de rechazo del comprobante electrónico 07
-
- */
-
 function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacion = "", $codigoPais = "", $consecutivo = "", $codigoSeguridad = "")
 {
-    if ($tipoCedula == "" || $tipoDocumento = "" || $cedula = "" || $situacion = "" || $codigoPais = "" || $consecutivo = "" || $codigoSeguridad = "")
-    {
-        //-----------------------------------------------//
-        $tipoDocumento      = params_get('tipoDocumento');
-        $tipoCedula         = params_get('tipoCedula');
-        $cedula             = params_get('cedula');
-        $situacion          = params_get('situacion');
-        $codigoPais         = params_get('codigoPais');         // 3 digitos Codigo pais 506
-        $consecutivo        = params_get('consecutivo');        // 9 caracteres
-        $codigoSeguridad    = params_get('codigoSeguridad');    // 8 digitos codigo de seguridad
-        $sucursal           = params_get("sucursal");
-        $terminal           = params_get("terminal");
-    }
+    $tipoDocumento      = params_get('tipoDocumento');
+    $tipoCedula         = params_get('tipoCedula');
+    $cedula             = params_get('cedula');
+    $situacion          = params_get('situacion');
+    $codigoPais         = params_get('codigoPais', "506");         // 3 digitos Codigo pais 506
+    $consecutivo        = params_get('consecutivo');        // 9 caracteres
+    $codigoSeguridad    = params_get('codigoSeguridad');    // 8 digitos codigo de seguridad
+    $sucursal           = params_get("sucursal", "001");
+    $terminal           = params_get("terminal", "00001");
 
     $dia = date('d');
     $mes = date('m');
     $ano = date('y');
 
-
     // Validamos el parametro de cedula
-    if ($cedula == "" && strlen($cedula) == 0)
-        return "El valor cedula no debe ser vacio";
-    else if (!ctype_digit($cedula))
-        return "El valor cedula no es numeral";
+    if (!ctype_digit($cedula))
+        return "El parametro cedula no es numeral";
 
-    // Validamos el parametro de cedula
-    if ($codigoPais == "" && strlen($codigoPais) == 0)
-        return "El valor codigoPais no debe ser vacio";
-    else if (!ctype_digit($codigoPais))
-        return "El valor codigoPais no es numeral";
-
-    // Validamos que venga el parametro de sucursal
-    if ($sucursal == "" && strlen($sucursal) == 0)
-        $sucursal = "001";
-    else if (ctype_digit($sucursal))
-    {
-        if (strlen($sucursal) < 3)
-            $sucursal = str_pad($sucursal, 3, "0", STR_PAD_LEFT);
-        else if (strlen($sucursal) != 3 && $sucursal != 0)
-        {
-            $arrayResp = array(
-                "error" => "Error en sucursal",
-                "razon" => "el tamaño es diferente de 3 digitos"
-            );
-            return $arrayResp;
-        }
+    if (!ctype_digit($codigoPais)) {
+        return "El parametro codigoPais no es numeral";
+    } else if (strlen($codigoPais) != 3) {
+        return "El parametro codigoPais debe ser de 3 digitos";
     }
-    else
-        return "El valor sucursal no es numeral";
 
-    // Validamos que venga el parametro de terminal
-    if ($terminal == "" && strlen($terminal) == 0)
-        $terminal = "00001";
-    else if (ctype_digit($terminal))
-    {
-        if (strlen($terminal) < 5)
-            $terminal = str_pad($terminal, 5, "0", STR_PAD_LEFT);
-        else if (strlen($terminal) != 5 && $terminal != 0)
-        {
-            $arrayResp = array(
-                "error" => "Error en terminal",
-                "razon" => "el tamaño es diferente de 5 digitos"
-            );
-            return $arrayResp;
-        }
+    if (!ctype_digit($sucursal)) {
+        return "El parametro sucursal no es numeral";
+    } else if (strlen($sucursal) < 3) {
+        $sucursal = str_pad($sucursal, 3, "0", STR_PAD_LEFT);
+    } else if (strlen($sucursal) > 3) {
+        return "El parametro sucursal debe ser de 3 digitos";
     }
-    else
-        return "El valor terminal no es numeral";
 
-    // Validamos el consecutivo
-    if ($consecutivo == "" && strlen($consecutivo) == 0)
-        return "El consecutivo no puede ser vacio";
-    else if (strlen($consecutivo) < 10)
+    if (!ctype_digit($terminal)) {
+        return "El parametro terminal no es numeral";
+    } else if (strlen($terminal) < 5) {
+        $terminal = str_pad($terminal, 5, "0", STR_PAD_LEFT);
+    } else if (strlen($terminal) > 5) {
+        return "El parametro terminal debe ser de 5 digitos";
+    }
+
+    if (!ctype_digit($consecutivo)) {
+        return "El parametro consecutivo no es numeral";
+    } else if (strlen($consecutivo) < 10) {
         $consecutivo = str_pad($consecutivo, 10, "0", STR_PAD_LEFT);
-    else if (strlen($consecutivo) != 10 && $consecutivo != 0)
-    {
-        $arrayResp = array(
-            "error" => "Error en consecutivo",
-            "razon" => "el tamaño consecutivo es diferente de 10 digitos"
-        );
-        return $arrayResp;
+    } else if (strlen($consecutivo) > 10) {
+        return "El parametro consecutivo debe ser de 10 digitos";
     }
 
-    // Validamos el codigoSeguridad
-    if ($codigoSeguridad == "" && strlen($codigoSeguridad) == 0)
-        return "El consecutivo no puede ser vacio";
-    else if (strlen($codigoSeguridad) < 8)
+    if (!ctype_digit($codigoSeguridad)) {
+        return "El parametro codigoSeguridad no es numeral";
+    } else if (strlen($codigoSeguridad) < 8) {
         $codigoSeguridad = str_pad($codigoSeguridad, 8, "0", STR_PAD_LEFT);
-    else if (strlen($codigoSeguridad) != 8 && $codigoSeguridad != 0)
-    {
-        $arrayResp = array(
-            "error" => "Error en codigo Seguridad",
-            "razon" => "el tamaño codigo Seguridad es diferente de 8 digitos"
-        );
-        return $arrayResp;
+    } else if (strlen($codigoSeguridad) > 8) {
+        return "El parametro codigoSeguridad debe ser de 8 digitos";
     }
 
     $tipoDoc = params_get('tipoDocumento');
-    $tipos = array("FE", "ND", "NC", "TE", "CCE", "CPCE", "RCE","FEC", "FEE");
+    $tipos = array(
+        'FE'   => '01', // Factura Electronica
+        'ND'   => '02', // Nota de Debito
+        'NC'   => '03', // Nota de Credito
+        'TE'   => '04', // Tiquete Electronico
+        'CCE'  => '05', // Confirmacion Comprobante Electronico
+        'CPCE' => '06', // Confirmacion Parcial Comprobante Electronico
+        'RCE'  => '07', // Rechazo Comprobante Electronico
+        'FEC'  => '08', // Factura Electronica de Compra
+        'FEE'  => '09'  // Factura Electronica de Exportación
+    );
+
+    $tipoDocumento = $tipos[$tipoDoc] ?? null;
+
     grace_debug($tipoDoc);
-    if (in_array($tipoDoc, $tipos))
-    {
-        switch ($tipoDoc)
-        {
-            case 'FE': //Factura Electronica
-                $tipoDocumento = "01";
-                break;
-            case 'ND': // Nota de Debito
-                $tipoDocumento = "02";
-                break;
-            case 'NC': // Nota de Credito
-                $tipoDocumento = "03";
-                break;
-            case 'TE': // Tiquete Electronico
-                $tipoDocumento = "04";
-                break;
-            case 'CCE': // Confirmacion Comprabante Electronico
-                $tipoDocumento = "05";
-                break;
-            case 'CPCE': // Confirmacion Parcial Comprbante Electronico
-                $tipoDocumento = "06";
-                break;
-            case 'RCE': // Rechazo Comprobante Electronico
-                $tipoDocumento = "07";
-                break;
-            case 'FEC': // Factura Electronica de Compra
-                $tipoDocumento = "08";
-                break;
-            case 'FEE': // Factura Electronica de Exportación
-                $tipoDocumento = "09";
-                break;
-            default:
-                break;
-        }
+    if ($tipoDocumento === null) {
+        return "No se encuentra el tipo de documento [$tipoDoc]";
     }
-    else
-        return "No se encuentra tipo de documento";
 
     $consecutivoFinal = $sucursal . $terminal . $tipoDocumento . $consecutivo;
+
     //-----------------------------------------------//
     // Numero de Cedula + el indice identificador
 
     $identificacion = null;
     $cedulas = array("fisico", "juridico", "dimex", "nite", "01", "02", "03", "04");
-    if (in_array($tipoCedula, $cedulas))
-    {
-        switch ($tipoCedula)
-        {
+
+    if (in_array($tipoCedula, $cedulas)) {
+        switch ($tipoCedula) {
             case 'fisico': // fisico se agregan 3 ceros para completar los 12 caracteres
-                $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
-                break;
-            case '01': // fisico se agregan 3 ceros para completar los 12 caracteres
+            case '01':
                 $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
                 break;
             case 'juridico': // juridico se agregan 2 ceros para completar los 12 caracteres
-            {
-                // En caso de ser menor a 12 caracteres
-                if (strlen($cedula) < 12)
-                    $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
-                else if (strlen($cedula) === 12)
-                    $identificacion = $cedula;
-                else
-                    return "cedula juridico incorrecto";
-                break;
-            }
-            case '02': // juridico se agregan 2 ceros para completar los 12 caracteres
-            {
-                // En caso de ser menor a 12 caracteres
-                if (strlen($cedula) < 12)
-                    $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
-                else if (strlen($cedula) === 12)
-                    $identificacion = $cedula;
-                else
-                    return "cedula juridico incorrecto";
-                break;
-            }
+            case '02': {
+                    // En caso de ser menor a 12 caracteres
+                    if (strlen($cedula) < 12)
+                        $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
+                    else if (strlen($cedula) === 12)
+                        $identificacion = $cedula;
+                    else
+                        return "cedula juridico incorrecto";
+                    break;
+                }
             case 'dimex': // dimex puede ser de 11 0 12 caracteres
-            {
-                // En caso de ser menor a 12 caracteres
-                if (strlen($cedula) < 12)
-                    $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
-                else if (strlen($cedula) == 12)
-                    $identificacion = $cedula;
-                else
-                    return "dimex incorrecto";
-                break;
-            }
             case '03': // dimex puede ser de 11 0 12 caracteres
-            {
-                // En caso de ser menor a 12 caracteres
-                if (strlen($cedula) < 12)
-                    $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT); 
-                else if (strlen($cedula) == 12)
-                    $identificacion = $cedula;
-                else
-                    return "dimex incorrecto";
-                break;
-            }
+                {
+                    // En caso de ser menor a 12 caracteres
+                    if (strlen($cedula) < 12)
+                        $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
+                    else if (strlen($cedula) == 12)
+                        $identificacion = $cedula;
+                    else
+                        return "dimex incorrecto";
+                    break;
+                }
             case 'nite': // nite se agregan 2 ceros para completar los 12 caracteres
-                $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
-                break;
-            case '04': // nite se agregan 2 ceros para completar los 12 caracteres
+            case '04':
                 $identificacion = str_pad($cedula, 12, "0", STR_PAD_LEFT);
                 break;
             default:
                 break;
         }
-    }
-    else
+    } else {
         return "No se encuentra tipo de cedula";
-
-
-    //-----------------------------------------------//
-    //1	Normal          Comprobantes electrónicos que son generados y transmitidos en el mismo acto de compra-venta y prestación del servicio al sistema de validación de comprobantes electrónicos de la Dirección General de Tributación de Costa Rica.
-    //2	Contingencia    Comprobantes electrónicos que sustituyen al comprobante físico emitido por contingencia.
-    //3	Sin internet    Comprobantes que han sido generados y expresados en formato electrónico, pero no se cuenta con el respectivo acceso a internet para el envío inmediato de los mismos a la Dirección General de Tributación de Costa Rica.
-    $situaciones = array("normal", "contingencia", "sininternet");
-    if (in_array($situacion, $situaciones))
-    {
-        switch ($situacion)
-        {
-            case 'normal':          // normal
-                $situacion = 1;
-                break;
-            case 'contingencia':    // Situacion de contingencia
-                $situacion = 2;
-                break;
-            case 'sininternet':     // Situacion sin internet
-                $situacion = 3;
-                break;
-            default:
-                break;
-        }
     }
-    else
-        return "No se encuentra el tipo de situacion";
 
-    //-----------------------------------------------//
-    //Crea la clave 
-    $clave = $codigoPais . $dia . $mes . $ano . $identificacion . $consecutivoFinal . $situacion . $codigoSeguridad;
+    /*
+    * Situacion del comprobante
+    * 1 normal          Comprobantes electrónicos que son generados y transmitidos en el mismo acto de compra-venta y prestación del servicio al sistema de validación de comprobantes electrónicos de la Dirección General de Tributación de Costa Rica.
+    * 2	contingencia    Comprobantes electrónicos que sustituyen al comprobante físico emitido por contingencia.
+    * 3 sininternet     Comprobantes que han sido generados y expresados en formato electrónico, pero no se cuenta con el respectivo acceso a internet para el envío inmediato de los mismos a la Dirección General de Tributación de Costa Rica.
+    */
+    $situaciones = array(
+        "normal"        => 1,
+        "contingencia"  => 2,
+        "sininternet"   => 3
+    );
+
+    $codSituacion = $situaciones[strtolower($situacion)] ?? null;
+
+    if ($codSituacion === null) {
+        return "No se encuentra el tipo de situacion [$situacion]";
+    }
+
+    // Crea la clave 
+    $clave = $codigoPais . $dia . $mes . $ano . $identificacion . $consecutivoFinal . $codSituacion . $codigoSeguridad;
     $arrayResp = array(
         "clave" => "$clave",
         "consecutivo" => "$consecutivoFinal",
@@ -296,5 +195,3 @@ function getClave($tipoDocumento = "", $tipoCedula = "", $cedula = "", $situacio
     );
     return $arrayResp;
 }
-
-?>
