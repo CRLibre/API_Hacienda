@@ -3,7 +3,7 @@
 global $compannyUser;
 
 function getIdUser($sessionKey) {
-    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey`='" . $sessionKey . "'";
+    $q = "SELECT `idUser` FROM `sessions` WHERE `sessionKey`='" . db_escape($sessionKey) . "'";
     $result = db_query($q, 2);
     $idUser = $result[0]->idUser;
     return $idUser;
@@ -131,13 +131,13 @@ function companny_users_createBasic() {
  * Generates a session key
  */
 function companny_users_generateSessionKey($idUser, $idMasterUser) {
-    $q = sprintf("delete from " . $idMasterUser . "_master_sessions where idUser='" . $idUser . "'");
+    $q = sprintf("delete from " . db_escape($idMasterUser) . "_master_sessions where idUser='" . db_escape($idUser) . "'");
     db_query($q, 0);
 
     $sessionKey = password_hash(time() * rand(0, 1000), PASSWORD_DEFAULT);
 
-    $q = sprintf("INSERT INTO " . $idMasterUser . "_master_sessions (idUser, sessionKey, ip, lastAccess) "
-            . "VALUES('%s', '%s', '%s', '%s')", $idUser, $sessionKey, $_SERVER['REMOTE_ADDR'], time());
+    $q = sprintf("INSERT INTO " . db_escape($idMasterUser) . "_master_sessions (idUser, sessionKey, ip, lastAccess) "
+            . "VALUES('%s', '%s', '%s', '%s')", db_escape($idUser), db_escape($sessionKey), db_escape($_SERVER['REMOTE_ADDR']), time());
 
     db_query($q, 0);
 
@@ -158,13 +158,13 @@ function companny_users_load($idMasterUser, $by = array()) {
     }
     $where = "-";
     foreach ($by as $b => $bb) {
-        $where .= sprintf(" AND %s = '%s'", $b, $bb);
+        $where .= sprintf(" AND %s = '%s'", db_escape($b), db_escape($bb));
     }
     # Replace the first AND
     $where = trim(str_replace("- AND", " WHERE", $where), ',');
 
     $q = sprintf("SELECT *
-    FROM " . $idMasterUser . "_master_users
+    FROM " . db_escape($idMasterUser) . "_master_users
     %s", $where);
 
     $compannyUser = db_query($q, 1);
@@ -192,7 +192,7 @@ function companny_users_loadByName($idMasterUser, $compannyUserName) {
         return companny_users_createBasic();
     }
 
-    $q = sprintf("SELECT * FROM " . $idMasterUser . "_master_users WHERE userName = '%s'", $compannyUserName);
+    $q = sprintf("SELECT * FROM " . db_escape($idMasterUser) . "_master_users WHERE userName = '%s'", db_escape($compannyUserName));
 
     $compannyUser = db_query($q, 1);
 
@@ -214,10 +214,10 @@ function companny_users_confirmSessionKey($idMasterUser) {
 
     grace_debug("Confirm the session for this user");
     $q = sprintf("SELECT *
-        FROM " . $idMasterUser . "_master_sessions
+        FROM " . db_escape($idMasterUser) . "_master_sessions
         WHERE sessionKey = '%s'
         AND ip = '%s'
-        AND idUser = '%s'", params_get('sessionKey', ''), $_SERVER['REMOTE_ADDR'], $compannyUser->idUser
+        AND idUser = '%s'", db_escape(params_get('sessionKey', '')), db_escape($_SERVER['REMOTE_ADDR']), db_escape($compannyUser->idUser)
     );
     $r = db_query($q, 1);
 
@@ -242,7 +242,7 @@ function companny_users_confirmSessionKey($idMasterUser) {
  * Destroys a session
  */
 function companny_users_destroySession($idMasterUser) {
-    $q = sprintf("DELETE FROM " . $idMasterUser . "_master_sessions WHERE sessionKey = '%s' AND ip = '%s'", params_get('sessionKey', ''), $_SERVER['REMOTE_ADDR']);
+    $q = sprintf("DELETE FROM " . db_escape($idMasterUser) . "_master_sessions WHERE sessionKey = '%s' AND ip = '%s'", db_escape(params_get('sessionKey', '')), db_escape($_SERVER['REMOTE_ADDR']));
     db_query($q, 0);
 }
 
@@ -256,11 +256,11 @@ function companny_users_destroySession($idMasterUser) {
 //
 //    if (params_get('sessionKey', '') != '' && $compannyUser->idUser > 0) {
 //        # Update in the session table
-//        $q = sprintf("UPDATE sessions SET lastAccess = '%s' WHERE sessionKey = '%s'", time(), params_get('sessionKey', ''));
+//        $q = sprintf("UPDATE sessions SET lastAccess = '%s' WHERE sessionKey = '%s'", time(), db_escape(params_get('sessionKey', '')));
 //        db_query($q, 0);
 //
 //        # Update in the users table too, this could be a separate process
-//        $q = sprintf("UPDATE users SET lastAccess = '%s' WHERE idUser = '%s'", time(), $compannyUser->idUser);
+//        $q = sprintf("UPDATE users SET lastAccess = '%s' WHERE idUser = '%s'", time(), db_escape($compannyUser->idUser));
 //        db_query($q, 0);
 //    }
 //}
@@ -410,8 +410,8 @@ function companny_users_getMyDetails() {
  */
 function _companny_users_register($compannyUserDets, $idMasterUser) {
     $pwd = password_hash($compannyUserDets['pwd'], PASSWORD_DEFAULT);
-    $q = sprintf("INSERT INTO " . $idMasterUser . "_master_users (idMasterUser,fullName, userName, email, about, country, status, timestamp, lastAccess, pwd, avatar,settings)
-        VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $idMasterUser, $compannyUserDets['fullName'], $compannyUserDets['userName'], $compannyUserDets['email'], addslashes($compannyUserDets['about']), $compannyUserDets['country'], $compannyUserDets['status'], $compannyUserDets['timestamp'], $compannyUserDets['lastAccess'], $pwd, $compannyUserDets['avatar'], $compannyUserDets['settings']
+    $q = sprintf("INSERT INTO " . db_escape($idMasterUser) . "_master_users (idMasterUser,fullName, userName, email, about, country, status, timestamp, lastAccess, pwd, avatar,settings)
+        VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", db_escape($idMasterUser), db_escape($compannyUserDets['fullName']), db_escape($compannyUserDets['userName']), db_escape($compannyUserDets['email']), db_escape(addslashes($compannyUserDets['about'])), db_escape($compannyUserDets['country']), db_escape($compannyUserDets['status']), db_escape($compannyUserDets['timestamp']), db_escape($compannyUserDets['lastAccess']), db_escape($pwd), db_escape($compannyUserDets['avatar']), db_escape($compannyUserDets['settings'])
     );
     db_query($q, 0);
 }
@@ -577,7 +577,7 @@ function _companny_users_update($dets, $idMasterUser) {
         `lastAccess` = '%s',
         `pwd` = %s,
         `avatar` = '%s'
-        WHERE `idUser` = %s", addslashes($newDets['fullName']), users_cleanName($newDets['userName']), $newDets['email'], addslashes($newDets['about']), $newDets['country'], $newDets['status'], $newDets['timestamp'], $newDets['lastAccess'], $newDets['pwd'], $newDets['avatar'], $newDets['idUser']
+        WHERE `idUser` = %s", db_escape(addslashes($newDets['fullName'])), db_escape(users_cleanName($newDets['userName'])), db_escape($newDets['email']), db_escape(addslashes($newDets['about'])), db_escape($newDets['country']), db_escape($newDets['status']), db_escape($newDets['timestamp']), db_escape($newDets['lastAccess']), db_escape($newDets['pwd']), db_escape($newDets['avatar']), db_escape($newDets['idUser'])
     );
 
     return db_query($q, 0);
