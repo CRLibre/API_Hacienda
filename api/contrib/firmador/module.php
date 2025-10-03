@@ -16,18 +16,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Old modules compatibility
+function firmarXML_bootMeUp()
+{
+	return firmador_bootMeUp();
+}
+
+function signXML_bootMeUp()
+{
+	return firmador_bootMeUp();
+}
+
 /**
  * Boot up procedure
  */
-function firmarXML_bootMeUp()
+function firmador_bootMeUp()
 {
     // Just booting up
+}
+
+// Old modules compatibility
+function firmarXML_init()
+{
+	return firmador_init();
+}
+
+function signXML_init()
+{
+	return firmador_init();
 }
 
 /**
  * Init function
  */
-function firmarXML_init()
+function firmador_init()
 {
     $paths = array(
         array(
@@ -38,29 +60,26 @@ function firmarXML_init()
             'params' => array(
                 array("key" => "p12Url",    "def" => "", "req" => true),
                 array("key" => "pinP12",    "def" => "", "req" => true),
-                array("key" => "inXml",     "def" => "", "req" => false),
+                array("key" => "inXml",     "def" => "", "req" => true),
             ),
-            'file'          => 'firmar.php'
+            'file'          => 'firmador.php'
+        ),
+        // Backwards compatibility with older module path
+        array(
+            'r'             => 'signFE',
+            'action'        => 'signFE',
+            'access'        => 'users_openAccess',
+            'access_params' => 'accessName',
+            'params' => array(
+                array("key" => "p12Url",    "def" => "", "req" => true),
+                array("key" => "pinP12",    "def" => "", "req" => true),
+                array("key" => "inXml",     "def" => "", "req" => true),
+            ),
+            'file'          => 'firmador.php'
         )
     );
 
     return $paths;
-}
-
-
-/**************************************************/
-//In the access you can use users_openAccess if you want anyone can use the function
-// or users_loggedIn if the user must be logged in
-/**************************************************/
-
-
-
-/**
- * Get the perms for this module
- */
-function firmarXML_access()
-{
-
 }
 
 /**@}*/
