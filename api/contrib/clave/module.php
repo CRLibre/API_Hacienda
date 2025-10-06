@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2025 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -39,7 +39,7 @@ function clave_init()
                 array("key" => "tipoDocumento", "def" => "", "req" => true),
                 array("key" => "tipoCedula", "def" => "", "req" => true),
                 array("key" => "cedula", "def" => "", "req" => true),
-                array("key" => "codigoPais", "def" => "", "req" => true),
+                array("key" => "codigoPais", "def" => "", "req" => false),
                 array("key" => "consecutivo", "def" => "", "req" => true),
                 array("key" => "situacion", "def" => "", "req" => true),
                 array("key" => "terminal", "def" => "", "req" => false),

@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2025 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -18,6 +18,20 @@
 
 # Declare it as global, but never use it as global
 global $config;
+
+# Cargar config del .env 
+$envFilePath = __DIR__ . "/../.env";
+if (file_exists($envFilePath)) {
+  $env = file_get_contents($envFilePath);
+  $lines = explode("\n", $env);
+
+  foreach ($lines as $line) {
+    preg_match("/^\s*([^#][^=]*)=(.*)$/", $line, $matches);
+    if (isset($matches[2])) {
+      putenv(trim($line));
+    }
+  }
+}
 
 #####################################################################################
 #
@@ -102,11 +116,11 @@ $config['users']['sessionLifetime'] = getenv('sessionLifetime');
 /*******************************************************************************
  * You should not need to touch anything beyond this point
  */
- 
+
 
 
 # List of core modules
-$config['modules']['core']     = array('cala','db', 'users', 'files', 'geoloc', 'wirez', 'crypto');
+$config['modules']['core']     = array('cala', 'db', 'users', 'files', 'geoloc', 'wirez', 'crypto');
 # List of core modules to load always, you can overide this list
 $config['modules']['coreLoad'] = array('cala', 'db', 'users', 'crypto');
 

@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2017-2020 CRLibre <https://crlibre.org>
+ * Copyright (C) 2017-2025 CRLibre <https://crlibre.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -27,10 +27,11 @@ function users_avatarGet()
     # Get the details about the person
     $user = users_load(array('userName' => params_get('userName', '')));
 
+    $transparentGif = base64_decode('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+
     if ($user->avatar == "")
     {
-        $user->avatar = params_get('fall_back', '');
-        files_presentFile($user->avatar, false);
+        files_presentFile($transparentGif);
     }
     else
     {
@@ -38,16 +39,17 @@ function users_avatarGet()
         $avatarPath = files_createPath($user->idUser, "avatar");
 
         # Get the file name
-        $q = sprintf("SELECT * FROM files WHERE idFile = '%s'", $user->avatar);
+        $q = sprintf("SELECT * FROM files WHERE idFile = '%s'", db_escape($user->avatar));
         $avatarDets = db_query($q, 1);
 
         # Change the name according to the requested size
         $user->avatar = $avatarPath . str_replace("avatar_def", "avatar_def_" . params_get('size', '25'), $avatarDets->name);
-        if (!file_exists($user->avatar))
-            $user->avatar = params_get('fall_back', '');
     }
 
-    files_presentFile($user->avatar, false);
+    if (!file_exists($user->avatar))
+        files_presentFile($transparentGif);
+    else
+        files_presentFile($user->avatar, false);
 }
 
 /**
