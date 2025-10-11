@@ -18,8 +18,8 @@
 
  function CheckPHPVersion()
  {
-     if (!version_compare(PHP_VERSION, '5.5', '>='))
-        die("Requieres la version PHP 5.5 o superior.");
+     if (!version_compare(PHP_VERSION, '7.4', '>='))
+        die("Requieres la version PHP 7.4 o superior.");
  }
 
  function CheckPHPExtensions()
