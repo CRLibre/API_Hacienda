@@ -147,9 +147,3 @@ function firmar()
 
     return ["xmlFirmado" => base64_encode($signed_xml)];
 }
-
-// Backwards compatibility with older module API syntax
-function signFE()
-{
-    return firmar();
-}
