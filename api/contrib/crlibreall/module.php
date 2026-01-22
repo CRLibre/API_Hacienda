@@ -173,7 +173,7 @@ function crlibreall_init()
                 array("key" => "infoRefeFechaEmision",      "def" => "",            "req" => true),
                 array("key" => "infoRefeCodigo",            "def" => "",            "req" => true),
                 array("key" => "infoRefeRazon",             "def" => "",            "req" => true),
-                // Para modulo signXML -> r=signFE
+                // Para modulo firmarXML -> r=firmar
                 array("key" => "p12Url",                    "def" => "",            "req" => true),
                 array("key" => "pinP12",                    "def" => "",            "req" => true),
                 array("key" => "inXml",                     "def" => "",            "req" => false),
@@ -266,7 +266,7 @@ function crlibreall_init()
                 array("key" => "infoRefeFechaEmision",      "def" => "",            "req" => true),
                 array("key" => "infoRefeCodigo",            "def" => "",            "req" => true),
                 array("key" => "infoRefeRazon",             "def" => "",            "req" => true),
-                // Para modulo signXML -> r=signFE
+                // Para modulo firmarXML -> r=firmar
                 array("key" => "p12Url",                    "def" => "",            "req" => true),
                 array("key" => "pinP12",                    "def" => "",            "req" => true),
                 array("key" => "inXml",                     "def" => "",            "req" => false),
@@ -359,7 +359,7 @@ function crlibreall_init()
                 array("key" => "infoRefeFechaEmision",      "def" => "",            "req" => true),
                 array("key" => "infoRefeCodigo",            "def" => "",            "req" => true),
                 array("key" => "infoRefeRazon",             "def" => "",            "req" => true),
-                // Para modulo signXML -> r=signFE
+                // Para modulo firmarXML -> r=firmar
                 array("key" => "p12Url",                    "def" => "",            "req" => true),
                 array("key" => "pinP12",                    "def" => "",            "req" => true),
                 array("key" => "inXml",                     "def" => "",            "req" => false),

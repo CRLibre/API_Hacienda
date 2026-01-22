@@ -38,29 +38,13 @@ function firmarXML_init()
             'params' => array(
                 array("key" => "p12Url",    "def" => "", "req" => true),
                 array("key" => "pinP12",    "def" => "", "req" => true),
-                array("key" => "inXml",     "def" => "", "req" => false),
+                array("key" => "inXml",     "def" => "", "req" => true),
             ),
             'file'          => 'firmar.php'
         )
     );
 
     return $paths;
-}
-
-
-/**************************************************/
-//In the access you can use users_openAccess if you want anyone can use the function
-// or users_loggedIn if the user must be logged in
-/**************************************************/
-
-
-
-/**
- * Get the perms for this module
- */
-function firmarXML_access()
-{
-
 }
 
 /**@}*/

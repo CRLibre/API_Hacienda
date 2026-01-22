@@ -39,7 +39,7 @@ relacionados con la facturación electrónica
 Para
 la [implementación de la Factura Electrónica](https://www.hacienda.go.cr/docs/N2ComprobantesElectronicos.pdf),
 el Ministerio de Hacienda puso a
-disposición [documentación técnica e interfaces de programación sofisticados](https://atv.hacienda.go.cr/ATV/ComprobanteElectronico/frmAnexosyEstructuras.aspx)
+disposición [documentación técnica e interfaces de programación sofisticados](https://www.hacienda.go.cr/docs/Anexosyestructuras.pdf)
 que muchos programadores encuentran difíciles de comprender y utilizar. Nuestro
 objetivo es crear un software que simplifique el proceso a desarrolladores de
 cumplir con
@@ -75,7 +75,7 @@ ubicación de en donde se encontrará el resto de cosas o bien, la carpeta api.
 
 ## Requerimientos mínimos
 
-- PHP >= 5.5.0
+- PHP >= 7.4.0
 - MySQL o MariaDB ([MySQLi](http://php.net/manual/en/book.mysqli.php))
 - [cURL](http://php.net/manual/en/book.curl.php)
 - [php-xml](http://php.net/manual/en/book.simplexml.php)

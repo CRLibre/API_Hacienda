@@ -106,14 +106,14 @@ function cala_testInstall()
     );
 
     # Php Version
-    if (version_compare(PHP_VERSION, '5.3.0') >= 0)
+    if (version_compare(PHP_VERSION, '7.4.0') >= 0)
         $phpVersion = true;
     else
         $phpVersion = false;
 
     $allTests['phpVersion'] = array(
         'name'      => 'PHP Version',
-        'comment'   => $phpVersion === true ? "I am at least PHP version 5.3.0, my version: " . PHP_VERSION : "You need at least PHP version 5.3.0"
+        'comment'   => $phpVersion === true ? "I am at least PHP version 7.4.0, my version: " . PHP_VERSION : "You need at least PHP version 7.4.0"
     );
 
     # Database connection
