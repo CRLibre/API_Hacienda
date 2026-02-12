@@ -12,6 +12,7 @@ from python_api.responses import tools_reply_compatible
 def _make_qr_png(value: str) -> bytes | None:
     try:
         import qrcode  # type: ignore[import-not-found]
+        from qrcode.image.pure import PyPNGImage  # type: ignore[import-not-found]
     except Exception:
         return None
 
@@ -19,7 +20,7 @@ def _make_qr_png(value: str) -> bytes | None:
         qr = qrcode.QRCode(version=None, box_size=10, border=4)
         qr.add_data(value)
         qr.make(fit=True)
-        image = qr.make_image(fill_color="black", back_color="white")
+        image = qr.make_image(image_factory=PyPNGImage)
         buffer = BytesIO()
         image.save(buffer, format="PNG")
         return buffer.getvalue()
