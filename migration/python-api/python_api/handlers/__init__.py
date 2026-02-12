@@ -67,7 +67,7 @@ def get_handler(w: str, r: str) -> HandlerFn | None:
     if handler is not None:
         return handler
     if w == "facturador" and r in facturador.ROUTES:
-        return facturador.proxy
+        return facturador.get_handler(r)
     if proxy_modules.supports(w, r):
         return proxy_modules.proxy
     return None
