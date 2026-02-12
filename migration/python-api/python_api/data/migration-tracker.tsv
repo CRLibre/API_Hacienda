@@ -1,8 +1,8 @@
 w	r	module_file	wave	priority	status	python_handler	parity_fixture	parity_status	cutover_status	owner	notes
 XmlToBase64	encode	./api/contrib/XmlToBase64/module.php	W3_SUPPORT	P2	not_started	python_api.handlers.XmlToBase64.encode	tests/fixtures/parity/XmlToBase64/encode	not_captured	not_cutover	unassigned	
-cala	cala_core	./api/modules/cala/module.php	W1_CORE	P2	not_started	python_api.handlers.cala.cala_core	tests/fixtures/parity/cala/cala_core	not_captured	not_cutover	unassigned	
-cala	cala_default	./api/modules/cala/module.php	W1_CORE	P2	not_started	python_api.handlers.cala.cala_default	tests/fixtures/parity/cala/cala_default	not_captured	not_cutover	unassigned	
-cala	cala_test_install	./api/modules/cala/module.php	W1_CORE	P2	not_started	python_api.handlers.cala.cala_test_install	tests/fixtures/parity/cala/cala_test_install	not_captured	not_cutover	unassigned	
+cala	cala_core	./api/modules/cala/module.php	W1_CORE	P2	in_progress	python_api.handlers.cala.cala_core	tests/fixtures/parity/cala/cala_core	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
+cala	cala_default	./api/modules/cala/module.php	W1_CORE	P2	in_progress	python_api.handlers.cala.cala_default	tests/fixtures/parity/cala/cala_default	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
+cala	cala_test_install	./api/modules/cala/module.php	W1_CORE	P2	in_progress	python_api.handlers.cala.cala_test_install	tests/fixtures/parity/cala/cala_test_install	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
 callback	callback	./api/contrib/callback/module.php	W3_SUPPORT	P2	not_started	python_api.handlers.callback.callback	tests/fixtures/parity/callback/callback	not_captured	not_cutover	unassigned	
 check	checkxml	./api/contrib/check/module.php	W3_SUPPORT	P2	not_started	python_api.handlers.check.checkxml	tests/fixtures/parity/check/checkxml	not_captured	not_cutover	unassigned	
 clave	clave	./api/contrib/clave/module.php	W1_CORE	P0	in_progress	python_api.handlers.clave.clave	tests/fixtures/parity/clave/clave	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
@@ -11,9 +11,9 @@ crlibreall	FE	./api/contrib/crlibreall/module.php	W2_BUSINESS	P1	not_started	pyt
 crlibreall	NC	./api/contrib/crlibreall/module.php	W2_BUSINESS	P1	not_started	python_api.handlers.crlibreall.NC	tests/fixtures/parity/crlibreall/NC	not_captured	not_cutover	unassigned	
 crlibreall	ND	./api/contrib/crlibreall/module.php	W2_BUSINESS	P1	not_started	python_api.handlers.crlibreall.ND	tests/fixtures/parity/crlibreall/ND	not_captured	not_cutover	unassigned	
 crlibreall	gen_xml_nc	./api/contrib/crlibreall/module.php	W2_BUSINESS	P1	not_started	python_api.handlers.crlibreall.gen_xml_nc	tests/fixtures/parity/crlibreall/gen_xml_nc	not_captured	not_cutover	unassigned	
-crypto	desencrypt	./api/modules/crypto/module.php	W1_CORE	P2	not_started	python_api.handlers.crypto.desencrypt	tests/fixtures/parity/crypto/desencrypt	not_captured	not_cutover	unassigned	
-crypto	encrypt	./api/modules/crypto/module.php	W1_CORE	P2	not_started	python_api.handlers.crypto.encrypt	tests/fixtures/parity/crypto/encrypt	not_captured	not_cutover	unassigned	
-crypto	makeKey	./api/modules/crypto/module.php	W1_CORE	P2	not_started	python_api.handlers.crypto.makeKey	tests/fixtures/parity/crypto/makeKey	not_captured	not_cutover	unassigned	
+crypto	desencrypt	./api/modules/crypto/module.php	W1_CORE	P2	in_progress	python_api.handlers.crypto.desencrypt	tests/fixtures/parity/crypto/desencrypt	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
+crypto	encrypt	./api/modules/crypto/module.php	W1_CORE	P2	in_progress	python_api.handlers.crypto.encrypt	tests/fixtures/parity/crypto/encrypt	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
+crypto	makeKey	./api/modules/crypto/module.php	W1_CORE	P2	in_progress	python_api.handlers.crypto.makeKey	tests/fixtures/parity/crypto/makeKey	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
 ejemplo	hola	./api/contrib/ejemplo/module.php	W3_SUPPORT	P2	not_started	python_api.handlers.ejemplo.hola	tests/fixtures/parity/ejemplo/hola	not_captured	not_cutover	unassigned	
 ejemplo	un_usuario	./api/contrib/ejemplo/module.php	W3_SUPPORT	P2	not_started	python_api.handlers.ejemplo.un_usuario	tests/fixtures/parity/ejemplo/un_usuario	not_captured	not_cutover	unassigned	
 facturador	addInventaryProduct	./api/contrib/facturador/module.php	W2_BUSINESS	P1	not_started	python_api.handlers.facturador.addInventaryProduct	tests/fixtures/parity/facturador/addInventaryProduct	not_captured	not_cutover	unassigned	
@@ -71,10 +71,10 @@ facturador	users_log_me_out	./api/contrib/facturador/module.php	W2_BUSINESS	P1	n
 fileUploader	subir_certif	./api/contrib/fileUploader/module.php	W2_BUSINESS	P2	not_started	python_api.handlers.fileUploader.subir_certif	tests/fixtures/parity/fileUploader/subir_certif	not_captured	not_cutover	unassigned	
 fileUploader	subir_xml	./api/contrib/fileUploader/module.php	W2_BUSINESS	P2	not_started	python_api.handlers.fileUploader.subir_xml	tests/fixtures/parity/fileUploader/subir_xml	not_captured	not_cutover	unassigned	
 fileUploader	test	./api/contrib/fileUploader/module.php	W2_BUSINESS	P2	not_started	python_api.handlers.fileUploader.test	tests/fixtures/parity/fileUploader/test	not_captured	not_cutover	unassigned	
-files	filesGetUrl	./api/modules/files/module.php	W1_CORE	P1	not_started	python_api.handlers.files.filesGetUrl	tests/fixtures/parity/files/filesGetUrl	not_captured	not_cutover	unassigned	
-files	files_view_file	./api/modules/files/module.php	W1_CORE	P1	not_started	python_api.handlers.files.files_view_file	tests/fixtures/parity/files/files_view_file	not_captured	not_cutover	unassigned	
-files	upload	./api/modules/files/module.php	W1_CORE	P1	not_started	python_api.handlers.files.upload	tests/fixtures/parity/files/upload	not_captured	not_cutover	unassigned	
-firmarXML	firmar	./api/contrib/firmarXML/module.php	W1_CORE	P0	not_started	python_api.handlers.firmarXML.firmar	tests/fixtures/parity/firmarXML/firmar	not_captured	not_cutover	unassigned	
+files	filesGetUrl	./api/modules/files/module.php	W1_CORE	P1	in_progress	python_api.handlers.files.filesGetUrl	tests/fixtures/parity/files/filesGetUrl	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
+files	files_view_file	./api/modules/files/module.php	W1_CORE	P1	in_progress	python_api.handlers.files.files_view_file	tests/fixtures/parity/files/files_view_file	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
+files	upload	./api/modules/files/module.php	W1_CORE	P1	in_progress	python_api.handlers.files.upload	tests/fixtures/parity/files/upload	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
+firmarXML	firmar	./api/contrib/firmarXML/module.php	W1_CORE	P0	in_progress	python_api.handlers.firmar_xml.firmar	tests/fixtures/parity/firmarXML/firmar	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
 genXML	gen_xml_fe	./api/contrib/genXML/module.php	W1_CORE	P0	not_started	python_api.handlers.genXML.gen_xml_fe	tests/fixtures/parity/genXML/gen_xml_fe	not_captured	not_cutover	unassigned	
 genXML	gen_xml_fec	./api/contrib/genXML/module.php	W1_CORE	P0	not_started	python_api.handlers.genXML.gen_xml_fec	tests/fixtures/parity/genXML/gen_xml_fec	not_captured	not_cutover	unassigned	
 genXML	gen_xml_fee	./api/contrib/genXML/module.php	W1_CORE	P0	not_started	python_api.handlers.genXML.gen_xml_fee	tests/fixtures/parity/genXML/gen_xml_fee	not_captured	not_cutover	unassigned	
@@ -89,9 +89,9 @@ geoloc	geoloc_load_blocks	./api/modules/geoloc/module.php	W3_SUPPORT	P2	not_star
 geoloc	geoloc_load_locations	./api/modules/geoloc/module.php	W3_SUPPORT	P2	not_started	python_api.handlers.geoloc.geoloc_load_locations	tests/fixtures/parity/geoloc/geoloc_load_locations	not_captured	not_cutover	unassigned	
 makeJson	makeJson	./api/contrib/makeJson/module.php	W3_SUPPORT	P2	not_started	python_api.handlers.makeJson.makeJson	tests/fixtures/parity/makeJson/makeJson	not_captured	not_cutover	unassigned	
 makeQR	makeQR	./api/contrib/makeQR/module.php	W2_BUSINESS	P2	not_started	python_api.handlers.makeQR.makeQR	tests/fixtures/parity/makeQR/makeQR	not_captured	not_cutover	unassigned	
-send	json	./api/contrib/send/module.php	W1_CORE	P0	not_started	python_api.handlers.send.json	tests/fixtures/parity/send/json	not_captured	not_cutover	unassigned	
-send	sendMensaje	./api/contrib/send/module.php	W1_CORE	P0	not_started	python_api.handlers.send.sendMensaje	tests/fixtures/parity/send/sendMensaje	not_captured	not_cutover	unassigned	
-send	sendTE	./api/contrib/send/module.php	W1_CORE	P0	not_started	python_api.handlers.send.sendTE	tests/fixtures/parity/send/sendTE	not_captured	not_cutover	unassigned	
+send	json	./api/contrib/send/module.php	W1_CORE	P0	in_progress	python_api.handlers.send.json	tests/fixtures/parity/send/json	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
+send	sendMensaje	./api/contrib/send/module.php	W1_CORE	P0	in_progress	python_api.handlers.send.sendMensaje	tests/fixtures/parity/send/sendMensaje	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
+send	sendTE	./api/contrib/send/module.php	W1_CORE	P0	in_progress	python_api.handlers.send.sendTE	tests/fixtures/parity/send/sendTE	not_captured	not_cutover	unassigned	python_handler_ported_no_parity
 sendMail	sendmail	./api/contrib/sendMail/module.php	W2_BUSINESS	P2	not_started	python_api.handlers.sendMail.sendmail	tests/fixtures/parity/sendMail/sendmail	not_captured	not_cutover	unassigned	
 signXML	signFE	./api/contrib/signXML/module.php	W2_BUSINESS	P2	not_started	python_api.handlers.signXML.signFE	tests/fixtures/parity/signXML/signFE	not_captured	not_cutover	unassigned	
 token	gettoken	./api/contrib/token/module.php	W1_CORE	P0	in_progress	python_api.handlers.token.gettoken	tests/fixtures/parity/token/gettoken	not_captured	not_cutover	unassigned	python_handler_ported_no_parity

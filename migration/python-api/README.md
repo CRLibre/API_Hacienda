@@ -10,7 +10,7 @@ It preserves the `w` + `r` dispatch model and JSON envelope while routes are mig
 - Correlation ID and JSON structured logging enabled
 - Route registry includes all 115 routes from `python_api/data/routes.tsv`
 - Hybrid execution:
-- Python handlers live for `clave/clave`, `token/gettoken`, `token/refresh`, and `consultar/consultarCom`
+- Python handlers live for `cala/cala_core|cala_default|cala_test_install`, `clave/clave`, `consultar/consultarCom`, `crypto/makeKey` (+ denied compatibility for `crypto/encrypt|desencrypt`), `files/filesGetUrl|files_view_file|upload`, `firmarXML/firmar`, `send/json|sendMensaje|sendTE`, `token/gettoken|refresh`, and all 13 `users/*` routes
 - Python handlers live for all 13 `users` routes (`login_auto`, `users_avatar_get`, `users_avatar_upload`, `users_confirm_session_vilidity`, `users_get_list`, `users_get_my_details`, `users_log_me_in`, `users_log_me_out`, `users_personal_bg_get`, `users_personal_bg_upload`, `users_recover_pwd`, `users_register`, `users_update_profile`)
 - Fallback proxy enabled for remaining not-yet-migrated routes (`API_HACIENDA_PHP_FALLBACK_URL`)
 - SQLAlchemy + Alembic scaffolding included for DB-compatible migration

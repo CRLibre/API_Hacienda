@@ -23,9 +23,22 @@
 
 ### Implemented handlers (current)
 - `clave/clave`
+- `cala/cala_core`
+- `cala/cala_default` (compatibility behavior: missing action in legacy module -> bad request code)
+- `cala/cala_test_install`
 - `token/gettoken`
 - `token/refresh`
 - `consultar/consultarCom`
+- `crypto/makeKey`
+- `crypto/encrypt` (compatibility behavior: access denied)
+- `crypto/desencrypt` (compatibility behavior: access denied)
+- `files/filesGetUrl`
+- `files/files_view_file`
+- `files/upload`
+- `firmarXML/firmar`
+- `send/json`
+- `send/sendMensaje`
+- `send/sendTE`
 - `users/login_auto`
 - `users/users_avatar_get`
 - `users/users_avatar_upload`
@@ -42,7 +55,7 @@
 
 ## Next implementation steps
 1. Implement `genXML` routes with XSD validation against `./www/xsd`.
-2. Implement `firmarXML` and `send` with cryptographic/integration parity tests.
+2. Implement `genXML` routes with payload/XSD parity against legacy behavior.
 
 ## Full migration governance
 - Master plan: `./docs/full-python-migration-plan.md`

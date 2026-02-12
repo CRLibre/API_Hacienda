@@ -5,8 +5,13 @@ from collections.abc import Awaitable, Callable
 from fastapi import Request
 from fastapi.responses import Response
 
+from . import cala
 from . import clave
 from . import consultar
+from . import crypto
+from . import files
+from . import firmar_xml
+from . import send
 from . import token
 from . import users
 
@@ -15,6 +20,19 @@ HandlerFn = Callable[[Request, dict[str, str]], Awaitable[Response] | Response]
 HANDLERS: dict[tuple[str, str], HandlerFn] = {
     ("clave", "clave"): clave.clave,
     ("consultar", "consultarCom"): consultar.consultarCom,
+    ("cala", "cala_core"): cala.cala_core,
+    ("cala", "cala_default"): cala.cala_default,
+    ("cala", "cala_test_install"): cala.cala_test_install,
+    ("crypto", "desencrypt"): crypto.desencrypt,
+    ("crypto", "encrypt"): crypto.encrypt,
+    ("crypto", "makeKey"): crypto.makeKey,
+    ("files", "filesGetUrl"): files.filesGetUrl,
+    ("files", "files_view_file"): files.files_view_file,
+    ("files", "upload"): files.upload,
+    ("firmarXML", "firmar"): firmar_xml.firmar,
+    ("send", "json"): send.json,
+    ("send", "sendMensaje"): send.sendMensaje,
+    ("send", "sendTE"): send.sendTE,
     ("token", "gettoken"): token.gettoken,
     ("token", "refresh"): token.refresh,
     ("users", "login_auto"): users.login_auto,
