@@ -1,5 +1,11 @@
 w	r	param_key	default	required	module_file
 XmlToBase64	encode	downloadCode		true	./api/contrib/XmlToBase64/module.php
+cala	cala_core	iam		true	./api/modules/cala/module.php
+cala	cala_core	r	cala_empty	true	./api/modules/cala/module.php
+cala	cala_core	replyType	json	true	./api/modules/cala/module.php
+cala	cala_core	sessionKey		true	./api/modules/cala/module.php
+cala	cala_core	w	cala	true	./api/modules/cala/module.php
+cala	cala_test_install	cronKey		false	./api/modules/cala/module.php
 check	checkxml	formato		true	./api/contrib/check/module.php
 check	checkxml	tipoDocumento		true	./api/contrib/check/module.php
 check	checkxml	tipoDocumento		true	./api/contrib/check/module.php
@@ -833,6 +839,7 @@ makeJson	makeJson	emi_tipoIdentificacion		true	./api/contrib/makeJson/module.php
 makeJson	makeJson	fecha		true	./api/contrib/makeJson/module.php
 makeJson	makeJson	recp_numeroIdentificacion		true	./api/contrib/makeJson/module.php
 makeJson	makeJson	recp_tipoIdentificacion		true	./api/contrib/makeJson/module.php
+makeQR	makeQR	string		true	./api/contrib/makeQR/module.php
 send	json	callbackUrl		false	./api/contrib/send/module.php
 send	json	clave		true	./api/contrib/send/module.php
 send	json	client_id		true	./api/contrib/send/module.php

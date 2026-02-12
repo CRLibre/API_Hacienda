@@ -16,24 +16,36 @@ while IFS= read -r file; do
   MODULE_FILES+=("${file}")
 done < <(find "${ROOT_DIR}/api/modules" "${ROOT_DIR}/api/contrib" -name module.php | sort)
 
-perl -e '
+API_HACIENDA_ROOT="${ROOT_DIR%/}" perl -e '
 use strict;
 use warnings;
 
+my $root = $ENV{"API_HACIENDA_ROOT"} // q{};
+
 for my $file (@ARGV) {
+    my $module_file = $file;
+    if ($root ne q{} && index($module_file, $root) == 0) {
+        $module_file = substr($module_file, length($root));
+        $module_file =~ s{^/}{};
+        $module_file = "./" . $module_file;
+    }
+
     my @parts = split(m{/}, $file);
     my $w = $parts[-2];
     open(my $fh, "<", $file) or next;
     my $route = q{};
     while (my $line = <$fh>) {
-        if ($line =~ /'\''r'\''\s*=>\s*'\''([^'\'']+)'\''/) {
+        if ($line =~ /['\''"]r['\''"]\s*=>\s*['\''"]([^'\''"]+)['\''"]/) {
             $route = $1;
-            print join("\t", "ROUTE", $w, $route, $file) . "\n";
+            print join("\t", "ROUTE", $w, $route, $module_file) . "\n";
             next;
         }
-        if ($route ne q{} && $line =~ /array\("key"\s*=>\s*"([^"]+)",\s*"def"\s*=>\s*"([^"]*)",\s*"req"\s*=>\s*(true|false)\)/) {
+        if (
+            $route ne q{} &&
+            $line =~ /['\''"]key['\''"]\s*=>\s*['\''"]([^'\''"]+)['\''"]\s*,\s*['\''"]def['\''"]\s*=>\s*['\''"]([^'\''"]*)['\''"]\s*,\s*['\''"]req['\''"]\s*=>\s*(true|false)/i
+        ) {
             my ($key, $def, $req) = ($1, $2, $3);
-            print join("\t", "PARAM", $w, $route, $key, $def, $req, $file) . "\n";
+            print join("\t", "PARAM", $w, $route, $key, $def, $req, $module_file) . "\n";
         }
     }
     close($fh);
