@@ -22,6 +22,8 @@ Fecha: 2026-02-12
 ## Lo que falta para que Factura Electronica CR quede bien en Python
 - Endurecer operacion post-cutover: monitoreo, alertas y SLOs por ruta.
 - Plan de retiro controlado del baseline PHP una vez validado el periodo de estabilidad.
+- Ejecucion del runbook de retiro: `migration/docs/php-decommission-runbook.md`.
+- Validacion automatizada GO/NO-GO: `migration/scripts/native_go_no_go.py`.
 
 ## Bloque prioritario (29 rutas de facturacion)
 - `users/*` (13)
