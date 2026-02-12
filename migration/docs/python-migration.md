@@ -36,6 +36,14 @@
 - `files/files_view_file`
 - `files/upload`
 - `firmarXML/firmar`
+- `genXML/gen_xml_fe` (legacy PHP bridge mode from Python handler)
+- `genXML/gen_xml_nc` (legacy PHP bridge mode from Python handler)
+- `genXML/gen_xml_nd` (legacy PHP bridge mode from Python handler)
+- `genXML/gen_xml_te` (legacy PHP bridge mode from Python handler)
+- `genXML/gen_xml_mr` (legacy PHP bridge mode from Python handler)
+- `genXML/gen_xml_fec` (legacy PHP bridge mode from Python handler)
+- `genXML/gen_xml_fee` (legacy PHP bridge mode from Python handler)
+- `genXML/test` (legacy PHP bridge mode from Python handler)
 - `send/json`
 - `send/sendMensaje`
 - `send/sendTE`
@@ -55,7 +63,7 @@
 
 ## Next implementation steps
 1. Implement `genXML` routes with XSD validation against `./www/xsd`.
-2. Implement `genXML` routes with payload/XSD parity against legacy behavior.
+2. Replace `genXML` bridge mode with native Python XML generation + full XSD/signature parity tests.
 
 ## Full migration governance
 - Master plan: `./docs/full-python-migration-plan.md`

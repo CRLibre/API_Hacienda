@@ -11,6 +11,7 @@ from . import consultar
 from . import crypto
 from . import files
 from . import firmar_xml
+from . import genxml
 from . import send
 from . import token
 from . import users
@@ -30,6 +31,14 @@ HANDLERS: dict[tuple[str, str], HandlerFn] = {
     ("files", "files_view_file"): files.files_view_file,
     ("files", "upload"): files.upload,
     ("firmarXML", "firmar"): firmar_xml.firmar,
+    ("genXML", "gen_xml_fe"): genxml.gen_xml_fe,
+    ("genXML", "gen_xml_fec"): genxml.gen_xml_fec,
+    ("genXML", "gen_xml_fee"): genxml.gen_xml_fee,
+    ("genXML", "gen_xml_mr"): genxml.gen_xml_mr,
+    ("genXML", "gen_xml_nc"): genxml.gen_xml_nc,
+    ("genXML", "gen_xml_nd"): genxml.gen_xml_nd,
+    ("genXML", "gen_xml_te"): genxml.gen_xml_te,
+    ("genXML", "test"): genxml.test,
     ("send", "json"): send.json,
     ("send", "sendMensaje"): send.sendMensaje,
     ("send", "sendTE"): send.sendTE,
