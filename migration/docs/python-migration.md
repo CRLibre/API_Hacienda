@@ -47,6 +47,7 @@
 - `send/json`
 - `send/sendMensaje`
 - `send/sendTE`
+- `facturador/*` routes (Python dispatcher + fallback-proxy mode)
 - `users/login_auto`
 - `users/users_avatar_get`
 - `users/users_avatar_upload`
@@ -64,6 +65,7 @@
 ## Next implementation steps
 1. Implement `genXML` routes with XSD validation against `./www/xsd`.
 2. Replace `genXML` bridge mode with native Python XML generation + full XSD/signature parity tests.
+3. Replace `facturador/*` fallback-proxy mode with native Python handlers (module-by-module).
 
 ## Full migration governance
 - Master plan: `./docs/full-python-migration-plan.md`

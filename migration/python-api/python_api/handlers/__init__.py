@@ -10,6 +10,7 @@ from . import clave
 from . import consultar
 from . import crypto
 from . import files
+from . import facturador
 from . import firmar_xml
 from . import genxml
 from . import send
@@ -61,8 +62,13 @@ HANDLERS: dict[tuple[str, str], HandlerFn] = {
 
 
 def get_handler(w: str, r: str) -> HandlerFn | None:
-    return HANDLERS.get((w, r))
+    handler = HANDLERS.get((w, r))
+    if handler is not None:
+        return handler
+    if w == "facturador" and r in facturador.ROUTES:
+        return facturador.proxy
+    return None
 
 
 def is_implemented(w: str, r: str) -> bool:
-    return (w, r) in HANDLERS
+    return (w, r) in HANDLERS or (w == "facturador" and r in facturador.ROUTES)
