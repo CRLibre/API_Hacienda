@@ -13,6 +13,7 @@ from . import files
 from . import facturador
 from . import firmar_xml
 from . import genxml
+from . import proxy_modules
 from . import send
 from . import token
 from . import users
@@ -67,8 +68,10 @@ def get_handler(w: str, r: str) -> HandlerFn | None:
         return handler
     if w == "facturador" and r in facturador.ROUTES:
         return facturador.proxy
+    if proxy_modules.supports(w, r):
+        return proxy_modules.proxy
     return None
 
 
 def is_implemented(w: str, r: str) -> bool:
-    return (w, r) in HANDLERS or (w == "facturador" and r in facturador.ROUTES)
+    return (w, r) in HANDLERS or (w == "facturador" and r in facturador.ROUTES) or proxy_modules.supports(w, r)
