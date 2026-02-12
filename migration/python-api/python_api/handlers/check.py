@@ -20,7 +20,12 @@ def _libxml_message(error: etree._LogEntry) -> str:
         level = "Fatal Error"
     else:
         level = "Error"
-    return f"<b>{level} {error.type}</b>: {error.message} on line <b>{error.line}</b>"
+
+    message = f"<br/>\n<b>{level} {error.type}</b>: {str(error.message).strip()}"
+    if getattr(error, "filename", None):
+        message += f" in <b>{error.filename}</b>"
+    message += f" on line <b>{error.line}</b>\n"
+    return message
 
 
 def _validate_fe() -> str | None:
@@ -40,7 +45,7 @@ def _validate_fe() -> str | None:
         return "validated"
 
     errors = [_libxml_message(error) for error in schema.error_log]
-    return "<br/>\n" + "<br/>\n".join(errors) if errors else None
+    return "".join(errors) if errors else None
 
 
 async def checkxml(_: Request, params: dict[str, str]) -> JSONResponse:
@@ -54,4 +59,3 @@ async def checkxml(_: Request, params: dict[str, str]) -> JSONResponse:
         return tools_reply_compatible(_validate_fe())
 
     return tools_reply_compatible(None)
-

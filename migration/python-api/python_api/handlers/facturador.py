@@ -315,11 +315,10 @@ async def get_neighborhood(_: Request, params: dict[str, str]) -> Response:
 
 
 async def inser_to_log_table(_: Request, params: dict[str, str]) -> Response:
+    # Route access in legacy module is users_loggedIn.
+    if not _require_users_logged_in(params):
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
     id_user = _session_user_id(params)
-    if id_user is None:
-        id_user = _safe_numeric_id(str(params.get("idUser", "")))
-    if id_user is None:
-        id_user = _safe_numeric_id(str(params.get("idMasterUser", "")))
     if id_user is None:
         return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
 
