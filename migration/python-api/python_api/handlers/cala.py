@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import os
-import subprocess
+import platform
 from pathlib import Path
 
 from fastapi import Request
@@ -13,7 +13,7 @@ from python_api.db.session import engine
 from python_api.responses import tools_reply_compatible
 
 settings = get_settings()
-REPO_ROOT = Path(__file__).resolve().parents[4]
+APP_ROOT = Path(__file__).resolve().parents[2]
 
 
 async def cala_core(_: Request, __: dict[str, str]) -> JSONResponse:
@@ -30,23 +30,12 @@ async def cala_test_install(_: Request, __: dict[str, str]) -> JSONResponse:
     all_good_msg = f"All good :) {bl} "
     all_not_good_msg = f"Errors found :( {bl} "
 
-    core_install = str((REPO_ROOT / "api").resolve()) + "/"
+    core_install = str(APP_ROOT.resolve()) + "/"
     files_path = Path(settings.files_base_path).expanduser()
-    contrib_path = Path(core_install) / "contrib"
-    resources_path = Path(core_install) / "resources"
+    contrib_path = APP_ROOT / "python_api" / "handlers"
+    resources_path = APP_ROOT / "resources"
 
-    php_version = "unknown"
-    try:
-        res = subprocess.run(
-            ["php", "-r", "echo PHP_VERSION;"],
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        if res.returncode == 0 and res.stdout.strip():
-            php_version = res.stdout.strip()
-    except Exception:
-        pass
+    runtime_version = platform.python_version()
 
     db_comment = "All good"
     try:
@@ -69,7 +58,7 @@ async def cala_test_install(_: Request, __: dict[str, str]) -> JSONResponse:
 
     all_tests = [
         ("Core Installation", f"Your core installation is in: {core_install}"),
-        ("PHP Version", f"I am at least PHP version 5.3.0, my version: {php_version}"),
+        ("Runtime Version", f"I am running Python version: {runtime_version}"),
         ("Database connection", db_comment),
         (
             "Files storage",

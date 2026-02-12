@@ -9,8 +9,8 @@ from fastapi.responses import JSONResponse, Response
 
 from python_api.responses import tools_reply_compatible
 
-REPO_ROOT = Path(__file__).resolve().parents[4]
-GEOLOC_DIR = REPO_ROOT / "api/modules/geoloc"
+APP_ROOT = Path(__file__).resolve().parents[2]
+GEOLOC_DIR = APP_ROOT / "resources" / "geoloc"
 BLOCKS_DB = GEOLOC_DIR / "blocks.sqlite"
 LOCATIONS_DB = GEOLOC_DIR / "locations.sqlite"
 

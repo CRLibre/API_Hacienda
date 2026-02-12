@@ -9,8 +9,8 @@ from lxml import etree
 
 from python_api.responses import tools_reply_compatible
 
-REPO_ROOT = Path(__file__).resolve().parents[4]
-XSD_ROOT = REPO_ROOT / "www/xsd"
+APP_ROOT = Path(__file__).resolve().parents[2]
+XSD_ROOT = APP_ROOT / "resources" / "xsd"
 
 DOC_XSD_CANDIDATES: dict[str, tuple[str, ...]] = {
     "FE": ("FacturaElectronica_V4.4-noSign.xsd", "FacturaElectronica_V4.4.xsd", "FacturaElectronica_V.4.2.xsd"),
@@ -80,7 +80,7 @@ def _load_xml_doc(params: dict[str, str]) -> etree._ElementTree | None:
             except Exception:
                 continue
 
-    xml_path = REPO_ROOT / "fac.xml"
+    xml_path = APP_ROOT / "fac.xml"
     if not xml_path.is_file():
         return None
     try:

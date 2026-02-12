@@ -33,6 +33,9 @@ dev = [
 requires = ["hatchling>=1.27.0,<2.0.0"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build.targets.wheel]
+packages = ["python_api"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"

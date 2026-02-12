@@ -1,34 +1,33 @@
-version: "3.5"
+version: "3.9"
+
 services:
-  php-apache:
-    container_name: ${APP_CONTAINER_NAME:-crlibre-app}
+  python-api:
+    container_name: ${APP_CONTAINER_NAME:-api-hacienda-py}
     build:
-      context: .
-      dockerfile: ./docker-php-apache/Dockerfile
+      context: ./migration/python-api
+      dockerfile: Dockerfile
     ports:
-      - 8080:80
-      - 8443:443
-    env_file:
-      - ./docker-php-apache/php-apache.env
+      - "8080:8090"
     environment:
-      CRLIBRE_API_HACIENDA_DB_HOST: ${CRLIBRE_API_HACIENDA_DB_HOST:-mariadb}
-      CRLIBRE_API_HACIENDA_DB_NAME: ${DB_NAME:-testdb}
-      CRLIBRE_API_HACIENDA_DB_USER: ${DB_USER:-testuser}
-      CRLIBRE_API_HACIENDA_DB_PASSWORD: ${DB_PASSWORD:-testpassword}
+      API_HACIENDA_ENV: ${API_HACIENDA_ENV:-development}
+      API_HACIENDA_LOG_LEVEL: ${API_HACIENDA_LOG_LEVEL:-INFO}
+      API_HACIENDA_PHP_FALLBACK_URL: ""
+      API_HACIENDA_DATABASE_URL: ${API_HACIENDA_DATABASE_URL:-mysql+pymysql://testuser:testpassword@mariadb:3306/testdb}
+      API_HACIENDA_CRYPTO_KEY: ${API_HACIENDA_CRYPTO_KEY:-}
+      API_HACIENDA_FILES_BASE_PATH: /app/runtime/files/
     depends_on:
-      - "mariadb"
+      - mariadb
+    volumes:
+      - ./migration/python-api/runtime:/app/runtime
+      - ./migration/python-api/resources:/app/resources:ro
     networks:
       - crlibrenet
-    volumes:
-      - ./www/settings.php:/var/www/html/settings.php
-      - ./api:/var/www/html/api
+
   mariadb:
     image: mariadb:10.11.4
     container_name: ${MARIADB_CONTAINER_NAME:-crlibre-mariadb}
     ports:
-      - 4407:3306
-    env_file:
-      - ./docker-php-apache/php-apache.env
+      - "4407:3306"
     volumes:
       - ./recursos/sql:/docker-entrypoint-initdb.d
       - ./mysql-data:/var/lib/mysql

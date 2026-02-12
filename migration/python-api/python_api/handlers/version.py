@@ -9,8 +9,9 @@ from fastapi.responses import JSONResponse
 
 from python_api.responses import tools_reply_compatible
 
-REPO_ROOT = Path(__file__).resolve().parents[4]
-VERSION_FILE = REPO_ROOT / "api/contrib/version/VERSION"
+APP_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = APP_ROOT
+VERSION_FILE = APP_ROOT / "resources" / "version" / "VERSION"
 
 
 def _git_version() -> str | None:
@@ -57,4 +58,3 @@ async def version(_: Request, __: dict[str, str]) -> JSONResponse:
     if commit is not None:
         return tools_reply_compatible(f"Version: {commit}")
     return tools_reply_compatible("No tiene soporte git.")
-

@@ -7,10 +7,12 @@ WORKDIR /app
 
 COPY pyproject.toml README.md ./
 COPY python_api ./python_api
+COPY resources ./resources
 COPY alembic ./alembic
 COPY alembic.ini ./
 
 RUN pip install --no-cache-dir .
+RUN mkdir -p /app/runtime/files
 
 EXPOSE 8090
 

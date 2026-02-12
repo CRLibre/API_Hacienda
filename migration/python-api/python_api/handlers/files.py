@@ -15,7 +15,7 @@ from python_api.responses import tools_reply_compatible
 from python_api.services.db_compat import execute, fetch_one
 
 settings = get_settings()
-REPO_ROOT = Path(__file__).resolve().parents[4]
+APP_ROOT = Path(__file__).resolve().parents[2]
 
 MIME_TYPES: dict[str, str] = {
     "pdf": "application/pdf",
@@ -110,12 +110,12 @@ async def files_view_file(_: Request, params: dict[str, str]) -> Response:
     size = str(params.get("size", "0"))
     row = _load_file_by_code(code)
     if row is None:
-        not_found = REPO_ROOT / "api" / "resources" / "404FileNotFound.svg"
+        not_found = APP_ROOT / "resources" / "static" / "404FileNotFound.svg"
         return Response(content=not_found.read_bytes(), media_type=_mime_type(not_found.name), status_code=200)
 
     path = _file_path_from_row(row, size=size)
     if not path.is_file():
-        not_found = REPO_ROOT / "api" / "resources" / "404FileNotFound.svg"
+        not_found = APP_ROOT / "resources" / "static" / "404FileNotFound.svg"
         return Response(content=not_found.read_bytes(), media_type=_mime_type(not_found.name), status_code=200)
 
     return Response(content=path.read_bytes(), media_type=_mime_type(path.name), status_code=200)

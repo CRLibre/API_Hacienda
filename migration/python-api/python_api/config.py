@@ -1,6 +1,10 @@
+from pathlib import Path
 from functools import lru_cache
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+APP_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_FILES_BASE_PATH = str((APP_ROOT / "runtime" / "files").resolve()) + "/"
 
 
 class Settings(BaseSettings):
@@ -8,12 +12,12 @@ class Settings(BaseSettings):
 
     env: str = "development"
     log_level: str = "INFO"
-    php_fallback_url: str | None = "http://localhost:8080/api.php"
+    php_fallback_url: str | None = None
     request_timeout_seconds: float = 30.0
     database_url: str = "mysql+pymysql://testuser:testpassword@localhost:4407/testdb"
     crypto_key: str = ""
     users_session_lifetime: int = -1
-    files_base_path: str = "/var/www/api/files/"
+    files_base_path: str = DEFAULT_FILES_BASE_PATH
     cron_token: str = "ItIsGoodIfThisIsBigAndHasW3irDLeeT3rsAnd$ymb0lz.IniT"
     core_site_name: str = "Mi Sitio"
     mail_noreply: str = "no-reply@crlibre.org"

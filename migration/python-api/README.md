@@ -16,15 +16,14 @@ Python 3.14.3 service for `API_Hacienda` preserving legacy API contract (`w` + `
 - Readiness: `GET /readyz`
 - Root metadata: `GET /`
 
-## Run modes
-- Native mode (target): `API_HACIENDA_PHP_FALLBACK_URL` empty/unset.
-- Hybrid mode (temporary safety net): set `API_HACIENDA_PHP_FALLBACK_URL=http://<legacy-host>/api.php`.
+## Run mode
+- Native mode only: `API_HACIENDA_PHP_FALLBACK_URL` must stay empty/unset.
 
 `/readyz` returns:
 ```json
 {"status":"ok","fallback_enabled":false}
 ```
-when running native.
+in native mode.
 
 ## Local run
 ```bash
@@ -59,7 +58,7 @@ For local-only validation (no Hacienda send):
 ```
 
 ## Native go/no-go check
-Before decommissioning PHP baseline, run:
+For environment validation, run:
 ```bash
 cd ..
 ./scripts/native_go_no_go.py \
