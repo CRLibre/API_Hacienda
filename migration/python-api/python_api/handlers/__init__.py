@@ -10,6 +10,7 @@ from . import callback
 from . import check
 from . import clave
 from . import consultar
+from . import crlibreall
 from . import crypto
 from . import ejemplo
 from . import files
@@ -38,6 +39,10 @@ HANDLERS: dict[tuple[str, str], HandlerFn] = {
     ("clave", "clave"): clave.clave,
     ("check", "checkxml"): check.checkxml,
     ("consultar", "consultarCom"): consultar.consultarCom,
+    ("crlibreall", "FE"): crlibreall.FE,
+    ("crlibreall", "NC"): crlibreall.NC,
+    ("crlibreall", "ND"): crlibreall.ND,
+    ("crlibreall", "gen_xml_nc"): crlibreall.gen_xml_nc,
     ("cala", "cala_core"): cala.cala_core,
     ("cala", "cala_default"): cala.cala_default,
     ("cala", "cala_test_install"): cala.cala_test_install,
