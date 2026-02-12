@@ -1109,9 +1109,13 @@ async def copy_master_tables(_: Request, params: dict[str, str]) -> Response:
 
 
 async def backup_user(_: Request, params: dict[str, str]) -> Response:
-    # Compatibility placeholder: keeps route in Python while avoiding destructive/OS-specific SQL OUTFILE behavior.
     if not _require_users_logged_in(params):
         return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    id_user = _session_user_id(params)
+    if id_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
     masters = fetch_all(
         """
         SELECT table_name
@@ -1120,6 +1124,19 @@ async def backup_user(_: Request, params: dict[str, str]) -> Response:
         """
     )
     table_names = [str(row.get("table_name", "")) for row in masters if row.get("table_name")]
+
+    # Keep legacy behavior close to PHP backUpUser(): builds CSV list with trailing comma bug (substr(..., 0, -1)).
+    tables = "".join(f"{table_name}, " for table_name in table_names)
+    tables = tables[:-1] if tables else ""
+    backup_file = f"C:\\{id_user}_{int(time.time())}_Respaldo.sql"
+    backup_file_sql = backup_file.replace("\\", "\\\\")
+
+    try:
+        if tables:
+            execute(f"SELECT * INTO OUTFILE '{backup_file_sql}' FROM {tables}")
+    except Exception as exc:
+        return tools_reply_compatible({"Status": "Error occurred", "text": str(exc)})
+
     return tools_reply_compatible(table_names)
 
 
