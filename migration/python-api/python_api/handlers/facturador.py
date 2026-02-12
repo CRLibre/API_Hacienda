@@ -535,6 +535,135 @@ async def get_inventory(_: Request, params: dict[str, str]) -> Response:
     return tools_reply_compatible(rows)
 
 
+async def getSucursales(_: Request, params: dict[str, str]) -> Response:
+    if not _require_users_logged_in(params):
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+    id_user = _session_user_id(params)
+    if id_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    sql = f"SELECT `idSucursal`, `nombreSucursal`, `sucursal` FROM `{id_user}_master_sucursales`"
+    rows = fetch_all(sql)
+    return tools_reply_compatible(rows)
+
+
+async def getTerminales(_: Request, params: dict[str, str]) -> Response:
+    if not _require_users_logged_in(params):
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+    id_user = _session_user_id(params)
+    if id_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    id_sucursal = str(params.get("idSucursal", "")).strip()
+    if id_sucursal:
+        sql = f"""
+        SELECT `idTerminal`, `nombreTerminal`, `terminal`, S.`nombreSucursal`, S.`sucursal`
+        FROM `{id_user}_master_terminales` AS T
+        INNER JOIN `{id_user}_master_sucursales` AS S ON T.`idSucursal` = S.`idSucursal`
+        WHERE S.`idSucursal` = :idSucursal
+        """
+        rows = fetch_all(sql, {"idSucursal": id_sucursal})
+    else:
+        sql = f"""
+        SELECT `idTerminal`, `nombreTerminal`, `terminal`, S.`nombreSucursal`, S.`sucursal`
+        FROM `{id_user}_master_terminales` AS T
+        INNER JOIN `{id_user}_master_sucursales` AS S ON T.`idSucursal` = S.`idSucursal`
+        """
+        rows = fetch_all(sql)
+    return tools_reply_compatible(rows)
+
+
+async def getUsersCompanny(_: Request, params: dict[str, str]) -> Response:
+    if not _require_users_logged_in(params):
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+    id_user = _session_user_id(params)
+    if id_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    sql = f"""
+    SELECT
+        `idUser`,
+        `fullName`,
+        `email`,
+        `country`,
+        T.`nombreTerminal`,
+        T.`terminal`,
+        S.`nombreSucursal`,
+        S.`sucursal`
+    FROM `{id_user}_master_users` AS U
+    INNER JOIN `{id_user}_master_terminales` AS T ON U.`settings` = T.`idTerminal`
+    INNER JOIN `{id_user}_master_sucursales` AS S ON T.`idSucursal` = S.`idSucursal`
+    """
+    rows = fetch_all(sql)
+    return tools_reply_compatible(rows)
+
+
+async def getUserPermissionById(_: Request, params: dict[str, str]) -> Response:
+    if not _require_users_logged_in(params):
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+    id_master_user = _session_user_id(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    sql = f"""
+    SELECT
+        R.`rolCode`,
+        R.`descripcion`,
+        U.`userName`,
+        U.`FullName`,
+        `idUser`
+    FROM `{id_master_user}_master_permission` AS P
+    INNER JOIN `{id_master_user}_master_rol` AS R ON P.`idRol` = R.`idRol`
+    INNER JOIN `{id_master_user}_master_users` AS U ON P.`idCompanyUser` = U.`idUser`
+    WHERE U.`status` = '1'
+    """
+    rows = fetch_all(sql)
+    return tools_reply_compatible(rows)
+
+
+async def companny_getMyInfo(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    iam = str(params.get("iam", ""))
+    sql = f"""
+    SELECT
+        `idUser`,
+        `fullName`,
+        `email`,
+        `country`,
+        T.`nombreTerminal`,
+        T.`terminal`,
+        S.`nombreSucursal`,
+        S.`sucursal`
+    FROM `{id_master_user}_master_users` AS U
+    INNER JOIN `{id_master_user}_master_terminales` AS T ON U.`settings` = T.`idTerminal`
+    INNER JOIN `{id_master_user}_master_sucursales` AS S ON T.`idSucursal` = S.`idSucursal`
+    WHERE U.`userName` = :iam
+    """
+    rows = fetch_all(sql, {"iam": iam})
+    return tools_reply_compatible(rows)
+
+
+async def companny_getMyConsecutive(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    iam = str(params.get("iam", ""))
+    env = str(params.get("env", ""))
+    tipo = str(params.get("tipoComprobante", ""))
+    sql = f"""
+    SELECT COALESCE(MAX(`numeroConsecutivo`), 0) AS consecutivo
+    FROM `{id_master_user}_master_consecutive` AS C
+    INNER JOIN `{id_master_user}_master_users` AS U ON C.`idUser` = U.`idUser`
+    WHERE U.`userName` = :iam AND C.`ENV` = :env AND C.`tipoComprobante` = :tipo
+    """
+    rows = fetch_all(sql, {"iam": iam, "env": env, "tipo": tipo})
+    return tools_reply_compatible(rows)
+
+
 HandlerFn = Callable[[Request, dict[str, str]], Awaitable[Response] | Response]
 NATIVE_HANDLERS: dict[str, HandlerFn] = {
     "info": info,
@@ -559,6 +688,12 @@ NATIVE_HANDLERS: dict[str, HandlerFn] = {
     "get_vouchers": get_vouchers,
     "getProductByCode": getProductByCode,
     "get_inventory": get_inventory,
+    "getSucursales": getSucursales,
+    "getTerminales": getTerminales,
+    "getUsersCompanny": getUsersCompanny,
+    "getUserPermissionById": getUserPermissionById,
+    "companny_getMyInfo": companny_getMyInfo,
+    "companny_getMyConsecutive": companny_getMyConsecutive,
 }
 
 
