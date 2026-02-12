@@ -11,7 +11,7 @@ Ejemplo:
 
 Si el modulo no puede usar `git describe`, usa el fallback de archivo:
 
-- `migration/python-api/resources/version/VERSION`
+- `python-api/resources/version/VERSION`
 
 Tambien puedes consultar el commit actual con:
 

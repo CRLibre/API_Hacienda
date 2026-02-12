@@ -19,14 +19,14 @@ El baseline PHP fue retirado del codigo fuente.
 Se mantiene el contrato legacy (`w` + `r`) y el envelope JSON para compatibilidad con clientes existentes.
 
 ## Estructura
-- Servicio principal: `migration/python-api`
-- Script operativo FE dev: `migration/scripts/dev_real_fe_flow.py`
-- Infra local (SQL y volumen DB): `migration/infra`
+- Servicio principal: `python-api`
+- Script operativo FE dev: `scripts/dev_real_fe_flow.py`
+- Infra local (SQL y volumen DB): `infra`
 - Arbol resumido del repo: `TREE.md`
 
 ## Ejecutar local
 ```bash
-cd migration/python-api
+cd python-api
 PYTHONPATH=. .venv313/bin/python -m uvicorn python_api.main:app --host 127.0.0.1 --port 8080
 ```
 
@@ -39,4 +39,4 @@ API disponible en `http://127.0.0.1:8080/api.php`.
 
 ## Nota de migracion
 - No quedan archivos `.php` en el repositorio.
-- Recursos legacy necesarios (XSD/geoloc/version/static) fueron movidos a `migration/python-api/resources`.
+- Recursos legacy necesarios (XSD/geoloc/version/static) fueron movidos a `python-api/resources`.

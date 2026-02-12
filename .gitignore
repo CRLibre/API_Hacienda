@@ -6,8 +6,8 @@ build/*
 validation_data.json
 
 # Mysql Volume
-/migration/infra/mysql-data/*
-!/migration/infra/mysql-data/.gitkeep
+/infra/mysql-data/*
+!/infra/mysql-data/.gitkeep
 
 # ignore IDE/hidden/OS cache files
 *~
@@ -61,5 +61,5 @@ venv/
 .coverage.*
 
 # Python runtime artifacts
-migration/python-api/runtime/files/*
-!migration/python-api/runtime/files/.gitkeep
+python-api/runtime/files/*
+!python-api/runtime/files/.gitkeep

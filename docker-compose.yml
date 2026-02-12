@@ -4,7 +4,7 @@ services:
   python-api:
     container_name: ${APP_CONTAINER_NAME:-api-hacienda-py}
     build:
-      context: ./migration/python-api
+      context: ./python-api
       dockerfile: Dockerfile
     ports:
       - "8080:8090"
@@ -18,8 +18,8 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - ./migration/python-api/runtime:/app/runtime
-      - ./migration/python-api/resources:/app/resources:ro
+      - ./python-api/runtime:/app/runtime
+      - ./python-api/resources:/app/resources:ro
     networks:
       - crlibrenet
 
@@ -29,8 +29,8 @@ services:
     ports:
       - "4407:3306"
     volumes:
-      - ./migration/infra/recursos/sql:/docker-entrypoint-initdb.d
-      - ./migration/infra/mysql-data:/var/lib/mysql
+      - ./infra/recursos/sql:/docker-entrypoint-initdb.d
+      - ./infra/mysql-data:/var/lib/mysql
     environment:
       TZ: "America/Costa_Rica"
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
