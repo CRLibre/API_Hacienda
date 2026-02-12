@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     crypto_key: str = ""
     users_session_lifetime: int = -1
     files_base_path: str = "/var/www/api/files/"
+    cron_token: str = "ItIsGoodIfThisIsBigAndHasW3irDLeeT3rsAnd$ymb0lz.IniT"
     core_site_name: str = "Mi Sitio"
     mail_noreply: str = "no-reply@crlibre.org"
     mail_type: str = "mail"

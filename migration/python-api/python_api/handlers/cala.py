@@ -27,6 +27,7 @@ async def cala_test_install(_: Request, __: dict[str, str]) -> JSONResponse:
     br = "<br/>"
     all_good = f"All good :) {br} "
     all_bad = f"Errors found :( {br} "
+    default_cron_token = "ItIsGoodIfThisIsBigAndHasW3irDLeeT3rsAnd$ymb0lz.IniT"
 
     core_install = str(Path.cwd())
     files_path = Path(settings.files_base_path).expanduser()
@@ -36,6 +37,16 @@ async def cala_test_install(_: Request, __: dict[str, str]) -> JSONResponse:
     files_good = files_path.exists() and os.access(files_path, os.W_OK)
     contrib_good = contrib_path.is_dir()
     resources_good = resources_path.is_dir()
+    files_perms = ""
+    files_perms_good = False
+    try:
+        files_perms = f"{files_path.stat().st_mode & 0o777:04o}"
+        # Legacy behavior marks 0777 as insecure and reports an error.
+        files_perms_good = files_perms != "0777"
+    except OSError:
+        files_perms = "0000"
+        files_perms_good = False
+    cron_token_good = settings.cron_token != default_cron_token
 
     db_comment = "All good"
     try:
@@ -54,6 +65,12 @@ async def cala_test_install(_: Request, __: dict[str, str]) -> JSONResponse:
             + str(files_path),
         ),
         (
+            "Files storage permissions",
+            (all_good if files_perms_good else all_bad)
+            + "Remember to put your files in a NON WEB ACCESSIBLE path and to secure its permissions,"
+            + f" current perms are '{files_perms}'.",
+        ),
+        (
             "Contributed modules",
             (all_good if contrib_good else all_bad + "Your contrib modules where not found or the path is not accessible: ")
             + str(contrib_path),
@@ -62,6 +79,10 @@ async def cala_test_install(_: Request, __: dict[str, str]) -> JSONResponse:
             "Resources path",
             (all_good if resources_good else all_bad + "Your resources path was not found or the path is not accessible: ")
             + str(resources_path),
+        ),
+        (
+            "Security Token",
+            all_good if cron_token_good else all_bad + "You really need to change your token! ",
         ),
     ]
 

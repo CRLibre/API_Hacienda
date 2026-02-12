@@ -164,8 +164,6 @@ async def upload(request: Request, params: dict[str, str]) -> JSONResponse:
         if target_file.exists():
             if delete_existing:
                 target_file.unlink()
-            else:
-                return tools_reply_compatible(c.ERROR_FILES_UPLOAD_ERROR)
         target_file.write_bytes(content)
     except OSError:
         return tools_reply_compatible(c.ERROR_FILES_UPLOAD_ERROR)
