@@ -6,22 +6,35 @@ from fastapi import Request
 from fastapi.responses import Response
 
 from . import cala
+from . import callback
+from . import check
 from . import clave
 from . import consultar
 from . import crypto
+from . import ejemplo
 from . import files
 from . import facturador
+from . import file_uploader
 from . import firmar_xml
 from . import genxml
+from . import make_json
+from . import make_qr
 from . import proxy_modules
+from . import send_mail
 from . import send
+from . import sign_xml_legacy
 from . import token
 from . import users
+from . import version
+from . import xml_to_base64
 
 HandlerFn = Callable[[Request, dict[str, str]], Awaitable[Response] | Response]
 
 HANDLERS: dict[tuple[str, str], HandlerFn] = {
+    ("XmlToBase64", "encode"): xml_to_base64.encode,
+    ("callback", "callback"): callback.callback,
     ("clave", "clave"): clave.clave,
+    ("check", "checkxml"): check.checkxml,
     ("consultar", "consultarCom"): consultar.consultarCom,
     ("cala", "cala_core"): cala.cala_core,
     ("cala", "cala_default"): cala.cala_default,
@@ -29,6 +42,11 @@ HANDLERS: dict[tuple[str, str], HandlerFn] = {
     ("crypto", "desencrypt"): crypto.desencrypt,
     ("crypto", "encrypt"): crypto.encrypt,
     ("crypto", "makeKey"): crypto.makeKey,
+    ("ejemplo", "hola"): ejemplo.hola,
+    ("ejemplo", "un_usuario"): ejemplo.un_usuario,
+    ("fileUploader", "subir_certif"): file_uploader.subir_certif,
+    ("fileUploader", "subir_xml"): file_uploader.subir_xml,
+    ("fileUploader", "test"): file_uploader.test,
     ("files", "filesGetUrl"): files.filesGetUrl,
     ("files", "files_view_file"): files.files_view_file,
     ("files", "upload"): files.upload,
@@ -41,9 +59,13 @@ HANDLERS: dict[tuple[str, str], HandlerFn] = {
     ("genXML", "gen_xml_nd"): genxml.gen_xml_nd,
     ("genXML", "gen_xml_te"): genxml.gen_xml_te,
     ("genXML", "test"): genxml.test,
+    ("makeJson", "makeJson"): make_json.makeJson,
+    ("makeQR", "makeQR"): make_qr.makeQR,
+    ("sendMail", "sendmail"): send_mail.sendmail,
     ("send", "json"): send.json,
     ("send", "sendMensaje"): send.sendMensaje,
     ("send", "sendTE"): send.sendTE,
+    ("signXML", "signFE"): sign_xml_legacy.signFE,
     ("token", "gettoken"): token.gettoken,
     ("token", "refresh"): token.refresh,
     ("users", "login_auto"): users.login_auto,
@@ -59,6 +81,7 @@ HANDLERS: dict[tuple[str, str], HandlerFn] = {
     ("users", "users_recover_pwd"): users.users_recover_pwd,
     ("users", "users_register"): users.users_register,
     ("users", "users_update_profile"): users.users_update_profile,
+    ("version", "version"): version.version,
 }
 
 

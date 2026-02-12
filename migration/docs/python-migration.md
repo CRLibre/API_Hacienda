@@ -48,7 +48,17 @@
 - `send/sendMensaje`
 - `send/sendTE`
 - `facturador/*` routes (fully dispatched by native Python handlers; tracker state: `python_handler_native_partial_no_parity` for 52/52 routes)
-- `XmlToBase64/callback/check/crlibreall/ejemplo/fileUploader/geoloc/makeJson/makeQR/sendMail/signXML/version/wirez` (Python dispatcher + fallback-proxy mode)
+- `XmlToBase64/encode`
+- `callback/callback`
+- `check/checkxml`
+- `ejemplo/hola|un_usuario`
+- `fileUploader/subir_certif|subir_xml|test`
+- `makeJson/makeJson`
+- `makeQR/makeQR`
+- `sendMail/sendmail`
+- `signXML/signFE`
+- `version/version`
+- `crlibreall/*`, `geoloc/*`, and `wirez/*` remain in fallback-proxy mode
 - `users/login_auto`
 - `users/users_avatar_get`
 - `users/users_avatar_upload`
