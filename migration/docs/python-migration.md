@@ -36,14 +36,14 @@
 - `files/files_view_file`
 - `files/upload`
 - `firmarXML/firmar`
-- `genXML/gen_xml_fe` (legacy PHP bridge mode from Python handler)
-- `genXML/gen_xml_nc` (legacy PHP bridge mode from Python handler)
-- `genXML/gen_xml_nd` (legacy PHP bridge mode from Python handler)
-- `genXML/gen_xml_te` (legacy PHP bridge mode from Python handler)
-- `genXML/gen_xml_mr` (legacy PHP bridge mode from Python handler)
-- `genXML/gen_xml_fec` (legacy PHP bridge mode from Python handler)
-- `genXML/gen_xml_fee` (legacy PHP bridge mode from Python handler)
-- `genXML/test` (legacy PHP bridge mode from Python handler)
+- `genXML/gen_xml_fe` (native Python compatibility XML generator)
+- `genXML/gen_xml_nc` (native Python compatibility XML generator)
+- `genXML/gen_xml_nd` (native Python compatibility XML generator)
+- `genXML/gen_xml_te` (native Python compatibility XML generator)
+- `genXML/gen_xml_mr` (native Python compatibility XML generator)
+- `genXML/gen_xml_fec` (native Python compatibility XML generator)
+- `genXML/gen_xml_fee` (native Python compatibility XML generator)
+- `genXML/test` (native Python compatibility response)
 - `send/json`
 - `send/sendMensaje`
 - `send/sendTE`
@@ -76,10 +76,10 @@
 - `users/users_confirm_session_vilidity`
 
 ## Next implementation steps
-1. Implement `genXML` routes with XSD validation against `./www/xsd`.
-2. Replace `genXML` bridge mode with native Python XML generation + full XSD/signature parity tests.
-3. Build parity fixtures for all `facturador/*` routes and close behavior gaps against legacy PHP.
-4. Replace remaining fallback-proxy modules with native Python handlers and close parity fixtures.
+1. Harden `genXML` compatibility generators to full XML/XSD parity against `./www/xsd`.
+2. Build parity fixtures for all `facturador/*` routes and close behavior gaps against legacy PHP.
+3. Build parity fixtures for `genXML/*`, `wirez/*`, and `geoloc/*` and close remaining behavioral gaps.
+4. Execute route-by-route cutover validation and remove now-unused fallback dependencies.
 
 ## Full migration governance
 - Master plan: `./docs/full-python-migration-plan.md`
