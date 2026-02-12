@@ -18,10 +18,12 @@ def _recepcion_url(client_id: str) -> str | None:
 
 
 def _raw_http_lines(response: httpx.Response) -> list[str]:
+    # Legacy PHP uses `explode("\n", $respuesta)` over cURL raw output.
     version = response.http_version or "1.1"
-    status_line = f"HTTP/{version} {response.status_code} {response.reason_phrase}\r"
-    header_lines = [f"{k}: {v}\r" for k, v in response.headers.items()]
-    return [status_line, *header_lines, "\r", response.text]
+    status_line = f"HTTP/{version} {response.status_code} {response.reason_phrase}"
+    header_blob = "\r\n".join(f"{k}: {v}" for k, v in response.headers.items())
+    raw = f"{status_line}\r\n{header_blob}\r\n\r\n{response.text}"
+    return raw.split("\n")
 
 
 async def _post_to_hacienda(

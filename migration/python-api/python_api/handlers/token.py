@@ -58,23 +58,26 @@ def _payload_for_grant(params: dict[str, str]) -> tuple[dict[str, str] | None, s
 
 
 async def _token_call(params: dict[str, str]) -> JSONResponse:
-    client_id = str(params.get("client_id", ""))
-    url = _token_url(client_id)
-    if not url:
-        return tools_reply_compatible(None)
-
     payload, validation_error = _payload_for_grant(params)
     if validation_error:
         return tools_reply_compatible(validation_error)
     if payload is None:
         payload = {}
 
+    client_id = str(params.get("client_id", ""))
+    url = _token_url(client_id)
+    if not url:
+        # Keep compatibility with legacy behavior: unknown client_id ends as null response.
+        return tools_reply_compatible(None)
+
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
     try:
         async with httpx.AsyncClient(timeout=30, verify=False) as client:
             response = await client.post(url, headers=headers, data=payload)
     except Exception as exc:
-        return tools_reply_compatible({"Status": 0, "text": str(exc)})
+        _ = exc
+        # Legacy module effectively collapses cURL failures into null.
+        return tools_reply_compatible(None)
 
     try:
         data = response.json()
@@ -89,4 +92,3 @@ async def gettoken(_: Request, params: dict[str, str]) -> JSONResponse:
 
 async def refresh(_: Request, params: dict[str, str]) -> JSONResponse:
     return await _token_call(params)
-
