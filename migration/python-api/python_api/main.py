@@ -6,13 +6,13 @@ import uuid
 from inspect import isawaitable
 
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 
 from python_api.compat import envelope_error, envelope_ok, parse_legacy_params
 from python_api.config import get_settings
 from python_api.contract import apply_defaults_and_validate
 from python_api.fallback import FallbackProxy
-from python_api.handlers import get_handler
+from python_api.handlers import get_handler, module_exists, should_skip_local_validation
 from python_api.logging_config import configure_logging
 from python_api.responses import tools_reply_compatible
 
@@ -59,9 +59,7 @@ async def healthz():
 
 @app.get("/readyz")
 async def readyz():
-    if not settings.php_fallback_url:
-        return JSONResponse(status_code=503, content={"status": "error", "reason": "fallback_not_set"})
-    return {"status": "ok"}
+    return {"status": "ok", "fallback_enabled": bool(settings.php_fallback_url)}
 
 
 @app.api_route("/api.php", methods=["GET", "POST", "PUT"])
@@ -74,13 +72,34 @@ async def api_php_compat(request: Request):
     if parsed.source == "invalid_json":
         return envelope_error("La informacion json enviada contiene errores.", status_code=400)
 
+    def _legacy_json_parse_error() -> Response:
+        return Response(content="La informacion json enviada contiene errores.", status_code=200, media_type="text/html")
+
     if not w or not r:
+        if not settings.php_fallback_url:
+            if not w:
+                return _legacy_json_parse_error()
+            return tools_reply_compatible("Function not found")
         try:
             return await fallback_proxy.proxy(request, parsed)
         except Exception as exc:  # pragma: no cover
             logger.exception(
                 "fallback_proxy_failed_missing_dispatch",
                 extra={"request_id": getattr(request.state, "request_id", None)},
+            )
+            return envelope_error(f"Fallback proxy failed: {exc}", status_code=502)
+
+    if should_skip_local_validation(w, r):
+        if not settings.php_fallback_url:
+            if module_exists(w):
+                return tools_reply_compatible("Function not found")
+            return tools_reply_compatible("Module not found")
+        try:
+            return await fallback_proxy.proxy(request, parsed)
+        except Exception as exc:  # pragma: no cover
+            logger.exception(
+                "fallback_proxy_failed_validation_bypass",
+                extra={"request_id": getattr(request.state, "request_id", None), "w": w, "r": r},
             )
             return envelope_error(f"Fallback proxy failed: {exc}", status_code=502)
 
@@ -102,6 +121,11 @@ async def api_php_compat(request: Request):
             )
             return envelope_error(f"Python handler failed: {exc}", status_code=500)
 
+    if not settings.php_fallback_url:
+        if module_exists(w):
+            return tools_reply_compatible("Function not found")
+        return tools_reply_compatible("Module not found")
+
     try:
         return await fallback_proxy.proxy(request, parsed)
     except Exception as exc:  # pragma: no cover
@@ -114,10 +138,11 @@ async def api_php_compat(request: Request):
 
 @app.get("/")
 async def root():
+    mode = "hybrid" if settings.php_fallback_url else "native"
     return envelope_ok(
         {
             "service": "api-hacienda-compat",
-            "mode": "hybrid",
+            "mode": mode,
             "docs": "/docs",
             "healthz": "/healthz",
             "readyz": "/readyz",

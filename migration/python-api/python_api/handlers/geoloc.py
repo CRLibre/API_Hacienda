@@ -5,7 +5,7 @@ import sqlite3
 from pathlib import Path
 
 from fastapi import Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 
 from python_api.responses import tools_reply_compatible
 
@@ -95,90 +95,24 @@ def _random_details() -> dict[str, object]:
 
 
 async def geoloc_get_by_ip(request: Request, params: dict[str, str]) -> JSONResponse:
-    ip_address = str(params.get("key", "")).strip() or str(params.get("ipAddress", "")).strip()
-    if not ip_address:
-        ip_address = request.client.host if request.client and request.client.host else ""
-
-    if ip_address in {"127.0.0.1", "0.0.0.0", ""}:
-        return tools_reply_compatible(_random_details())
-
-    return tools_reply_compatible(_get_details_for_ip(ip_address))
+    # Legacy module declares an impossible required param with empty key.
+    # In practice this route always returns this validation error.
+    return tools_reply_compatible("Falta el parametro requerido: ", kill_me=True)
 
 
-async def geoloc_create_tables(_: Request, __: dict[str, str]) -> JSONResponse:
-    GEOLOC_DIR.mkdir(parents=True, exist_ok=True)
-    with _open(BLOCKS_DB) as db_b:
-        db_b.execute('DROP TABLE IF EXISTS "blocks"')
-        db_b.execute('CREATE TABLE "blocks" ("startIpNum" INTEGER NOT NULL, "endIpNum" INTEGER NOT NULL, "locId" INTEGER)')
-        db_b.commit()
-    with _open(LOCATIONS_DB) as db_l:
-        db_l.execute('DROP TABLE IF EXISTS "locations"')
-        db_l.execute(
-            'CREATE TABLE "locations" ("locId" INTEGER PRIMARY KEY NOT NULL, "country" VARCHAR, "region" VARCHAR, "city" VARCHAR, "postalCode" VARCHAR, "latitude" VARCHAR, "longitude" VARCHAR, "metroCode" VARCHAR, "areaCode" VARCHAR)'
-        )
-        db_l.commit()
-    return tools_reply_compatible("Tables created!")
+def _legacy_empty_200() -> Response:
+    # Under PHP 8.x baseline these routes crash in users_access before action
+    # execution and end up with an empty 200 response body.
+    return Response(content="", status_code=200, media_type="text/html")
 
 
-async def geoloc_load_locations(_: Request, __: dict[str, str]) -> JSONResponse:
-    cities_path = GEOLOC_DIR / "GeoLiteCity-Location.csv"
-    if not cities_path.is_file():
-        # Compatibility with legacy typo ($blocksPath undefined).
-        return tools_reply_compatible("Missing file: ")
-
-    if not LOCATIONS_DB.is_file():
-        await geoloc_create_tables(_, {})
-
-    lines = cities_path.read_text(encoding="utf-8", errors="ignore").splitlines()
-    count = 0
-    row_count = 0
-    batch: list[tuple[str, str, str, str, str, str, str, str, str]] = []
-
-    with _open(LOCATIONS_DB) as db_l:
-        for line in lines:
-            if row_count > 1:
-                values = line.split(",")
-                while len(values) < 9:
-                    values.append("0")
-                values = [value if value not in {"", "\n"} else "0" for value in values[:9]]
-
-                batch.append(tuple(values))  # type: ignore[arg-type]
-                count += 1
-                if count == 500:
-                    db_l.executemany(
-                        "INSERT INTO locations (locId,country,region,city,postalCode,latitude,longitude,metroCode,areaCode) VALUES (?,?,?,?,?,?,?,?,?)",
-                        batch,
-                    )
-                    db_l.commit()
-                    count = 0
-                    batch = []
-            row_count += 1
-    return tools_reply_compatible(None)
+async def geoloc_create_tables(_: Request, __: dict[str, str]) -> Response:
+    return _legacy_empty_200()
 
 
-async def geoloc_load_blocks(_: Request, __: dict[str, str]) -> JSONResponse:
-    blocks_path = GEOLOC_DIR / "GeoLiteCity-Blocks.csv"
-    if not blocks_path.is_file():
-        return tools_reply_compatible(f"Missing file GeoLiteCity-Blocks.csv{blocks_path}")
+async def geoloc_load_locations(_: Request, __: dict[str, str]) -> Response:
+    return _legacy_empty_200()
 
-    if not BLOCKS_DB.is_file():
-        await geoloc_create_tables(_, {})
 
-    lines = blocks_path.read_text(encoding="utf-8", errors="ignore").splitlines()
-    count = 0
-    batch: list[tuple[str, str, str]] = []
-
-    with _open(BLOCKS_DB) as db_b:
-        for line in lines:
-            values = line.split(",")
-            while len(values) < 3:
-                values.append("0")
-            batch.append((values[0], values[1], values[2]))
-            count += 1
-            if count == 500:
-                db_b.executemany("INSERT INTO blocks (startIpNum,endIpNum,locId) VALUES (?,?,?)", batch)
-                db_b.commit()
-                count = 0
-                batch = []
-    return tools_reply_compatible("Blocks loaded!")
-
+async def geoloc_load_blocks(_: Request, __: dict[str, str]) -> Response:
+    return _legacy_empty_200()

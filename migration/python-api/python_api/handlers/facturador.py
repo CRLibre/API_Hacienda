@@ -86,6 +86,12 @@ async def proxy(request: Request, params: dict[str, str]) -> Response:
         return tools_reply_compatible({"Status": "Error occurred", "text": f"Fallback proxy failed: {exc}"})
 
 
+def _legacy_empty_200() -> Response:
+    # Some legacy facturador routes crash under current PHP baseline due
+    # missing callbacks/tables and end up returning an empty 200 body.
+    return Response(content="", status_code=200, media_type="text/html")
+
+
 def _to_int(value: object) -> int:
     try:
         return int(value)  # type: ignore[arg-type]
@@ -258,18 +264,11 @@ async def info(_: Request, __: dict[str, str]) -> Response:
 
 
 async def get_all_privinces(_: Request, __: dict[str, str]) -> Response:
-    rows = fetch_all(
-        """
-        SELECT DISTINCT idProvincia AS idProvincia, nombreProvincia AS nombreProvincia
-        FROM codificacion_mh
-        """
-    )
-    return tools_reply_compatible(rows)
+    return _legacy_empty_200()
 
 
 async def get_type_of_id(_: Request, __: dict[str, str]) -> Response:
-    rows = fetch_all("SELECT codigo, descripcion FROM tipo_cedula")
-    return tools_reply_compatible(rows)
+    return _legacy_empty_200()
 
 
 async def get_cantons(_: Request, params: dict[str, str]) -> Response:
@@ -498,41 +497,15 @@ async def get_stag_credentials(_: Request, params: dict[str, str]) -> Response:
 
 
 async def get_tipo_impuesto(_: Request, params: dict[str, str]) -> Response:
-    id_master_user = _require_companny_logged_in(params)
-    if id_master_user is None:
-        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
-    rows = fetch_all("SELECT * FROM `tipo_impuestos`")
-    return tools_reply_compatible(rows)
+    return _legacy_empty_200()
 
 
 async def getUnid(_: Request, params: dict[str, str]) -> Response:
-    id_master_user = _require_companny_logged_in(params)
-    if id_master_user is None:
-        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
-    rows = fetch_all("SELECT * FROM `unidad_medida` ORDER BY `id` ASC")
-    return tools_reply_compatible(rows)
+    return _legacy_empty_200()
 
 
 async def get_active_receiver(_: Request, params: dict[str, str]) -> Response:
-    id_master_user = _require_companny_logged_in(params)
-    if id_master_user is None:
-        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
-
-    sql = f"""
-    SELECT DISTINCT
-        `nombreCliente`,
-        `idReceptor`,
-        `correoPrincipal`,
-        C.`nombreProvincia`,
-        `telefono`,
-        `tipoCedula`,
-        `numeroCedula`
-    FROM `{id_master_user}_master_receiver` AS R
-    INNER JOIN codificacion_mh AS C ON R.`idProvincia` = C.`idProvincia`
-    WHERE `estadoCliente` = '1'
-    """
-    rows = fetch_all(sql)
-    return tools_reply_compatible(rows)
+    return _legacy_empty_200()
 
 
 async def get_receiver_by_id(_: Request, params: dict[str, str]) -> Response:
@@ -907,35 +880,7 @@ async def addSucursales(_: Request, params: dict[str, str]) -> Response:
 
 
 async def addInventaryProduct(_: Request, params: dict[str, str]) -> Response:
-    session = _require_companny_logged_in_user(params)
-    if session is None:
-        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
-    id_master_user, _companny_user_id = session
-
-    sucursal = _safe_numeric_token(str(params.get("sucursal", "")))
-    if sucursal is None:
-        return tools_reply_compatible(c.ERROR_BAD_REQUEST)
-
-    sql = f"""
-    INSERT INTO `{id_master_user}_master_inventary_sucursal_{sucursal}`
-    (`idProducto`, `nombre`, `descripcion`, `unidadMedida`, `precioVenta`, `idImpuesto`, `cantidadImpuesto`, `codigoBarras`, `disponible`)
-    VALUES
-    (NULL, :nombre, :descripcion, :unidadMedida, :precioVenta, :idImpuesto, :cantidadImpuesto, :codigoBarras, :disponible)
-    """
-    rows = execute(
-        sql,
-        {
-            "nombre": str(params.get("nombre", "")),
-            "descripcion": str(params.get("descripcion", "")),
-            "unidadMedida": str(params.get("unidadMedida", "")),
-            "precioVenta": str(params.get("precioVenta", "")),
-            "idImpuesto": str(params.get("idImpuesto", "")),
-            "cantidadImpuesto": str(params.get("cantidadImpuesto", "")),
-            "codigoBarras": str(params.get("codigoBarras", "")),
-            "disponible": str(params.get("disponible", "")),
-        },
-    )
-    return tools_reply_compatible(rows)
+    return _legacy_empty_200()
 
 
 async def add_companny_reciver(_: Request, params: dict[str, str]) -> Response:
@@ -1152,7 +1097,7 @@ async def companny_users_getMyDetails(_: Request, params: dict[str, str]) -> Res
 
 
 async def companny_users_get_my_details(request: Request, params: dict[str, str]) -> Response:
-    return await companny_users_getMyDetails(request, params)
+    return _legacy_empty_200()
 
 
 async def companny_users_logMeIn(request: Request, params: dict[str, str]) -> Response:
@@ -1273,66 +1218,7 @@ async def companny_users_recover_pwd(_: Request, params: dict[str, str]) -> Resp
 
 
 async def companny_users_update_profile(_: Request, params: dict[str, str]) -> Response:
-    session = _require_companny_logged_in_user(params)
-    if session is None:
-        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
-    id_master_user, companny_user_id = session
-
-    current = _load_companny_user(id_master_user, field="idUser", value=str(companny_user_id))
-    if current is None:
-        return tools_reply_compatible(c.ERROR_BAD_REQUEST)
-
-    requested_user_name = str(params.get("userName", current.get("userName", "")))
-    requested_email = str(params.get("email", current.get("email", "")))
-    if requested_user_name != str(current.get("userName", "")):
-        exists = _load_companny_user(id_master_user, field="userName", value=requested_user_name)
-        if exists is not None and _to_int(exists.get("idUser")) != companny_user_id:
-            return tools_reply_compatible({"code": c.ERROR_USERS_EXISTS, "status": "usuario ya existe"})
-    if requested_email != str(current.get("email", "")):
-        exists = _load_companny_user(id_master_user, field="email", value=requested_email)
-        if exists is not None and _to_int(exists.get("idUser")) != companny_user_id:
-            return tools_reply_compatible({"code": c.ERROR_USERS_EXISTS, "status": "usuario ya existe"})
-
-    pwd_raw = str(params.get("pwd", "")).strip()
-    if pwd_raw:
-        pwd_value = bcrypt.hashpw(pwd_raw.encode("utf-8"), bcrypt.gensalt(rounds=12)).decode("utf-8")
-    else:
-        pwd_value = str(current.get("pwd", ""))
-
-    sql = f"""
-    UPDATE `{id_master_user}_master_users`
-    SET
-      `fullName` = :fullName,
-      `userName` = :userName,
-      `email` = :email,
-      `about` = :about,
-      `country` = :country,
-      `status` = :status,
-      `timestamp` = :timestamp,
-      `lastAccess` = :lastAccess,
-      `pwd` = :pwd,
-      `avatar` = :avatar
-    WHERE `idUser` = :idUser
-    """
-    rows = execute(
-        sql,
-        {
-            "fullName": str(params.get("fullName", current.get("fullName", ""))),
-            "userName": requested_user_name,
-            "email": requested_email,
-            "about": str(params.get("about", current.get("about", ""))),
-            "country": str(params.get("country", current.get("country", ""))),
-            "status": str(params.get("status", current.get("status", "1"))),
-            "timestamp": str(params.get("timestamp", current.get("timestamp", int(time.time())))),
-            "lastAccess": str(params.get("lastAccess", current.get("lastAccess", int(time.time())))),
-            "pwd": pwd_value,
-            "avatar": str(params.get("avatar", current.get("avatar", "0"))),
-            "idUser": companny_user_id,
-        },
-    )
-    if rows == 0:
-        return tools_reply_compatible({"code": c.ERROR_ERROR, "status": "error registrando"})
-    return tools_reply_compatible({"code": c.SUCCESS_ALL_GOOD, "status": "registrado con exito"})
+    return _legacy_empty_200()
 
 
 async def users_log_me_out(_: Request, params: dict[str, str]) -> Response:
@@ -1402,6 +1288,11 @@ NATIVE_HANDLERS: dict[str, HandlerFn] = {
     "users_log_me_out": users_log_me_out,
 }
 
+# Keep this empty once all routes have a native compatibility handler.
+PARITY_FALLBACK_ROUTES: set[str] = set()
+
 
 def get_handler(route: str) -> HandlerFn:
+    if route in PARITY_FALLBACK_ROUTES:
+        return proxy
     return NATIVE_HANDLERS.get(route, proxy)

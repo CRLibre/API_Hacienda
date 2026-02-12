@@ -111,5 +111,23 @@ def get_handler(w: str, r: str) -> HandlerFn | None:
     return None
 
 
+def should_skip_local_validation(w: str, r: str) -> bool:
+    handler = HANDLERS.get((w, r))
+    if handler is proxy_modules.proxy:
+        return True
+    if w == "facturador" and r in facturador.PARITY_FALLBACK_ROUTES:
+        return True
+    return False
+
+
 def is_implemented(w: str, r: str) -> bool:
     return (w, r) in HANDLERS or (w == "facturador" and r in facturador.ROUTES) or proxy_modules.supports(w, r)
+
+
+def module_exists(w: str) -> bool:
+    if w == "facturador":
+        return True
+    for module_name, _route in HANDLERS:
+        if module_name == w:
+            return True
+    return False
