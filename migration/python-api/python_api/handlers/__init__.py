@@ -16,6 +16,7 @@ from . import files
 from . import facturador
 from . import file_uploader
 from . import firmar_xml
+from . import geoloc
 from . import genxml
 from . import make_json
 from . import make_qr
@@ -26,6 +27,7 @@ from . import sign_xml_legacy
 from . import token
 from . import users
 from . import version
+from . import wirez
 from . import xml_to_base64
 
 HandlerFn = Callable[[Request, dict[str, str]], Awaitable[Response] | Response]
@@ -51,6 +53,10 @@ HANDLERS: dict[tuple[str, str], HandlerFn] = {
     ("files", "files_view_file"): files.files_view_file,
     ("files", "upload"): files.upload,
     ("firmarXML", "firmar"): firmar_xml.firmar,
+    ("geoloc", "geoloc_create_tables"): geoloc.geoloc_create_tables,
+    ("geoloc", "geoloc_get_by_ip"): geoloc.geoloc_get_by_ip,
+    ("geoloc", "geoloc_load_blocks"): geoloc.geoloc_load_blocks,
+    ("geoloc", "geoloc_load_locations"): geoloc.geoloc_load_locations,
     ("genXML", "gen_xml_fe"): genxml.gen_xml_fe,
     ("genXML", "gen_xml_fec"): genxml.gen_xml_fec,
     ("genXML", "gen_xml_fee"): genxml.gen_xml_fee,
@@ -82,6 +88,10 @@ HANDLERS: dict[tuple[str, str], HandlerFn] = {
     ("users", "users_register"): users.users_register,
     ("users", "users_update_profile"): users.users_update_profile,
     ("version", "version"): version.version,
+    ("wirez", "conversations_get_details"): wirez.conversations_get_details,
+    ("wirez", "messages_get_in_conversation"): wirez.messages_get_in_conversation,
+    ("wirez", "messages_get_recent"): wirez.messages_get_recent,
+    ("wirez", "messages_send"): wirez.messages_send,
 }
 
 

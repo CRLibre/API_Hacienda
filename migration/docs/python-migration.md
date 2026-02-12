@@ -58,7 +58,9 @@
 - `sendMail/sendmail`
 - `signXML/signFE`
 - `version/version`
-- `crlibreall/*`, `geoloc/*`, and `wirez/*` remain in fallback-proxy mode
+- `geoloc/geoloc_create_tables|geoloc_get_by_ip|geoloc_load_blocks|geoloc_load_locations`
+- `wirez/conversations_get_details|messages_get_in_conversation|messages_get_recent|messages_send`
+- `crlibreall/*` remains in fallback-proxy mode
 - `users/login_auto`
 - `users/users_avatar_get`
 - `users/users_avatar_upload`
