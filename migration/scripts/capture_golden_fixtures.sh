@@ -7,6 +7,8 @@ ROOT_DIR="${1:-${MIGRATION_ROOT}}"
 FIXTURE_DIR="${ROOT_DIR}/tests/fixtures/parity"
 MANIFEST="${FIXTURE_DIR}/manifest.json"
 API_BASE_URL="${API_BASE_URL:-http://127.0.0.1:8080}"
+W_FILTER="${2:-${W_FILTER:-}}"
+R_FILTER="${3:-${R_FILTER:-}}"
 
 if [[ ! -f "${MANIFEST}" ]]; then
   echo "Manifest not found: ${MANIFEST}" >&2
@@ -63,6 +65,16 @@ capture_one() {
 }
 
 jq -c '.[]' "${MANIFEST}" | while IFS= read -r route; do
+  w="$(jq -r '.w' <<< "${route}")"
+  r="$(jq -r '.r' <<< "${route}")"
+
+  if [[ -n "${W_FILTER}" && "${w}" != "${W_FILTER}" ]]; then
+    continue
+  fi
+  if [[ -n "${R_FILTER}" && "${r}" != "${R_FILTER}" ]]; then
+    continue
+  fi
+
   for scenario in success validation_error auth_error malformed; do
     request_file="$(jq -r ".scenarios.${scenario}.request" <<< "${route}")"
     response_file="$(jq -r ".scenarios.${scenario}.response" <<< "${route}")"

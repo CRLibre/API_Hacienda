@@ -5,10 +5,12 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 MIGRATION_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 ROOT_DIR="${1:-${MIGRATION_ROOT}}"
 FIXTURE_DIR="${ROOT_DIR}/tests/fixtures/parity"
+ROUTES_FILE="${ROOT_DIR}/python-api/python_api/data/routes.tsv"
+SCOPE="${SCOPE:-all}"
 
 mkdir -p "${FIXTURE_DIR}"
 
-routes=(
+phase1_routes=(
   "users:users_register"
   "users:users_get_list"
   "users:users_log_me_in"
@@ -39,6 +41,29 @@ routes=(
   "send:sendTE"
   "consultar:consultarCom"
 )
+
+routes=()
+if [[ "${SCOPE}" == "phase1" ]]; then
+  routes=("${phase1_routes[@]}")
+else
+  if [[ ! -f "${ROUTES_FILE}" ]]; then
+    echo "Routes file not found: ${ROUTES_FILE}" >&2
+    exit 1
+  fi
+
+  seen_routes=""
+  while IFS=$'\t' read -r w r _module_file; do
+    if [[ "${w}" == "w" || -z "${w}" || -z "${r}" ]]; then
+      continue
+    fi
+    key="${w}:${r}"
+    if printf '%s\n' "${seen_routes}" | grep -Fxq "${key}"; then
+      continue
+    fi
+    seen_routes+="${key}"$'\n'
+    routes+=("${key}")
+  done < "${ROUTES_FILE}"
+fi
 
 manifest='[]'
 
