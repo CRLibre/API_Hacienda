@@ -1,0 +1,9 @@
+{
+  "method": "POST",
+  "path": "/api.php",
+  "params": {
+    "w": "users",
+    "r": "users_personal_bg_upload"
+  },
+  "notes": "Fill route-specific fields before capture."
+}

@@ -1,0 +1,640 @@
+[
+  {
+    "w": "users",
+    "r": "users_register",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/users_register/success.request.json",
+        "response": "./tests/fixtures/parity/users/users_register/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/users_register/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_register/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/users_register/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_register/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/users_register/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/users_register/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "users",
+    "r": "users_get_list",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/users_get_list/success.request.json",
+        "response": "./tests/fixtures/parity/users/users_get_list/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/users_get_list/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_get_list/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/users_get_list/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_get_list/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/users_get_list/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/users_get_list/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "users",
+    "r": "users_log_me_in",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/users_log_me_in/success.request.json",
+        "response": "./tests/fixtures/parity/users/users_log_me_in/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/users_log_me_in/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_log_me_in/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/users_log_me_in/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_log_me_in/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/users_log_me_in/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/users_log_me_in/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "users",
+    "r": "users_log_me_out",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/users_log_me_out/success.request.json",
+        "response": "./tests/fixtures/parity/users/users_log_me_out/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/users_log_me_out/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_log_me_out/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/users_log_me_out/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_log_me_out/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/users_log_me_out/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/users_log_me_out/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "users",
+    "r": "users_avatar_get",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/users_avatar_get/success.request.json",
+        "response": "./tests/fixtures/parity/users/users_avatar_get/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/users_avatar_get/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_avatar_get/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/users_avatar_get/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_avatar_get/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/users_avatar_get/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/users_avatar_get/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "users",
+    "r": "users_avatar_upload",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/users_avatar_upload/success.request.json",
+        "response": "./tests/fixtures/parity/users/users_avatar_upload/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/users_avatar_upload/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_avatar_upload/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/users_avatar_upload/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_avatar_upload/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/users_avatar_upload/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/users_avatar_upload/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "users",
+    "r": "users_get_my_details",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/users_get_my_details/success.request.json",
+        "response": "./tests/fixtures/parity/users/users_get_my_details/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/users_get_my_details/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_get_my_details/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/users_get_my_details/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_get_my_details/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/users_get_my_details/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/users_get_my_details/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "users",
+    "r": "users_recover_pwd",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/users_recover_pwd/success.request.json",
+        "response": "./tests/fixtures/parity/users/users_recover_pwd/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/users_recover_pwd/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_recover_pwd/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/users_recover_pwd/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_recover_pwd/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/users_recover_pwd/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/users_recover_pwd/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "users",
+    "r": "users_update_profile",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/users_update_profile/success.request.json",
+        "response": "./tests/fixtures/parity/users/users_update_profile/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/users_update_profile/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_update_profile/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/users_update_profile/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_update_profile/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/users_update_profile/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/users_update_profile/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "users",
+    "r": "users_personal_bg_upload",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/users_personal_bg_upload/success.request.json",
+        "response": "./tests/fixtures/parity/users/users_personal_bg_upload/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/users_personal_bg_upload/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_personal_bg_upload/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/users_personal_bg_upload/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_personal_bg_upload/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/users_personal_bg_upload/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/users_personal_bg_upload/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "users",
+    "r": "users_personal_bg_get",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/users_personal_bg_get/success.request.json",
+        "response": "./tests/fixtures/parity/users/users_personal_bg_get/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/users_personal_bg_get/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_personal_bg_get/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/users_personal_bg_get/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_personal_bg_get/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/users_personal_bg_get/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/users_personal_bg_get/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "users",
+    "r": "login_auto",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/login_auto/success.request.json",
+        "response": "./tests/fixtures/parity/users/login_auto/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/login_auto/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/login_auto/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/login_auto/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/login_auto/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/login_auto/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/login_auto/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "users",
+    "r": "users_confirm_session_vilidity",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/users/users_confirm_session_vilidity/success.request.json",
+        "response": "./tests/fixtures/parity/users/users_confirm_session_vilidity/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/users/users_confirm_session_vilidity/validation_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_confirm_session_vilidity/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/users/users_confirm_session_vilidity/auth_error.request.json",
+        "response": "./tests/fixtures/parity/users/users_confirm_session_vilidity/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/users/users_confirm_session_vilidity/malformed.request.json",
+        "response": "./tests/fixtures/parity/users/users_confirm_session_vilidity/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "clave",
+    "r": "clave",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/clave/clave/success.request.json",
+        "response": "./tests/fixtures/parity/clave/clave/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/clave/clave/validation_error.request.json",
+        "response": "./tests/fixtures/parity/clave/clave/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/clave/clave/auth_error.request.json",
+        "response": "./tests/fixtures/parity/clave/clave/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/clave/clave/malformed.request.json",
+        "response": "./tests/fixtures/parity/clave/clave/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "genXML",
+    "r": "gen_xml_mr",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_mr/success.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_mr/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_mr/validation_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_mr/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_mr/auth_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_mr/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_mr/malformed.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_mr/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "genXML",
+    "r": "gen_xml_fe",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_fe/success.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_fe/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_fe/validation_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_fe/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_fe/auth_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_fe/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_fe/malformed.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_fe/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "genXML",
+    "r": "gen_xml_nc",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_nc/success.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_nc/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_nc/validation_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_nc/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_nc/auth_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_nc/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_nc/malformed.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_nc/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "genXML",
+    "r": "gen_xml_nd",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_nd/success.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_nd/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_nd/validation_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_nd/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_nd/auth_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_nd/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_nd/malformed.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_nd/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "genXML",
+    "r": "gen_xml_te",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_te/success.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_te/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_te/validation_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_te/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_te/auth_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_te/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_te/malformed.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_te/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "genXML",
+    "r": "gen_xml_fec",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_fec/success.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_fec/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_fec/validation_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_fec/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_fec/auth_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_fec/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_fec/malformed.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_fec/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "genXML",
+    "r": "gen_xml_fee",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_fee/success.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_fee/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_fee/validation_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_fee/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_fee/auth_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_fee/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/genXML/gen_xml_fee/malformed.request.json",
+        "response": "./tests/fixtures/parity/genXML/gen_xml_fee/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "genXML",
+    "r": "test",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/genXML/test/success.request.json",
+        "response": "./tests/fixtures/parity/genXML/test/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/genXML/test/validation_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/test/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/genXML/test/auth_error.request.json",
+        "response": "./tests/fixtures/parity/genXML/test/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/genXML/test/malformed.request.json",
+        "response": "./tests/fixtures/parity/genXML/test/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "firmarXML",
+    "r": "firmar",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/firmarXML/firmar/success.request.json",
+        "response": "./tests/fixtures/parity/firmarXML/firmar/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/firmarXML/firmar/validation_error.request.json",
+        "response": "./tests/fixtures/parity/firmarXML/firmar/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/firmarXML/firmar/auth_error.request.json",
+        "response": "./tests/fixtures/parity/firmarXML/firmar/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/firmarXML/firmar/malformed.request.json",
+        "response": "./tests/fixtures/parity/firmarXML/firmar/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "token",
+    "r": "gettoken",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/token/gettoken/success.request.json",
+        "response": "./tests/fixtures/parity/token/gettoken/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/token/gettoken/validation_error.request.json",
+        "response": "./tests/fixtures/parity/token/gettoken/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/token/gettoken/auth_error.request.json",
+        "response": "./tests/fixtures/parity/token/gettoken/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/token/gettoken/malformed.request.json",
+        "response": "./tests/fixtures/parity/token/gettoken/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "token",
+    "r": "refresh",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/token/refresh/success.request.json",
+        "response": "./tests/fixtures/parity/token/refresh/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/token/refresh/validation_error.request.json",
+        "response": "./tests/fixtures/parity/token/refresh/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/token/refresh/auth_error.request.json",
+        "response": "./tests/fixtures/parity/token/refresh/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/token/refresh/malformed.request.json",
+        "response": "./tests/fixtures/parity/token/refresh/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "send",
+    "r": "json",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/send/json/success.request.json",
+        "response": "./tests/fixtures/parity/send/json/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/send/json/validation_error.request.json",
+        "response": "./tests/fixtures/parity/send/json/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/send/json/auth_error.request.json",
+        "response": "./tests/fixtures/parity/send/json/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/send/json/malformed.request.json",
+        "response": "./tests/fixtures/parity/send/json/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "send",
+    "r": "sendMensaje",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/send/sendMensaje/success.request.json",
+        "response": "./tests/fixtures/parity/send/sendMensaje/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/send/sendMensaje/validation_error.request.json",
+        "response": "./tests/fixtures/parity/send/sendMensaje/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/send/sendMensaje/auth_error.request.json",
+        "response": "./tests/fixtures/parity/send/sendMensaje/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/send/sendMensaje/malformed.request.json",
+        "response": "./tests/fixtures/parity/send/sendMensaje/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "send",
+    "r": "sendTE",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/send/sendTE/success.request.json",
+        "response": "./tests/fixtures/parity/send/sendTE/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/send/sendTE/validation_error.request.json",
+        "response": "./tests/fixtures/parity/send/sendTE/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/send/sendTE/auth_error.request.json",
+        "response": "./tests/fixtures/parity/send/sendTE/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/send/sendTE/malformed.request.json",
+        "response": "./tests/fixtures/parity/send/sendTE/malformed.response.json"
+      }
+    }
+  },
+  {
+    "w": "consultar",
+    "r": "consultarCom",
+    "scenarios": {
+      "success": {
+        "request": "./tests/fixtures/parity/consultar/consultarCom/success.request.json",
+        "response": "./tests/fixtures/parity/consultar/consultarCom/success.response.json"
+      },
+      "validation_error": {
+        "request": "./tests/fixtures/parity/consultar/consultarCom/validation_error.request.json",
+        "response": "./tests/fixtures/parity/consultar/consultarCom/validation_error.response.json"
+      },
+      "auth_error": {
+        "request": "./tests/fixtures/parity/consultar/consultarCom/auth_error.request.json",
+        "response": "./tests/fixtures/parity/consultar/consultarCom/auth_error.response.json"
+      },
+      "malformed": {
+        "request": "./tests/fixtures/parity/consultar/consultarCom/malformed.request.json",
+        "response": "./tests/fixtures/parity/consultar/consultarCom/malformed.response.json"
+      }
+    }
+  }
+]
