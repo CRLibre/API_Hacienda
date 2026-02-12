@@ -47,7 +47,7 @@
 - `send/json`
 - `send/sendMensaje`
 - `send/sendTE`
-- `facturador/*` routes (Python dispatcher + mixed mode: native partial for catalog/log/config/inventory/company-read routes, fallback-proxy for the rest)
+- `facturador/*` routes (fully dispatched by native Python handlers; tracker state: `python_handler_native_partial_no_parity` for 52/52 routes)
 - `XmlToBase64/callback/check/crlibreall/ejemplo/fileUploader/geoloc/makeJson/makeQR/sendMail/signXML/version/wirez` (Python dispatcher + fallback-proxy mode)
 - `users/login_auto`
 - `users/users_avatar_get`
@@ -66,7 +66,7 @@
 ## Next implementation steps
 1. Implement `genXML` routes with XSD validation against `./www/xsd`.
 2. Replace `genXML` bridge mode with native Python XML generation + full XSD/signature parity tests.
-3. Replace `facturador/*` fallback-proxy mode with native Python handlers (module-by-module).
+3. Build parity fixtures for all `facturador/*` routes and close behavior gaps against legacy PHP.
 4. Replace remaining fallback-proxy modules with native Python handlers and close parity fixtures.
 
 ## Full migration governance
