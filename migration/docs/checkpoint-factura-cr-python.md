@@ -3,12 +3,13 @@
 Fecha: 2026-02-12
 
 ## Estado ejecutivo
-- Total rutas: 115.
-- `status=completed`: 115/115.
-- `parity_status=passed`: 115/115.
-- `cutover_status=cutover`: 115/115.
+- Rutas unicas totales: 115 (`114` legacy + `1` aditiva V4.4: `genXML/gen_xml_rep`).
+- Filas en tracker: 116 (incluye clave duplicada legacy `facturador/company_get_env` por compatibilidad de parametro legacy).
+- `status=completed`: 116/116.
+- `parity_status=passed`: 115/116 + `python_only_v44_captured`: 1/116.
+- `cutover_status=cutover`: 116/116.
 - W1 (`W1_CORE`): 38/38 en `status=completed` y `cutover`.
-- Verificacion global live (PHP vs Python): `460/460` escenarios y `114/114` rutas unicas en paridad.
+- Verificacion global live (PHP vs Python, alcance legacy): `460/460` escenarios y `114/114` rutas unicas en paridad.
 - Rutas con fallback/proxy activo en runtime Python: `0`.
 
 ## Que ya esta listo
@@ -18,12 +19,12 @@ Fecha: 2026-02-12
 - Tracker unificado. Fuente unica: `migration/docs/contracts/migration-tracker.tsv`.
 - Sincronizacion al runtime Python con `migration/scripts/sync_python_route_data.sh`.
 - Paridad real completada para todo el contrato actual (incluyendo `facturador` y rutas de soporte).
+- Gate de retiro aprobado localmente: `migration/scripts/native_go_no_go.py` retorna `GO`.
 
-## Lo que falta para que Factura Electronica CR quede bien en Python
-- Endurecer operacion post-cutover: monitoreo, alertas y SLOs por ruta.
-- Plan de retiro controlado del baseline PHP una vez validado el periodo de estabilidad.
-- Ejecucion del runbook de retiro: `migration/docs/php-decommission-runbook.md`.
-- Validacion automatizada GO/NO-GO: `migration/scripts/native_go_no_go.py`.
+## Lo que falta para apagar PHP
+- Correr `native_go_no_go.py` con `--candidate-url` en el ambiente objetivo (staging/prod) para validacion live.
+- Ejecutar corte a modo nativo (fallback apagado) y mantener ventana de observacion con SLOs/errores.
+- Completar retiro operativo del baseline PHP segun `migration/docs/php-decommission-runbook.md`.
 
 ## Bloque prioritario (29 rutas de facturacion)
 - `users/*` (13)
@@ -41,9 +42,9 @@ Fecha: 2026-02-12
 - Diferencias no visibles (orden de llaves/whitespace) permitidas.
 
 ## Proximo paso operativo
-1. Iniciar canary W2 (`facturador`) por sub-bloques y mover `cutover_status` ruta por ruta.
-2. Consolidar canary W3 soporte y decidir cutover o retiro por bajo uso.
-3. Mantener regla: no `cutover` sin `parity_status=passed` (ya cumplido en 115/115).
+1. Desplegar Python en modo nativo en staging/prod (`API_HACIENDA_PHP_FALLBACK_URL` vacio).
+2. Ejecutar GO/NO-GO live: `migration/scripts/native_go_no_go.py --migration-root . --candidate-url <url-python>`.
+3. Si el resultado es `GO`, proceder con retiro definitivo de servicios PHP y limpieza de artefactos legacy.
 
 Comando sugerido para canary live:
 ```bash

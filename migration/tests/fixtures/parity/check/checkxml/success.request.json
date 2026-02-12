@@ -1,0 +1,9 @@
+{
+  "method": "POST",
+  "path": "/api.php",
+  "params": {
+    "w": "check",
+    "r": "checkxml"
+  },
+  "notes": "Fill route-specific fields before capture."
+}

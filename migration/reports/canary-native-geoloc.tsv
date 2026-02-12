@@ -1,0 +1,17 @@
+w	r	scenario	pass	baseline_status	candidate_status	match_type	details
+geoloc	geoloc_create_tables	success	true	200	200	exact	
+geoloc	geoloc_create_tables	validation_error	true	200	200	exact	
+geoloc	geoloc_create_tables	auth_error	true	200	200	exact	
+geoloc	geoloc_create_tables	malformed	true	200	200	exact	
+geoloc	geoloc_get_by_ip	success	true	200	200	exact	
+geoloc	geoloc_get_by_ip	validation_error	true	200	200	exact	
+geoloc	geoloc_get_by_ip	auth_error	true	200	200	exact	
+geoloc	geoloc_get_by_ip	malformed	true	200	200	exact	
+geoloc	geoloc_load_blocks	success	true	200	200	exact	
+geoloc	geoloc_load_blocks	validation_error	true	200	200	exact	
+geoloc	geoloc_load_blocks	auth_error	true	200	200	exact	
+geoloc	geoloc_load_blocks	malformed	true	200	200	exact	
+geoloc	geoloc_load_locations	success	true	200	200	exact	
+geoloc	geoloc_load_locations	validation_error	true	200	200	exact	
+geoloc	geoloc_load_locations	auth_error	true	200	200	exact	
+geoloc	geoloc_load_locations	malformed	true	200	200	exact	

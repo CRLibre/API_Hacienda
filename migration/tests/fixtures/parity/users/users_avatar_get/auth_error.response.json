@@ -1,6 +1,12 @@
 {
-  "captured": false,
-  "status_code": null,
-  "headers": {},
-  "body": null
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:28:10 GMT",
+    "server": "uvicorn",
+    "content-length": "73",
+    "content-type": "application/json",
+    "x-request-id": "823ab8cd-64f3-489a-8e5d-f3a9681dc173"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: userName\"}"
 }

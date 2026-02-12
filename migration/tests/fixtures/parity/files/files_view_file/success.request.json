@@ -1,0 +1,9 @@
+{
+  "method": "POST",
+  "path": "/api.php",
+  "params": {
+    "w": "files",
+    "r": "files_view_file"
+  },
+  "notes": "Fill route-specific fields before capture."
+}

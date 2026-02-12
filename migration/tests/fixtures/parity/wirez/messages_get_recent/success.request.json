@@ -1,0 +1,9 @@
+{
+  "method": "POST",
+  "path": "/api.php",
+  "params": {
+    "w": "wirez",
+    "r": "messages_get_recent"
+  },
+  "notes": "Fill route-specific fields before capture."
+}

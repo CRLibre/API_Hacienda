@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 500,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:58 GMT",
+    "server": "uvicorn",
+    "content-length": "232",
+    "content-type": "application/json",
+    "x-request-id": "f82a95cf-8745-486d-ae23-e4c31979e2c8"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"Python handler failed: (sqlite3.OperationalError) no such table: files\\n[SQL: SELECT * FROM files WHERE downloadCode = ?]\\n[parameters: ('',)]\\n(Background on this error at: https://sqlalche.me/e/20/e3q8)\"}"
+}

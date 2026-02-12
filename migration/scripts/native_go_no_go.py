@@ -58,7 +58,8 @@ def check_tracker(tracker_path: Path) -> CheckResult:
         return CheckResult("tracker_state", False, "tracker has no rows")
 
     bad_status = [r for r in rows if (r.get("status") or "").strip() != "completed"]
-    bad_parity = [r for r in rows if (r.get("parity_status") or "").strip() != "passed"]
+    allowed_parity = {"passed", "python_only_v44_captured"}
+    bad_parity = [r for r in rows if (r.get("parity_status") or "").strip() not in allowed_parity]
     bad_cutover = [r for r in rows if (r.get("cutover_status") or "").strip() != "cutover"]
 
     if bad_status or bad_parity or bad_cutover:
@@ -74,7 +75,11 @@ def check_tracker(tracker_path: Path) -> CheckResult:
         )
 
     unique_routes = len({((r.get("w") or "").strip(), (r.get("r") or "").strip()) for r in rows})
-    detail = f"all rows completed/passed/cutover ({len(rows)} rows, {unique_routes} unique routes)"
+    python_only = sum(1 for r in rows if (r.get("parity_status") or "").strip() == "python_only_v44_captured")
+    detail = (
+        "all rows completed with accepted parity/cutover "
+        f"({len(rows)} rows, {unique_routes} unique routes, python_only_v44={python_only})"
+    )
     return CheckResult("tracker_state", True, detail)
 
 

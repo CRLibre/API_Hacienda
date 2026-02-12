@@ -15,6 +15,7 @@ from python_api.responses import tools_reply_compatible
 from python_api.services.db_compat import execute, fetch_one
 
 settings = get_settings()
+REPO_ROOT = Path(__file__).resolve().parents[4]
 
 MIME_TYPES: dict[str, str] = {
     "pdf": "application/pdf",
@@ -109,11 +110,13 @@ async def files_view_file(_: Request, params: dict[str, str]) -> Response:
     size = str(params.get("size", "0"))
     row = _load_file_by_code(code)
     if row is None:
-        return tools_reply_compatible(c.ERROR_FILES_NOT_FOUND)
+        not_found = REPO_ROOT / "api" / "resources" / "404FileNotFound.svg"
+        return Response(content=not_found.read_bytes(), media_type=_mime_type(not_found.name), status_code=200)
 
     path = _file_path_from_row(row, size=size)
     if not path.is_file():
-        return tools_reply_compatible(c.ERROR_FILES_NOT_FOUND)
+        not_found = REPO_ROOT / "api" / "resources" / "404FileNotFound.svg"
+        return Response(content=not_found.read_bytes(), media_type=_mime_type(not_found.name), status_code=200)
 
     return Response(content=path.read_bytes(), media_type=_mime_type(path.name), status_code=200)
 
@@ -135,7 +138,8 @@ async def upload(request: Request, params: dict[str, str]) -> JSONResponse:
     form = await request.form()
     upload_file = form.get("fileToUpload")
     if not isinstance(upload_file, UploadFile):
-        return tools_reply_compatible(c.ERROR_FILES_UPLOAD_ERROR)
+        # Legacy behavior reaches extension checks and returns ext-not-allowed.
+        return tools_reply_compatible(str(c.ERROR_FILES_EXT_NOT_ALLOWED))
 
     original_name = upload_file.filename or "upload.bin"
     extension = Path(original_name).suffix
@@ -153,12 +157,12 @@ async def upload(request: Request, params: dict[str, str]) -> JSONResponse:
 
     content = await upload_file.read()
     if len(content) > max_size_mb * 1_000_000:
-        return tools_reply_compatible(c.ERROR_FILES_TOO_BIG)
+        return tools_reply_compatible(str(c.ERROR_FILES_TOO_BIG))
 
     if allowed_ext != "*":
         allowed = [item.strip() for item in allowed_ext.split(",") if item.strip()]
         if extension_only not in allowed:
-            return tools_reply_compatible(c.ERROR_FILES_EXT_NOT_ALLOWED)
+            return tools_reply_compatible(str(c.ERROR_FILES_EXT_NOT_ALLOWED))
 
     try:
         if target_file.exists():
@@ -166,7 +170,7 @@ async def upload(request: Request, params: dict[str, str]) -> JSONResponse:
                 target_file.unlink()
         target_file.write_bytes(content)
     except OSError:
-        return tools_reply_compatible(c.ERROR_FILES_UPLOAD_ERROR)
+        return tools_reply_compatible(str(c.ERROR_FILES_UPLOAD_ERROR))
 
     download_code = _files_create_download_code(final_name, id_user)
     source_for_md5 = str(getattr(upload_file.file, "name", original_name))
@@ -193,6 +197,6 @@ async def upload(request: Request, params: dict[str, str]) -> JSONResponse:
     row = fetch_one("SELECT idFile FROM files WHERE downloadCode = :downloadCode", {"downloadCode": download_code})
     id_file = _as_int(row.get("idFile"), 0) if row is not None else 0
     if id_file == 0:
-        return tools_reply_compatible(c.ERROR_FILES_UPLOAD_ERROR)
+        return tools_reply_compatible(str(c.ERROR_FILES_UPLOAD_ERROR))
 
     return tools_reply_compatible({"idFile": id_file, "name": final_name, "downloadCode": download_code})

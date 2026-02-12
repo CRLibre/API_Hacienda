@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:28:02 GMT",
+    "server": "uvicorn",
+    "content-length": "40",
+    "content-type": "application/json",
+    "x-request-id": "588004c3-8178-482e-a39f-b29f34338079"
+  },
+  "body": "{\"status\":\"ok\",\"resp\":\"Tables created!\"}"
+}

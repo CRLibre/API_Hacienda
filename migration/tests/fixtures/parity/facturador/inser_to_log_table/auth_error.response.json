@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:56 GMT",
+    "server": "uvicorn",
+    "content-length": "69",
+    "content-type": "application/json",
+    "x-request-id": "8a635866-2048-43fc-8398-422c79e76576"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: json\"}"
+}

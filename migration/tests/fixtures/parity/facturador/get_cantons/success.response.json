@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:54 GMT",
+    "server": "uvicorn",
+    "content-length": "75",
+    "content-type": "application/json",
+    "x-request-id": "c3dc06a6-6746-4a5f-b1f3-70f0b16abf13"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: idProvince\"}"
+}

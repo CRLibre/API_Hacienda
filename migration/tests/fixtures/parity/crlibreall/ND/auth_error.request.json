@@ -1,0 +1,9 @@
+{
+  "method": "POST",
+  "path": "/api.php",
+  "params": {
+    "w": "crlibreall",
+    "r": "ND"
+  },
+  "notes": "Fill route-specific fields before capture."
+}

@@ -1,6 +1,12 @@
 {
-  "captured": false,
-  "status_code": null,
-  "headers": {},
-  "body": null
+  "captured": true,
+  "status_code": 403,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:28:11 GMT",
+    "server": "uvicorn",
+    "content-length": "50",
+    "content-type": "application/json",
+    "x-request-id": "dd07e65f-7d09-4145-92af-5f6af44c668e"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Acceso denegado\"}"
 }

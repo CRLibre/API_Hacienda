@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:49 GMT",
+    "server": "uvicorn",
+    "content-length": "79",
+    "content-type": "application/json",
+    "x-request-id": "5f829ab2-4887-431b-94b2-ce4a1018a200"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: nombreSucursal\"}"
+}

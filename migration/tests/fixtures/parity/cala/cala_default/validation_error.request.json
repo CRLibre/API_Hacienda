@@ -1,0 +1,9 @@
+{
+  "method": "POST",
+  "path": "/api.php",
+  "params": {
+    "w": "cala",
+    "r": "cala_default"
+  },
+  "notes": "Fill route-specific fields before capture."
+}

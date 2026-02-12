@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:49 GMT",
+    "server": "uvicorn",
+    "content-length": "73",
+    "content-type": "application/json",
+    "x-request-id": "7211a9cf-9684-4352-99b8-74f4be0c018b"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: idBarrio\"}"
+}

@@ -1,6 +1,12 @@
 {
-  "captured": false,
-  "status_code": null,
-  "headers": {},
-  "body": null
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:28:09 GMT",
+    "server": "uvicorn",
+    "content-length": "74",
+    "content-type": "application/json",
+    "x-request-id": "fbdd1d7d-524d-4477-b1e2-0bb9bf4ff32b"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: client_id\"}"
 }

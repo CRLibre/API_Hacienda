@@ -1,6 +1,12 @@
 {
-  "captured": false,
-  "status_code": null,
-  "headers": {},
-  "body": null
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:28:00 GMT",
+    "server": "uvicorn",
+    "content-length": "70",
+    "content-type": "application/json",
+    "x-request-id": "37db27e3-38db-491e-9e0c-70e81f9f3e04"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: clave\"}"
 }

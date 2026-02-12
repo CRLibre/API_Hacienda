@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:28:03 GMT",
+    "server": "uvicorn",
+    "content-length": "39",
+    "content-type": "application/json",
+    "x-request-id": "02529b5b-8c1a-4d46-a780-1f7ddf6d6770"
+  },
+  "body": "{\"status\":\"ok\",\"resp\":\"Missing file: \"}"
+}

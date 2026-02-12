@@ -1,6 +1,12 @@
 {
-  "captured": false,
-  "status_code": null,
-  "headers": {},
-  "body": null
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:28:01 GMT",
+    "server": "uvicorn",
+    "content-length": "40",
+    "content-type": "application/json",
+    "x-request-id": "ab2dac11-1939-444e-b99a-78313e0f9456"
+  },
+  "body": "{\"status\":\"ok\",\"resp\":\"Esto es un test\"}"
 }

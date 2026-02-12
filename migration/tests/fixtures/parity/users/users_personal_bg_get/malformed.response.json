@@ -1,6 +1,12 @@
 {
-  "captured": false,
-  "status_code": null,
-  "headers": {},
-  "body": null
+  "captured": true,
+  "status_code": 500,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:28:11 GMT",
+    "server": "uvicorn",
+    "content-length": "228",
+    "content-type": "application/json",
+    "x-request-id": "bd0a943e-ad3e-4bb7-a2b7-611e0b459794"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"Python handler failed: (sqlite3.OperationalError) no such table: users\\n[SQL: SELECT * FROM users WHERE userName = ?]\\n[parameters: ('',)]\\n(Background on this error at: https://sqlalche.me/e/20/e3q8)\"}"
 }

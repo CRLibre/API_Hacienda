@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:45 GMT",
+    "server": "uvicorn",
+    "content-length": "76",
+    "content-type": "application/json",
+    "x-request-id": "26e82500-7366-4553-8798-67ab74327c91"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: textEncrypt\"}"
+}

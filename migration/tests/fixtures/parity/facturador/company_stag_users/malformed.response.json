@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:52 GMT",
+    "server": "uvicorn",
+    "content-length": "77",
+    "content-type": "application/json",
+    "x-request-id": "27917aae-4f17-4225-adfc-822dd128cb0d"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: downloadCode\"}"
+}

@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 19:12:05 GMT",
+    "server": "uvicorn",
+    "content-length": "78",
+    "content-type": "application/json",
+    "x-request-id": "d024e197-faf9-4c32-bb06-d156ae6575c6"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: tipoDocumento\"}"
+}

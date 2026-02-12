@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:50 GMT",
+    "server": "uvicorn",
+    "content-length": "77",
+    "content-type": "application/json",
+    "x-request-id": "3104fcfd-b257-4a7b-ba47-b8386c372346"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: idMasterUser\"}"
+}

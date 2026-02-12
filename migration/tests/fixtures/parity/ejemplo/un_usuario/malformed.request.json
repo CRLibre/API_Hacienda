@@ -1,0 +1,9 @@
+{
+  "method": "POST",
+  "path": "/api.php",
+  "params": {
+    "w": "ejemplo",
+    "r": "un_usuario"
+  },
+  "notes": "Fill route-specific fields before capture."
+}

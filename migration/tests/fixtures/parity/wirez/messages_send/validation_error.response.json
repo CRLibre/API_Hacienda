@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:28:14 GMT",
+    "server": "uvicorn",
+    "content-length": "69",
+    "content-type": "application/json",
+    "x-request-id": "b6c4aac2-8866-427a-ae77-6b07f5994f3f"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: from\"}"
+}

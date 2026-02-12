@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:44 GMT",
+    "server": "uvicorn",
+    "content-length": "71",
+    "content-type": "application/json",
+    "x-request-id": "ec9ae8d7-1683-4469-8b28-8ae49a9afc19"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: cedula\"}"
+}

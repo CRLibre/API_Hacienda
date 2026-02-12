@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import base64
 import json
+import re
 from typing import Any
 from xml.etree import ElementTree as ET
 
@@ -41,6 +42,10 @@ ROUTE_META: dict[str, tuple[str, str]] = {
     "gen_xml_fee": (
         "FacturaElectronicaExportacion",
         "https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.4/facturaElectronicaExportacion",
+    ),
+    "gen_xml_rep": (
+        "ReciboElectronicoPago",
+        "https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.4/reciboElectronicoPago",
     ),
 }
 
@@ -194,6 +199,12 @@ SUMMARY_FIELDS_BY_ROUTE: dict[str, tuple[str, ...]] = {
         "totalOtrosCargos",
         "total_comprobante",
     ),
+    "gen_xml_rep": (
+        "total_ventas",
+        "total_ventas_neta",
+        "total_impuestos",
+        "total_comprobante",
+    ),
 }
 
 
@@ -267,7 +278,38 @@ def _parse_decimal_2(value: Any) -> str:
         return text
 
 
-def _build_emisor(root: ET.Element, params: dict[str, str]) -> None:
+def _coerce_email_list(raw: Any, *, max_items: int) -> list[str]:
+    parsed = _parse_json(raw)
+    if isinstance(parsed, list):
+        candidates: list[Any] = parsed
+    elif parsed is None:
+        text = _safe_text(raw)
+        if text == "":
+            return []
+        candidates = [text]
+    else:
+        candidates = [parsed]
+
+    emails: list[str] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        if isinstance(candidate, dict):
+            value = _pick(candidate, "email", "correo", "CorreoElectronico")
+        else:
+            value = candidate
+
+        for part in re.split(r"[,\n;]+", _safe_text(value)):
+            email = part.strip()
+            if email == "" or email in seen:
+                continue
+            seen.add(email)
+            emails.append(email)
+            if len(emails) >= max_items:
+                return emails
+    return emails
+
+
+def _build_emisor(root: ET.Element, params: dict[str, str], route: str) -> None:
     emisor = ET.SubElement(root, "Emisor")
     _add_if(emisor, "Nombre", params.get("emisor_nombre"))
 
@@ -278,34 +320,36 @@ def _build_emisor(root: ET.Element, params: dict[str, str]) -> None:
         _add_if(ident, "Tipo", tipo)
         _add_if(ident, "Numero", numero)
 
-    _add_if(emisor, "Registrofiscal8707", params.get("registrofiscal8707"))
-    _add_if(emisor, "NombreComercial", params.get("emisor_nombre_comercial"))
+    if route != "gen_xml_rep":
+        _add_if(emisor, "Registrofiscal8707", params.get("registrofiscal8707"))
+        _add_if(emisor, "NombreComercial", params.get("emisor_nombre_comercial"))
 
-    if (
-        _safe_text(params.get("emisor_provincia"))
-        and _safe_text(params.get("emisor_canton"))
-        and _safe_text(params.get("emisor_distrito"))
-        and _safe_text(params.get("emisor_otras_senas"))
-    ):
-        ubic = ET.SubElement(emisor, "Ubicacion")
-        _add_if(ubic, "Provincia", params.get("emisor_provincia"))
-        _add_if(ubic, "Canton", params.get("emisor_canton"))
-        _add_if(ubic, "Distrito", params.get("emisor_distrito"))
-        _add_if(ubic, "Barrio", params.get("emisor_barrio"))
-        _add_if(ubic, "OtrasSenas", params.get("emisor_otras_senas"))
+        if (
+            _safe_text(params.get("emisor_provincia"))
+            and _safe_text(params.get("emisor_canton"))
+            and _safe_text(params.get("emisor_distrito"))
+            and _safe_text(params.get("emisor_otras_senas"))
+        ):
+            ubic = ET.SubElement(emisor, "Ubicacion")
+            _add_if(ubic, "Provincia", params.get("emisor_provincia"))
+            _add_if(ubic, "Canton", params.get("emisor_canton"))
+            _add_if(ubic, "Distrito", params.get("emisor_distrito"))
+            _add_if(ubic, "Barrio", params.get("emisor_barrio"))
+            _add_if(ubic, "OtrasSenas", params.get("emisor_otras_senas"))
 
-    _add_if(emisor, "OtrasSenasExtranjero", params.get("emisor_otras_senas_extranjero"))
+        _add_if(emisor, "OtrasSenasExtranjero", params.get("emisor_otras_senas_extranjero"))
 
-    if _safe_text(params.get("emisor_cod_pais_tel")) and _safe_text(params.get("emisor_tel")):
-        tel = ET.SubElement(emisor, "Telefono")
-        _add_if(tel, "CodigoPais", params.get("emisor_cod_pais_tel"))
-        _add_if(tel, "NumTelefono", params.get("emisor_tel"))
+        if _safe_text(params.get("emisor_cod_pais_tel")) and _safe_text(params.get("emisor_tel")):
+            tel = ET.SubElement(emisor, "Telefono")
+            _add_if(tel, "CodigoPais", params.get("emisor_cod_pais_tel"))
+            _add_if(tel, "NumTelefono", params.get("emisor_tel"))
 
-    _add_if(emisor, "CorreoElectronico", params.get("emisor_email"))
+    for email in _coerce_email_list(params.get("emisor_email"), max_items=4):
+        ET.SubElement(emisor, "CorreoElectronico").text = email
 
 
-def _build_receptor(root: ET.Element, params: dict[str, str]) -> None:
-    if _safe_text(params.get("omitir_receptor")).lower() == "true":
+def _build_receptor(root: ET.Element, params: dict[str, str], route: str) -> None:
+    if route != "gen_xml_rep" and _safe_text(params.get("omitir_receptor")).lower() == "true":
         return
 
     has_name = _safe_text(params.get("receptor_nombre")) != ""
@@ -322,35 +366,39 @@ def _build_receptor(root: ET.Element, params: dict[str, str]) -> None:
         _add_if(ident, "Tipo", params.get("receptor_tipo_identif"))
         _add_if(ident, "Numero", params.get("receptor_num_identif"))
 
-    _add_if(receptor, "NombreComercial", params.get("receptor_nombre_comercial"))
+    if route != "gen_xml_rep":
+        _add_if(receptor, "NombreComercial", params.get("receptor_nombre_comercial"))
 
-    if (
-        _safe_text(params.get("receptor_provincia"))
-        and _safe_text(params.get("receptor_canton"))
-        and _safe_text(params.get("receptor_distrito"))
-        and _safe_text(params.get("receptor_otras_senas"))
-    ):
-        ubic = ET.SubElement(receptor, "Ubicacion")
-        _add_if(ubic, "Provincia", params.get("receptor_provincia"))
-        _add_if(ubic, "Canton", params.get("receptor_canton"))
-        _add_if(ubic, "Distrito", params.get("receptor_distrito"))
-        _add_if(ubic, "Barrio", params.get("receptor_barrio"))
-        _add_if(ubic, "OtrasSenas", params.get("receptor_otras_senas"))
+        if (
+            _safe_text(params.get("receptor_provincia"))
+            and _safe_text(params.get("receptor_canton"))
+            and _safe_text(params.get("receptor_distrito"))
+            and _safe_text(params.get("receptor_otras_senas"))
+        ):
+            ubic = ET.SubElement(receptor, "Ubicacion")
+            _add_if(ubic, "Provincia", params.get("receptor_provincia"))
+            _add_if(ubic, "Canton", params.get("receptor_canton"))
+            _add_if(ubic, "Distrito", params.get("receptor_distrito"))
+            _add_if(ubic, "Barrio", params.get("receptor_barrio"))
+            _add_if(ubic, "OtrasSenas", params.get("receptor_otras_senas"))
 
-    _add_if(receptor, "OtrasSenasExtranjero", params.get("receptor_otras_senas_extranjero"))
+        _add_if(receptor, "OtrasSenasExtranjero", params.get("receptor_otras_senas_extranjero"))
 
-    if _safe_text(params.get("receptor_cod_pais_tel")) and _safe_text(params.get("receptor_tel")):
-        tel = ET.SubElement(receptor, "Telefono")
-        _add_if(tel, "CodigoPais", params.get("receptor_cod_pais_tel"))
-        _add_if(tel, "NumTelefono", params.get("receptor_tel"))
+        if _safe_text(params.get("receptor_cod_pais_tel")) and _safe_text(params.get("receptor_tel")):
+            tel = ET.SubElement(receptor, "Telefono")
+            _add_if(tel, "CodigoPais", params.get("receptor_cod_pais_tel"))
+            _add_if(tel, "NumTelefono", params.get("receptor_tel"))
 
-    _add_if(receptor, "CorreoElectronico", params.get("receptor_email"))
+    # Current v4.4 XSDs in-repo still allow a single receptor email.
+    for email in _coerce_email_list(params.get("receptor_email"), max_items=1):
+        ET.SubElement(receptor, "CorreoElectronico").text = email
 
 
-def _build_condiciones(root: ET.Element, params: dict[str, str]) -> None:
+def _build_condiciones(root: ET.Element, params: dict[str, str], route: str) -> None:
     _add_if(root, "CondicionVenta", params.get("condicion_venta"))
-    _add_if(root, "CondicionVentaOtros", params.get("condicion_venta_otros"))
-    _add_if(root, "PlazoCredito", params.get("plazo_credito"))
+    if route != "gen_xml_rep":
+        _add_if(root, "CondicionVentaOtros", params.get("condicion_venta_otros"))
+        _add_if(root, "PlazoCredito", params.get("plazo_credito"))
 
 
 def _build_codigo_comercial(parent: ET.Element, raw: Any, *, tipo_key: str, codigo_key: str) -> None:
@@ -421,7 +469,7 @@ def _build_exoneracion(parent: ET.Element, raw: Any) -> None:
         parent.remove(ex)
 
 
-def _build_impuestos(parent: ET.Element, raw: Any) -> None:
+def _build_impuestos(parent: ET.Element, raw: Any, *, include_extended: bool = True) -> None:
     for item in _coerce_sequence(raw):
         if not isinstance(item, dict):
             continue
@@ -440,12 +488,14 @@ def _build_impuestos(parent: ET.Element, raw: Any) -> None:
         _add_from(item, imp, "Tarifa", "tarifa", "Tarifa")
         _add_from(item, imp, "FactorCalculoIVA", "factorIVA", "FactorCalculoIVA")
 
-        _build_datos_impuesto_especifico(imp, _pick(item, "datosImpuestoEspecifico", "DatosImpuestoEspecifico"))
+        if include_extended:
+            _build_datos_impuesto_especifico(imp, _pick(item, "datosImpuestoEspecifico", "DatosImpuestoEspecifico"))
 
         _add_if(imp, "Monto", monto)
 
-        exoneracion = _pick(item, "exoneracion", "Exoneracion")
-        _build_exoneracion(imp, exoneracion)
+        if include_extended:
+            exoneracion = _pick(item, "exoneracion", "Exoneracion")
+            _build_exoneracion(imp, exoneracion)
 
 
 def _build_detalle_surtido(parent: ET.Element, raw: Any) -> None:
@@ -576,6 +626,34 @@ def _build_detalle_servicio(root: ET.Element, params: dict[str, str]) -> None:
         _add_from(item, linea, "MontoTotalLinea", "montoTotalLinea", "MontoTotalLinea")
 
 
+def _build_detalle_servicio_rep(root: ET.Element, params: dict[str, str]) -> None:
+    detalle_servicio = ET.SubElement(root, "DetalleServicio")
+    detalles = _coerce_sequence(params.get("detalles"), nested_keys=("detalles",))
+
+    if not detalles:
+        raw = _safe_text(params.get("detalles"))
+        if raw:
+            linea = ET.SubElement(detalle_servicio, "LineaDetalle")
+            _add_if(linea, "NumeroLinea", "1")
+            _add_if(linea, "Detalle", raw)
+        return
+
+    for index, item in enumerate(detalles, start=1):
+        linea = ET.SubElement(detalle_servicio, "LineaDetalle")
+        _add_if(linea, "NumeroLinea", index)
+
+        if not isinstance(item, dict):
+            _add_if(linea, "Detalle", item)
+            continue
+
+        _add_from(item, linea, "Detalle", "detalle", "Detalle")
+        _add_from(item, linea, "MontoTotal", "montoTotal", "MontoTotal")
+        _add_from(item, linea, "SubTotal", "subTotal", "SubTotal")
+        _build_impuestos(linea, _pick(item, "impuesto", "Impuesto"), include_extended=False)
+        _add_from(item, linea, "ImpuestoNeto", "impuestoNeto", "ImpuestoNeto")
+        _add_from(item, linea, "MontoTotalLinea", "montoTotalLinea", "MontoTotalLinea")
+
+
 def _build_otros_cargos(root: ET.Element, params: dict[str, str]) -> None:
     cargos = _coerce_sequence(params.get("otrosCargos"), nested_keys=("otrosCargos",))
     for item in cargos[:15]:
@@ -659,13 +737,20 @@ def _build_resumen(root: ET.Element, params: dict[str, str], route: str) -> None
     _build_total_desglose_impuesto(resumen, params)
 
     for field in fields:
-        if field not in {"total_impuestos", "total_impuestos_asumidos_fabrica", "totalIVADevuelto", "totalOtrosCargos", "total_comprobante"}:
+        if field not in {"total_impuestos", "total_impuestos_asumidos_fabrica", "totalIVADevuelto", "totalOtrosCargos"}:
             continue
         tag = SUMMARY_TAGS.get(field)
         if tag is not None:
             _add_if(resumen, tag, params.get(field))
 
     _build_medios_pago(resumen, params)
+
+    for field in fields:
+        if field != "total_comprobante":
+            continue
+        tag = SUMMARY_TAGS.get(field)
+        if tag is not None:
+            _add_if(resumen, tag, params.get(field))
 
 
 def _build_informacion_referencia(root: ET.Element, params: dict[str, str]) -> None:
@@ -799,7 +884,8 @@ def _build_document(route: str, params: dict[str, str]) -> str:
     else:
         _add_if(root, "Clave", params.get("clave"))
         _add_if(root, "ProveedorSistemas", params.get("proveedor_sistemas"))
-        _add_if(root, "CodigoActividadEmisor", _pad_left(params.get("codigo_actividad_emisor"), 6))
+        if route != "gen_xml_rep":
+            _add_if(root, "CodigoActividadEmisor", _pad_left(params.get("codigo_actividad_emisor"), 6))
 
         if route in ROUTES_WITH_CODIGO_ACTIVIDAD_RECEPTOR:
             _add_if(root, "CodigoActividadReceptor", _pad_left(params.get("codigo_actividad_receptor"), 6))
@@ -807,14 +893,18 @@ def _build_document(route: str, params: dict[str, str]) -> str:
         _add_if(root, "NumeroConsecutivo", params.get("consecutivo"))
         _add_if(root, "FechaEmision", params.get("fecha_emision"))
 
-        _build_emisor(root, params)
-        _build_receptor(root, params)
-        _build_condiciones(root, params)
-        _build_detalle_servicio(root, params)
-        _build_otros_cargos(root, params)
+        _build_emisor(root, params, route)
+        _build_receptor(root, params, route)
+        _build_condiciones(root, params, route)
+        if route == "gen_xml_rep":
+            _build_detalle_servicio_rep(root, params)
+        else:
+            _build_detalle_servicio(root, params)
+            _build_otros_cargos(root, params)
         _build_resumen(root, params, route)
         _build_informacion_referencia(root, params)
-        _build_otros(root, params)
+        if route != "gen_xml_rep":
+            _build_otros(root, params)
 
     xml_bytes = ET.tostring(root, encoding="utf-8", xml_declaration=True)
     return base64.b64encode(xml_bytes).decode("utf-8")
@@ -859,6 +949,11 @@ async def gen_xml_fec(request: Request, params: dict[str, str]) -> Response:
 async def gen_xml_fee(request: Request, params: dict[str, str]) -> Response:
     _ = request
     return tools_reply_compatible(_build_response("gen_xml_fee", params))
+
+
+async def gen_xml_rep(request: Request, params: dict[str, str]) -> Response:
+    _ = request
+    return tools_reply_compatible(_build_response("gen_xml_rep", params))
 
 
 async def test(request: Request, params: dict[str, str]) -> Response:

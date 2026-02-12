@@ -1,0 +1,28 @@
+{
+  "method": "POST",
+  "path": "/api.php",
+  "params": {
+    "w": "genXML",
+    "r": "gen_xml_rep",
+    "proveedor_sistemas": "3101123456",
+    "consecutivo": "00100001010000000001",
+    "fecha_emision": "2026-02-12T10:00:00-06:00",
+    "emisor_nombre": "Mi Empresa de Prueba",
+    "emisor_tipo_identif": "02",
+    "emisor_num_identif": "3101123456",
+    "emisor_email": "facturacion@empresa.cr",
+    "receptor_nombre": "Cliente Demo",
+    "receptor_tipo_identif": "01",
+    "receptor_num_identif": "123456789",
+    "condicion_venta": "09",
+    "detalles": "[{\"detalle\":\"Pago parcial comprobante\",\"montoTotal\":\"113.00\",\"subTotal\":\"100.00\",\"impuesto\":[{\"codigo\":\"01\",\"codigoTarifa\":\"08\",\"tarifa\":\"13.00\",\"monto\":\"13.00\"}],\"impuestoNeto\":\"13.00\",\"montoTotalLinea\":\"113.00\"}]",
+    "medios_pago": "[{\"tipoMedioPago\":\"06\",\"totalMedioPago\":\"113.00\"}]",
+    "cod_moneda": "CRC",
+    "tipo_cambio": "1",
+    "total_ventas": "113.00",
+    "total_ventas_neta": "113.00",
+    "total_comprobante": "126.00",
+    "informacion_referencia": "[{\"tipoDoc\":\"01\",\"numero\":\"50611022600310112345600100001010000000001123456789\",\"fechaEmision\":\"2026-02-11T09:00:00-06:00\",\"codigo\":\"04\",\"razon\":\"Pago de comprobante previo\"}]"
+  },
+  "notes": "Missing clave required param"
+}

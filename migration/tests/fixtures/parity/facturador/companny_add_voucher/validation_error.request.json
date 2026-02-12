@@ -1,0 +1,9 @@
+{
+  "method": "POST",
+  "path": "/api.php",
+  "params": {
+    "w": "facturador",
+    "r": "companny_add_voucher"
+  },
+  "notes": "Fill route-specific fields before capture."
+}

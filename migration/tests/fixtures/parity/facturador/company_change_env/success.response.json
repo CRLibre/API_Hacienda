@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:51 GMT",
+    "server": "uvicorn",
+    "content-length": "78",
+    "content-type": "application/json",
+    "x-request-id": "83c66232-b168-4636-8622-7b6db3381dff"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: envProduccion\"}"
+}

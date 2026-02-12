@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 500,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:54 GMT",
+    "server": "uvicorn",
+    "content-length": "307",
+    "content-type": "application/json",
+    "x-request-id": "1d71b3f3-6a29-41fb-93d3-8bbec74dc14a"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"Python handler failed: (sqlite3.OperationalError) no such table: codificacion_mh\\n[SQL: \\n        SELECT DISTINCT idProvincia AS idProvincia, nombreProvincia AS nombreProvincia\\n        FROM codificacion_mh\\n        ]\\n(Background on this error at: https://sqlalche.me/e/20/e3q8)\"}"
+}

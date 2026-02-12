@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import base64
+import warnings
 from pathlib import Path
 
 from cryptography.hazmat.primitives.serialization import Encoding, pkcs12
+from cryptography.utils import CryptographyDeprecationWarning
 from fastapi import Request
 from fastapi.responses import JSONResponse
 from lxml import etree
-from signxml import XMLSigner, methods
 
 from python_api.config import get_settings
 from python_api.responses import tools_reply_compatible
@@ -38,6 +39,14 @@ def _sign_xml_with_p12(p12_bytes: bytes, pin: str, xml_bytes: bytes) -> bytes:
     )
     if private_key is None or certificate is None:
         raise ValueError("No se pudo cargar la llave/certificado desde el P12")
+
+    with warnings.catch_warnings():
+        warnings.filterwarnings(
+            "ignore",
+            category=CryptographyDeprecationWarning,
+            message=r".*SECT.*will be removed in the next release\.",
+        )
+        from signxml import XMLSigner, methods
 
     root = etree.fromstring(xml_bytes)
     cert_pem = certificate.public_bytes(Encoding.PEM)

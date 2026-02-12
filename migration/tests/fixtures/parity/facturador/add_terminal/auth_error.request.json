@@ -1,0 +1,9 @@
+{
+  "method": "POST",
+  "path": "/api.php",
+  "params": {
+    "w": "facturador",
+    "r": "add_terminal"
+  },
+  "notes": "Fill route-specific fields before capture."
+}

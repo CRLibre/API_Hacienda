@@ -1,0 +1,9 @@
+{
+  "method": "POST",
+  "path": "/api.php",
+  "params": {
+    "w": "facturador",
+    "r": "compannyUpdateTipoCambio"
+  },
+  "notes": "Fill route-specific fields before capture."
+}

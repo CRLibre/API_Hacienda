@@ -4,10 +4,11 @@
 Python 3.14.3 service for `API_Hacienda` preserving legacy API contract (`w` + `r`, envelope, and status semantics).
 
 ## Status
-- Contract routes: `115` tracker rows (`114` unique routes).
-- Tracker state: `status=completed`, `parity_status=passed`, `cutover_status=cutover` for all rows.
-- Global live parity (PHP vs Python): `460/460` scenarios passing (`migration/reports/global-parity-live.tsv`).
+- Contract routes: `116` tracker rows (`115` unique routes).
+- Tracker state: `115` legacy routes in `parity_status=passed` and `cutover_status=cutover`, plus `genXML/gen_xml_rep` as additive `python_only_v44`.
+- Global live parity (PHP vs Python) for legacy scope: `460/460` scenarios passing (`migration/reports/global-parity-live.tsv`).
 - Runtime fallback routes: `0`.
+- Quick status snapshot: `migration/scripts/migration_status_snapshot.py --migration-root migration`.
 
 ## Entrypoints
 - API: `GET|POST|PUT /api.php`
@@ -28,6 +29,33 @@ when running native.
 ## Local run
 ```bash
 uvicorn python_api.main:app --host 0.0.0.0 --port 8080
+```
+
+## Real Dev flow (laptop)
+End-to-end FE test against local Python API (optionally sends/consults Hacienda staging):
+```bash
+/Users/juandi/Documents/github/API_Hacienda/migration/python-api/.venv313/bin/python \
+  /Users/juandi/Documents/github/API_Hacienda/migration/scripts/dev_real_fe_flow.py \
+  --api-base-url http://127.0.0.1:8080 \
+  --client-id api-stag \
+  --username "<usuario_hacienda>" \
+  --password "<password_hacienda>" \
+  --p12-path "/ruta/certificado.p12" \
+  --p12-pin "<pin_certificado>" \
+  --cedula "<cedula_emisor>" \
+  --proveedor-sistemas "<cedula_proveedor_sistemas>"
+```
+
+For local-only validation (no Hacienda send):
+```bash
+/Users/juandi/Documents/github/API_Hacienda/migration/python-api/.venv313/bin/python \
+  /Users/juandi/Documents/github/API_Hacienda/migration/scripts/dev_real_fe_flow.py \
+  --api-base-url http://127.0.0.1:8080 \
+  --p12-path "/ruta/certificado.p12" \
+  --p12-pin "<pin_certificado>" \
+  --cedula "<cedula_emisor>" \
+  --proveedor-sistemas "<cedula_proveedor_sistemas>" \
+  --skip-send
 ```
 
 ## Native go/no-go check

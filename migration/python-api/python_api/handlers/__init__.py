@@ -68,6 +68,7 @@ HANDLERS: dict[tuple[str, str], HandlerFn] = {
     ("genXML", "gen_xml_mr"): genxml.gen_xml_mr,
     ("genXML", "gen_xml_nc"): genxml.gen_xml_nc,
     ("genXML", "gen_xml_nd"): genxml.gen_xml_nd,
+    ("genXML", "gen_xml_rep"): genxml.gen_xml_rep,
     ("genXML", "gen_xml_te"): genxml.gen_xml_te,
     ("genXML", "test"): genxml.test,
     ("makeJson", "makeJson"): make_json.makeJson,

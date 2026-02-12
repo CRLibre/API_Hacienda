@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:39 GMT",
+    "server": "uvicorn",
+    "content-length": "68",
+    "content-type": "application/json",
+    "x-request-id": "87b677e1-412b-447f-9cf6-c1d7cf17d3e4"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: iam\"}"
+}

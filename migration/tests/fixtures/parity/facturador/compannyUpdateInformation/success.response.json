@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:49 GMT",
+    "server": "uvicorn",
+    "content-length": "75",
+    "content-type": "application/json",
+    "x-request-id": "eb9e5c31-c3bf-416a-80e3-57a21d234d8d"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: codigoPais\"}"
+}

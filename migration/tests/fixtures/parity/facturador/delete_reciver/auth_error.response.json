@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:52 GMT",
+    "server": "uvicorn",
+    "content-length": "75",
+    "content-type": "application/json",
+    "x-request-id": "9b8597b5-8c40-416f-87cb-5f21ae94df38"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: idReceptor\"}"
+}

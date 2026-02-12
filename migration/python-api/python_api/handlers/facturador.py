@@ -926,7 +926,7 @@ async def companny_add_master_Consecutive(_: Request, params: dict[str, str]) ->
         return tools_reply_compatible(c.ERROR_BAD_REQUEST)
 
     envs = ["api-stag", "api-prod"]
-    tipos = ["FE", "NC", "ND", "TE", "CCE", "CPCE", "RCEFE"]
+    tipos = ["FE", "NC", "ND", "TE", "CCE", "CPCE", "RCEFE", "REP"]
     table = f"{id_master_user}_master_consecutive"
     total_rows = 0
     for env in envs:

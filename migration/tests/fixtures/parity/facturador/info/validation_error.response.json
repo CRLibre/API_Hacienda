@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:56 GMT",
+    "server": "uvicorn",
+    "content-length": "86",
+    "content-type": "application/json",
+    "x-request-id": "f3142bfe-5d70-4531-b9a8-a918eb9e0a91"
+  },
+  "body": "{\"status\":\"ok\",\"resp\":{\"info\":\"Modulo de interface de facturacion\",\"version\":\"V.0.0\"}}"
+}

@@ -1,0 +1,9 @@
+{
+  "method": "POST",
+  "path": "/api.php",
+  "params": {
+    "w": "facturador",
+    "r": "copy_master_tables"
+  },
+  "notes": "Fill route-specific fields before capture."
+}

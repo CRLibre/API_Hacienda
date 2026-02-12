@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:28:13 GMT",
+    "server": "uvicorn",
+    "content-length": "41",
+    "content-type": "application/json",
+    "x-request-id": "c4329fa6-86ed-40bb-81a9-bb865a62e948"
+  },
+  "body": "{\"status\":\"ok\",\"resp\":\"Version: a5c1afa\"}"
+}

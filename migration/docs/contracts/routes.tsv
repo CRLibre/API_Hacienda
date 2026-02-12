@@ -81,6 +81,7 @@ genXML	gen_xml_fee	./api/contrib/genXML/module.php
 genXML	gen_xml_mr	./api/contrib/genXML/module.php
 genXML	gen_xml_nc	./api/contrib/genXML/module.php
 genXML	gen_xml_nd	./api/contrib/genXML/module.php
+genXML	gen_xml_rep	./api/contrib/genXML/module.php
 genXML	gen_xml_te	./api/contrib/genXML/module.php
 genXML	test	./api/contrib/genXML/module.php
 geoloc	geoloc_create_tables	./api/modules/geoloc/module.php

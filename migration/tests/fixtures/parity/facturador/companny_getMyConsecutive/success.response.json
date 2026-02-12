@@ -1,0 +1,12 @@
+{
+  "captured": true,
+  "status_code": 200,
+  "headers": {
+    "date": "Thu, 12 Feb 2026 16:27:50 GMT",
+    "server": "uvicorn",
+    "content-length": "68",
+    "content-type": "application/json",
+    "x-request-id": "2b5677c6-cc4c-4853-a0d8-30ad311ed25d"
+  },
+  "body": "{\"status\":\"error\",\"resp\":\"ERROR: Falta el parametro requerido: env\"}"
+}

@@ -1,0 +1,4 @@
+w	r	wave	priority	status	parity_status	cutover_status	python_handler	parity_fixture	notes
+clave	clave	W1_CORE	P0	in_progress	captured	not_cutover	python_api.handlers.clave.clave	tests/fixtures/parity/clave/clave	python_handler_ported_no_parity
+token	gettoken	W1_CORE	P0	in_progress	captured	not_cutover	python_api.handlers.token.gettoken	tests/fixtures/parity/token/gettoken	python_handler_ported_no_parity
+token	refresh	W1_CORE	P0	in_progress	captured	not_cutover	python_api.handlers.token.refresh	tests/fixtures/parity/token/refresh	python_handler_ported_no_parity

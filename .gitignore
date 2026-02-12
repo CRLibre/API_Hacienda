@@ -52,3 +52,26 @@ junit-report.xml
 # Python cache artifacts
 __pycache__/
 *.py[cod]
+
+# Local dev hygiene
+.DS_Store
+**/.DS_Store
+.AppleDouble
+**/.AppleDouble
+._*
+.Spotlight-V100/
+.Trashes/
+.fseventsd
+
+# Python local environments/caches
+.venv/
+.venv*/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+
+# Local DB artifacts
+api/modules/geoloc/*.sqlite
