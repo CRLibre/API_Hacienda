@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Awaitable, Callable
+import time
 
 from fastapi import Request
 from fastapi.responses import Response
@@ -105,6 +106,57 @@ def _session_user_id(params: dict[str, str]) -> int | None:
     return parsed if parsed > 0 else None
 
 
+def _require_users_logged_in(params: dict[str, str]) -> bool:
+    return _session_user_id(params) is not None
+
+
+def _confirm_master_session(id_master_user: int, session_key: str) -> int | None:
+    if id_master_user <= 0 or not session_key:
+        return None
+
+    table = f"{id_master_user}_master_sessions"
+    sql = f"SELECT idUser, lastAccess FROM `{table}` WHERE sessionKey = :sessionKey"
+    try:
+        row = fetch_one(sql, {"sessionKey": session_key})
+    except Exception:
+        return None
+
+    if row is None:
+        return None
+
+    lifetime = settings.users_session_lifetime
+    if lifetime != -1:
+        last_access = _to_int(row.get("lastAccess"))
+        if int(time.time()) - last_access > lifetime:
+            return None
+
+    parsed = _to_int(row.get("idUser"))
+    return parsed if parsed > 0 else None
+
+
+def _require_companny_logged_in(params: dict[str, str]) -> int | None:
+    id_master_user = _safe_numeric_id(str(params.get("idMasterUser", "")))
+    if id_master_user is None:
+        return None
+    session_key = str(params.get("sessionKey", "")).strip()
+    if _confirm_master_session(id_master_user, session_key) is None:
+        return None
+    return id_master_user
+
+
+def _config_values_sql(id_master_user: int, names: list[str], with_name: bool = False) -> tuple[str, dict[str, str]]:
+    where_parts: list[str] = []
+    params: dict[str, str] = {}
+    for idx, name in enumerate(names):
+        key = f"name{idx}"
+        where_parts.append(f"`name` = :{key}")
+        params[key] = name
+    where_clause = " OR ".join(where_parts) if where_parts else "1=0"
+    select_fields = "`name`, `value`" if with_name else "`value`"
+    sql = f"SELECT {select_fields} FROM `{id_master_user}_master_config_companny` WHERE {where_clause}"
+    return sql, params
+
+
 async def info(_: Request, __: dict[str, str]) -> Response:
     return tools_reply_compatible(
         {
@@ -190,6 +242,171 @@ async def inser_to_log_table(_: Request, params: dict[str, str]) -> Response:
     return tools_reply_compatible(rows)
 
 
+async def getCompannyLocationInformation(_: Request, params: dict[str, str]) -> Response:
+    if not _require_users_logged_in(params):
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    rows = fetch_all(
+        """
+        SELECT nombreProvincia, nombreCanton, nombreDistrito, nombreBarrio
+        FROM codificacion_mh
+        WHERE idProvincia = :idProvincia
+          AND idCanton = :idCanton
+          AND idDistrito = :idDistrito
+          AND idBarrio = :idBarrio
+        """,
+        {
+            "idProvincia": str(params.get("idProvincia", "")),
+            "idCanton": str(params.get("idCanton", "")),
+            "idDistrito": str(params.get("idDistrito", "")),
+            "idBarrio": str(params.get("idBarrio", "")),
+        },
+    )
+    return tools_reply_compatible(rows)
+
+
+async def get_companny_information_admin(_: Request, params: dict[str, str]) -> Response:
+    if not _require_users_logged_in(params):
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    id_master_user = _safe_numeric_id(str(params.get("idMasterUser", "")))
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_BAD_REQUEST)
+
+    names = [
+        "NOMBRE",
+        "NCODPAIS",
+        "TIPOCAMBIO",
+        "situacion",
+        "TIPOCED",
+        "CEDULA",
+        "NOMCOMER",
+        "PROVINCIA",
+        "CANTON",
+        "DISTRITO",
+        "BARRIO",
+        "SENNAS",
+        "NNUMER",
+        "FCODPAIS",
+        "EMAIL",
+        "FNUMER",
+    ]
+    sql, sql_params = _config_values_sql(id_master_user, names, with_name=True)
+    sql = f"{sql} ORDER BY `value` ASC"
+    try:
+        rows = fetch_all(sql, sql_params)
+    except Exception as exc:
+        return tools_reply_compatible({"Status": "Error occurred", "text": str(exc)})
+    return tools_reply_compatible(rows)
+
+
+async def get_companny_information(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    names = [
+        "NOMBRE",
+        "NCODPAIS",
+        "TIPOCAMBIO",
+        "situacion",
+        "TIPOCED",
+        "CEDULA",
+        "NOMCOMER",
+        "PROVINCIA",
+        "CANTON",
+        "DISTRITO",
+        "BARRIO",
+        "SENNAS",
+        "NNUMER",
+        "FCODPAIS",
+        "EMAIL",
+        "FNUMER",
+    ]
+    sql, sql_params = _config_values_sql(id_master_user, names, with_name=True)
+    sql = f"{sql} ORDER BY `value` ASC"
+    try:
+        rows = fetch_all(sql, sql_params)
+    except Exception as exc:
+        return tools_reply_compatible({"Status": "Error occurred", "text": str(exc)})
+    return tools_reply_compatible(rows)
+
+
+async def company_get_env(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    sql = f"SELECT `value` AS env FROM `{id_master_user}_master_config_companny` WHERE `name` = 'ENV'"
+    try:
+        rows = fetch_all(sql)
+    except Exception as exc:
+        return tools_reply_compatible({"Status": "Error occurred", "text": str(exc)})
+    return tools_reply_compatible(rows)
+
+
+async def get_prod_companny_credentials(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    names = ["prodUserName", "prodPassword", "prodP12Code", "prodPin"]
+    sql, sql_params = _config_values_sql(id_master_user, names, with_name=False)
+    try:
+        rows = fetch_all(sql, sql_params)
+    except Exception as exc:
+        return tools_reply_compatible({"Status": "Error occurred", "text": str(exc)})
+    return tools_reply_compatible(rows)
+
+
+async def get_stag_companny_credentials(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    names = ["stagUserName", "stagPassword", "stagP12Code", "stagPin"]
+    sql, sql_params = _config_values_sql(id_master_user, names, with_name=False)
+    try:
+        rows = fetch_all(sql, sql_params)
+    except Exception as exc:
+        return tools_reply_compatible({"Status": "Error occurred", "text": str(exc)})
+    return tools_reply_compatible(rows)
+
+
+async def get_prod_credentials(_: Request, params: dict[str, str]) -> Response:
+    if not _require_users_logged_in(params):
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    id_user = _session_user_id(params)
+    if id_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    names = ["prodUserName", "prodPassword", "prodP12Code", "prodPin"]
+    sql, sql_params = _config_values_sql(id_user, names, with_name=False)
+    try:
+        rows = fetch_all(sql, sql_params)
+    except Exception as exc:
+        return tools_reply_compatible({"Status": "Error occurred", "text": str(exc)})
+    return tools_reply_compatible(rows)
+
+
+async def get_stag_credentials(_: Request, params: dict[str, str]) -> Response:
+    if not _require_users_logged_in(params):
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    id_user = _session_user_id(params)
+    if id_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    names = ["stagUserName", "stagPassword", "stagP12Code", "stagPin"]
+    sql, sql_params = _config_values_sql(id_user, names, with_name=False)
+    try:
+        rows = fetch_all(sql, sql_params)
+    except Exception as exc:
+        return tools_reply_compatible({"Status": "Error occurred", "text": str(exc)})
+    return tools_reply_compatible(rows)
+
+
 HandlerFn = Callable[[Request, dict[str, str]], Awaitable[Response] | Response]
 NATIVE_HANDLERS: dict[str, HandlerFn] = {
     "info": info,
@@ -199,6 +416,14 @@ NATIVE_HANDLERS: dict[str, HandlerFn] = {
     "get_district": get_district,
     "get_neighborhood": get_neighborhood,
     "inser_to_log_table": inser_to_log_table,
+    "getCompannyLocationInformation": getCompannyLocationInformation,
+    "get_companny_information_admin": get_companny_information_admin,
+    "get_companny_information": get_companny_information,
+    "company_get_env": company_get_env,
+    "get_prod_companny_credentials": get_prod_companny_credentials,
+    "get_stag_companny_credentials": get_stag_companny_credentials,
+    "get_prod_credentials": get_prod_credentials,
+    "get_stag_credentials": get_stag_credentials,
 }
 
 
