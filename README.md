@@ -20,8 +20,7 @@ Se mantiene el contrato legacy (`w` + `r`) y el envelope JSON para compatibilida
 
 ## Estructura
 - Servicio principal: `migration/python-api`
-- Scripts de migracion/paridad: `migration/scripts`
-- Contratos/trackers/reportes: `migration/docs`, `migration/reports`
+- Script operativo FE dev: `migration/scripts/dev_real_fe_flow.py`
 - Infra local (SQL y volumen DB): `migration/infra`
 - Arbol resumido del repo: `TREE.md`
 

@@ -1,9 +1,0 @@
-{
-  "method": "POST",
-  "path": "/api.php",
-  "params": {
-    "w": "geoloc",
-    "r": "geoloc_load_locations"
-  },
-  "notes": "Fill route-specific fields before capture."
-}

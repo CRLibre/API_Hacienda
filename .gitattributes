@@ -3,5 +3,3 @@
 /.gitattributes export-ignore
 /.github export-ignore
 /.gitignore export-ignore
-/_config.yml export-ignore
-/api/contrib/version/VERSION export-subst

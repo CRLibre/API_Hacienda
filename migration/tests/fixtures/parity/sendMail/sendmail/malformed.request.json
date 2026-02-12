@@ -1,9 +1,0 @@
-{
-  "method": "POST",
-  "path": "/api.php",
-  "params": {
-    "w": "sendMail",
-    "r": "sendmail"
-  },
-  "notes": "Fill route-specific fields before capture."
-}

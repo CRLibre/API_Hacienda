@@ -1,9 +1,0 @@
-{
-  "method": "POST",
-  "path": "/api.php",
-  "params": {
-    "w": "facturador",
-    "r": "get_neighborhood"
-  },
-  "notes": "Fill route-specific fields before capture."
-}

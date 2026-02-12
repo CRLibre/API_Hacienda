@@ -1,5 +1,0 @@
-w	r
-geoloc	geoloc_create_tables
-geoloc	geoloc_get_by_ip
-geoloc	geoloc_load_blocks
-geoloc	geoloc_load_locations

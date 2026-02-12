@@ -1,9 +1,0 @@
-{
-  "method": "POST",
-  "path": "/api.php",
-  "params": {
-    "w": "facturador",
-    "r": "company_get_env"
-  },
-  "notes": "Fill route-specific fields before capture."
-}

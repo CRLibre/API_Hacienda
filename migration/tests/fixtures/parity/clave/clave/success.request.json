@@ -1,9 +1,0 @@
-{
-  "method": "POST",
-  "path": "/api.php",
-  "params": {
-    "w": "clave",
-    "r": "clave"
-  },
-  "notes": "Fill route-specific fields before capture."
-}

@@ -1,28 +1,14 @@
 # Migration Workspace
 
-Todo el trabajo de migración (audit, contratos, scripts, fixtures y servicio Python) vive bajo esta carpeta.
+Todo el runtime Python y la infraestructura local viven bajo esta carpeta.
 
 ## Estructura
 
-- `docs/`: auditoría, contrato, checkpoints y runbooks.
-- `docs/archive/`: metadatos heredados movidos fuera de la raíz.
-- `infra/`: recursos operativos (SQL seed y volumen MariaDB local).
-- `scripts/`: utilitarios para generar contrato/tracker, fixtures y sync de datos.
-- `tests/fixtures/parity/`: baseline de paridad para rutas migradas.
-- `python-api/`: servicio de compatibilidad/migración en Python.
+- `python-api/`: servicio API en Python.
+- `infra/`: SQL seed + volumen local de MariaDB.
+- `scripts/dev_real_fe_flow.py`: flujo FE end-to-end para pruebas locales.
 
-## Comandos rápidos
-
-Desde la raíz del repositorio:
-
-```bash
-./migration/scripts/generate_api_contract.sh
-./migration/scripts/generate_migration_tracker.sh
-./migration/scripts/sync_python_route_data.sh
-./migration/scripts/init_parity_fixtures.sh
-```
-
-Servicio Python:
+## Run local
 
 ```bash
 cd migration/python-api

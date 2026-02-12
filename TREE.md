@@ -1,6 +1,5 @@
 # Project Tree
 
-## Root
 ```text
 API_Hacienda/
 ├── README.md
@@ -9,12 +8,8 @@ API_Hacienda/
 ├── docker-compose.md
 ├── Procfile
 ├── ejemplo.env.txt
-├── LICENSE
 ├── migration/
 │   ├── README.md
-│   ├── docs/
-│   │   ├── archive/
-│   │   └── contracts/
 │   ├── infra/
 │   │   ├── recursos/
 │   │   │   └── sql/
@@ -22,18 +17,16 @@ API_Hacienda/
 │   ├── python-api/
 │   │   ├── python_api/
 │   │   ├── alembic/
-│   │   ├── auto_port/
 │   │   ├── resources/
 │   │   ├── runtime/
-│   │   ├── tests/
+│   │   ├── pyproject.toml
+│   │   ├── Dockerfile
 │   │   └── xmldsig-core-schema.xsd
-│   ├── reports/
-│   ├── scripts/
-│   └── tests/
+│   └── scripts/
+│       └── dev_real_fe_flow.py
 └── .github/workflows/
 ```
 
 ## Notes
-- Todo lo operativo de la migración vive dentro de `migration/`.
-- El runtime Python usa `migration/python-api/resources` para XSD, geoloc, version y static.
-- SQL seed y volumen local de MariaDB viven en `migration/infra`.
+- El repositorio quedó limpio para operación Python-only.
+- No se conserva código PHP ni artefactos de migración históricos.
