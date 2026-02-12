@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="${1:-.}"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+MIGRATION_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
+ROOT_DIR="${1:-${MIGRATION_ROOT}}"
 OUT_DIR="${2:-${ROOT_DIR}/docs/contracts}"
 
 mkdir -p "${OUT_DIR}"

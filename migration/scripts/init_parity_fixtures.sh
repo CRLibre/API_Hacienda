@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="${1:-.}"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+MIGRATION_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
+ROOT_DIR="${1:-${MIGRATION_ROOT}}"
 FIXTURE_DIR="${ROOT_DIR}/tests/fixtures/parity"
 
 mkdir -p "${FIXTURE_DIR}"

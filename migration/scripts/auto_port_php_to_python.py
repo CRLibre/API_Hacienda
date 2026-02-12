@@ -186,8 +186,11 @@ def generate(root: Path, out_dir: Path) -> tuple[int, int]:
 
 
 def main() -> int:
+    script_dir = Path(__file__).resolve().parent
+    default_root = script_dir.parent
+
     parser = argparse.ArgumentParser()
-    parser.add_argument("--root", default=".", help="Repository root")
+    parser.add_argument("--root", default=str(default_root), help="Repository root")
     parser.add_argument(
         "--out",
         default="python-api/auto_port",

@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="${1:-.}"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+MIGRATION_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
+ROOT_DIR="${1:-${MIGRATION_ROOT}}"
 ROUTES_FILE="${ROOT_DIR}/docs/contracts/routes.tsv"
 OUT_FILE="${ROOT_DIR}/docs/contracts/migration-tracker.tsv"
 
 if [[ ! -f "${ROUTES_FILE}" ]]; then
   echo "Missing routes file: ${ROUTES_FILE}" >&2
-  echo "Run ./scripts/generate_api_contract.sh first." >&2
+  echo "Run ./migration/scripts/generate_api_contract.sh first." >&2
   exit 1
 fi
 
