@@ -95,6 +95,13 @@ def _safe_numeric_id(raw: str) -> int | None:
     return parsed if parsed > 0 else None
 
 
+def _safe_numeric_token(raw: str) -> str | None:
+    value = raw.strip()
+    if not value or not value.isdigit():
+        return None
+    return value
+
+
 def _session_user_id(params: dict[str, str]) -> int | None:
     session_key = str(params.get("sessionKey", "")).strip()
     if not session_key:
@@ -155,6 +162,15 @@ def _config_values_sql(id_master_user: int, names: list[str], with_name: bool = 
     select_fields = "`name`, `value`" if with_name else "`value`"
     sql = f"SELECT {select_fields} FROM `{id_master_user}_master_config_companny` WHERE {where_clause}"
     return sql, params
+
+
+def _try_insert_master_log(id_master_user: int, payload: str) -> None:
+    table = f"{id_master_user}_master_logs"
+    sql = f"INSERT INTO `{table}` (`idUser`, `json`) VALUES (:idUser, :json)"
+    try:
+        execute(sql, {"idUser": id_master_user, "json": payload})
+    except Exception:
+        pass
 
 
 async def info(_: Request, __: dict[str, str]) -> Response:
@@ -407,6 +423,118 @@ async def get_stag_credentials(_: Request, params: dict[str, str]) -> Response:
     return tools_reply_compatible(rows)
 
 
+async def get_tipo_impuesto(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+    rows = fetch_all("SELECT * FROM `tipo_impuestos`")
+    return tools_reply_compatible(rows)
+
+
+async def getUnid(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+    rows = fetch_all("SELECT * FROM `unidad_medida` ORDER BY `id` ASC")
+    return tools_reply_compatible(rows)
+
+
+async def get_active_receiver(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    sql = f"""
+    SELECT DISTINCT
+        `nombreCliente`,
+        `idReceptor`,
+        `correoPrincipal`,
+        C.`nombreProvincia`,
+        `telefono`,
+        `tipoCedula`,
+        `numeroCedula`
+    FROM `{id_master_user}_master_receiver` AS R
+    INNER JOIN codificacion_mh AS C ON R.`idProvincia` = C.`idProvincia`
+    WHERE `estadoCliente` = '1'
+    """
+    rows = fetch_all(sql)
+    return tools_reply_compatible(rows)
+
+
+async def get_receiver_by_id(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    id_receptor = str(params.get("idReceptor", ""))
+    sql = f"""
+    SELECT *
+    FROM `{id_master_user}_master_receiver`
+    WHERE `estadoCliente` = '1' AND `idReceptor` = :idReceptor
+    """
+    rows = fetch_all(sql, {"idReceptor": id_receptor})
+    return tools_reply_compatible(rows)
+
+
+async def get_vouchers(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    env = str(params.get("env", ""))
+    sql = f"""
+    SELECT `idComprobante`, `consecutivo`, `clave`, `tipoDocumento`, `estado`, `fechaCreacion`
+    FROM `{id_master_user}_master_vouchers`
+    WHERE `env` = :env
+    """
+    rows = fetch_all(sql, {"env": env})
+    return tools_reply_compatible(rows)
+
+
+async def getProductByCode(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    sucursal = _safe_numeric_token(str(params.get("sucursal", "")))
+    if sucursal is None:
+        return tools_reply_compatible(c.ERROR_BAD_REQUEST)
+
+    codigo = str(params.get("codigo", ""))
+    sql = f"""
+    SELECT
+        I.`idProducto`,
+        I.`descripcion`,
+        I.`unidadMedida`,
+        I.`precioVenta`,
+        I.`cantidadImpuesto`,
+        IV.`codigo`
+    FROM `{id_master_user}_master_inventary_sucursal_{sucursal}` AS I
+    INNER JOIN tipo_impuestos AS IV ON I.`idImpuesto` = IV.`idImpuesto`
+    WHERE `codigoBarras` = :codigo
+    """
+    rows = fetch_all(sql, {"codigo": codigo})
+    return tools_reply_compatible(rows)
+
+
+async def get_inventory(_: Request, params: dict[str, str]) -> Response:
+    id_master_user = _require_companny_logged_in(params)
+    if id_master_user is None:
+        return tools_reply_compatible(c.ERROR_USERS_ACCESS_DENIED)
+
+    sucursal = _safe_numeric_token(str(params.get("sucursal", "")))
+    if sucursal is None:
+        return tools_reply_compatible(c.ERROR_BAD_REQUEST)
+
+    sql = f"""
+    SELECT `idProducto`, `codigoBarras`, `nombre`, `unidadMedida`, `precioVenta`, `disponible`
+    FROM `{id_master_user}_master_inventary_sucursal_{sucursal}`
+    """
+    _try_insert_master_log(id_master_user, sql)
+    rows = fetch_all(sql)
+    return tools_reply_compatible(rows)
+
+
 HandlerFn = Callable[[Request, dict[str, str]], Awaitable[Response] | Response]
 NATIVE_HANDLERS: dict[str, HandlerFn] = {
     "info": info,
@@ -424,6 +552,13 @@ NATIVE_HANDLERS: dict[str, HandlerFn] = {
     "get_stag_companny_credentials": get_stag_companny_credentials,
     "get_prod_credentials": get_prod_credentials,
     "get_stag_credentials": get_stag_credentials,
+    "get_tipo_impuesto": get_tipo_impuesto,
+    "getUnid": getUnid,
+    "get_active_receiver": get_active_receiver,
+    "get_receiver_by_id": get_receiver_by_id,
+    "get_vouchers": get_vouchers,
+    "getProductByCode": getProductByCode,
+    "get_inventory": get_inventory,
 }
 
 

@@ -47,7 +47,7 @@
 - `send/json`
 - `send/sendMensaje`
 - `send/sendTE`
-- `facturador/*` routes (Python dispatcher + mixed mode: native partial for catalog/log/config routes, fallback-proxy for the rest)
+- `facturador/*` routes (Python dispatcher + mixed mode: native partial for catalog/log/config/inventory-read routes, fallback-proxy for the rest)
 - `XmlToBase64/callback/check/crlibreall/ejemplo/fileUploader/geoloc/makeJson/makeQR/sendMail/signXML/version/wirez` (Python dispatcher + fallback-proxy mode)
 - `users/login_auto`
 - `users/users_avatar_get`
