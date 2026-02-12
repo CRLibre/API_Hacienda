@@ -6,6 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 
 COPY pyproject.toml README.md ./
+COPY xmldsig-core-schema.xsd ./
 COPY python_api ./python_api
 COPY resources ./resources
 COPY alembic ./alembic

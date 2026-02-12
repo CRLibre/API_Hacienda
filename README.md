@@ -22,6 +22,8 @@ Se mantiene el contrato legacy (`w` + `r`) y el envelope JSON para compatibilida
 - Servicio principal: `migration/python-api`
 - Scripts de migracion/paridad: `migration/scripts`
 - Contratos/trackers/reportes: `migration/docs`, `migration/reports`
+- Infra local (SQL y volumen DB): `migration/infra`
+- Arbol resumido del repo: `TREE.md`
 
 ## Ejecutar local
 ```bash

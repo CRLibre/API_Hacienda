@@ -4,7 +4,9 @@ Todo el trabajo de migración (audit, contratos, scripts, fixtures y servicio Py
 
 ## Estructura
 
-- `docs/`: auditoría, contrato y plan de migración.
+- `docs/`: auditoría, contrato, checkpoints y runbooks.
+- `docs/archive/`: metadatos heredados movidos fuera de la raíz.
+- `infra/`: recursos operativos (SQL seed y volumen MariaDB local).
 - `scripts/`: utilitarios para generar contrato/tracker, fixtures y sync de datos.
 - `tests/fixtures/parity/`: baseline de paridad para rutas migradas.
 - `python-api/`: servicio de compatibilidad/migración en Python.

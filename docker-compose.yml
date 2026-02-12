@@ -29,8 +29,8 @@ services:
     ports:
       - "4407:3306"
     volumes:
-      - ./recursos/sql:/docker-entrypoint-initdb.d
-      - ./mysql-data:/var/lib/mysql
+      - ./migration/infra/recursos/sql:/docker-entrypoint-initdb.d
+      - ./migration/infra/mysql-data:/var/lib/mysql
     environment:
       TZ: "America/Costa_Rica"
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"

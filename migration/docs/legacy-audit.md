@@ -59,7 +59,7 @@
 - Multiple PHPMailer trees increase patching/CVE drift risk and make behavior inconsistent depending on include path.
 - Vendored libraries without centralized update policy increase long-term drift and opaque compatibility behavior.
 
-## Database/schema risk inventory (`recursos/sql/api_base.sql`)
+## Database/schema risk inventory (`migration/infra/recursos/sql/api_base.sql`)
 ### Age signal
 - SQL dump footer indicates baseline from 2018 (`Dump completed on 2018-10-23`).
 
