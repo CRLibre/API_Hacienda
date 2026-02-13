@@ -7,10 +7,10 @@ callback	callback	./api/contrib/callback/module.php	W3_SUPPORT	P2	completed	pyth
 check	checkxml	./api/contrib/check/module.php	W3_SUPPORT	P2	completed	python_api.handlers.check.checkxml	tests/fixtures/parity/check/checkxml	passed	cutover	unassigned	
 clave	clave	./api/contrib/clave/module.php	W1_CORE	P0	completed	python_api.handlers.clave.clave	tests/fixtures/parity/clave/clave	passed	cutover	unassigned	python_handler_ported_no_parity;canary_block_1_passed_2026-02-12_cutover_local
 consultar	consultarCom	./api/contrib/consultar/module.php	W1_CORE	P0	completed	python_api.handlers.consultar.consultarCom	tests/fixtures/parity/consultar/consultarCom	passed	cutover	unassigned	python_handler_ported_no_parity;canary_block_3_passed_2026-02-12_cutover_local
-crlibreall	FE	./api/contrib/crlibreall/module.php	W2_BUSINESS	P1	completed	python_api.handlers.crlibreall.FE	tests/fixtures/parity/crlibreall/FE	passed	cutover	unassigned	
-crlibreall	NC	./api/contrib/crlibreall/module.php	W2_BUSINESS	P1	completed	python_api.handlers.crlibreall.NC	tests/fixtures/parity/crlibreall/NC	passed	cutover	unassigned	
-crlibreall	ND	./api/contrib/crlibreall/module.php	W2_BUSINESS	P1	completed	python_api.handlers.crlibreall.ND	tests/fixtures/parity/crlibreall/ND	passed	cutover	unassigned	
-crlibreall	gen_xml_nc	./api/contrib/crlibreall/module.php	W2_BUSINESS	P1	completed	python_api.handlers.crlibreall.gen_xml_nc	tests/fixtures/parity/crlibreall/gen_xml_nc	passed	cutover	unassigned	
+legacyall	FE	./api/contrib/legacyall/module.php	W2_BUSINESS	P1	completed	python_api.handlers.legacyall.FE	tests/fixtures/parity/legacyall/FE	passed	cutover	unassigned	
+legacyall	NC	./api/contrib/legacyall/module.php	W2_BUSINESS	P1	completed	python_api.handlers.legacyall.NC	tests/fixtures/parity/legacyall/NC	passed	cutover	unassigned	
+legacyall	ND	./api/contrib/legacyall/module.php	W2_BUSINESS	P1	completed	python_api.handlers.legacyall.ND	tests/fixtures/parity/legacyall/ND	passed	cutover	unassigned	
+legacyall	gen_xml_nc	./api/contrib/legacyall/module.php	W2_BUSINESS	P1	completed	python_api.handlers.legacyall.gen_xml_nc	tests/fixtures/parity/legacyall/gen_xml_nc	passed	cutover	unassigned	
 crypto	desencrypt	./api/modules/crypto/module.php	W1_CORE	P2	completed	python_api.handlers.crypto.desencrypt	tests/fixtures/parity/crypto/desencrypt	passed	cutover	unassigned	python_handler_native_partial_no_parity;canary_block_4_passed_2026-02-12_cutover_local
 crypto	encrypt	./api/modules/crypto/module.php	W1_CORE	P2	completed	python_api.handlers.crypto.encrypt	tests/fixtures/parity/crypto/encrypt	passed	cutover	unassigned	python_handler_native_partial_no_parity;canary_block_4_passed_2026-02-12_cutover_local
 crypto	makeKey	./api/modules/crypto/module.php	W1_CORE	P2	completed	python_api.handlers.crypto.makeKey	tests/fixtures/parity/crypto/makeKey	passed	cutover	unassigned	python_handler_native_partial_no_parity;canary_block_4_passed_2026-02-12_cutover_local

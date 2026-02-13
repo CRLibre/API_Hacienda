@@ -1,0 +1,47 @@
+services:
+  python-api:
+    image: ${API_IMAGE:?set API_IMAGE (ECR URI)}
+    ports:
+      - "${APP_PORT:-8080}:8090"
+    environment:
+      API_HACIENDA_ENV: ${API_HACIENDA_ENV:-production}
+      API_HACIENDA_LOG_LEVEL: ${API_HACIENDA_LOG_LEVEL:-INFO}
+      API_HACIENDA_PHP_FALLBACK_URL: ""
+      API_HACIENDA_DATABASE_URL: ${API_HACIENDA_DATABASE_URL:?set API_HACIENDA_DATABASE_URL}
+      API_HACIENDA_CRYPTO_KEY: ${API_HACIENDA_CRYPTO_KEY:?set API_HACIENDA_CRYPTO_KEY}
+      API_HACIENDA_FILES_BASE_PATH: /app/runtime/files/
+      API_HACIENDA_CORE_SITE_NAME: ${API_HACIENDA_CORE_SITE_NAME:-API Hacienda}
+      API_HACIENDA_MAIL_NOREPLY: ${API_HACIENDA_MAIL_NOREPLY:-no-reply@example.com}
+      API_HACIENDA_MAIL_TYPE: ${API_HACIENDA_MAIL_TYPE:-mail}
+      API_HACIENDA_MAIL_ADDRESS: ${API_HACIENDA_MAIL_ADDRESS:-}
+      API_HACIENDA_MAIL_HOST: ${API_HACIENDA_MAIL_HOST:-}
+      API_HACIENDA_MAIL_USERNAME: ${API_HACIENDA_MAIL_USERNAME:-}
+      API_HACIENDA_MAIL_PASSWORD: ${API_HACIENDA_MAIL_PASSWORD:-}
+      API_HACIENDA_MAIL_SECURE: ${API_HACIENDA_MAIL_SECURE:-tls}
+      API_HACIENDA_MAIL_PORT: ${API_HACIENDA_MAIL_PORT:-587}
+    init: true
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - runtime_files:/app/runtime/files
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 256
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8090/healthz', timeout=3)\""]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+volumes:
+  runtime_files:

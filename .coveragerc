@@ -1,0 +1,26 @@
+[run]
+branch = True
+source =
+    python-api/python_api
+omit =
+    # Heavy legacy surfaces with deep external dependencies (covered by smoke/functional POCs first).
+    */python_api/handlers/facturador.py
+    */python_api/handlers/genxml.py
+    */python_api/handlers/users.py
+    */python_api/handlers/wirez.py
+    */python_api/handlers/check.py
+    */python_api/handlers/files.py
+    */python_api/handlers/firmar_xml.py
+    */python_api/handlers/geoloc.py
+    */python_api/handlers/clave.py
+    */python_api/handlers/token.py
+    */python_api/handlers/send_mail.py
+    */python_api/handlers/xml_to_base64.py
+    */python_api/handlers/consultar.py
+    */python_api/handlers/make_qr.py
+    */python_api/handlers/send.py
+
+[report]
+show_missing = True
+skip_covered = True
+precision = 2

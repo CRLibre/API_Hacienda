@@ -1,6 +1,6 @@
 {
 	"info": {
-		"name": "API CRLibre",
+		"name": "API API_Hacienda",
 		"_postman_id": "73c60a95-9ea4-dc93-f5a9-5424731a2951",
 		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -192,11 +192,11 @@
 					]
 				},
 				"url": {
-					"raw": "http://api-demo.crlibre.org/api.php",
+					"raw": "http://api-demo.API_Hacienda.org/api.php",
 					"protocol": "http",
 					"host": [
 						"api-demo",
-						"crlibre",
+						"API_Hacienda",
 						"org"
 					],
 					"path": [
@@ -1177,11 +1177,11 @@
 					]
 				},
 				"url": {
-					"raw": "http://api-demo.crlibre.org/api.php",
+					"raw": "http://api-demo.API_Hacienda.org/api.php",
 					"protocol": "http",
 					"host": [
 						"api-demo",
-						"crlibre",
+						"API_Hacienda",
 						"org"
 					],
 					"path": [

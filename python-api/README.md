@@ -28,3 +28,18 @@ uvicorn python_api.main:app --host 0.0.0.0 --port 8080
   --proveedor-sistemas "<cedula_proveedor_sistemas>" \
   --skip-send
 ```
+
+## Tests
+El repositorio usa `unittest` centralizado en:
+
+- `/Users/juandi/Documents/github/API_Hacienda/tests/unit`
+- `/Users/juandi/Documents/github/API_Hacienda/tests/functional`
+- `/Users/juandi/Documents/github/API_Hacienda/tests/smoke`
+
+Runner:
+
+```bash
+cd /Users/juandi/Documents/github/API_Hacienda
+/Users/juandi/Documents/github/API_Hacienda/python-api/.venv313/bin/python \
+  scripts/run_tests.py --suite unit --suite functional --coverage --min-coverage 80
+```

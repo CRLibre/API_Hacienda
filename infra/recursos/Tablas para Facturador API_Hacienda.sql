@@ -4,7 +4,7 @@
 --
 -- Servidor: localhost
 -- Tiempo de generación: 30-08-2018 a las 10:28:03
--- Versión del servidor: 10.2.11-MariaDB
+-- Versión del servidor: 10.2.11-MySQL
 -- Versión de PHP: 7.0.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `crlibreapi`
+-- Base de datos: `API_Haciendaapi`
 --
 
 -- --------------------------------------------------------
@@ -14472,20 +14472,20 @@ CREATE TABLE IF NOT EXISTS `master_config_companny` (
 --
 
 INSERT INTO `master_config_companny` (`idConfig`, `name`, `value`, `compannyName`) VALUES
-(1, 'NOMBRE', 'CRLibre.org', 'CRLibre.org'),
-(2, 'TIPOCED', '02', 'CRLibre.org'),
-(3, 'CEDULA', '3101700311', 'CRLibre.org'),
-(4, 'NOMCOMER', 'CRLibre.org', 'CRLibre.org'),
-(5, 'EMAIL', 'info@crlibre.org', 'CRLibre.org'),
-(6, 'PROVINCIA', '1', 'CRLibre.org'),
-(7, 'CANTON', '1', 'CRLibre.org'),
-(8, 'DISTRITO', '8', 'CRLibre.org'),
-(9, 'BARRIO', '', 'CRLibre.org'),
-(10, 'SENNAS', '250 mts oeste Scotiabank, Rhormoser', 'CRLibre.org'),
-(11, 'NCODPAIS', '506', 'CRLibre.org'),
-(12, 'NNUMER', '64206205', 'CRLibre.org'),
-(13, 'FCODPAIS', '506', 'CRLibre.org'),
-(14, 'ENV', 'api-stag', 'CRLibre.org'),
+(1, 'NOMBRE', 'API_Hacienda.org', 'API_Hacienda.org'),
+(2, 'TIPOCED', '02', 'API_Hacienda.org'),
+(3, 'CEDULA', '3101700311', 'API_Hacienda.org'),
+(4, 'NOMCOMER', 'API_Hacienda.org', 'API_Hacienda.org'),
+(5, 'EMAIL', 'info@API_Hacienda.org', 'API_Hacienda.org'),
+(6, 'PROVINCIA', '1', 'API_Hacienda.org'),
+(7, 'CANTON', '1', 'API_Hacienda.org'),
+(8, 'DISTRITO', '8', 'API_Hacienda.org'),
+(9, 'BARRIO', '', 'API_Hacienda.org'),
+(10, 'SENNAS', '250 mts oeste Scotiabank, Rhormoser', 'API_Hacienda.org'),
+(11, 'NCODPAIS', '506', 'API_Hacienda.org'),
+(12, 'NNUMER', '64206205', 'API_Hacienda.org'),
+(13, 'FCODPAIS', '506', 'API_Hacienda.org'),
+(14, 'ENV', 'api-stag', 'API_Hacienda.org'),
 (15, 'situacion', 'normal', ''),
 (16, 'stagUserName', 'cpf-07-0232-0717@stag.comprobanteselectronicos.go.cr', ''),
 (17, 'stagPassword', 'N&@4+p[H-e[+#$DcOP@9', ''),
@@ -14494,7 +14494,7 @@ INSERT INTO `master_config_companny` (`idConfig`, `name`, `value`, `compannyName
 (20, 'prodP12Code', '', ''),
 (21, 'stagP12Code', '', ''),
 (22, 'TIPOCAMBIO', '564.48', ''),
-(23, 'FNUMER', '', 'CRLibre.org');
+(23, 'FNUMER', '', 'API_Hacienda.org');
 
 -- --------------------------------------------------------
 
@@ -14517,13 +14517,13 @@ CREATE TABLE IF NOT EXISTS `master_consecutive` (
 --
 
 INSERT INTO `master_consecutive` (`idConsecutivo`, `ENV`, `companyName`, `numeroConsecutivo`, `tipoComprobante`, `idUser`) VALUES
-(1, 'api-stag', 'CRLibre.org', 0, '01', 1),
-(2, 'api-stag', 'CRLibre.org', 0, '02', 1),
-(3, 'api-prod', 'CRLibre.org', 0, '03', 1),
-(4, 'api-prod', 'CRLibre.org', 0, '04', 1),
-(5, 'api-stag', 'CRLibre.org', 0, '05', 1),
-(6, 'api-stag', 'CRLibre.org', 0, '06', 1),
-(7, 'api-stag', 'CRLibre.org', 0, '07', 1);
+(1, 'api-stag', 'API_Hacienda.org', 0, '01', 1),
+(2, 'api-stag', 'API_Hacienda.org', 0, '02', 1),
+(3, 'api-prod', 'API_Hacienda.org', 0, '03', 1),
+(4, 'api-prod', 'API_Hacienda.org', 0, '04', 1),
+(5, 'api-stag', 'API_Hacienda.org', 0, '05', 1),
+(6, 'api-stag', 'API_Hacienda.org', 0, '06', 1),
+(7, 'api-stag', 'API_Hacienda.org', 0, '07', 1);
 
 -- --------------------------------------------------------
 

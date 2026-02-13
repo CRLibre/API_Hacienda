@@ -1016,21 +1016,21 @@ async def copy_master_tables(_: Request, params: dict[str, str]) -> Response:
         execute(f"CREATE TABLE IF NOT EXISTS `{id_user}_{table_name}` LIKE `{table_name}`")
 
     defaults = [
-        (1, "NOMBRE", "CRLibre.org", "CRLibre.org"),
-        (2, "TIPOCED", "01", "CRLibre.org"),
-        (3, "CEDULA", "702320717", "CRLibre.org"),
-        (4, "NOMCOMER", "CRLibre.org", "CRLibre.org"),
-        (5, "EMAIL", "info@crlibre.org", "CRLibre.org"),
-        (6, "PROVINCIA", "1", "CRLibre.org"),
-        (7, "CANTON", "01", "CRLibre.org"),
-        (8, "DISTRITO", "08", "CRLibre.org"),
-        (9, "BARRIO", "01", "CRLibre.org"),
-        (10, "SENNAS", "250 mts oeste Scotiabank, Rhormoser", "CRLibre.org"),
-        (11, "NCODPAIS", "506", "CRLibre.org"),
-        (12, "NNUMER", "64206205", "CRLibre.org"),
-        (13, "FCODPAIS", "506", "CRLibre.org"),
-        (14, "FNUMER", "", "CRLibre.org"),
-        (15, "ENV", "api-stag", "CRLibre.org"),
+        (1, "NOMBRE", "API-Hacienda.local", "API-Hacienda.local"),
+        (2, "TIPOCED", "01", "API-Hacienda.local"),
+        (3, "CEDULA", "702320717", "API-Hacienda.local"),
+        (4, "NOMCOMER", "API-Hacienda.local", "API-Hacienda.local"),
+        (5, "EMAIL", "info@api-hacienda.local", "API-Hacienda.local"),
+        (6, "PROVINCIA", "1", "API-Hacienda.local"),
+        (7, "CANTON", "01", "API-Hacienda.local"),
+        (8, "DISTRITO", "08", "API-Hacienda.local"),
+        (9, "BARRIO", "01", "API-Hacienda.local"),
+        (10, "SENNAS", "250 mts oeste Scotiabank, Rhormoser", "API-Hacienda.local"),
+        (11, "NCODPAIS", "506", "API-Hacienda.local"),
+        (12, "NNUMER", "64206205", "API-Hacienda.local"),
+        (13, "FCODPAIS", "506", "API-Hacienda.local"),
+        (14, "FNUMER", "", "API-Hacienda.local"),
+        (15, "ENV", "api-stag", "API-Hacienda.local"),
         (16, "situacion", "normal", ""),
         (17, "stagUserName", "cpf-07-0232-0717@stag.comprobanteselectronicos.go.cr", ""),
         (18, "stagPassword", "1PdeUpreble", ""),
@@ -1205,7 +1205,7 @@ async def companny_users_recover_pwd(_: Request, params: dict[str, str]) -> Resp
     )
 
     subject = f"Recuperación de Clave {settings.core_site_name}"
-    reply_to = f"no-repy@{getattr(settings, 'mail_noreply', 'crlibre.org')}"
+    reply_to = f"no-repy@{getattr(settings, 'mail_noreply', 'api-hacienda.local')}"
     sent = _send_recover_email(
         to=str(user.get("email", "")),
         subject=subject,

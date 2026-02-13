@@ -113,7 +113,7 @@ PARAM_ORDER_OVERRIDES: dict[tuple[str, str], tuple[str, ...]] = {
         "informacion_referencia",
     ),
     ("users", "users_register"): ("fullName", "userName", "email", "about", "country", "pwd"),
-    ("crlibreall", "FE"): (
+    ("legacyall", "FE"): (
         "tipoDocumento",
         "tipoCedula",
         "cedula",
@@ -124,7 +124,7 @@ PARAM_ORDER_OVERRIDES: dict[tuple[str, str], tuple[str, ...]] = {
         "sucursal",
         "codigoSeguridad",
     ),
-    ("crlibreall", "NC"): (
+    ("legacyall", "NC"): (
         "tipoDocumento",
         "tipoCedula",
         "cedula",
@@ -135,7 +135,7 @@ PARAM_ORDER_OVERRIDES: dict[tuple[str, str], tuple[str, ...]] = {
         "sucursal",
         "codigoSeguridad",
     ),
-    ("crlibreall", "ND"): (
+    ("legacyall", "ND"): (
         "tipoDocumento",
         "tipoCedula",
         "cedula",

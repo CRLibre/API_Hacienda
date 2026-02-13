@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     files_base_path: str = DEFAULT_FILES_BASE_PATH
     cron_token: str = "ItIsGoodIfThisIsBigAndHasW3irDLeeT3rsAnd$ymb0lz.IniT"
     core_site_name: str = "Mi Sitio"
-    mail_noreply: str = "no-reply@crlibre.org"
+    mail_noreply: str = "no-reply@api-hacienda.local"
     mail_type: str = "mail"
     mail_address: str = ""
     mail_host: str = ""

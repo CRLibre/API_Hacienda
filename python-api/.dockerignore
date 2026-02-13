@@ -2,5 +2,8 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .venv/
+.venv313/
 tests/
 .env
+runtime/files/*
+!runtime/files/.gitkeep

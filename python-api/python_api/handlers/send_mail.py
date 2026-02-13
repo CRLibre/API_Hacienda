@@ -53,7 +53,7 @@ async def sendmail(_: Request, params: dict[str, str]) -> JSONResponse:
 
     mail = EmailMessage()
     mail["Subject"] = f"Documentos de Factura electronica #{clave}"
-    mail["From"] = "info@crlibre.org"
+    mail["From"] = "info@api-hacienda.local"
     mail["To"] = "walner1borbon@gmail.com"
     mail.set_content("Se adjuntan las facturas electronicas.")
 

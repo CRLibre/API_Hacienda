@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   python-api:
     container_name: ${APP_CONTAINER_NAME:-api-hacienda-py}
@@ -7,27 +5,30 @@ services:
       context: ./python-api
       dockerfile: Dockerfile
     ports:
-      - "8080:8090"
+      - "${APP_PORT:-8080}:8090"
     environment:
       API_HACIENDA_ENV: ${API_HACIENDA_ENV:-development}
       API_HACIENDA_LOG_LEVEL: ${API_HACIENDA_LOG_LEVEL:-INFO}
       API_HACIENDA_PHP_FALLBACK_URL: ""
-      API_HACIENDA_DATABASE_URL: ${API_HACIENDA_DATABASE_URL:-mysql+pymysql://testuser:testpassword@mariadb:3306/testdb}
+      API_HACIENDA_DATABASE_URL: ${API_HACIENDA_DATABASE_URL:-mysql+pymysql://${DB_USER:-testuser}:${DB_PASSWORD:-testpassword}@mysql:3306/${DB_NAME:-testdb}}
       API_HACIENDA_CRYPTO_KEY: ${API_HACIENDA_CRYPTO_KEY:-}
       API_HACIENDA_FILES_BASE_PATH: /app/runtime/files/
+    init: true
+    restart: unless-stopped
     depends_on:
-      - mariadb
+      mysql:
+        condition: service_healthy
     volumes:
       - ./python-api/runtime:/app/runtime
       - ./python-api/resources:/app/resources:ro
     networks:
-      - crlibrenet
+      - api_hacienda_net
 
-  mariadb:
-    image: mariadb:10.11.4
-    container_name: ${MARIADB_CONTAINER_NAME:-crlibre-mariadb}
+  mysql:
+    image: mysql:8.4
+    container_name: ${MYSQL_CONTAINER_NAME:-api-hacienda-mysql}
     ports:
-      - "4407:3306"
+      - "${DB_PORT:-4407}:3306"
     volumes:
       - ./infra/recursos/sql:/docker-entrypoint-initdb.d
       - ./infra/mysql-data:/var/lib/mysql
@@ -40,11 +41,17 @@ services:
       MYSQL_DATABASE: ${DB_NAME:-testdb}
     restart: always
     tty: true
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
     networks:
-      - crlibrenet
+      - api_hacienda_net
 
 networks:
-  crlibrenet:
+  api_hacienda_net:
     driver: bridge
     driver_opts:
       com.docker.network.enable_ipv6: "false"

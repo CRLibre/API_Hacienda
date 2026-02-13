@@ -15,7 +15,7 @@ MODULE_ROUTES: dict[str, set[str]] = {
     "XmlToBase64": {"encode"},
     "callback": {"callback"},
     "check": {"checkxml"},
-    "crlibreall": {"FE", "NC", "ND", "gen_xml_nc"},
+    "legacyall": {"FE", "NC", "ND", "gen_xml_nc"},
     "ejemplo": {"hola", "un_usuario"},
     "fileUploader": {"subir_certif", "subir_xml", "test"},
     "geoloc": {"geoloc_create_tables", "geoloc_get_by_ip", "geoloc_load_blocks", "geoloc_load_locations"},

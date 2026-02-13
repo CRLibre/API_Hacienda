@@ -7,10 +7,10 @@ callback	callback	./api/contrib/callback/module.php
 check	checkxml	./api/contrib/check/module.php
 clave	clave	./api/contrib/clave/module.php
 consultar	consultarCom	./api/contrib/consultar/module.php
-crlibreall	FE	./api/contrib/crlibreall/module.php
-crlibreall	NC	./api/contrib/crlibreall/module.php
-crlibreall	ND	./api/contrib/crlibreall/module.php
-crlibreall	gen_xml_nc	./api/contrib/crlibreall/module.php
+legacyall	FE	./api/contrib/legacyall/module.php
+legacyall	NC	./api/contrib/legacyall/module.php
+legacyall	ND	./api/contrib/legacyall/module.php
+legacyall	gen_xml_nc	./api/contrib/legacyall/module.php
 crypto	desencrypt	./api/modules/crypto/module.php
 crypto	encrypt	./api/modules/crypto/module.php
 crypto	makeKey	./api/modules/crypto/module.php

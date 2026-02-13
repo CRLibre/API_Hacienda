@@ -35,6 +35,9 @@ random_seed
 junit-report.html
 junit-report.xml
 .env
+.env.local
+.env.aws
+.env.*.local
 
 # Python cache artifacts
 __pycache__/
@@ -59,6 +62,7 @@ venv/
 .mypy_cache/
 .coverage
 .coverage.*
+htmlcov/
 
 # Python runtime artifacts
 python-api/runtime/files/*
