@@ -11,6 +11,7 @@ from python_api import constants as c
 from python_api.config import get_settings
 from python_api.db.session import engine
 from python_api.responses import tools_reply_compatible
+from python_api.services.db_compat import fetch_one
 
 settings = get_settings()
 APP_ROOT = Path(__file__).resolve().parents[2]
@@ -39,8 +40,13 @@ async def cala_test_install(_: Request, __: dict[str, str]) -> JSONResponse:
 
     db_comment = "All good"
     try:
-        with engine.connect():
-            pass
+        if settings.db_backend == "rds_data_api":
+            probe = fetch_one("SELECT 1 AS ok")
+            if probe is None:
+                db_comment = "Database probe returned no rows"
+        else:
+            with engine.connect():
+                pass
     except Exception as exc:
         db_comment = str(exc)
 

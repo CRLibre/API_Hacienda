@@ -46,6 +46,11 @@ docker compose -f docker-compose.aws.yml --env-file .env.aws config
 
 `docker-compose.aws.yml` esta pensado para desplegar el `python-api` con imagen preconstruida (por ejemplo en ECR), sin MySQL local y con endurecimiento base (`read_only`, `cap_drop`, `no-new-privileges`).
 
+## AWS serverless (API + SQS + worker + scheduler)
+- Plantilla SAM: `/Users/juandi/Documents/github/API_Hacienda/infra/aws/serverless.yml`
+- Guia: `/Users/juandi/Documents/github/API_Hacienda/infra/aws/README.md`
+- Docker lambda image: `/Users/juandi/Documents/github/API_Hacienda/python-api/Dockerfile.lambda`
+
 ## Pruebas (unittest)
 Estructura de pruebas: `/Users/juandi/Documents/github/API_Hacienda/tests`
 

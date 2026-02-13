@@ -15,6 +15,11 @@ class Settings(BaseSettings):
     php_fallback_url: str | None = None
     request_timeout_seconds: float = 30.0
     database_url: str = "mysql+pymysql://testuser:testpassword@localhost:4407/testdb"
+    db_backend: str = "sqlalchemy"
+    aws_region: str = "us-east-1"
+    rds_data_resource_arn: str = ""
+    rds_data_secret_arn: str = ""
+    rds_data_database: str = ""
     crypto_key: str = ""
     users_session_lifetime: int = -1
     files_base_path: str = DEFAULT_FILES_BASE_PATH
@@ -28,6 +33,16 @@ class Settings(BaseSettings):
     mail_password: str = ""
     mail_secure: str = "tls"
     mail_port: int = 587
+    fe_async_enabled: bool = False
+    fe_sqs_queue_url: str = ""
+    fe_worker_batch_size: int = 10
+    fe_retry_base_seconds: int = 60
+    fe_retry_max_seconds: int = 21600
+    fe_retry_jitter_seconds: int = 30
+    fe_retry_max_attempts: int = 256
+    fe_retry_max_age_seconds: int = 604800
+    fe_consult_delay_seconds: int = 300
+    fe_stuck_processing_seconds: int = 900
 
 
 @lru_cache

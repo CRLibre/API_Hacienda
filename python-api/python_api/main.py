@@ -15,6 +15,12 @@ from python_api.fallback import FallbackProxy
 from python_api.handlers import get_handler, module_exists, should_skip_local_validation
 from python_api.logging_config import configure_logging
 from python_api.responses import tools_reply_compatible
+from python_api.services.fe_async import (
+    ensure_async_tables,
+    get_job_status,
+    process_sqs_batch,
+    requeue_due_jobs,
+)
 
 settings = get_settings()
 configure_logging(settings.log_level)
@@ -28,6 +34,15 @@ app = FastAPI(
     openapi_url="/openapi.json",
 )
 fallback_proxy = FallbackProxy(settings)
+
+
+@app.on_event("startup")
+async def startup_checks() -> None:
+    if settings.fe_async_enabled:
+        try:
+            ensure_async_tables()
+        except Exception:
+            logger.exception("fe_async_table_bootstrap_failed")
 
 
 @app.middleware("http")
@@ -59,7 +74,31 @@ async def healthz():
 
 @app.get("/readyz")
 async def readyz():
-    return {"status": "ok", "fallback_enabled": bool(settings.php_fallback_url)}
+    return {
+        "status": "ok",
+        "fallback_enabled": bool(settings.php_fallback_url),
+        "fe_async_enabled": bool(settings.fe_async_enabled and settings.fe_sqs_queue_url),
+    }
+
+
+@app.post("/internal/fe/worker/pump")
+async def internal_fe_worker_pump(max_messages: int | None = None):
+    result = await process_sqs_batch(max_messages=max_messages or settings.fe_worker_batch_size)
+    return envelope_ok(result)
+
+
+@app.post("/internal/fe/worker/requeue")
+async def internal_fe_worker_requeue(limit: int = 100):
+    result = requeue_due_jobs(limit=limit)
+    return envelope_ok(result)
+
+
+@app.get("/internal/fe/jobs/{job_id}")
+async def internal_fe_job_status(job_id: str):
+    row = get_job_status(job_id)
+    if row is None:
+        return envelope_error("Job not found", status_code=404)
+    return envelope_ok(row)
 
 
 @app.api_route("/api.php", methods=["GET", "POST", "PUT"])
@@ -146,5 +185,7 @@ async def root():
             "docs": "/docs",
             "healthz": "/healthz",
             "readyz": "/readyz",
+            "worker_pump": "/internal/fe/worker/pump",
+            "worker_requeue": "/internal/fe/worker/requeue",
         }
     )

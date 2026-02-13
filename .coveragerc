@@ -19,6 +19,9 @@ omit =
     */python_api/handlers/consultar.py
     */python_api/handlers/make_qr.py
     */python_api/handlers/send.py
+    */python_api/services/aws_clients.py
+    */python_api/services/fe_async.py
+    */python_api/services/rds_data_backend.py
 
 [report]
 show_missing = True

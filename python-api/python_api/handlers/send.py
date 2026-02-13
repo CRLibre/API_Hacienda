@@ -6,7 +6,9 @@ import httpx
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
+from python_api.config import get_settings
 from python_api.responses import tools_reply_compatible
+from python_api.services.fe_async import enqueue_response, enqueue_send_job
 
 
 def _recepcion_url(client_id: str) -> str | None:
@@ -50,6 +52,23 @@ async def _post_to_hacienda(
     return tools_reply_compatible({"Status": response.status_code, "text": _raw_http_lines(response)})
 
 
+def _async_mode_enabled() -> bool:
+    settings = get_settings()
+    return bool(settings.fe_async_enabled and settings.fe_sqs_queue_url)
+
+
+def _queue_or_error(*, route_r: str, params: dict[str, str], message: str) -> JSONResponse | None:
+    if not _async_mode_enabled():
+        return None
+    try:
+        job = enqueue_send_job(route_r=route_r, params=params, message=message)
+    except Exception as exc:
+        return tools_reply_compatible(
+            {"Status": 0, "to": str(params.get("client_id", "")), "text": f"Queue error: {exc}"}
+        )
+    return enqueue_response(job)
+
+
 async def json(_: Request, params: dict[str, str]) -> JSONResponse:
     payload: dict[str, object] = {
         "clave": params.get("clave", ""),
@@ -72,6 +91,9 @@ async def json(_: Request, params: dict[str, str]) -> JSONResponse:
         payload.pop("receptor", None)
 
     message = jsonlib.dumps(payload, ensure_ascii=False)
+    queued = _queue_or_error(route_r="json", params=params, message=message)
+    if queued is not None:
+        return queued
     return await _post_to_hacienda(
         api_to=str(params.get("client_id", "")),
         token=str(params.get("token", "")),
@@ -98,6 +120,9 @@ async def sendMensaje(_: Request, params: dict[str, str]) -> JSONResponse:
     }
 
     message = jsonlib.dumps(payload, ensure_ascii=False)
+    queued = _queue_or_error(route_r="sendMensaje", params=params, message=message)
+    if queued is not None:
+        return queued
     return await _post_to_hacienda(
         api_to=str(params.get("client_id", "")),
         token=str(params.get("token", "")),
@@ -117,6 +142,9 @@ async def sendTE(_: Request, params: dict[str, str]) -> JSONResponse:
     }
 
     message = jsonlib.dumps(payload, ensure_ascii=False)
+    queued = _queue_or_error(route_r="sendTE", params=params, message=message)
+    if queued is not None:
+        return queued
     return await _post_to_hacienda(
         api_to=str(params.get("client_id", "")),
         token=str(params.get("token", "")),

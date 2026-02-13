@@ -1,0 +1,23 @@
+ARG PYTHON_VERSION=3.13
+
+FROM public.ecr.aws/lambda/python:${PYTHON_VERSION}
+
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    API_HACIENDA_FILES_BASE_PATH=/tmp/files/
+
+WORKDIR /var/task
+
+COPY pyproject.toml README.md xmldsig-core-schema.xsd ./
+COPY python_api ./python_api
+COPY resources ./resources
+COPY alembic ./alembic
+COPY alembic.ini ./
+
+RUN mkdir -p /tmp/files \
+    && pip install --upgrade pip \
+    && pip install .
+
+CMD ["python_api.aws_lambda_handlers.api_gateway_handler"]

@@ -1,0 +1,220 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: API Hacienda serverless stack (API Gateway + Lambda + SQS + DLQ + EventBridge + Data API)
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: api-hacienda
+  LambdaImageUri:
+    Type: String
+    Description: ECR image URI built from python-api/Dockerfile.lambda
+  CryptoKey:
+    Type: String
+    NoEcho: true
+  DbBackend:
+    Type: String
+    Default: rds_data_api
+    AllowedValues:
+      - sqlalchemy
+      - rds_data_api
+  DatabaseUrl:
+    Type: String
+    Default: ""
+  AwsRegion:
+    Type: String
+    Default: us-east-1
+  RdsDataResourceArn:
+    Type: String
+    Default: ""
+  RdsDataSecretArn:
+    Type: String
+    Default: ""
+  RdsDataDatabase:
+    Type: String
+    Default: ""
+  LogLevel:
+    Type: String
+    Default: INFO
+  FeRetryMaxAgeSeconds:
+    Type: Number
+    Default: 604800
+  FeStuckProcessingSeconds:
+    Type: Number
+    Default: 900
+  WorkerScheduleExpression:
+    Type: String
+    Default: rate(2 minutes)
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+    Architectures:
+      - arm64
+    Environment:
+      Variables:
+        API_HACIENDA_ENV: production
+        API_HACIENDA_LOG_LEVEL: !Ref LogLevel
+        API_HACIENDA_PHP_FALLBACK_URL: ""
+        API_HACIENDA_DB_BACKEND: !Ref DbBackend
+        API_HACIENDA_DATABASE_URL: !Ref DatabaseUrl
+        API_HACIENDA_AWS_REGION: !Ref AwsRegion
+        API_HACIENDA_RDS_DATA_RESOURCE_ARN: !Ref RdsDataResourceArn
+        API_HACIENDA_RDS_DATA_SECRET_ARN: !Ref RdsDataSecretArn
+        API_HACIENDA_RDS_DATA_DATABASE: !Ref RdsDataDatabase
+        API_HACIENDA_CRYPTO_KEY: !Ref CryptoKey
+        API_HACIENDA_FE_ASYNC_ENABLED: "true"
+        API_HACIENDA_FE_WORKER_BATCH_SIZE: "10"
+        API_HACIENDA_FE_RETRY_BASE_SECONDS: "60"
+        API_HACIENDA_FE_RETRY_MAX_SECONDS: "21600"
+        API_HACIENDA_FE_RETRY_JITTER_SECONDS: "30"
+        API_HACIENDA_FE_RETRY_MAX_ATTEMPTS: "256"
+        API_HACIENDA_FE_RETRY_MAX_AGE_SECONDS: !Ref FeRetryMaxAgeSeconds
+        API_HACIENDA_FE_CONSULT_DELAY_SECONDS: "300"
+        API_HACIENDA_FE_STUCK_PROCESSING_SECONDS: !Ref FeStuckProcessingSeconds
+
+Resources:
+  ApiHttp:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: "$default"
+
+  FeAsyncDeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub "${ProjectName}-fe-dlq.fifo"
+      FifoQueue: true
+      ContentBasedDeduplication: true
+      MessageRetentionPeriod: 1209600
+
+  FeAsyncQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub "${ProjectName}-fe.fifo"
+      FifoQueue: true
+      ContentBasedDeduplication: false
+      VisibilityTimeout: 120
+      MessageRetentionPeriod: 1209600
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt FeAsyncDeadLetterQueue.Arn
+        maxReceiveCount: 8
+
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageUri: !Ref LambdaImageUri
+      ImageConfig:
+        Command:
+          - python_api.aws_lambda_handlers.api_gateway_handler
+      Environment:
+        Variables:
+          API_HACIENDA_FE_SQS_QUEUE_URL: !Ref FeAsyncQueue
+      Events:
+        ApiProxy:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref ApiHttp
+            Path: /{proxy+}
+            Method: ANY
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt FeAsyncQueue.QueueName
+        - Statement:
+            - Effect: Allow
+              Action:
+                - rds-data:ExecuteStatement
+                - rds-data:BatchExecuteStatement
+                - rds-data:BeginTransaction
+                - rds-data:CommitTransaction
+                - rds-data:RollbackTransaction
+              Resource: "*"
+            - Effect: Allow
+              Action:
+                - secretsmanager:GetSecretValue
+              Resource: "*"
+
+  FeWorkerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageUri: !Ref LambdaImageUri
+      ImageConfig:
+        Command:
+          - python_api.aws_lambda_handlers.sqs_worker_handler
+      Environment:
+        Variables:
+          API_HACIENDA_FE_SQS_QUEUE_URL: !Ref FeAsyncQueue
+      Events:
+        QueueTrigger:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt FeAsyncQueue.Arn
+            BatchSize: 10
+            FunctionResponseTypes:
+              - ReportBatchItemFailures
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - SQSPollerPolicy:
+            QueueName: !GetAtt FeAsyncQueue.QueueName
+        - Statement:
+            - Effect: Allow
+              Action:
+                - rds-data:ExecuteStatement
+                - rds-data:BatchExecuteStatement
+                - rds-data:BeginTransaction
+                - rds-data:CommitTransaction
+                - rds-data:RollbackTransaction
+              Resource: "*"
+            - Effect: Allow
+              Action:
+                - secretsmanager:GetSecretValue
+              Resource: "*"
+
+  FeSchedulerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageUri: !Ref LambdaImageUri
+      ImageConfig:
+        Command:
+          - python_api.aws_lambda_handlers.scheduler_requeue_handler
+      Environment:
+        Variables:
+          API_HACIENDA_FE_SQS_QUEUE_URL: !Ref FeAsyncQueue
+          API_HACIENDA_FE_REQUEUE_LIMIT: "200"
+      Events:
+        RequeueSchedule:
+          Type: Schedule
+          Properties:
+            Schedule: !Ref WorkerScheduleExpression
+            Enabled: true
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - SQSPollerPolicy:
+            QueueName: !GetAtt FeAsyncQueue.QueueName
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt FeAsyncQueue.QueueName
+        - Statement:
+            - Effect: Allow
+              Action:
+                - rds-data:ExecuteStatement
+                - rds-data:BatchExecuteStatement
+                - rds-data:BeginTransaction
+                - rds-data:CommitTransaction
+                - rds-data:RollbackTransaction
+              Resource: "*"
+            - Effect: Allow
+              Action:
+                - secretsmanager:GetSecretValue
+              Resource: "*"
+
+Outputs:
+  HttpApiUrl:
+    Value: !Sub "https://${ApiHttp}.execute-api.${AWS::Region}.amazonaws.com"
+  FeQueueUrl:
+    Value: !Ref FeAsyncQueue
+  FeDlqUrl:
+    Value: !Ref FeAsyncDeadLetterQueue

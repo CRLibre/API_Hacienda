@@ -5,7 +5,9 @@ from typing import Any
 
 from sqlalchemy import text
 
+from python_api.config import get_settings
 from python_api.db.session import SessionLocal
+from python_api.services import rds_data_backend
 
 
 def _row_to_dict(row: Any) -> dict[str, Any]:
@@ -16,6 +18,9 @@ def _row_to_dict(row: Any) -> dict[str, Any]:
 
 
 def fetch_one(sql: str, params: Mapping[str, Any] | None = None) -> dict[str, Any] | None:
+    settings = get_settings()
+    if settings.db_backend == "rds_data_api":
+        return rds_data_backend.fetch_one(sql, params)
     with SessionLocal() as db:
         row = db.execute(text(sql), dict(params or {})).fetchone()
         if row is None:
@@ -24,12 +29,18 @@ def fetch_one(sql: str, params: Mapping[str, Any] | None = None) -> dict[str, An
 
 
 def fetch_all(sql: str, params: Mapping[str, Any] | None = None) -> list[dict[str, Any]]:
+    settings = get_settings()
+    if settings.db_backend == "rds_data_api":
+        return rds_data_backend.fetch_all(sql, params)
     with SessionLocal() as db:
         rows = db.execute(text(sql), dict(params or {})).fetchall()
         return [_row_to_dict(row) for row in rows]
 
 
 def execute(sql: str, params: Mapping[str, Any] | None = None) -> int:
+    settings = get_settings()
+    if settings.db_backend == "rds_data_api":
+        return rds_data_backend.execute(sql, params)
     with SessionLocal() as db:
         result = db.execute(text(sql), dict(params or {}))
         db.commit()
@@ -42,6 +53,9 @@ def insert_and_return_id(
     params: Mapping[str, Any],
     id_key: str,
 ) -> int | None:
+    settings = get_settings()
+    if settings.db_backend == "rds_data_api":
+        return rds_data_backend.insert_and_return_id(insert_sql, select_sql, params, id_key)
     with SessionLocal() as db:
         db.execute(text(insert_sql), dict(params))
         row = db.execute(text(select_sql), dict(params)).fetchone()
@@ -50,4 +64,3 @@ def insert_and_return_id(
             return None
         mapping = row._mapping
         return int(mapping[id_key])
-
