@@ -15,7 +15,7 @@ services:
       CRLIBRE_API_HACIENDA_DB_USER: ${DB_USER:-testuser}
       CRLIBRE_API_HACIENDA_DB_PASSWORD: ${DB_PASSWORD:-testpassword}
       DB_NAME: ${DB_NAME:-testdb}
-      DB_USERNAME: ${DB_USERNAME:-testuser}
+      DB_USERNAME: ${DB_USER:-testuser}
       DB_PASSWORD: ${DB_PASSWORD:-testpassword}
       DB_HOST: ${DB_HOST:-mariadb}
       core_install: ${core_install}
@@ -43,7 +43,7 @@ services:
       TZ: "America/Costa_Rica"
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpwd}
-      MYSQL_USER: ${DB_USERNAME:-testuser}
+      MYSQL_USER: ${DB_USER:-testuser}
       MYSQL_PASSWORD: ${DB_PASSWORD:-testpassword}
       MYSQL_DATABASE: ${DB_NAME:-testdb}
     restart: always
