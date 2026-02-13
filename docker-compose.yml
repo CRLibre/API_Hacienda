@@ -1,4 +1,3 @@
-version: "3.5"
 services:
   php-apache:
     container_name: ${APP_CONTAINER_NAME:-crlibre-app}
@@ -15,6 +14,14 @@ services:
       CRLIBRE_API_HACIENDA_DB_NAME: ${DB_NAME:-testdb}
       CRLIBRE_API_HACIENDA_DB_USER: ${DB_USER:-testuser}
       CRLIBRE_API_HACIENDA_DB_PASSWORD: ${DB_PASSWORD:-testpassword}
+      DB_NAME: ${DB_NAME:-testdb}
+      DB_USERNAME: ${DB_USER:-testuser}
+      DB_PASSWORD: ${DB_PASSWORD:-testpassword}
+      DB_HOST: ${DB_HOST:-mariadb}
+      core_install: ${core_install}
+      cryptoKey: ${cryptoKey}
+      core_siteName: ${core_siteName}
+      core_host: ${core_host}
     depends_on:
       - "mariadb"
     networks:

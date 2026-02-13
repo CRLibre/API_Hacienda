@@ -1,11 +1,12 @@
-FROM php:7.4.9-apache
+FROM php:8.1-apache
 LABEL version="1.1"
 # VOLUME [ "/var/www/html" ]
 # VOLUME [ "/var/www/api" ]
-RUN apt-get update && apt-get -y install libpng-dev curl libcurl4-openssl-dev openssl netcat
+RUN apt-get update && apt-get -y install libpng-dev curl libcurl4-openssl-dev openssl netcat-openbsd dos2unix
 RUN docker-php-ext-install pdo pdo_mysql mysqli gd curl
 RUN a2enmod rewrite
 COPY ./docker-php-apache/docker-entrypoint.sh /usr/local/bin/
+RUN dos2unix /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 COPY ./www/ /var/www/html
 COPY ./api/ /var/www/api
