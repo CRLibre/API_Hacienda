@@ -215,7 +215,7 @@ function genXMLFe()
             </Ubicacion>';
     }
 
-    if ($emisorCodPaisTel != '' && $emisorTel != '' && $emisorTel >= EMISORNUMEROTELMIN && $emisorTel <= EMISORNUMEROTELMAX) {
+    if ($emisorCodPaisTel != '' && $emisorTel != '' && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
         $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
@@ -1206,7 +1206,7 @@ function genXMLNC()
             </Ubicacion>';
     }
 
-    if ($emisorCodPaisTel != '' && $emisorTel != '' && $emisorTel >= EMISORNUMEROTELMIN && $emisorTel <= EMISORNUMEROTELMAX) {
+    if ($emisorCodPaisTel != '' && $emisorTel != '' && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
         $xmlString .= '
         <Telefono>
             <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
@@ -2085,7 +2085,7 @@ function genXMLND()
             </Ubicacion>';
     }
 
-    if ($emisorCodPaisTel != '' && $emisorTel != '' && $emisorTel >= EMISORNUMEROTELMIN && $emisorTel <= EMISORNUMEROTELMAX) {
+    if ($emisorCodPaisTel != '' && $emisorTel != '' && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
         $xmlString .= '
         <Telefono>
             <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
@@ -2954,7 +2954,7 @@ function genXMLTE()
             </Ubicacion>';
     }
 
-    if ($emisorCodPaisTel != '' && $emisorTel != '' && $emisorTel >= EMISORNUMEROTELMIN && $emisorTel <= EMISORNUMEROTELMAX) {
+    if ($emisorCodPaisTel != '' && $emisorTel != '' && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
         $xmlString .= '
         <Telefono>
             <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
@@ -3883,7 +3883,7 @@ function genXMLFec()
         <OtrasSenasExtranjero>' . $emisorOtrasSenasExtranjero . '</OtrasSenasExtranjero>';
     }
 
-    if ($emisorCodPaisTel != '' && $emisorTel != '' && $emisorTel >= EMISORNUMEROTELMIN && $emisorTel <= EMISORNUMEROTELMAX) {
+    if ($emisorCodPaisTel != '' && $emisorTel != '' && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
         $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
@@ -4583,7 +4583,7 @@ function genXMLFee()
             </Ubicacion>';
     }
 
-    if ($emisorCodPaisTel != '' && $emisorTel != '' && $emisorTel >= EMISORNUMEROTELMIN && $emisorTel <= EMISORNUMEROTELMAX) {
+    if ($emisorCodPaisTel != '' && $emisorTel != '' && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
         $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>

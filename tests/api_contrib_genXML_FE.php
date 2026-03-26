@@ -445,6 +445,7 @@ class api_contrib_genXML_FE extends TestCase
         $this->assertEquals('01', (string)$xml->Emisor->Ubicacion->Distrito);
         $this->assertEquals('Dirección de prueba', (string)$xml->Emisor->Ubicacion->OtrasSenas);
         $this->assertEquals('empresa@example.com', (string)$xml->Emisor->CorreoElectronico);
+        $this->assertEquals('22223333', (string)$xml->Emisor->Telefono->NumTelefono);
     }
 
     public function testGenXMLFeDetalleServicio()
