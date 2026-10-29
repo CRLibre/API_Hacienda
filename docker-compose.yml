@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: ./docker-php-apache/Dockerfile
     ports:
-      - 8080:80
-      - 8443:443
+      # Solo loopback: para exponerlo, ponga delante un proxy inverso con TLS.
+      - 127.0.0.1:8080:80
     env_file:
       - ./docker-php-apache/php-apache.env
     environment:
@@ -39,7 +39,7 @@ services:
     image: mariadb:10.11.4
     container_name: ${MARIADB_CONTAINER_NAME:-crlibre-mariadb}
     ports:
-      - 4407:3306
+      - 127.0.0.1:4407:3306
     env_file:
       - ./docker-php-apache/php-apache.env
     volumes:
