@@ -30,6 +30,8 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
     networks:
       - crlibrenet
     volumes:
@@ -61,6 +63,8 @@ services:
       timeout: 5s
       retries: 20
       start_period: 20s
+    security_opt:
+      - no-new-privileges:true
     restart: always
     tty: true
     networks:
