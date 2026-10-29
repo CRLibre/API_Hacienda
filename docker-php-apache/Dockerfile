@@ -27,14 +27,11 @@ COPY ./docker-php-apache/docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 COPY ./www/ /var/www/html
 COPY ./api/ /var/www/api
-RUN mkdir -p /var/www/api/errors
-RUN mkdir -p /var/www/api/logs
-RUN mkdir -p /var/www/api/files
-# Set permissions on the /var/www/api directories
-RUN chmod -R 755 /var/www/
-RUN chmod -R 777 /var/www/api/errors
-RUN chmod -R 777 /var/www/api/logs
-RUN chmod -R 777 /var/www/api/files
+# Solo www-data escribe en errors/, logs/ y files/ (antes eran 777).
+RUN mkdir -p /var/www/api/errors /var/www/api/logs /var/www/api/files \
+    && chmod -R 755 /var/www/ \
+    && chown -R www-data:www-data /var/www/api/errors /var/www/api/logs /var/www/api/files \
+    && chmod -R 770 /var/www/api/errors /var/www/api/logs /var/www/api/files
 RUN ln -s /usr/local/bin/docker-entrypoint.sh / # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
