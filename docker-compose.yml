@@ -17,7 +17,7 @@ services:
       DB_USERNAME: ${DB_USER:-testuser}
       DB_PASSWORD: ${DB_PASSWORD:-testpassword}
       cryptoKey: ${CRYPTO_KEY:?definir CRYPTO_KEY en .env (openssl rand -base64 32)}
-      core_install: /var/www/html/api/
+      core_install: /var/www/api/
       core_siteName: ${CORE_SITE_NAME:-API Hacienda}
       core_host: ${CORE_HOST:-localhost}
       # Sin esto la sesión vence al segundo: (time() - lastAccess) > false
@@ -33,7 +33,8 @@ services:
       - crlibrenet
     volumes:
       - ./www/settings.php:/var/www/html/settings.php
-      - ./api:/var/www/html/api
+      # Fuera de la raíz web: los .p12, logs y errores no se sirven por HTTP.
+      - ./api:/var/www/api
   mariadb:
     image: mariadb:10.11.4
     container_name: ${MARIADB_CONTAINER_NAME:-crlibre-mariadb}
