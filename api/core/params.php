@@ -29,7 +29,9 @@ function params_get($p, $def = false)
     if ($p === false)
         return $params;
 
-    if (isset($params[$p]) && trim($params[$p]) != '')
+    # Un array (body JSON) en PHP 7 daba warning y caía al default; en PHP 8
+    # trim() lanza TypeError.
+    if (isset($params[$p]) && !is_array($params[$p]) && trim($params[$p]) != '')
         return $params[$p];
     else
         return $def;
