@@ -28,7 +28,8 @@ services:
       CRLIBRE_API_HACIENDA_DB_USER: ${DB_USER:-testuser}
       CRLIBRE_API_HACIENDA_DB_PASSWORD: ${DB_PASSWORD:-testpassword}
     depends_on:
-      - "mariadb"
+      mariadb:
+        condition: service_healthy
     networks:
       - crlibrenet
     volumes:
@@ -36,7 +37,7 @@ services:
       # Fuera de la raíz web: los .p12, logs y errores no se sirven por HTTP.
       - ./api:/var/www/api
   mariadb:
-    image: mariadb:10.11.4
+    image: mariadb:10.11.19@sha256:d769e37960821dfdcf096954f6e7ac89f747e116c1bba98e48edd265dfc7deae
     container_name: ${MARIADB_CONTAINER_NAME:-crlibre-mariadb}
     ports:
       - 127.0.0.1:4407:3306
@@ -52,6 +53,14 @@ services:
       MYSQL_USER: ${DB_USER:-testuser}
       MYSQL_PASSWORD: ${DB_PASSWORD:-testpassword}
       MYSQL_DATABASE: ${DB_NAME:-testdb}
+      # Corre mariadb-upgrade si ./mysql-data viene de una 10.11 anterior.
+      MARIADB_AUTO_UPGRADE: "1"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
     restart: always
     tty: true
     networks:
