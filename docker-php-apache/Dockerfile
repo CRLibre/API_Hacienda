@@ -21,6 +21,7 @@ RUN docker-php-ext-install pdo_mysql mysqli gd
 RUN sed -i 's/^default = default_sect$/default = default_sect\nlegacy = legacy_sect/; s/^# activate = 1$/activate = 1\n\n[legacy_sect]\nactivate = 1/' /usr/lib/ssl/openssl.cnf \
     && openssl list -providers | grep -q 'OpenSSL Legacy Provider'
 
+COPY ./docker-php-apache/php.ini /usr/local/etc/php/conf.d/zz-api-hacienda.ini
 RUN a2enmod rewrite
 
 COPY ./docker-php-apache/docker-entrypoint.sh /usr/local/bin/
