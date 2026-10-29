@@ -1,4 +1,3 @@
-version: "3.5"
 services:
   php-apache:
     container_name: ${APP_CONTAINER_NAME:-crlibre-app}
