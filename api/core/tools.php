@@ -139,7 +139,11 @@ function tools_proccesPath($paths)
 
             # Check for permissions
             $p['access_params'] = isset($p['access_params']) ? $p['access_params'] : '';
-            if (call_user_func($p['access'], $p['access_params']) === false)
+            # PHP 7 seguía con un warning si la función de acceso no
+            # existía; en PHP 8 call_user_func() lanza TypeError.
+            if (!is_callable($p['access']))
+                grace_error("Access function not found: " . $p['access']);
+            else if (call_user_func($p['access'], $p['access_params']) === false)
                 return ERROR_USERS_ACCESS_DENIED;
 
             // Load the correct file
