@@ -763,7 +763,7 @@ function genXMLFe()
     $xmlString .= '
     <ResumenFactura>';
 
-    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && $tipoCambio != 0) {
+    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && (float) $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
@@ -1637,7 +1637,7 @@ function genXMLNC()
     $xmlString .= '
     <ResumenFactura>';
 
-    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && $tipoCambio != 0) {
+    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && (float) $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
@@ -2515,7 +2515,7 @@ function genXMLND()
     $xmlString .= '
     <ResumenFactura>';
 
-    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && $tipoCambio != 0) {
+    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && (float) $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
@@ -3378,7 +3378,7 @@ function genXMLTE()
     $xmlString .= '
     <ResumenFactura>';
 
-    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && $tipoCambio != 0) {
+    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && (float) $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
@@ -4181,7 +4181,7 @@ function genXMLFec()
     $xmlString .= '
     <ResumenFactura>';
 
-    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && $tipoCambio != 0) {
+    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && (float) $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
@@ -5006,7 +5006,7 @@ function genXMLFee()
     $xmlString .= '
     <ResumenFactura>';
 
-    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && $tipoCambio != 0) {
+    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && (float) $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
