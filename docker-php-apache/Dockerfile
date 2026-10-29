@@ -22,7 +22,8 @@ RUN sed -i 's/^default = default_sect$/default = default_sect\nlegacy = legacy_s
     && openssl list -providers | grep -q 'OpenSSL Legacy Provider'
 
 COPY ./docker-php-apache/php.ini /usr/local/etc/php/conf.d/zz-api-hacienda.ini
-RUN a2enmod rewrite
+COPY ./docker-php-apache/apache-security.conf /etc/apache2/conf-available/zz-api-hacienda-security.conf
+RUN a2enmod rewrite && a2enconf zz-api-hacienda-security
 
 COPY ./docker-php-apache/docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
