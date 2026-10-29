@@ -28,6 +28,16 @@ const EMISORNUMEROTELMAX = 20;
 const RECEPTORNOMBREMAXSIZE = 100;
 const RECEPTOROTRASSENASMAXSIZE = 250;
 const RECEPTOROTRASSENASEXTRANJEROMAXSIZE = 300;
+
+/**
+ * Equivale a `$valor == ""` de PHP 7. En PHP 8 un 0 numérico (p. ej. de
+ * json_decode) ya no es igual a "", y el XML cambiaría.
+ */
+function genXMLIsBlank($valor)
+{
+    return $valor === null || $valor === "" || $valor === false
+        || ((is_int($valor) || is_float($valor)) && $valor == 0);
+}
 const EMAIL_REGEX = "/^\s*\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*\s*$/";
 
 
@@ -116,15 +126,15 @@ function genXMLFe()
 
     grace_debug(params_get("detalles"));
 
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         grace_debug(params_get("otrosCargos"));
     }
 
-    if (isset($mediosPago) && $mediosPago != "") {
+    if (isset($mediosPago) && !genXMLIsBlank($mediosPago)) {
         grace_debug(params_get("medios_pago"));
     }
 
-    if (isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "") {
+    if (isset($totalDesgloseImpuesto) && !genXMLIsBlank($totalDesgloseImpuesto)) {
         grace_debug(params_get("totalDesgloseImpuesto"));
     }
 
@@ -146,7 +156,7 @@ function genXMLFe()
         error_log("RECEPTOROTRASSENASEXTRANJEROMAXSIZE: " . RECEPTOROTRASSENASMAXSIZE . " is greater than receptorOtrasSenas: " . $receptorOtrasSenas);
     }
 
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         if (count($otrosCargos) > 15) {
             error_log("otrosCargos: " . count($otrosCargos) . " is greater than 15");
             //Delimita el array a solo 15 elementos
@@ -154,7 +164,7 @@ function genXMLFe()
         }
     }
 
-    if (isset($mediosPago) && $mediosPago != "") {
+    if (isset($mediosPago) && !genXMLIsBlank($mediosPago)) {
         if (count($mediosPago) > 4) {
             error_log("mediosPago: " . count($mediosPago) . " is greater than 4");
             //Delimita el array a solo 4 elementos
@@ -171,7 +181,7 @@ function genXMLFe()
         <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
         <CodigoActividadEmisor>' . $codigoActividadEmisor . '</CodigoActividadEmisor>';
 
-    if (isset($codigoActividadReceptor) && $codigoActividadReceptor != "") {
+    if (isset($codigoActividadReceptor) && !genXMLIsBlank($codigoActividadReceptor)) {
         $codigoActividadReceptor = str_pad($codigoActividadReceptor, 6, "0", STR_PAD_LEFT);
         if (strlen($codigoActividadReceptor) != CODIGOACTIVIDADSIZE) {
             error_log("codigoActividadSize is: " . CODIGOACTIVIDADSIZE . " and codigoActividadReceptor is " . $codigoActividadReceptor);
@@ -191,23 +201,23 @@ function genXMLFe()
                 <Numero>' . $emisorNumIdentif . '</Numero>
             </Identificacion>';
 
-    if (isset($registroFiscal8707) && $registroFiscal8707 != "") {
+    if (isset($registroFiscal8707) && !genXMLIsBlank($registroFiscal8707)) {
         $xmlString .= '
         <Registrofiscal8707>' . $registroFiscal8707 . '</Registrofiscal8707>';
     }
 
-    if (isset($emisorNombreComercial) && $emisorNombreComercial != "") {
+    if (isset($emisorNombreComercial) && !genXMLIsBlank($emisorNombreComercial)) {
         $xmlString .= '
         <NombreComercial>' . $emisorNombreComercial . '</NombreComercial>';
     }
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '') {
+    if (!genXMLIsBlank($emisorProv) && !genXMLIsBlank($emisorCanton) && !genXMLIsBlank($emisorDistrito) && !genXMLIsBlank($emisorOtrasSenas)) {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $emisorProv . '</Provincia>
             <Canton>' . $emisorCanton . '</Canton>
             <Distrito>' . $emisorDistrito . '</Distrito>';
-        if ($emisorBarrio != '') {
+        if (!genXMLIsBlank($emisorBarrio)) {
             $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
         }
         $xmlString .= '
@@ -215,7 +225,7 @@ function genXMLFe()
             </Ubicacion>';
     }
 
-    if ($emisorCodPaisTel != '' && $emisorTel != '' && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
+    if (!genXMLIsBlank($emisorCodPaisTel) && !genXMLIsBlank($emisorTel) && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
         $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
@@ -238,18 +248,18 @@ function genXMLFe()
             <Numero>' . $receptorNumIdentif . '</Numero>
         </Identificacion>';
 
-    if (isset($receptorNombreComercial) && $receptorNombreComercial != "") {
+    if (isset($receptorNombreComercial) && !genXMLIsBlank($receptorNombreComercial)) {
         $xmlString .= '
             <NombreComercial>' . $receptorNombreComercial . '</NombreComercial>';
     }
 
-    if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorOtrasSenas != '') {
+    if (!genXMLIsBlank($receptorProvincia) && !genXMLIsBlank($receptorCanton) && !genXMLIsBlank($receptorDistrito) && !genXMLIsBlank($receptorOtrasSenas)) {
         $xmlString .= '
             <Ubicacion>
                 <Provincia>' . $receptorProvincia . '</Provincia>
                 <Canton>' . $receptorCanton . '</Canton>
                 <Distrito>' . $receptorDistrito . '</Distrito>';
-        if ($receptorBarrio != '') {
+        if (!genXMLIsBlank($receptorBarrio)) {
             $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
         }
         $xmlString .= '
@@ -257,14 +267,14 @@ function genXMLFe()
             </Ubicacion>';
     }
 
-    if ($receptorOtrasSenasExtranjero != '' && strlen($receptorOtrasSenasExtranjero) <= RECEPTOROTRASSENASEXTRANJEROMAXSIZE) {
+    if (!genXMLIsBlank($receptorOtrasSenasExtranjero) && strlen($receptorOtrasSenasExtranjero) <= RECEPTOROTRASSENASEXTRANJEROMAXSIZE) {
         $xmlString .= '
             <OtrasSenasExtranjero>'
             . $receptorOtrasSenasExtranjero .
             '</OtrasSenasExtranjero>';
     }
 
-    if ($receptorCodPaisTel != '' && $receptorTel != '') {
+    if (!genXMLIsBlank($receptorCodPaisTel) && !genXMLIsBlank($receptorTel)) {
         $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $receptorCodPaisTel . '</CodigoPais>
@@ -272,7 +282,7 @@ function genXMLFe()
             </Telefono>';
     }
 
-    if ($receptorEmail != '') {
+    if (!genXMLIsBlank($receptorEmail)) {
         $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
     }
 
@@ -281,12 +291,12 @@ function genXMLFe()
     $xmlString .= '
         <CondicionVenta>' . $condVenta . '</CondicionVenta>';
 
-    if (isset($condVentaOtros) && $condVentaOtros != "") {
+    if (isset($condVentaOtros) && !genXMLIsBlank($condVentaOtros)) {
         $xmlString .= '
         <CondicionVentaOtros>' . $condVentaOtros . '</CondicionVentaOtros>';
     }
 
-    if (isset($plazoCredito) && $plazoCredito != "") {
+    if (isset($plazoCredito) && !genXMLIsBlank($plazoCredito)) {
         $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
     }
@@ -454,7 +464,7 @@ function genXMLFe()
             foreach ($codigoComercialArray as $codigos) {
                 $c = (array)$codigos;
                 // Verificar si el elemento es un array asociativo
-                if (is_array($c) && isset($c['tipo']) && $c['tipo'] != "" && isset($c['codigo']) && $c['codigo'] != "") {
+                if (is_array($c) && isset($c['tipo']) && !genXMLIsBlank($c['tipo']) && isset($c['codigo']) && !genXMLIsBlank($c['codigo'])) {
                     $xmlString .= '
                         <CodigoComercial>
                             <Tipo>' . $c['tipo'] . '</Tipo>
@@ -467,17 +477,17 @@ function genXMLFe()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-        if (isset($d->tipoTransaccion) && $d->tipoTransaccion != "") {
+        if (isset($d->tipoTransaccion) && !genXMLIsBlank($d->tipoTransaccion)) {
             $xmlString .= '
                 <TipoTransaccion>' . $d->tipoTransaccion . '</TipoTransaccion>';
         }
-        if (isset($d->unidadMedidaComercial) && $d->unidadMedidaComercial != "") {
+        if (isset($d->unidadMedidaComercial) && !genXMLIsBlank($d->unidadMedidaComercial)) {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
         $xmlString .= '
             <Detalle>' . $d->detalle . '</Detalle>';
-        if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
+        if (isset($d->numeroVINoSerie) && !genXMLIsBlank($d->numeroVINoSerie)) {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
 
@@ -617,15 +627,15 @@ function genXMLFe()
 
         $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
 
-        if (isset($d->IVACobradoFabrica) && $d->IVACobradoFabrica != "") {
+        if (isset($d->IVACobradoFabrica) && !genXMLIsBlank($d->IVACobradoFabrica)) {
             $xmlString .= '<IVACobradoFabrica>' . $d->IVACobradoFabrica . '</IVACobradoFabrica>';
         }
 
-        if (isset($d->baseImponible) && $d->baseImponible != "") {
+        if (isset($d->baseImponible) && !genXMLIsBlank($d->baseImponible)) {
             $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
         }
 
-        if (isset($d->impuesto) && $d->impuesto != "") {
+        if (isset($d->impuesto) && !genXMLIsBlank($d->impuesto)) {
             foreach ($d->impuesto as $i) {
                 $xmlString .= '
                 <Impuesto>
@@ -639,15 +649,15 @@ function genXMLFe()
                     $xmlString .= '<CodigoImpuestoOTRO>' . $i->codigoImpuestoOtro . '</CodigoImpuestoOTRO>';
                 }
 
-                if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
+                if (isset($i->codigoTarifa) && !genXMLIsBlank($i->codigoTarifa)) {
                     $xmlString .= '<CodigoTarifaIVA>' . $i->codigoTarifa . '</CodigoTarifaIVA>';
                 }
 
-                if (isset($i->tarifa) && $i->tarifa != "") {
+                if (isset($i->tarifa) && !genXMLIsBlank($i->tarifa)) {
                     $xmlString .= '<Tarifa>' . $i->tarifa . '</Tarifa>';
                 }
 
-                if (isset($i->factorIVA) && $i->factorIVA != "") {
+                if (isset($i->factorIVA) && !genXMLIsBlank($i->factorIVA)) {
                     $xmlString .= '<FactorCalculoIVA>' . $i->factorIVA . '</FactorCalculoIVA>';
                 }
 
@@ -679,7 +689,7 @@ function genXMLFe()
 
                 $xmlString .= '<Monto>' . $i->monto . '</Monto>';
 
-                if (isset($i->exoneracion) && $i->exoneracion != "") {
+                if (isset($i->exoneracion) && !genXMLIsBlank($i->exoneracion)) {
                     $xmlString .= '
                     <Exoneracion>
                         <TipoDocumentoEX1>' . $i->exoneracion->tipoDocumento . '</TipoDocumentoEX1>';
@@ -717,29 +727,29 @@ function genXMLFe()
 
     $xmlString .= '</DetalleServicio>';
     //OtrosCargos
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         foreach ($otrosCargos as $o) {
             $xmlString .= '
         <OtrosCargos>
             <TipoDocumentoOC>' . $o->tipoDocumentoOC . '</TipoDocumentoOC>';
-            if (isset($o->tipoDocumentoOTROS) && $o->tipoDocumentoOTROS != "") {
+            if (isset($o->tipoDocumentoOTROS) && !genXMLIsBlank($o->tipoDocumentoOTROS)) {
                 $xmlString .= '
             <TipoDocumentoOTROS>' . $o->tipoDocumentoOTROS . '</TipoDocumentoOTROS>';
             }
-            if (isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "" && isset($o->tipoIdentidadTercero) && $o->tipoIdentidadTercero != "") {
+            if (isset($o->numeroIdentidadTercero) && !genXMLIsBlank($o->numeroIdentidadTercero) && isset($o->tipoIdentidadTercero) && !genXMLIsBlank($o->tipoIdentidadTercero)) {
                 $xmlString .= '
             <IdentificacionTercero>
                 <Tipo>' . $o->tipoIdentidadTercero . '</Tipo>
                 <Numero>' . $o->numeroIdentidadTercero . '</Numero>
             </IdentificacionTercero>';
             }
-            if (isset($o->nombreTercero) && $o->nombreTercero != "") {
+            if (isset($o->nombreTercero) && !genXMLIsBlank($o->nombreTercero)) {
                 $xmlString .= '
             <NombreTercero>' . $o->nombreTercero . '</NombreTercero>';
             }
             $xmlString .= '
             <Detalle>' . $o->detalle . '</Detalle>';
-            if (isset($o->porcentajeOC) && $o->porcentajeOC != "") {
+            if (isset($o->porcentajeOC) && !genXMLIsBlank($o->porcentajeOC)) {
                 $xmlString .= '
             <PorcentajeOC>' . $o->porcentajeOC . '</PorcentajeOC>';
             }
@@ -753,7 +763,7 @@ function genXMLFe()
     $xmlString .= '
     <ResumenFactura>';
 
-    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0) {
+    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
@@ -767,62 +777,62 @@ function genXMLFe()
     </CodigoTipoMoneda>';
     }
 
-    if ($totalServGravados != '') {
+    if (!genXMLIsBlank($totalServGravados)) {
         $xmlString .= '
         <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
     }
 
-    if ($totalServExentos != '') {
+    if (!genXMLIsBlank($totalServExentos)) {
         $xmlString .= '
         <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
     }
 
-    if ($totalServExonerados != '') {
+    if (!genXMLIsBlank($totalServExonerados)) {
         $xmlString .= '
         <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
     }
 
-    if ($totalServNoSujeto != '') {
+    if (!genXMLIsBlank($totalServNoSujeto)) {
         $xmlString .= '
         <TotalServNoSujeto>' . $totalServNoSujeto . '</TotalServNoSujeto>';
     }
 
-    if ($totalMercGravadas != '') {
+    if (!genXMLIsBlank($totalMercGravadas)) {
         $xmlString .= '
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
     }
 
-    if ($totalMercExentas != '') {
+    if (!genXMLIsBlank($totalMercExentas)) {
         $xmlString .= '
         <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
     }
 
-    if ($totalMercExonerada != '') {
+    if (!genXMLIsBlank($totalMercExonerada)) {
         $xmlString .= '
         <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
     }
 
-    if ($totalMercNoSujeta != '') {
+    if (!genXMLIsBlank($totalMercNoSujeta)) {
         $xmlString .= '
         <TotalMercNoSujeta>' . $totalMercNoSujeta . '</TotalMercNoSujeta>';
     }
 
-    if ($totalGravados != '') {
+    if (!genXMLIsBlank($totalGravados)) {
         $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>';
     }
 
-    if ($totalExento != '') {
+    if (!genXMLIsBlank($totalExento)) {
         $xmlString .= '
         <TotalExento>' . $totalExento . '</TotalExento>';
     }
 
-    if ($totalExonerado != '') {
+    if (!genXMLIsBlank($totalExonerado)) {
         $xmlString .= '
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
     }
 
-    if ($totalNoSujeto != '') {
+    if (!genXMLIsBlank($totalNoSujeto)) {
         $xmlString .= '
         <TotalNoSujeto>' . $totalNoSujeto . '</TotalNoSujeto>';
     }
@@ -830,7 +840,7 @@ function genXMLFe()
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
 
-    if ($totalDescuentos != '') {
+    if (!genXMLIsBlank($totalDescuentos)) {
         $xmlString .= '
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>';
     }
@@ -856,22 +866,22 @@ function genXMLFe()
         }
     }
 
-    if ($totalImp != '') {
+    if (!genXMLIsBlank($totalImp)) {
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
     }
 
-    if ($totalImpAsumidoEmisorFabrica != '') {
+    if (!genXMLIsBlank($totalImpAsumidoEmisorFabrica)) {
         $xmlString .= '
         <TotalImpAsumEmisorFabrica>' . $totalImpAsumidoEmisorFabrica . '</TotalImpAsumEmisorFabrica>';
     }
 
-    if ($totalIVADevuelto != '') {
+    if (!genXMLIsBlank($totalIVADevuelto)) {
         $xmlString .= '
         <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
     }
 
-    if (isset($totalOtrosCargos) && $totalOtrosCargos != "") {
+    if (isset($totalOtrosCargos) && !genXMLIsBlank($totalOtrosCargos)) {
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
     }
@@ -1107,15 +1117,15 @@ function genXMLNC()
     // Resumen
     $totalDesgloseImpuesto = json_decode(params_get("totalDesgloseImpuesto"));
 
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         grace_debug(params_get("otrosCargos"));
     }
 
-    if (isset($mediosPago) && $mediosPago != "") {
+    if (isset($mediosPago) && !genXMLIsBlank($mediosPago)) {
         grace_debug(params_get("medios_pago"));
     }
 
-    if (isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "") {
+    if (isset($totalDesgloseImpuesto) && !genXMLIsBlank($totalDesgloseImpuesto)) {
         grace_debug(params_get("totalDesgloseImpuesto"));
     }
 
@@ -1137,7 +1147,7 @@ function genXMLNC()
         error_log("RECEPTOROTRASSENASEXTRANJEROMAXSIZE: " . RECEPTOROTRASSENASMAXSIZE . " is greater than receptorOtrasSenas: " . $receptorOtrasSenas);
     }
 
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         if (count($otrosCargos) > 15) {
             error_log("otrosCargos: " . count($otrosCargos) . " is greater than 15");
             //Delimita el array a solo 15 elementos
@@ -1145,7 +1155,7 @@ function genXMLNC()
         }
     }
 
-    if (isset($mediosPago) && $mediosPago != "") {
+    if (isset($mediosPago) && !genXMLIsBlank($mediosPago)) {
         if (count($mediosPago) > 4) {
             error_log("otrosCargos: " . count($mediosPago) . " is greater than 4");
             //Delimita el array a solo 4 elementos
@@ -1162,7 +1172,7 @@ function genXMLNC()
     <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
     <CodigoActividadEmisor>' . $codigoActividadEmisor . '</CodigoActividadEmisor>';
 
-    if (isset($codigoActividadReceptor) && $codigoActividadReceptor != "") {
+    if (isset($codigoActividadReceptor) && !genXMLIsBlank($codigoActividadReceptor)) {
         $codigoActividadReceptor = str_pad($codigoActividadReceptor, 6, "0", STR_PAD_LEFT);
         if (strlen($codigoActividadReceptor) != CODIGOACTIVIDADSIZE) {
             error_log("codigoActividadSize is: " . CODIGOACTIVIDADSIZE . " and codigoActividadReceptor is " . $codigoActividadReceptor);
@@ -1182,23 +1192,23 @@ function genXMLNC()
             <Numero>' . $emisorNumIdentif . '</Numero>
         </Identificacion>';
 
-    if (isset($registroFiscal8707) && $registroFiscal8707 != "") {
+    if (isset($registroFiscal8707) && !genXMLIsBlank($registroFiscal8707)) {
         $xmlString .= '
         <Registrofiscal8707>' . $registroFiscal8707 . '</Registrofiscal8707>';
     }
 
-    if (isset($emisorNombreComercial) && $emisorNombreComercial != "") {
+    if (isset($emisorNombreComercial) && !genXMLIsBlank($emisorNombreComercial)) {
         $xmlString .= '
         <NombreComercial>' . $emisorNombreComercial . '</NombreComercial>';
     }
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '') {
+    if (!genXMLIsBlank($emisorProv) && !genXMLIsBlank($emisorCanton) && !genXMLIsBlank($emisorDistrito) && !genXMLIsBlank($emisorOtrasSenas)) {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $emisorProv . '</Provincia>
             <Canton>' . $emisorCanton . '</Canton>
             <Distrito>' . $emisorDistrito . '</Distrito>';
-        if ($emisorBarrio != '') {
+        if (!genXMLIsBlank($emisorBarrio)) {
             $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
         }
         $xmlString .= '
@@ -1206,7 +1216,7 @@ function genXMLNC()
             </Ubicacion>';
     }
 
-    if ($emisorCodPaisTel != '' && $emisorTel != '' && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
+    if (!genXMLIsBlank($emisorCodPaisTel) && !genXMLIsBlank($emisorTel) && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
         $xmlString .= '
         <Telefono>
             <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
@@ -1224,7 +1234,7 @@ function genXMLNC()
         $xmlString .= '<Receptor>
             <Nombre>' . $receptorNombre . '</Nombre>';
 
-        if ($receptorTipoIdentif != '' && $receptorNumIdentif != '') {
+        if (!genXMLIsBlank($receptorTipoIdentif) && !genXMLIsBlank($receptorNumIdentif)) {
             $xmlString .= '
             <Identificacion>
                 <Tipo>' . $receptorTipoIdentif . '</Tipo>
@@ -1232,18 +1242,18 @@ function genXMLNC()
             </Identificacion>';
         }
 
-        if (isset($receptorNombreComercial) && $receptorNombreComercial != "") {
+        if (isset($receptorNombreComercial) && !genXMLIsBlank($receptorNombreComercial)) {
             $xmlString .= '
         <NombreComercial>' . $receptorNombreComercial . '</NombreComercial>';
         }
 
-        if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorOtrasSenas != '') {
+        if (!genXMLIsBlank($receptorProvincia) && !genXMLIsBlank($receptorCanton) && !genXMLIsBlank($receptorDistrito) && !genXMLIsBlank($receptorOtrasSenas)) {
             $xmlString .= '
                 <Ubicacion>
                     <Provincia>' . $receptorProvincia . '</Provincia>
                     <Canton>' . $receptorCanton . '</Canton>
                     <Distrito>' . $receptorDistrito . '</Distrito>';
-            if ($receptorBarrio != '') {
+            if (!genXMLIsBlank($receptorBarrio)) {
                 $xmlString .= '
                     <Barrio>' . $receptorBarrio . '</Barrio>';
             }
@@ -1252,14 +1262,14 @@ function genXMLNC()
                 </Ubicacion>';
         }
 
-        if ($receptorOtrasSenasExtranjero != '' && strlen($receptorOtrasSenasExtranjero) <= RECEPTOROTRASSENASEXTRANJEROMAXSIZE) {
+        if (!genXMLIsBlank($receptorOtrasSenasExtranjero) && strlen($receptorOtrasSenasExtranjero) <= RECEPTOROTRASSENASEXTRANJEROMAXSIZE) {
             $xmlString .= '
             <OtrasSenasExtranjero>'
                 . $receptorOtrasSenasExtranjero .
                 '</OtrasSenasExtranjero>';
         }
 
-        if ($receptorCodPaisTel != '' && $receptorTel != '') {
+        if (!genXMLIsBlank($receptorCodPaisTel) && !genXMLIsBlank($receptorTel)) {
             $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $receptorCodPaisTel . '</CodigoPais>
@@ -1267,7 +1277,7 @@ function genXMLNC()
             </Telefono>';
         }
 
-        if ($receptorEmail != '') {
+        if (!genXMLIsBlank($receptorEmail)) {
             $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
         }
 
@@ -1277,12 +1287,12 @@ function genXMLNC()
     $xmlString .= '
     <CondicionVenta>' . $condVenta . '</CondicionVenta>';
 
-    if (isset($condVentaOtros) && $condVentaOtros != "") {
+    if (isset($condVentaOtros) && !genXMLIsBlank($condVentaOtros)) {
         $xmlString .= '
         <CondicionVentaOtros>' . $condVentaOtros . '</CondicionVentaOtros>';
     }
 
-    if (isset($plazoCredito) && $plazoCredito != "") {
+    if (isset($plazoCredito) && !genXMLIsBlank($plazoCredito)) {
         $xmlString .= '
     <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
     }
@@ -1301,11 +1311,11 @@ function genXMLNC()
         $xmlString .= '<LineaDetalle>
             <NumeroLinea>' . $l . '</NumeroLinea>';
 
-        if (isset($d->partidaArancelaria) && $d->partidaArancelaria != "") {
+        if (isset($d->partidaArancelaria) && !genXMLIsBlank($d->partidaArancelaria)) {
             $xmlString .= '<PartidaArancelaria>' . $d->partidaArancelaria . '</PartidaArancelaria>';
         }
 
-        if (isset($d->codigoCABYS) && $d->codigoCABYS != "") {
+        if (isset($d->codigoCABYS) && !genXMLIsBlank($d->codigoCABYS)) {
             $xmlString .= '
             <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
         }
@@ -1324,7 +1334,7 @@ function genXMLNC()
             foreach ($codigoComercialArray as $codigos) {
                 $c = (array)$codigos;
                 // Verificar si el elemento es un array asociativo
-                if (is_array($c) && isset($c['tipo']) && $c['tipo'] != "" && isset($c['codigo']) && $c['codigo'] != "") {
+                if (is_array($c) && isset($c['tipo']) && !genXMLIsBlank($c['tipo']) && isset($c['codigo']) && !genXMLIsBlank($c['codigo'])) {
                     $xmlString .= '
                         <CodigoComercial>
                             <Tipo>' . $c['tipo'] . '</Tipo>
@@ -1337,17 +1347,17 @@ function genXMLNC()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-        if (isset($d->tipoTransaccion) && $d->tipoTransaccion != "") {
+        if (isset($d->tipoTransaccion) && !genXMLIsBlank($d->tipoTransaccion)) {
             $xmlString .= '
                 <TipoTransaccion>' . $d->tipoTransaccion . '</TipoTransaccion>';
         }
-        if (isset($d->unidadMedidaComercial) && $d->unidadMedidaComercial != "") {
+        if (isset($d->unidadMedidaComercial) && !genXMLIsBlank($d->unidadMedidaComercial)) {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
         $xmlString .= '
             <Detalle>' . $d->detalle . '</Detalle>';
-        if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
+        if (isset($d->numeroVINoSerie) && !genXMLIsBlank($d->numeroVINoSerie)) {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
 
@@ -1487,14 +1497,14 @@ function genXMLNC()
 
         $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
 
-        if (isset($d->IVACobradoFabrica) && $d->IVACobradoFabrica != "") {
+        if (isset($d->IVACobradoFabrica) && !genXMLIsBlank($d->IVACobradoFabrica)) {
             $xmlString .= '<IVACobradoFabrica>' . $d->IVACobradoFabrica . '</IVACobradoFabrica>';
         }
 
-        if (isset($d->baseImponible) && $d->baseImponible != "") {
+        if (isset($d->baseImponible) && !genXMLIsBlank($d->baseImponible)) {
             $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
         }
-        if (isset($d->impuesto) && $d->impuesto != "") {
+        if (isset($d->impuesto) && !genXMLIsBlank($d->impuesto)) {
             foreach ($d->impuesto as $i) {
                 $xmlString .= '<Impuesto>
                 <Codigo>' . $i->codigo . '</Codigo>';
@@ -1507,15 +1517,15 @@ function genXMLNC()
                     $xmlString .= '<CodigoImpuestoOTRO>' . $i->codigoImpuestoOtro . '</CodigoImpuestoOTRO>';
                 }
 
-                if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
+                if (isset($i->codigoTarifa) && !genXMLIsBlank($i->codigoTarifa)) {
                     $xmlString .= '<CodigoTarifaIVA>' . $i->codigoTarifa . '</CodigoTarifaIVA>';
                 }
 
-                if (isset($i->tarifa) && $i->tarifa != "") {
+                if (isset($i->tarifa) && !genXMLIsBlank($i->tarifa)) {
                     $xmlString .= '<Tarifa>' . $i->tarifa . '</Tarifa>';
                 }
 
-                if (isset($i->factorIVA) && $i->factorIVA != "") {
+                if (isset($i->factorIVA) && !genXMLIsBlank($i->factorIVA)) {
                     $xmlString .= '<FactorCalculoIVA>' . $i->factorIVA . '</FactorCalculoIVA>';
                 }
 
@@ -1547,11 +1557,11 @@ function genXMLNC()
 
                 $xmlString .= '<Monto>' . $i->monto . '</Monto>';
 
-                if (isset($i->montoExportacion) && $i->montoExportacion != "") {
+                if (isset($i->montoExportacion) && !genXMLIsBlank($i->montoExportacion)) {
                     $xmlString .= '<MontoExportacion>' . $i->montoExportacion . '</MontoExportacion>';
                 }
 
-                if (isset($i->exoneracion) && $i->exoneracion != "") {
+                if (isset($i->exoneracion) && !genXMLIsBlank($i->exoneracion)) {
                     $xmlString .= '
                     <Exoneracion>
                         <TipoDocumentoEX1>' . $i->exoneracion->tipoDocumento . '</TipoDocumentoEX1>';
@@ -1579,7 +1589,7 @@ function genXMLNC()
                 $xmlString .= '</Impuesto>';
             }
         }
-        if (isset($d->impuestoAsumidoEmisorFabrica) && $d->impuestoAsumidoEmisorFabrica != "") {
+        if (isset($d->impuestoAsumidoEmisorFabrica) && !genXMLIsBlank($d->impuestoAsumidoEmisorFabrica)) {
             $xmlString .= '<ImpuestoAsumidoEmisorFabrica>' . $d->impuestoAsumidoEmisorFabrica . '</ImpuestoAsumidoEmisorFabrica>';
         }
         $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
@@ -1591,29 +1601,29 @@ function genXMLNC()
     $xmlString .= '</DetalleServicio>';
 
     //OtrosCargos
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         foreach ($otrosCargos as $o) {
             $xmlString .= '
         <OtrosCargos>
             <TipoDocumentoOC>' . $o->tipoDocumentoOC . '</TipoDocumentoOC>';
-            if (isset($o->tipoDocumentoOTROS) && $o->tipoDocumentoOTROS != "") {
+            if (isset($o->tipoDocumentoOTROS) && !genXMLIsBlank($o->tipoDocumentoOTROS)) {
                 $xmlString .= '
             <TipoDocumentoOTROS>' . $o->tipoDocumentoOTROS . '</TipoDocumentoOTROS>';
             }
-            if (isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "" && isset($o->tipoIdentidadTercero) && $o->tipoIdentidadTercero != "") {
+            if (isset($o->numeroIdentidadTercero) && !genXMLIsBlank($o->numeroIdentidadTercero) && isset($o->tipoIdentidadTercero) && !genXMLIsBlank($o->tipoIdentidadTercero)) {
                 $xmlString .= '
             <IdentificacionTercero>
                 <Tipo>' . $o->tipoIdentidadTercero . '</Tipo>
                 <Numero>' . $o->numeroIdentidadTercero . '</Numero>
             </IdentificacionTercero>';
             }
-            if (isset($o->nombreTercero) && $o->nombreTercero != "") {
+            if (isset($o->nombreTercero) && !genXMLIsBlank($o->nombreTercero)) {
                 $xmlString .= '
             <NombreTercero>' . $o->nombreTercero . '</NombreTercero>';
             }
             $xmlString .= '
             <Detalle>' . $o->detalle . '</Detalle>';
-            if (isset($o->porcentajeOC) && $o->porcentajeOC != "") {
+            if (isset($o->porcentajeOC) && !genXMLIsBlank($o->porcentajeOC)) {
                 $xmlString .= '
             <PorcentajeOC>' . $o->porcentajeOC . '</PorcentajeOC>';
             }
@@ -1627,7 +1637,7 @@ function genXMLNC()
     $xmlString .= '
     <ResumenFactura>';
 
-    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0) {
+    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
@@ -1641,62 +1651,62 @@ function genXMLNC()
     </CodigoTipoMoneda>';
     }
 
-    if ($totalServGravados != '') {
+    if (!genXMLIsBlank($totalServGravados)) {
         $xmlString .= '
         <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
     }
 
-    if ($totalServExentos != '') {
+    if (!genXMLIsBlank($totalServExentos)) {
         $xmlString .= '
         <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
     }
 
-    if ($totalServExonerados != '') {
+    if (!genXMLIsBlank($totalServExonerados)) {
         $xmlString .= '
         <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
     }
 
-    if ($totalServNoSujeto != '') {
+    if (!genXMLIsBlank($totalServNoSujeto)) {
         $xmlString .= '
         <TotalServNoSujeto>' . $totalServNoSujeto . '</TotalServNoSujeto>';
     }
 
-    if ($totalMercGravadas != '') {
+    if (!genXMLIsBlank($totalMercGravadas)) {
         $xmlString .= '
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
     }
 
-    if ($totalMercExentas != '') {
+    if (!genXMLIsBlank($totalMercExentas)) {
         $xmlString .= '
         <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
     }
 
-    if ($totalMercExonerada != '') {
+    if (!genXMLIsBlank($totalMercExonerada)) {
         $xmlString .= '
         <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
     }
 
-    if ($totalMercNoSujeta != '') {
+    if (!genXMLIsBlank($totalMercNoSujeta)) {
         $xmlString .= '
         <TotalMercNoSujeta>' . $totalMercNoSujeta . '</TotalMercNoSujeta>';
     }
 
-    if ($totalGravados != '') {
+    if (!genXMLIsBlank($totalGravados)) {
         $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>';
     }
 
-    if ($totalExento != '') {
+    if (!genXMLIsBlank($totalExento)) {
         $xmlString .= '
         <TotalExento>' . $totalExento . '</TotalExento>';
     }
 
-    if ($totalExonerado != '') {
+    if (!genXMLIsBlank($totalExonerado)) {
         $xmlString .= '
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
     }
 
-    if ($totalNoSujeto != '') {
+    if (!genXMLIsBlank($totalNoSujeto)) {
         $xmlString .= '
         <TotalNoSujeto>' . $totalNoSujeto . '</TotalNoSujeto>';
     }
@@ -1704,7 +1714,7 @@ function genXMLNC()
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
 
-    if ($totalDescuentos != '') {
+    if (!genXMLIsBlank($totalDescuentos)) {
         $xmlString .= '
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>';
     }
@@ -1730,22 +1740,22 @@ function genXMLNC()
         }
     }
 
-    if ($totalImp != '') {
+    if (!genXMLIsBlank($totalImp)) {
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
     }
 
-    if ($totalImpAsumidoEmisorFabrica != '') {
+    if (!genXMLIsBlank($totalImpAsumidoEmisorFabrica)) {
         $xmlString .= '
         <TotalImpAsumEmisorFabrica>' . $totalImpAsumidoEmisorFabrica . '</TotalImpAsumEmisorFabrica>';
     }
 
-    if ($totalIVADevuelto != '') {
+    if (!genXMLIsBlank($totalIVADevuelto)) {
         $xmlString .= '
         <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
     }
 
-    if (isset($totalOtrosCargos) && $totalOtrosCargos != "") {
+    if (isset($totalOtrosCargos) && !genXMLIsBlank($totalOtrosCargos)) {
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
     }
@@ -1986,15 +1996,15 @@ function genXMLND()
     // Resumen
     $totalDesgloseImpuesto = json_decode(params_get("totalDesgloseImpuesto"));
 
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         grace_debug(params_get("otrosCargos"));
     }
 
-    if (isset($mediosPago) && $mediosPago != "") {
+    if (isset($mediosPago) && !genXMLIsBlank($mediosPago)) {
         grace_debug(params_get("medios_pago"));
     }
 
-    if (isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "") {
+    if (isset($totalDesgloseImpuesto) && !genXMLIsBlank($totalDesgloseImpuesto)) {
         grace_debug(params_get("totalDesgloseImpuesto"));
     }
 
@@ -2016,7 +2026,7 @@ function genXMLND()
         error_log("RECEPTOROTRASSENASEXTRANJEROMAXSIZE: " . RECEPTOROTRASSENASMAXSIZE . " is greater than receptorOtrasSenas: " . $receptorOtrasSenas);
     }
 
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         if (count($otrosCargos) > 15) {
             error_log("otrosCargos: " . count($otrosCargos) . " is greater than 15");
             //Delimita el array a solo 15 elementos
@@ -2024,7 +2034,7 @@ function genXMLND()
         }
     }
 
-    if (isset($mediosPago) && $mediosPago != "") {
+    if (isset($mediosPago) && !genXMLIsBlank($mediosPago)) {
         if (count($mediosPago) > 4) {
             error_log("medios_pago: " . count($mediosPago) . " is greater than 4");
             //Delimita el array a solo 4 elementos
@@ -2041,7 +2051,7 @@ function genXMLND()
     <ProveedorSistemas>' . $proveedorSistemas . '</ProveedorSistemas>
     <CodigoActividadEmisor>' . $codigoActividadEmisor . '</CodigoActividadEmisor>';
 
-    if (isset($codigoActividadReceptor) && $codigoActividadReceptor != "") {
+    if (isset($codigoActividadReceptor) && !genXMLIsBlank($codigoActividadReceptor)) {
         $codigoActividadReceptor = str_pad($codigoActividadReceptor, 6, "0", STR_PAD_LEFT);
         if (strlen($codigoActividadReceptor) != CODIGOACTIVIDADSIZE) {
             error_log("codigoActividadSize is: " . CODIGOACTIVIDADSIZE . " and codigoActividadReceptor is " . $codigoActividadReceptor);
@@ -2061,23 +2071,23 @@ function genXMLND()
             <Numero>' . $emisorNumIdentif . '</Numero>
         </Identificacion>';
 
-    if (isset($registroFiscal8707) && $registroFiscal8707 != "") {
+    if (isset($registroFiscal8707) && !genXMLIsBlank($registroFiscal8707)) {
         $xmlString .= '
         <Registrofiscal8707>' . $registroFiscal8707 . '</Registrofiscal8707>';
     }
 
-    if (isset($emisorNombreComercial) && $emisorNombreComercial != "") {
+    if (isset($emisorNombreComercial) && !genXMLIsBlank($emisorNombreComercial)) {
         $xmlString .= '
         <NombreComercial>' . $emisorNombreComercial . '</NombreComercial>';
     }
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '') {
+    if (!genXMLIsBlank($emisorProv) && !genXMLIsBlank($emisorCanton) && !genXMLIsBlank($emisorDistrito) && !genXMLIsBlank($emisorOtrasSenas)) {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $emisorProv . '</Provincia>
             <Canton>' . $emisorCanton . '</Canton>
             <Distrito>' . $emisorDistrito . '</Distrito>';
-        if ($emisorBarrio != '') {
+        if (!genXMLIsBlank($emisorBarrio)) {
             $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
         }
         $xmlString .= '
@@ -2085,7 +2095,7 @@ function genXMLND()
             </Ubicacion>';
     }
 
-    if ($emisorCodPaisTel != '' && $emisorTel != '' && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
+    if (!genXMLIsBlank($emisorCodPaisTel) && !genXMLIsBlank($emisorTel) && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
         $xmlString .= '
         <Telefono>
             <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
@@ -2103,25 +2113,25 @@ function genXMLND()
         $xmlString .= '<Receptor>
             <Nombre>' . $receptorNombre . '</Nombre>';
 
-        if ($receptorTipoIdentif != '' && $receptorNumIdentif != '') {
+        if (!genXMLIsBlank($receptorTipoIdentif) && !genXMLIsBlank($receptorNumIdentif)) {
             $xmlString .= '<Identificacion>
                 <Tipo>' . $receptorTipoIdentif . '</Tipo>
                 <Numero>' . $receptorNumIdentif . '</Numero>
             </Identificacion>';
         }
 
-        if (isset($receptorNombreComercial) && $receptorNombreComercial != "") {
+        if (isset($receptorNombreComercial) && !genXMLIsBlank($receptorNombreComercial)) {
             $xmlString .= '
         <NombreComercial>' . $receptorNombreComercial . '</NombreComercial>';
         }
 
-        if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorOtrasSenas != '') {
+        if (!genXMLIsBlank($receptorProvincia) && !genXMLIsBlank($receptorCanton) && !genXMLIsBlank($receptorDistrito) && !genXMLIsBlank($receptorOtrasSenas)) {
             $xmlString .= '
                 <Ubicacion>
                     <Provincia>' . $receptorProvincia . '</Provincia>
                     <Canton>' . $receptorCanton . '</Canton>
                     <Distrito>' . $receptorDistrito . '</Distrito>';
-            if ($receptorBarrio != '') {
+            if (!genXMLIsBlank($receptorBarrio)) {
                 $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
             }
             $xmlString .= '
@@ -2129,14 +2139,14 @@ function genXMLND()
                 </Ubicacion>';
         }
 
-        if ($receptorOtrasSenasExtranjero != '' && strlen($receptorOtrasSenasExtranjero) <= RECEPTOROTRASSENASEXTRANJEROMAXSIZE) {
+        if (!genXMLIsBlank($receptorOtrasSenasExtranjero) && strlen($receptorOtrasSenasExtranjero) <= RECEPTOROTRASSENASEXTRANJEROMAXSIZE) {
             $xmlString .= '
             <OtrasSenasExtranjero>'
                 . $receptorOtrasSenasExtranjero .
                 '</OtrasSenasExtranjero>';
         }
 
-        if ($receptorCodPaisTel != '' && $receptorTel != '') {
+        if (!genXMLIsBlank($receptorCodPaisTel) && !genXMLIsBlank($receptorTel)) {
             $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $receptorCodPaisTel . '</CodigoPais>
@@ -2144,7 +2154,7 @@ function genXMLND()
             </Telefono>';
         }
 
-        if ($receptorEmail != '') {
+        if (!genXMLIsBlank($receptorEmail)) {
             $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
         }
 
@@ -2154,12 +2164,12 @@ function genXMLND()
     $xmlString .= '
     <CondicionVenta>' . $condVenta . '</CondicionVenta>';
 
-    if (isset($condVentaOtros) && $condVentaOtros != "") {
+    if (isset($condVentaOtros) && !genXMLIsBlank($condVentaOtros)) {
         $xmlString .= '
         <CondicionVentaOtros>' . $condVentaOtros . '</CondicionVentaOtros>';
     }
 
-    if (isset($plazoCredito) && $plazoCredito != "") {
+    if (isset($plazoCredito) && !genXMLIsBlank($plazoCredito)) {
         $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
     }
@@ -2179,11 +2189,11 @@ function genXMLND()
         $xmlString .= '
         <LineaDetalle>
             <NumeroLinea>' . $l . '</NumeroLinea>';
-        if (isset($d->partidaArancelaria) && $d->partidaArancelaria != "") {
+        if (isset($d->partidaArancelaria) && !genXMLIsBlank($d->partidaArancelaria)) {
             $xmlString .= '<PartidaArancelaria>' . $d->partidaArancelaria . '</PartidaArancelaria>';
         }
 
-        if (isset($d->codigoCABYS) && $d->codigoCABYS != "") {
+        if (isset($d->codigoCABYS) && !genXMLIsBlank($d->codigoCABYS)) {
             $xmlString .= '
             <CodigoCABYS>' . $d->codigoCABYS . '</CodigoCABYS>';
         }
@@ -2202,7 +2212,7 @@ function genXMLND()
             foreach ($codigoComercialArray as $codigos) {
                 $c = (array)$codigos;
                 // Verificar si el elemento es un array asociativo
-                if (is_array($c) && isset($c['tipo']) && $c['tipo'] != "" && isset($c['codigo']) && $c['codigo'] != "") {
+                if (is_array($c) && isset($c['tipo']) && !genXMLIsBlank($c['tipo']) && isset($c['codigo']) && !genXMLIsBlank($c['codigo'])) {
                     $xmlString .= '
                         <CodigoComercial>
                             <Tipo>' . $c['tipo'] . '</Tipo>
@@ -2215,17 +2225,17 @@ function genXMLND()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-        if (isset($d->tipoTransaccion) && $d->tipoTransaccion != "") {
+        if (isset($d->tipoTransaccion) && !genXMLIsBlank($d->tipoTransaccion)) {
             $xmlString .= '
                 <TipoTransaccion>' . $d->tipoTransaccion . '</TipoTransaccion>';
         }
-        if (isset($d->unidadMedidaComercial) && $d->unidadMedidaComercial != "") {
+        if (isset($d->unidadMedidaComercial) && !genXMLIsBlank($d->unidadMedidaComercial)) {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
         $xmlString .= '
             <Detalle>' . $d->detalle . '</Detalle>';
-        if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
+        if (isset($d->numeroVINoSerie) && !genXMLIsBlank($d->numeroVINoSerie)) {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
 
@@ -2365,14 +2375,14 @@ function genXMLND()
 
         $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
 
-        if (isset($d->IVACobradoFabrica) && $d->IVACobradoFabrica != "") {
+        if (isset($d->IVACobradoFabrica) && !genXMLIsBlank($d->IVACobradoFabrica)) {
             $xmlString .= '<IVACobradoFabrica>' . $d->IVACobradoFabrica . '</IVACobradoFabrica>';
         }
 
-        if (isset($d->baseImponible) && $d->baseImponible != "") {
+        if (isset($d->baseImponible) && !genXMLIsBlank($d->baseImponible)) {
             $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
         }
-        if (isset($d->impuesto) && $d->impuesto != "") {
+        if (isset($d->impuesto) && !genXMLIsBlank($d->impuesto)) {
             foreach ($d->impuesto as $i) {
                 $xmlString .= '<Impuesto>
                 <Codigo>' . $i->codigo . '</Codigo>';
@@ -2385,15 +2395,15 @@ function genXMLND()
                     $xmlString .= '<CodigoImpuestoOTRO>' . $i->codigoImpuestoOtro . '</CodigoImpuestoOTRO>';
                 }
 
-                if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
+                if (isset($i->codigoTarifa) && !genXMLIsBlank($i->codigoTarifa)) {
                     $xmlString .= '<CodigoTarifaIVA>' . $i->codigoTarifa . '</CodigoTarifaIVA>';
                 }
 
-                if (isset($i->tarifa) && $i->tarifa != "") {
+                if (isset($i->tarifa) && !genXMLIsBlank($i->tarifa)) {
                     $xmlString .= '<Tarifa>' . $i->tarifa . '</Tarifa>';
                 }
 
-                if (isset($i->factorIVA) && $i->factorIVA != "") {
+                if (isset($i->factorIVA) && !genXMLIsBlank($i->factorIVA)) {
                     $xmlString .= '<FactorCalculoIVA>' . $i->factorIVA . '</FactorCalculoIVA>';
                 }
 
@@ -2425,11 +2435,11 @@ function genXMLND()
 
                 $xmlString .= '<Monto>' . $i->monto . '</Monto>';
 
-                if (isset($i->montoExportacion) && $i->montoExportacion != "") {
+                if (isset($i->montoExportacion) && !genXMLIsBlank($i->montoExportacion)) {
                     $xmlString .= '<MontoExportacion>' . $i->montoExportacion . '</MontoExportacion>';
                 }
 
-                if (isset($i->exoneracion) && $i->exoneracion != "") {
+                if (isset($i->exoneracion) && !genXMLIsBlank($i->exoneracion)) {
                     $xmlString .= '
                     <Exoneracion>
                         <TipoDocumentoEX1>' . $i->exoneracion->tipoDocumento . '</TipoDocumentoEX1>';
@@ -2457,7 +2467,7 @@ function genXMLND()
                 $xmlString .= '</Impuesto>';
             }
         }
-        if (isset($d->impuestoAsumidoEmisorFabrica) && $d->impuestoAsumidoEmisorFabrica != "") {
+        if (isset($d->impuestoAsumidoEmisorFabrica) && !genXMLIsBlank($d->impuestoAsumidoEmisorFabrica)) {
             $xmlString .= '<ImpuestoAsumidoEmisorFabrica>' . $d->impuestoAsumidoEmisorFabrica . '</ImpuestoAsumidoEmisorFabrica>';
         }
         $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
@@ -2469,29 +2479,29 @@ function genXMLND()
     $xmlString .= '</DetalleServicio>';
 
     //OtrosCargos
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         foreach ($otrosCargos as $o) {
             $xmlString .= '
         <OtrosCargos>
             <TipoDocumentoOC>' . $o->tipoDocumentoOC . '</TipoDocumentoOC>';
-            if (isset($o->tipoDocumentoOTROS) && $o->tipoDocumentoOTROS != "") {
+            if (isset($o->tipoDocumentoOTROS) && !genXMLIsBlank($o->tipoDocumentoOTROS)) {
                 $xmlString .= '
             <TipoDocumentoOTROS>' . $o->tipoDocumentoOTROS . '</TipoDocumentoOTROS>';
             }
-            if (isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "" && isset($o->tipoIdentidadTercero) && $o->tipoIdentidadTercero != "") {
+            if (isset($o->numeroIdentidadTercero) && !genXMLIsBlank($o->numeroIdentidadTercero) && isset($o->tipoIdentidadTercero) && !genXMLIsBlank($o->tipoIdentidadTercero)) {
                 $xmlString .= '
             <IdentificacionTercero>
                 <Tipo>' . $o->tipoIdentidadTercero . '</Tipo>
                 <Numero>' . $o->numeroIdentidadTercero . '</Numero>
             </IdentificacionTercero>';
             }
-            if (isset($o->nombreTercero) && $o->nombreTercero != "") {
+            if (isset($o->nombreTercero) && !genXMLIsBlank($o->nombreTercero)) {
                 $xmlString .= '
             <NombreTercero>' . $o->nombreTercero . '</NombreTercero>';
             }
             $xmlString .= '
             <Detalle>' . $o->detalle . '</Detalle>';
-            if (isset($o->porcentajeOC) && $o->porcentajeOC != "") {
+            if (isset($o->porcentajeOC) && !genXMLIsBlank($o->porcentajeOC)) {
                 $xmlString .= '
             <PorcentajeOC>' . $o->porcentajeOC . '</PorcentajeOC>';
             }
@@ -2505,7 +2515,7 @@ function genXMLND()
     $xmlString .= '
     <ResumenFactura>';
 
-    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0) {
+    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
@@ -2519,62 +2529,62 @@ function genXMLND()
     </CodigoTipoMoneda>';
     }
 
-    if ($totalServGravados != '') {
+    if (!genXMLIsBlank($totalServGravados)) {
         $xmlString .= '
         <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
     }
 
-    if ($totalServExentos != '') {
+    if (!genXMLIsBlank($totalServExentos)) {
         $xmlString .= '
         <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
     }
 
-    if ($totalServExonerados != '') {
+    if (!genXMLIsBlank($totalServExonerados)) {
         $xmlString .= '
         <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
     }
 
-    if ($totalServNoSujeto != '') {
+    if (!genXMLIsBlank($totalServNoSujeto)) {
         $xmlString .= '
         <TotalServNoSujeto>' . $totalServNoSujeto . '</TotalServNoSujeto>';
     }
 
-    if ($totalMercGravadas != '') {
+    if (!genXMLIsBlank($totalMercGravadas)) {
         $xmlString .= '
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
     }
 
-    if ($totalMercExentas != '') {
+    if (!genXMLIsBlank($totalMercExentas)) {
         $xmlString .= '
         <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
     }
 
-    if ($totalMercExonerada != '') {
+    if (!genXMLIsBlank($totalMercExonerada)) {
         $xmlString .= '
         <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
     }
 
-    if ($totalMercNoSujeta != '') {
+    if (!genXMLIsBlank($totalMercNoSujeta)) {
         $xmlString .= '
         <TotalMercNoSujeta>' . $totalMercNoSujeta . '</TotalMercNoSujeta>';
     }
 
-    if ($totalGravados != '') {
+    if (!genXMLIsBlank($totalGravados)) {
         $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>';
     }
 
-    if ($totalExento != '') {
+    if (!genXMLIsBlank($totalExento)) {
         $xmlString .= '
         <TotalExento>' . $totalExento . '</TotalExento>';
     }
 
-    if ($totalExonerado != '') {
+    if (!genXMLIsBlank($totalExonerado)) {
         $xmlString .= '
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
     }
 
-    if ($totalNoSujeto != '') {
+    if (!genXMLIsBlank($totalNoSujeto)) {
         $xmlString .= '
         <TotalNoSujeto>' . $totalNoSujeto . '</TotalNoSujeto>';
     }
@@ -2582,7 +2592,7 @@ function genXMLND()
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
 
-    if ($totalDescuentos != '') {
+    if (!genXMLIsBlank($totalDescuentos)) {
         $xmlString .= '
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>';
     }
@@ -2608,22 +2618,22 @@ function genXMLND()
         }
     }
 
-    if ($totalImp != '') {
+    if (!genXMLIsBlank($totalImp)) {
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
     }
 
-    if ($totalImpAsumidoEmisorFabrica != '') {
+    if (!genXMLIsBlank($totalImpAsumidoEmisorFabrica)) {
         $xmlString .= '
         <TotalImpAsumEmisorFabrica>' . $totalImpAsumidoEmisorFabrica . '</TotalImpAsumEmisorFabrica>';
     }
 
-    if ($totalIVADevuelto != '') {
+    if (!genXMLIsBlank($totalIVADevuelto)) {
         $xmlString .= '
         <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
     }
 
-    if (isset($totalOtrosCargos) && $totalOtrosCargos != "") {
+    if (isset($totalOtrosCargos) && !genXMLIsBlank($totalOtrosCargos)) {
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
     }
@@ -2867,15 +2877,15 @@ function genXMLTE()
 
     grace_debug(params_get("detalles"));
 
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         grace_debug(params_get("otrosCargos"));
     }
 
-    if (isset($mediosPago) && $mediosPago != "") {
+    if (isset($mediosPago) && !genXMLIsBlank($mediosPago)) {
         grace_debug(params_get("medios_pago"));
     }
 
-    if (isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "") {
+    if (isset($totalDesgloseImpuesto) && !genXMLIsBlank($totalDesgloseImpuesto)) {
         grace_debug(params_get("totalDesgloseImpuesto"));
     }
 
@@ -2897,7 +2907,7 @@ function genXMLTE()
         error_log("RECEPTOROTRASSENASEXTRANJEROMAXSIZE: " . RECEPTOROTRASSENASMAXSIZE . " is greater than receptorOtrasSenas: " . $receptorOtrasSenas);
     }
 
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         if (count($otrosCargos) > 15) {
             error_log("otrosCargos: " . count($otrosCargos) . " is greater than 15");
             //Delimita el array a solo 15 elementos
@@ -2905,7 +2915,7 @@ function genXMLTE()
         }
     }
 
-    if (isset($mediosPago) && $mediosPago != "") {
+    if (isset($mediosPago) && !genXMLIsBlank($mediosPago)) {
         if (count($mediosPago) > 4) {
             error_log("medios_pago: " . count($mediosPago) . " is greater than 4");
             //Delimita el array a solo 4 elementos
@@ -2930,23 +2940,23 @@ function genXMLTE()
             <Numero>' . $emisorNumIdentif . '</Numero>
         </Identificacion>';
 
-    if (isset($registroFiscal8707) && $registroFiscal8707 != "") {
+    if (isset($registroFiscal8707) && !genXMLIsBlank($registroFiscal8707)) {
         $xmlString .= '
         <Registrofiscal8707>' . $registroFiscal8707 . '</Registrofiscal8707>';
     }
 
-    if (isset($emisorNombreComercial) && $emisorNombreComercial != "") {
+    if (isset($emisorNombreComercial) && !genXMLIsBlank($emisorNombreComercial)) {
         $xmlString .= '
         <NombreComercial>' . $emisorNombreComercial . '</NombreComercial>';
     }
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '') {
+    if (!genXMLIsBlank($emisorProv) && !genXMLIsBlank($emisorCanton) && !genXMLIsBlank($emisorDistrito) && !genXMLIsBlank($emisorOtrasSenas)) {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $emisorProv . '</Provincia>
             <Canton>' . $emisorCanton . '</Canton>
             <Distrito>' . $emisorDistrito . '</Distrito>';
-        if ($emisorBarrio != '') {
+        if (!genXMLIsBlank($emisorBarrio)) {
             $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
         }
         $xmlString .= '
@@ -2954,7 +2964,7 @@ function genXMLTE()
             </Ubicacion>';
     }
 
-    if ($emisorCodPaisTel != '' && $emisorTel != '' && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
+    if (!genXMLIsBlank($emisorCodPaisTel) && !genXMLIsBlank($emisorTel) && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
         $xmlString .= '
         <Telefono>
             <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
@@ -2972,7 +2982,7 @@ function genXMLTE()
         $xmlString .= '<Receptor>
             <Nombre>' . $receptorNombre . '</Nombre>';
 
-        if ($receptorTipoIdentif != '' && $receptorNumIdentif != '') {
+        if (!genXMLIsBlank($receptorTipoIdentif) && !genXMLIsBlank($receptorNumIdentif)) {
             $xmlString .= '
             <Identificacion>
                 <Tipo>' . $receptorTipoIdentif . '</Tipo>
@@ -2980,18 +2990,18 @@ function genXMLTE()
             </Identificacion>';
         }
 
-        if (isset($receptorNombreComercial) && $receptorNombreComercial != "") {
+        if (isset($receptorNombreComercial) && !genXMLIsBlank($receptorNombreComercial)) {
             $xmlString .= '
         <NombreComercial>' . $receptorNombreComercial . '</NombreComercial>';
         }
 
-        if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorOtrasSenas != '') {
+        if (!genXMLIsBlank($receptorProvincia) && !genXMLIsBlank($receptorCanton) && !genXMLIsBlank($receptorDistrito) && !genXMLIsBlank($receptorOtrasSenas)) {
             $xmlString .= '
                 <Ubicacion>
                     <Provincia>' . $receptorProvincia . '</Provincia>
                     <Canton>' . $receptorCanton . '</Canton>
                     <Distrito>' . $receptorDistrito . '</Distrito>';
-            if ($receptorBarrio != '') {
+            if (!genXMLIsBlank($receptorBarrio)) {
                 $xmlString .= '
                     <Barrio>' . $receptorBarrio . '</Barrio>';
             }
@@ -3000,14 +3010,14 @@ function genXMLTE()
                 </Ubicacion>';
         }
 
-        if ($receptorOtrasSenasExtranjero != '' && strlen($receptorOtrasSenasExtranjero) <= RECEPTOROTRASSENASEXTRANJEROMAXSIZE) {
+        if (!genXMLIsBlank($receptorOtrasSenasExtranjero) && strlen($receptorOtrasSenasExtranjero) <= RECEPTOROTRASSENASEXTRANJEROMAXSIZE) {
             $xmlString .= '
             <OtrasSenasExtranjero>'
                 . $receptorOtrasSenasExtranjero .
                 '</OtrasSenasExtranjero>';
         }
 
-        if ($receptorCodPaisTel != '' && $receptorTel != '') {
+        if (!genXMLIsBlank($receptorCodPaisTel) && !genXMLIsBlank($receptorTel)) {
             $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $receptorCodPaisTel . '</CodigoPais>
@@ -3015,7 +3025,7 @@ function genXMLTE()
             </Telefono>';
         }
 
-        if ($receptorEmail != '') {
+        if (!genXMLIsBlank($receptorEmail)) {
             $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
         }
 
@@ -3025,12 +3035,12 @@ function genXMLTE()
     $xmlString .= '
     <CondicionVenta>' . $condVenta . '</CondicionVenta>';
 
-    if (isset($condVentaOtros) && $condVentaOtros != "") {
+    if (isset($condVentaOtros) && !genXMLIsBlank($condVentaOtros)) {
         $xmlString .= '
         <CondicionVentaOtros>' . $condVentaOtros . '</CondicionVentaOtros>';
     }
 
-    if (isset($plazoCredito) && $plazoCredito != "") {
+    if (isset($plazoCredito) && !genXMLIsBlank($plazoCredito)) {
         $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
     }
@@ -3069,7 +3079,7 @@ function genXMLTE()
             foreach ($codigoComercialArray as $codigos) {
                 $c = (array)$codigos;
                 // Verificar si el elemento es un array asociativo
-                if (is_array($c) && isset($c['tipo']) && $c['tipo'] != "" && isset($c['codigo']) && $c['codigo'] != "") {
+                if (is_array($c) && isset($c['tipo']) && !genXMLIsBlank($c['tipo']) && isset($c['codigo']) && !genXMLIsBlank($c['codigo'])) {
                     $xmlString .= '
                         <CodigoComercial>
                             <Tipo>' . $c['tipo'] . '</Tipo>
@@ -3082,13 +3092,13 @@ function genXMLTE()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-        if (isset($d->unidadMedidaComercial) && $d->unidadMedidaComercial != "") {
+        if (isset($d->unidadMedidaComercial) && !genXMLIsBlank($d->unidadMedidaComercial)) {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
         $xmlString .= '
             <Detalle>' . $d->detalle . '</Detalle>';
-        if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
+        if (isset($d->numeroVINoSerie) && !genXMLIsBlank($d->numeroVINoSerie)) {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
 
@@ -3228,14 +3238,14 @@ function genXMLTE()
 
         $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
 
-        if (isset($d->IVACobradoFabrica) && $d->IVACobradoFabrica != "") {
+        if (isset($d->IVACobradoFabrica) && !genXMLIsBlank($d->IVACobradoFabrica)) {
             $xmlString .= '<IVACobradoFabrica>' . $d->IVACobradoFabrica . '</IVACobradoFabrica>';
         }
 
-        if (isset($d->baseImponible) && $d->baseImponible != "") {
+        if (isset($d->baseImponible) && !genXMLIsBlank($d->baseImponible)) {
             $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
         }
-        if (isset($d->impuesto) && $d->impuesto != "") {
+        if (isset($d->impuesto) && !genXMLIsBlank($d->impuesto)) {
             foreach ($d->impuesto as $i) {
                 $xmlString .= '
                 <Impuesto>
@@ -3249,17 +3259,17 @@ function genXMLTE()
                     $xmlString .= '<CodigoImpuestoOTRO>' . $i->codigoImpuestoOtro . '</CodigoImpuestoOTRO>';
                 }
 
-                if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
+                if (isset($i->codigoTarifa) && !genXMLIsBlank($i->codigoTarifa)) {
                     $xmlString .= '
                     <CodigoTarifaIVA>' . $i->codigoTarifa . '</CodigoTarifaIVA>';
                 }
 
-                if (isset($i->tarifa) && $i->tarifa != "") {
+                if (isset($i->tarifa) && !genXMLIsBlank($i->tarifa)) {
                     $xmlString .= '
                     <Tarifa>' . $i->tarifa . '</Tarifa>';
                 }
 
-                if (isset($i->factorIVA) && $i->factorIVA != "") {
+                if (isset($i->factorIVA) && !genXMLIsBlank($i->factorIVA)) {
                     $xmlString .= '
                     <FactorCalculoIVA>' . $i->factorIVA . '</FactorCalculoIVA>';
                 }
@@ -3293,7 +3303,7 @@ function genXMLTE()
                 $xmlString .= '
                     <Monto>' . $i->monto . '</Monto>';
 
-                if (isset($i->exoneracion) && $i->exoneracion != "") {
+                if (isset($i->exoneracion) && !genXMLIsBlank($i->exoneracion)) {
                     $xmlString .= '
                     <Exoneracion>
                         <TipoDocumentoEX1>' . $i->exoneracion->tipoDocumento . '</TipoDocumentoEX1>';
@@ -3332,29 +3342,29 @@ function genXMLTE()
     $xmlString .= '</DetalleServicio>';
 
     //OtrosCargos
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         foreach ($otrosCargos as $o) {
             $xmlString .= '
         <OtrosCargos>
             <TipoDocumentoOC>' . $o->tipoDocumentoOC . '</TipoDocumentoOC>';
-            if (isset($o->tipoDocumentoOTROS) && $o->tipoDocumentoOTROS != "") {
+            if (isset($o->tipoDocumentoOTROS) && !genXMLIsBlank($o->tipoDocumentoOTROS)) {
                 $xmlString .= '
             <TipoDocumentoOTROS>' . $o->tipoDocumentoOTROS . '</TipoDocumentoOTROS>';
             }
-            if (isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "" && isset($o->tipoIdentidadTercero) && $o->tipoIdentidadTercero != "") {
+            if (isset($o->numeroIdentidadTercero) && !genXMLIsBlank($o->numeroIdentidadTercero) && isset($o->tipoIdentidadTercero) && !genXMLIsBlank($o->tipoIdentidadTercero)) {
                 $xmlString .= '
             <IdentificacionTercero>
                 <Tipo>' . $o->tipoIdentidadTercero . '</Tipo>
                 <Numero>' . $o->numeroIdentidadTercero . '</Numero>
             </IdentificacionTercero>';
             }
-            if (isset($o->nombreTercero) && $o->nombreTercero != "") {
+            if (isset($o->nombreTercero) && !genXMLIsBlank($o->nombreTercero)) {
                 $xmlString .= '
             <NombreTercero>' . $o->nombreTercero . '</NombreTercero>';
             }
             $xmlString .= '
             <Detalle>' . $o->detalle . '</Detalle>';
-            if (isset($o->porcentajeOC) && $o->porcentajeOC != "") {
+            if (isset($o->porcentajeOC) && !genXMLIsBlank($o->porcentajeOC)) {
                 $xmlString .= '
             <PorcentajeOC>' . $o->porcentajeOC . '</PorcentajeOC>';
             }
@@ -3368,7 +3378,7 @@ function genXMLTE()
     $xmlString .= '
     <ResumenFactura>';
 
-    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0) {
+    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
@@ -3382,62 +3392,62 @@ function genXMLTE()
     </CodigoTipoMoneda>';
     }
 
-    if ($totalServGravados != '') {
+    if (!genXMLIsBlank($totalServGravados)) {
         $xmlString .= '
         <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
     }
 
-    if ($totalServExentos != '') {
+    if (!genXMLIsBlank($totalServExentos)) {
         $xmlString .= '
         <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
     }
 
-    if ($totalServExonerados != '') {
+    if (!genXMLIsBlank($totalServExonerados)) {
         $xmlString .= '
         <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
     }
 
-    if ($totalServNoSujeto != '') {
+    if (!genXMLIsBlank($totalServNoSujeto)) {
         $xmlString .= '
         <TotalServNoSujeto>' . $totalServNoSujeto . '</TotalServNoSujeto>';
     }
 
-    if ($totalMercGravadas != '') {
+    if (!genXMLIsBlank($totalMercGravadas)) {
         $xmlString .= '
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
     }
 
-    if ($totalMercExentas != '') {
+    if (!genXMLIsBlank($totalMercExentas)) {
         $xmlString .= '
         <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
     }
 
-    if ($totalMercExonerada != '') {
+    if (!genXMLIsBlank($totalMercExonerada)) {
         $xmlString .= '
         <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
     }
 
-    if ($totalMercNoSujeta != '') {
+    if (!genXMLIsBlank($totalMercNoSujeta)) {
         $xmlString .= '
         <TotalMercNoSujeta>' . $totalMercNoSujeta . '</TotalMercNoSujeta>';
     }
 
-    if ($totalGravados != '') {
+    if (!genXMLIsBlank($totalGravados)) {
         $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>';
     }
 
-    if ($totalExento != '') {
+    if (!genXMLIsBlank($totalExento)) {
         $xmlString .= '
         <TotalExento>' . $totalExento . '</TotalExento>';
     }
 
-    if ($totalExonerado != '') {
+    if (!genXMLIsBlank($totalExonerado)) {
         $xmlString .= '
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
     }
 
-    if ($totalNoSujeto != '') {
+    if (!genXMLIsBlank($totalNoSujeto)) {
         $xmlString .= '
         <TotalNoSujeto>' . $totalNoSujeto . '</TotalNoSujeto>';
     }
@@ -3445,7 +3455,7 @@ function genXMLTE()
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
 
-    if ($totalDescuentos != '') {
+    if (!genXMLIsBlank($totalDescuentos)) {
         $xmlString .= '
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>';
     }
@@ -3471,22 +3481,22 @@ function genXMLTE()
         }
     }
 
-    if ($totalImp != '') {
+    if (!genXMLIsBlank($totalImp)) {
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
     }
 
-    if ($totalImpAsumidoEmisorFabrica != '') {
+    if (!genXMLIsBlank($totalImpAsumidoEmisorFabrica)) {
         $xmlString .= '
         <TotalImpAsumEmisorFabrica>' . $totalImpAsumidoEmisorFabrica . '</TotalImpAsumEmisorFabrica>';
     }
 
-    if ($totalIVADevuelto != '') {
+    if (!genXMLIsBlank($totalIVADevuelto)) {
         $xmlString .= '
         <TotalIVADevuelto>' . $totalIVADevuelto . '</TotalIVADevuelto>';
     }
 
-    if (isset($totalOtrosCargos) && $totalOtrosCargos != "") {
+    if (isset($totalOtrosCargos) && !genXMLIsBlank($totalOtrosCargos)) {
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
     }
@@ -3785,15 +3795,15 @@ function genXMLFec()
 
     grace_debug(params_get("detalles"));
 
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         grace_debug(params_get("otrosCargos"));
     }
 
-    if (isset($mediosPago) && $mediosPago != "") {
+    if (isset($mediosPago) && !genXMLIsBlank($mediosPago)) {
         grace_debug(params_get("medios_pago"));
     }
 
-    if (isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "") {
+    if (isset($totalDesgloseImpuesto) && !genXMLIsBlank($totalDesgloseImpuesto)) {
         grace_debug(params_get("totalDesgloseImpuesto"));
     }
 
@@ -3820,7 +3830,7 @@ function genXMLFec()
         error_log("RECEPTOROTRASSENASEXTRANJEROMAXSIZE: " . RECEPTOROTRASSENASMAXSIZE . " is greater than receptorOtrasSenas: " . $receptorOtrasSenas);
     }
 
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         if (count($otrosCargos) > 15) {
             error_log("otrosCargos: " . count($otrosCargos) . " is greater than 15");
             //Delimita el array a solo 15 elementos
@@ -3828,7 +3838,7 @@ function genXMLFec()
         }
     }
 
-    if (isset($mediosPago) && $mediosPago != "") {
+    if (isset($mediosPago) && !genXMLIsBlank($mediosPago)) {
         if (count($mediosPago) > 4) {
             error_log("mediosPago: " . count($mediosPago) . " is greater than 4");
             //Delimita el array a solo 4 elementos
@@ -3854,23 +3864,23 @@ function genXMLFec()
                 <Numero>' . $emisorNumIdentif . '</Numero>
             </Identificacion>';
 
-    if (isset($registroFiscal8707) && $registroFiscal8707 != "") {
+    if (isset($registroFiscal8707) && !genXMLIsBlank($registroFiscal8707)) {
         $xmlString .= '
         <Registrofiscal8707>' . $registroFiscal8707 . '</Registrofiscal8707>';
     }
 
-    if (isset($emisorNombreComercial) && $emisorNombreComercial != "") {
+    if (isset($emisorNombreComercial) && !genXMLIsBlank($emisorNombreComercial)) {
         $xmlString .= '
         <NombreComercial>' . $emisorNombreComercial . '</NombreComercial>';
     }
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '') {
+    if (!genXMLIsBlank($emisorProv) && !genXMLIsBlank($emisorCanton) && !genXMLIsBlank($emisorDistrito) && !genXMLIsBlank($emisorOtrasSenas)) {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $emisorProv . '</Provincia>
             <Canton>' . $emisorCanton . '</Canton>
             <Distrito>' . $emisorDistrito . '</Distrito>';
-        if ($emisorBarrio != '') {
+        if (!genXMLIsBlank($emisorBarrio)) {
             $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
         }
         $xmlString .= '
@@ -3878,12 +3888,12 @@ function genXMLFec()
          </Ubicacion>';
     }
 
-    if ($emisorOtrasSenasExtranjero != '' && strlen($emisorOtrasSenasExtranjero) <= RECEPTOROTRASSENASEXTRANJEROMAXSIZE) {
+    if (!genXMLIsBlank($emisorOtrasSenasExtranjero) && strlen($emisorOtrasSenasExtranjero) <= RECEPTOROTRASSENASEXTRANJEROMAXSIZE) {
         $xmlString .= '
         <OtrasSenasExtranjero>' . $emisorOtrasSenasExtranjero . '</OtrasSenasExtranjero>';
     }
 
-    if ($emisorCodPaisTel != '' && $emisorTel != '' && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
+    if (!genXMLIsBlank($emisorCodPaisTel) && !genXMLIsBlank($emisorTel) && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
         $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
@@ -3891,7 +3901,7 @@ function genXMLFec()
             </Telefono>';
     }
 
-    if ($emisorEmail != '' && preg_match(EMAIL_REGEX, trim($emisorEmail))) {
+    if (!genXMLIsBlank($emisorEmail) && preg_match(EMAIL_REGEX, trim($emisorEmail))) {
         $xmlString .= '<CorreoElectronico>' . trim($emisorEmail) . '</CorreoElectronico></Emisor>';
     } else {
         error_log(sprintf("Invalid email format: '%s' does not meet the regex pattern: %s", $emisorEmail, EMAIL_REGEX));
@@ -3907,18 +3917,18 @@ function genXMLFec()
             <Numero>' . $receptorNumIdentif . '</Numero>
         </Identificacion>';
 
-    if (isset($receptorNombreComercial) && $receptorNombreComercial != "") {
+    if (isset($receptorNombreComercial) && !genXMLIsBlank($receptorNombreComercial)) {
         $xmlString .= '
         <NombreComercial>' . $receptorNombreComercial . '</NombreComercial>';
     }
 
-    if ($receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorOtrasSenas != '') {
+    if (!genXMLIsBlank($receptorProvincia) && !genXMLIsBlank($receptorCanton) && !genXMLIsBlank($receptorDistrito) && !genXMLIsBlank($receptorOtrasSenas)) {
         $xmlString .= '
             <Ubicacion>
                 <Provincia>' . $receptorProvincia . '</Provincia>
                 <Canton>' . $receptorCanton . '</Canton>
                 <Distrito>' . $receptorDistrito . '</Distrito>';
-        if ($receptorBarrio != '') {
+        if (!genXMLIsBlank($receptorBarrio)) {
             $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
         }
         $xmlString .= '
@@ -3926,7 +3936,7 @@ function genXMLFec()
             </Ubicacion>';
     }
 
-    if ($receptorCodPaisTel != '' && $receptorTel != '') {
+    if (!genXMLIsBlank($receptorCodPaisTel) && !genXMLIsBlank($receptorTel)) {
         $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $receptorCodPaisTel . '</CodigoPais>
@@ -3934,7 +3944,7 @@ function genXMLFec()
             </Telefono>';
     }
 
-    if ($receptorEmail != '') {
+    if (!genXMLIsBlank($receptorEmail)) {
         $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
     }
 
@@ -3943,12 +3953,12 @@ function genXMLFec()
     $xmlString .= '
         <CondicionVenta>' . $condVenta . '</CondicionVenta>';
 
-    if (isset($condVentaOtros) && $condVentaOtros != "") {
+    if (isset($condVentaOtros) && !genXMLIsBlank($condVentaOtros)) {
         $xmlString .= '
         <CondicionVentaOtros>' . $condVentaOtros . '</CondicionVentaOtros>';
     }
 
-    if (isset($plazoCredito) && $plazoCredito != "") {
+    if (isset($plazoCredito) && !genXMLIsBlank($plazoCredito)) {
         $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
     }
@@ -3986,7 +3996,7 @@ function genXMLFec()
             foreach ($codigoComercialArray as $codigos) {
                 $c = (array)$codigos;
                 // Verificar si el elemento es un array asociativo
-                if (is_array($c) && isset($c['tipo']) && $c['tipo'] != "" && isset($c['codigo']) && $c['codigo'] != "") {
+                if (is_array($c) && isset($c['tipo']) && !genXMLIsBlank($c['tipo']) && isset($c['codigo']) && !genXMLIsBlank($c['codigo'])) {
                     $xmlString .= '
                         <CodigoComercial>
                             <Tipo>' . $c['tipo'] . '</Tipo>
@@ -3999,17 +4009,17 @@ function genXMLFec()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-        if (isset($d->tipoTransaccion) && $d->tipoTransaccion != "") {
+        if (isset($d->tipoTransaccion) && !genXMLIsBlank($d->tipoTransaccion)) {
             $xmlString .= '
                 <TipoTransaccion>' . $d->tipoTransaccion . '</TipoTransaccion>';
         }
-        if (isset($d->unidadMedidaComercial) && $d->unidadMedidaComercial != "") {
+        if (isset($d->unidadMedidaComercial) && !genXMLIsBlank($d->unidadMedidaComercial)) {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
         $xmlString .= '
             <Detalle>' . $d->detalle . '</Detalle>';
-        if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
+        if (isset($d->numeroVINoSerie) && !genXMLIsBlank($d->numeroVINoSerie)) {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
 
@@ -4066,11 +4076,11 @@ function genXMLFec()
 
         $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
 
-        if (isset($d->baseImponible) && $d->baseImponible != "") {
+        if (isset($d->baseImponible) && !genXMLIsBlank($d->baseImponible)) {
             $xmlString .= '<BaseImponible>' . $d->baseImponible . '</BaseImponible>';
         }
 
-        if (isset($d->impuesto) && $d->impuesto != "") {
+        if (isset($d->impuesto) && !genXMLIsBlank($d->impuesto)) {
             foreach ($d->impuesto as $i) {
                 $xmlString .= '
                 <Impuesto>
@@ -4084,21 +4094,21 @@ function genXMLFec()
                     $xmlString .= '<CodigoImpuestoOTRO>' . $i->codigoImpuestoOtro . '</CodigoImpuestoOTRO>';
                 }
 
-                if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
+                if (isset($i->codigoTarifa) && !genXMLIsBlank($i->codigoTarifa)) {
                     $xmlString .= '<CodigoTarifaIVA>' . $i->codigoTarifa . '</CodigoTarifaIVA>';
                 }
 
-                if (isset($i->tarifa) && $i->tarifa != "") {
+                if (isset($i->tarifa) && !genXMLIsBlank($i->tarifa)) {
                     $xmlString .= '<Tarifa>' . $i->tarifa . '</Tarifa>';
                 }
 
-                if (isset($i->factorIVA) && $i->factorIVA != "") {
+                if (isset($i->factorIVA) && !genXMLIsBlank($i->factorIVA)) {
                     $xmlString .= '<FactorCalculoIVA>' . $i->factorIVA . '</FactorCalculoIVA>';
                 }
 
                 $xmlString .= '<Monto>' . $i->monto . '</Monto>';
 
-                if (isset($i->exoneracion) && $i->exoneracion != "") {
+                if (isset($i->exoneracion) && !genXMLIsBlank($i->exoneracion)) {
                     $xmlString .= '
                     <Exoneracion>
                         <TipoDocumentoEX1>' . $i->exoneracion->tipoDocumento . '</TipoDocumentoEX1>';
@@ -4135,29 +4145,29 @@ function genXMLFec()
 
     $xmlString .= '</DetalleServicio>';
     //OtrosCargos
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         foreach ($otrosCargos as $o) {
             $xmlString .= '
         <OtrosCargos>
             <TipoDocumentoOC>' . $o->tipoDocumentoOC . '</TipoDocumentoOC>';
-            if (isset($o->tipoDocumentoOTROS) && $o->tipoDocumentoOTROS != "") {
+            if (isset($o->tipoDocumentoOTROS) && !genXMLIsBlank($o->tipoDocumentoOTROS)) {
                 $xmlString .= '
             <TipoDocumentoOTROS>' . $o->tipoDocumentoOTROS . '</TipoDocumentoOTROS>';
             }
-            if (isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "" && isset($o->tipoIdentidadTercero) && $o->tipoIdentidadTercero != "") {
+            if (isset($o->numeroIdentidadTercero) && !genXMLIsBlank($o->numeroIdentidadTercero) && isset($o->tipoIdentidadTercero) && !genXMLIsBlank($o->tipoIdentidadTercero)) {
                 $xmlString .= '
             <IdentificacionTercero>
                 <Tipo>' . $o->tipoIdentidadTercero . '</Tipo>
                 <Numero>' . $o->numeroIdentidadTercero . '</Numero>
             </IdentificacionTercero>';
             }
-            if (isset($o->nombreTercero) && $o->nombreTercero != "") {
+            if (isset($o->nombreTercero) && !genXMLIsBlank($o->nombreTercero)) {
                 $xmlString .= '
             <NombreTercero>' . $o->nombreTercero . '</NombreTercero>';
             }
             $xmlString .= '
             <Detalle>' . $o->detalle . '</Detalle>';
-            if (isset($o->porcentajeOC) && $o->porcentajeOC != "") {
+            if (isset($o->porcentajeOC) && !genXMLIsBlank($o->porcentajeOC)) {
                 $xmlString .= '
             <PorcentajeOC>' . $o->porcentajeOC . '</PorcentajeOC>';
             }
@@ -4171,7 +4181,7 @@ function genXMLFec()
     $xmlString .= '
     <ResumenFactura>';
 
-    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0) {
+    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
@@ -4185,62 +4195,62 @@ function genXMLFec()
     </CodigoTipoMoneda>';
     }
 
-    if ($totalServGravados != '') {
+    if (!genXMLIsBlank($totalServGravados)) {
         $xmlString .= '
         <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
     }
 
-    if ($totalServExentos != '') {
+    if (!genXMLIsBlank($totalServExentos)) {
         $xmlString .= '
         <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
     }
 
-    if ($totalServExonerados != '') {
+    if (!genXMLIsBlank($totalServExonerados)) {
         $xmlString .= '
         <TotalServExonerado>' . $totalServExonerados . '</TotalServExonerado>';
     }
 
-    if ($totalServNoSujeto != '') {
+    if (!genXMLIsBlank($totalServNoSujeto)) {
         $xmlString .= '
         <TotalServNoSujeto>' . $totalServNoSujeto . '</TotalServNoSujeto>';
     }
 
-    if ($totalMercGravadas != '') {
+    if (!genXMLIsBlank($totalMercGravadas)) {
         $xmlString .= '
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
     }
 
-    if ($totalMercExentas != '') {
+    if (!genXMLIsBlank($totalMercExentas)) {
         $xmlString .= '
         <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
     }
 
-    if ($totalMercExonerada != '') {
+    if (!genXMLIsBlank($totalMercExonerada)) {
         $xmlString .= '
         <TotalMercExonerada>' . $totalMercExonerada . '</TotalMercExonerada>';
     }
 
-    if ($totalMercNoSujeta != '') {
+    if (!genXMLIsBlank($totalMercNoSujeta)) {
         $xmlString .= '
         <TotalMercNoSujeta>' . $totalMercNoSujeta . '</TotalMercNoSujeta>';
     }
 
-    if ($totalGravados != '') {
+    if (!genXMLIsBlank($totalGravados)) {
         $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>';
     }
 
-    if ($totalExento != '') {
+    if (!genXMLIsBlank($totalExento)) {
         $xmlString .= '
         <TotalExento>' . $totalExento . '</TotalExento>';
     }
 
-    if ($totalExonerado != '') {
+    if (!genXMLIsBlank($totalExonerado)) {
         $xmlString .= '
         <TotalExonerado>' . $totalExonerado . '</TotalExonerado>';
     }
 
-    if ($totalNoSujeto != '') {
+    if (!genXMLIsBlank($totalNoSujeto)) {
         $xmlString .= '
         <TotalNoSujeto>' . $totalNoSujeto . '</TotalNoSujeto>';
     }
@@ -4248,7 +4258,7 @@ function genXMLFec()
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
 
-    if ($totalDescuentos != '') {
+    if (!genXMLIsBlank($totalDescuentos)) {
         $xmlString .= '
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>';
     }
@@ -4274,17 +4284,17 @@ function genXMLFec()
         }
     }
 
-    if ($totalImp != '') {
+    if (!genXMLIsBlank($totalImp)) {
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
     }
 
-    if ($totalImpAsumidoEmisorFabrica != '') {
+    if (!genXMLIsBlank($totalImpAsumidoEmisorFabrica)) {
         $xmlString .= '
         <TotalImpAsumEmisorFabrica>' . $totalImpAsumidoEmisorFabrica . '</TotalImpAsumEmisorFabrica>';
     }
 
-    if (isset($totalOtrosCargos) && $totalOtrosCargos != "") {
+    if (isset($totalOtrosCargos) && !genXMLIsBlank($totalOtrosCargos)) {
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
     }
@@ -4508,11 +4518,11 @@ function genXMLFee()
 
     grace_debug(params_get("detalles"));
 
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         grace_debug(params_get("otrosCargos"));
     }
 
-    if (isset($totalDesgloseImpuesto) && $totalDesgloseImpuesto != "") {
+    if (isset($totalDesgloseImpuesto) && !genXMLIsBlank($totalDesgloseImpuesto)) {
         grace_debug(params_get("totalDesgloseImpuesto"));
     }
 
@@ -4559,23 +4569,23 @@ function genXMLFee()
                 <Numero>' . $emisorNumIdentif . '</Numero>
             </Identificacion>';
 
-    if (isset($registroFiscal8707) && $registroFiscal8707 != "") {
+    if (isset($registroFiscal8707) && !genXMLIsBlank($registroFiscal8707)) {
         $xmlString .= '
         <Registrofiscal8707>' . $registroFiscal8707 . '</Registrofiscal8707>';
     }
 
-    if (isset($emisorNombreComercial) && $emisorNombreComercial != "") {
+    if (isset($emisorNombreComercial) && !genXMLIsBlank($emisorNombreComercial)) {
         $xmlString .= '
         <NombreComercial>' . $emisorNombreComercial . '</NombreComercial>';
     }
 
-    if ($emisorProv != '' && $emisorCanton != '' && $emisorDistrito != '' && $emisorOtrasSenas != '') {
+    if (!genXMLIsBlank($emisorProv) && !genXMLIsBlank($emisorCanton) && !genXMLIsBlank($emisorDistrito) && !genXMLIsBlank($emisorOtrasSenas)) {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $emisorProv . '</Provincia>
             <Canton>' . $emisorCanton . '</Canton>
             <Distrito>' . $emisorDistrito . '</Distrito>';
-        if ($emisorBarrio != '') {
+        if (!genXMLIsBlank($emisorBarrio)) {
             $xmlString .= '<Barrio>' . $emisorBarrio . '</Barrio>';
         }
         $xmlString .= '
@@ -4583,7 +4593,7 @@ function genXMLFee()
             </Ubicacion>';
     }
 
-    if ($emisorCodPaisTel != '' && $emisorTel != '' && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
+    if (!genXMLIsBlank($emisorCodPaisTel) && !genXMLIsBlank($emisorTel) && strlen($emisorTel) >= EMISORNUMEROTELMIN && strlen($emisorTel) <= EMISORNUMEROTELMAX) {
         $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $emisorCodPaisTel . '</CodigoPais>
@@ -4597,12 +4607,12 @@ function genXMLFee()
         error_log(sprintf("Invalid email format: '%s' does not meet the regex pattern: %s", $emisorEmail, EMAIL_REGEX));
     }
 
-    if (isset($receptorNombre) && $receptorNombre != "") {
+    if (isset($receptorNombre) && !genXMLIsBlank($receptorNombre)) {
         $xmlString .= '<Receptor>
         <Nombre>' . $receptorNombre . '</Nombre>';
     }
 
-    if (isset($receptorTipoIdentif) && $receptorTipoIdentif != "" && isset($receptorNumIdentif) && $receptorNumIdentif != "") {
+    if (isset($receptorTipoIdentif) && !genXMLIsBlank($receptorTipoIdentif) && isset($receptorNumIdentif) && !genXMLIsBlank($receptorNumIdentif)) {
         $xmlString .= '
         <Identificacion>
             <Tipo>' . $receptorTipoIdentif . '</Tipo>
@@ -4610,18 +4620,18 @@ function genXMLFee()
         </Identificacion>';
     }
 
-    if (isset($receptorNombreComercial) && $receptorNombreComercial != "") {
+    if (isset($receptorNombreComercial) && !genXMLIsBlank($receptorNombreComercial)) {
         $xmlString .= '
         <NombreComercial>' . $receptorNombreComercial . '</NombreComercial>';
     }
 
-    if (isset($receptorProvincia) && $receptorProvincia != '' && $receptorCanton != '' && $receptorDistrito != '' && $receptorOtrasSenas != '') {
+    if (isset($receptorProvincia) && !genXMLIsBlank($receptorProvincia) && !genXMLIsBlank($receptorCanton) && !genXMLIsBlank($receptorDistrito) && !genXMLIsBlank($receptorOtrasSenas)) {
         $xmlString .= '
         <Ubicacion>
             <Provincia>' . $receptorProvincia . '</Provincia>
             <Canton>' . $receptorCanton . '</Canton>
             <Distrito>' . $receptorDistrito . '</Distrito>';
-        if ($receptorBarrio != '') {
+        if (!genXMLIsBlank($receptorBarrio)) {
             $xmlString .= '<Barrio>' . $receptorBarrio . '</Barrio>';
         }
         $xmlString .= '
@@ -4629,7 +4639,7 @@ function genXMLFee()
         </Ubicacion>';
     }
 
-    if ($receptorOtrasSenasExtranjero != '' && strlen($receptorOtrasSenasExtranjero) <= RECEPTOROTRASSENASEXTRANJEROMAXSIZE) {
+    if (!genXMLIsBlank($receptorOtrasSenasExtranjero) && strlen($receptorOtrasSenasExtranjero) <= RECEPTOROTRASSENASEXTRANJEROMAXSIZE) {
         $xmlString .= '
         <OtrasSenasExtranjero>'
             . $receptorOtrasSenasExtranjero .
@@ -4637,7 +4647,7 @@ function genXMLFee()
     }
 
 
-    if ($receptorCodPaisTel != '' && $receptorTel != '') {
+    if (!genXMLIsBlank($receptorCodPaisTel) && !genXMLIsBlank($receptorTel)) {
         $xmlString .= '
             <Telefono>
                 <CodigoPais>' . $receptorCodPaisTel . '</CodigoPais>
@@ -4645,7 +4655,7 @@ function genXMLFee()
             </Telefono>';
     }
 
-    if ($receptorEmail != '') {
+    if (!genXMLIsBlank($receptorEmail)) {
         $xmlString .= '<CorreoElectronico>' . $receptorEmail . '</CorreoElectronico>';
         $xmlString .= '</Receptor>';
     }
@@ -4653,12 +4663,12 @@ function genXMLFee()
     $xmlString .= '
         <CondicionVenta>' . $condVenta . '</CondicionVenta>';
 
-    if (isset($condVentaOtros) && $condVentaOtros != "") {
+    if (isset($condVentaOtros) && !genXMLIsBlank($condVentaOtros)) {
         $xmlString .= '
         <CondicionVentaOtros>' . $condVentaOtros . '</CondicionVentaOtros>';
     }
 
-    if (isset($plazoCredito) && $plazoCredito != "") {
+    if (isset($plazoCredito) && !genXMLIsBlank($plazoCredito)) {
         $xmlString .= '
         <PlazoCredito>' . $plazoCredito . '</PlazoCredito>';
     }
@@ -4673,7 +4683,7 @@ function genXMLFee()
         <LineaDetalle>
             <NumeroLinea>' . $l . '</NumeroLinea>';
 
-        if (isset($d->partidaArancelaria) && $d->partidaArancelaria != "") {
+        if (isset($d->partidaArancelaria) && !genXMLIsBlank($d->partidaArancelaria)) {
             $xmlString .= '
             <PartidaArancelaria>' . $d->partidaArancelaria . '</PartidaArancelaria>';
         }
@@ -4695,7 +4705,7 @@ function genXMLFee()
             foreach ($codigoComercialArray as $codigos) {
                 $c = (array)$codigos;
                 // Verificar si el elemento es un array asociativo
-                if (is_array($c) && isset($c['tipo']) && $c['tipo'] != "" && isset($c['codigo']) && $c['codigo'] != "") {
+                if (is_array($c) && isset($c['tipo']) && !genXMLIsBlank($c['tipo']) && isset($c['codigo']) && !genXMLIsBlank($c['codigo'])) {
                     $xmlString .= '
                         <CodigoComercial>
                             <Tipo>' . $c['tipo'] . '</Tipo>
@@ -4709,17 +4719,17 @@ function genXMLFee()
         $xmlString .= '
             <Cantidad>' . $d->cantidad . '</Cantidad>
             <UnidadMedida>' . $d->unidadMedida . '</UnidadMedida>';
-        if (isset($d->tipoTransaccion) && $d->tipoTransaccion != "") {
+        if (isset($d->tipoTransaccion) && !genXMLIsBlank($d->tipoTransaccion)) {
             $xmlString .= '
                 <TipoTransaccion>' . $d->tipoTransaccion . '</TipoTransaccion>';
         }
-        if (isset($d->unidadMedidaComercial) && $d->unidadMedidaComercial != "") {
+        if (isset($d->unidadMedidaComercial) && !genXMLIsBlank($d->unidadMedidaComercial)) {
             $xmlString .= '
                 <UnidadMedidaComercial>' . $d->unidadMedidaComercial . '</UnidadMedidaComercial>';
         }
         $xmlString .= '
             <Detalle>' . $d->detalle . '</Detalle>';
-        if (isset($d->numeroVINoSerie) && $d->numeroVINoSerie != "") {
+        if (isset($d->numeroVINoSerie) && !genXMLIsBlank($d->numeroVINoSerie)) {
             $xmlString .= '<NumeroVINoSerie>' . $d->numeroVINoSerie . '</NumeroVINoSerie>';
         }
 
@@ -4859,11 +4869,11 @@ function genXMLFee()
 
         $xmlString .= '<SubTotal>' . $d->subTotal . '</SubTotal>';
 
-        if (isset($d->impuesto) && $d->impuesto != "") {
+        if (isset($d->impuesto) && !genXMLIsBlank($d->impuesto)) {
             foreach ($d->impuesto as $i) {
                 $xmlString .= '
                 <Impuesto>';
-                if (isset($i->codigo) && $i->codigo != "") {
+                if (isset($i->codigo) && !genXMLIsBlank($i->codigo)) {
                     $xmlString .= '<Codigo>' . $i->codigo . '</Codigo>';
                 }
 
@@ -4875,23 +4885,23 @@ function genXMLFee()
                     $xmlString .= '<CodigoImpuestoOTRO>' . $i->codigoImpuestoOtro . '</CodigoImpuestoOTRO>';
                 }
 
-                if (isset($i->codigoTarifa) && $i->codigoTarifa != "") {
+                if (isset($i->codigoTarifa) && !genXMLIsBlank($i->codigoTarifa)) {
                     $xmlString .= '<CodigoTarifaIVA>' . $i->codigoTarifa . '</CodigoTarifaIVA>';
                 }
 
-                if (isset($i->tarifa) && $i->tarifa != "") {
+                if (isset($i->tarifa) && !genXMLIsBlank($i->tarifa)) {
                     $xmlString .= '<Tarifa>' . $i->tarifa . '</Tarifa>';
                 }
 
-                if (isset($i->factorIVA) && $i->factorIVA != "") {
+                if (isset($i->factorIVA) && !genXMLIsBlank($i->factorIVA)) {
                     $xmlString .= '<FactorCalculoIVA>' . $i->factorIVA . '</FactorCalculoIVA>';
                 }
 
-                if (isset($i->monto) && $i->monto != "") {
+                if (isset($i->monto) && !genXMLIsBlank($i->monto)) {
                     $xmlString .= '<Monto>' . $i->monto . '</Monto>';
                 }
 
-                if (isset($i->montoExportacion) && $i->montoExportacion != "") {
+                if (isset($i->montoExportacion) && !genXMLIsBlank($i->montoExportacion)) {
                     $xmlString .= '<MontoExportacion>' . $i->montoExportacion . '</MontoExportacion>';
                 }
 
@@ -4899,7 +4909,7 @@ function genXMLFee()
             }
         }
 
-        if (isset($d->impuestoNeto) && $d->impuestoNeto != "") {
+        if (isset($d->impuestoNeto) && !genXMLIsBlank($d->impuestoNeto)) {
             $xmlString .= '<ImpuestoNeto>' . $d->impuestoNeto . '</ImpuestoNeto>';
         }
         $xmlString .= '<MontoTotalLinea>' . $d->montoTotalLinea . '</MontoTotalLinea>';
@@ -4934,29 +4944,29 @@ function genXMLFee()
     //    ]
 
     //OtrosCargos
-    if (isset($otrosCargos) && $otrosCargos != "") {
+    if (isset($otrosCargos) && !genXMLIsBlank($otrosCargos)) {
         foreach ($otrosCargos as $o) {
             $xmlString .= '
         <OtrosCargos>
             <TipoDocumentoOC>' . $o->tipoDocumentoOC . '</TipoDocumentoOC>';
-            if (isset($o->tipoDocumentoOTROS) && $o->tipoDocumentoOTROS != "") {
+            if (isset($o->tipoDocumentoOTROS) && !genXMLIsBlank($o->tipoDocumentoOTROS)) {
                 $xmlString .= '
             <TipoDocumentoOTROS>' . $o->tipoDocumentoOTROS . '</TipoDocumentoOTROS>';
             }
-            if (isset($o->numeroIdentidadTercero) && $o->numeroIdentidadTercero != "" && isset($o->tipoIdentidadTercero) && $o->tipoIdentidadTercero != "") {
+            if (isset($o->numeroIdentidadTercero) && !genXMLIsBlank($o->numeroIdentidadTercero) && isset($o->tipoIdentidadTercero) && !genXMLIsBlank($o->tipoIdentidadTercero)) {
                 $xmlString .= '
             <IdentificacionTercero>
                 <Tipo>' . $o->tipoIdentidadTercero . '</Tipo>
                 <Numero>' . $o->numeroIdentidadTercero . '</Numero>
             </IdentificacionTercero>';
             }
-            if (isset($o->nombreTercero) && $o->nombreTercero != "") {
+            if (isset($o->nombreTercero) && !genXMLIsBlank($o->nombreTercero)) {
                 $xmlString .= '
             <NombreTercero>' . $o->nombreTercero . '</NombreTercero>';
             }
             $xmlString .= '
             <Detalle>' . $o->detalle . '</Detalle>';
-            if (isset($o->porcentajeOC) && $o->porcentajeOC != "") {
+            if (isset($o->porcentajeOC) && !genXMLIsBlank($o->porcentajeOC)) {
                 $xmlString .= '
             <PorcentajeOC>' . $o->porcentajeOC . '</PorcentajeOC>';
             }
@@ -4996,7 +5006,7 @@ function genXMLFee()
     $xmlString .= '
     <ResumenFactura>';
 
-    if ($codMoneda != '' && $codMoneda != 'CRC' && $tipoCambio != '' && $tipoCambio != 0) {
+    if (!genXMLIsBlank($codMoneda) && $codMoneda != 'CRC' && !genXMLIsBlank($tipoCambio) && $tipoCambio != 0) {
         $xmlString .= '
         <CodigoTipoMoneda>
             <CodigoMoneda>' . $codMoneda . '</CodigoMoneda>
@@ -5010,32 +5020,32 @@ function genXMLFee()
     </CodigoTipoMoneda>';
     }
 
-    if ($totalServGravados != '') {
+    if (!genXMLIsBlank($totalServGravados)) {
         $xmlString .= '
         <TotalServGravados>' . $totalServGravados . '</TotalServGravados>';
     }
 
-    if ($totalServExentos != '') {
+    if (!genXMLIsBlank($totalServExentos)) {
         $xmlString .= '
         <TotalServExentos>' . $totalServExentos . '</TotalServExentos>';
     }
 
-    if ($totalMercGravadas != '') {
+    if (!genXMLIsBlank($totalMercGravadas)) {
         $xmlString .= '
         <TotalMercanciasGravadas>' . $totalMercGravadas . '</TotalMercanciasGravadas>';
     }
 
-    if ($totalMercExentas != '') {
+    if (!genXMLIsBlank($totalMercExentas)) {
         $xmlString .= '
         <TotalMercanciasExentas>' . $totalMercExentas . '</TotalMercanciasExentas>';
     }
 
-    if ($totalGravados != '') {
+    if (!genXMLIsBlank($totalGravados)) {
         $xmlString .= '
         <TotalGravado>' . $totalGravados . '</TotalGravado>';
     }
 
-    if ($totalExento != '') {
+    if (!genXMLIsBlank($totalExento)) {
         $xmlString .= '
         <TotalExento>' . $totalExento . '</TotalExento>';
     }
@@ -5043,7 +5053,7 @@ function genXMLFee()
     $xmlString .= '
         <TotalVenta>' . $totalVentas . '</TotalVenta>';
 
-    if ($totalDescuentos != '') {
+    if (!genXMLIsBlank($totalDescuentos)) {
         $xmlString .= '
         <TotalDescuentos>' . $totalDescuentos . '</TotalDescuentos>';
     }
@@ -5069,17 +5079,17 @@ function genXMLFee()
         }
     }
 
-    if ($totalImp != '') {
+    if (!genXMLIsBlank($totalImp)) {
         $xmlString .= '
         <TotalImpuesto>' . $totalImp . '</TotalImpuesto>';
     }
 
-    if ($totalImpAsumidoEmisorFabrica != '') {
+    if (!genXMLIsBlank($totalImpAsumidoEmisorFabrica)) {
         $xmlString .= '
         <TotalImpAsumEmisorFabrica>' . $totalImpAsumidoEmisorFabrica . '</TotalImpAsumEmisorFabrica>';
     }
 
-    if (isset($totalOtrosCargos) && $totalOtrosCargos != "") {
+    if (isset($totalOtrosCargos) && !genXMLIsBlank($totalOtrosCargos)) {
         $xmlString .= '
         <TotalOtrosCargos>' . $totalOtrosCargos . '</TotalOtrosCargos>';
     }
