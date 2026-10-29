@@ -16,6 +16,11 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo_mysql mysqli gd
 
+# OpenSSL 3 no lee los .p12 cifrados con algoritmos viejos (RC2-40) sin el
+# provider "legacy" ("digital envelope routines::unsupported", ver #205).
+RUN sed -i 's/^default = default_sect$/default = default_sect\nlegacy = legacy_sect/; s/^# activate = 1$/activate = 1\n\n[legacy_sect]\nactivate = 1/' /usr/lib/ssl/openssl.cnf \
+    && openssl list -providers | grep -q 'OpenSSL Legacy Provider'
+
 RUN a2enmod rewrite
 
 COPY ./docker-php-apache/docker-entrypoint.sh /usr/local/bin/
