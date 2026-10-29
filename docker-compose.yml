@@ -1,4 +1,3 @@
-version: "3.5"
 services:
   php-apache:
     container_name: ${APP_CONTAINER_NAME:-crlibre-app}
@@ -6,27 +5,43 @@ services:
       context: .
       dockerfile: ./docker-php-apache/Dockerfile
     ports:
-      - 8080:80
-      - 8443:443
+      # Solo loopback: para exponerlo, ponga delante un proxy inverso con TLS.
+      - 127.0.0.1:8080:80
     env_file:
       - ./docker-php-apache/php-apache.env
     environment:
-      CRLIBRE_API_HACIENDA_DB_HOST: ${CRLIBRE_API_HACIENDA_DB_HOST:-mariadb}
+      # Variables que lee www/settings.php
+      DB_HOST: ${DB_HOST:-mariadb}
+      DB_NAME: ${DB_NAME:-testdb}
+      DB_USERNAME: ${DB_USER:-testuser}
+      DB_PASSWORD: ${DB_PASSWORD:-testpassword}
+      cryptoKey: ${CRYPTO_KEY:?definir CRYPTO_KEY en .env (openssl rand -base64 32)}
+      core_install: /var/www/api/
+      core_siteName: ${CORE_SITE_NAME:-API Hacienda}
+      core_host: ${CORE_HOST:-localhost}
+      # Sin esto la sesión vence al segundo: (time() - lastAccess) > false
+      sessionLifetime: ${SESSION_LIFETIME:-1000}
+      # Variables que lee docker-entrypoint.sh
+      CRLIBRE_API_HACIENDA_DB_HOST: ${DB_HOST:-mariadb}
       CRLIBRE_API_HACIENDA_DB_NAME: ${DB_NAME:-testdb}
       CRLIBRE_API_HACIENDA_DB_USER: ${DB_USER:-testuser}
       CRLIBRE_API_HACIENDA_DB_PASSWORD: ${DB_PASSWORD:-testpassword}
     depends_on:
-      - "mariadb"
+      mariadb:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
     networks:
       - crlibrenet
     volumes:
       - ./www/settings.php:/var/www/html/settings.php
-      - ./api:/var/www/html/api
+      # Fuera de la raíz web: los .p12, logs y errores no se sirven por HTTP.
+      - ./api:/var/www/api
   mariadb:
-    image: mariadb:10.11.4
+    image: mariadb:10.11.19@sha256:d769e37960821dfdcf096954f6e7ac89f747e116c1bba98e48edd265dfc7deae
     container_name: ${MARIADB_CONTAINER_NAME:-crlibre-mariadb}
     ports:
-      - 4407:3306
+      - 127.0.0.1:4407:3306
     env_file:
       - ./docker-php-apache/php-apache.env
     volumes:
@@ -39,6 +54,16 @@ services:
       MYSQL_USER: ${DB_USER:-testuser}
       MYSQL_PASSWORD: ${DB_PASSWORD:-testpassword}
       MYSQL_DATABASE: ${DB_NAME:-testdb}
+      # Corre mariadb-upgrade si ./mysql-data viene de una 10.11 anterior.
+      MARIADB_AUTO_UPGRADE: "1"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    security_opt:
+      - no-new-privileges:true
     restart: always
     tty: true
     networks:

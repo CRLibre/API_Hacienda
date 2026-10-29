@@ -20,45 +20,45 @@ function tools_reply($response, $killMe = false)
 {
     switch ($response) {
         case ERROR_USERS_NO_VALID:
-            http_response_code(400);
+            _tools_responseCode(400);
             $response = "Usuario no válido";
             $killMe = true;
             break;
         case ERROR_USERS_WRONG_LOGIN_INFO:
-            http_response_code(401);
+            _tools_responseCode(401);
             $response = "Información de acceso incorrecta";
             $killMe = true;
             break;
         case ERROR_USERS_NO_VALID_SESSION:
-            http_response_code(440);
+            _tools_responseCode(440);
             $response = "Sesión no válida o expirada";
             $killMe = true;
             break;
         case ERROR_USERS_ACCESS_DENIED:
-            http_response_code(403);
+            _tools_responseCode(403);
             $response = "Acceso denegado";
             $killMe = true;
             break;
         case ERROR_USERS_EXISTS:
-            http_response_code(409);
+            _tools_responseCode(409);
             $response = "El usuario ya existe";
             $killMe = true;
             break;
         default:
-            http_response_code(200);
+            _tools_responseCode(200);
     }
 
     if (is_array($response) && isset($response['Status'])) {
         switch ($response['Status']) {
             case 'error':
-                http_response_code(500);
+                _tools_responseCode(500);
                 $killMe = true;
                 break;
             case 'ok':
-                http_response_code(200);
+                _tools_responseCode(200);
                 break;
             default:
-                http_response_code(400);
+                _tools_responseCode(400);
                 $killMe = true;
         }
         $response = $response['text'];
@@ -69,7 +69,7 @@ function tools_reply($response, $killMe = false)
             $response = "ERROR: " . $response;
         }
     } else {
-        http_response_code(200);
+        _tools_responseCode(200);
     }
 
     if (params_get('replyType', 'json') == 'json') {
@@ -88,6 +88,15 @@ function tools_reply($response, $killMe = false)
 
         _tools_reply($response);
     }
+}
+
+/**
+ * PHP 8 lanza un warning si ya hubo salida; PHP 7 lo ignoraba en silencio.
+ */
+function _tools_responseCode($code)
+{
+    if (!headers_sent())
+        http_response_code($code);
 }
 
 function _tools_reply($response)
@@ -130,7 +139,11 @@ function tools_proccesPath($paths)
 
             # Check for permissions
             $p['access_params'] = isset($p['access_params']) ? $p['access_params'] : '';
-            if (call_user_func($p['access'], $p['access_params']) === false)
+            # PHP 7 seguía con un warning si la función de acceso no
+            # existía; en PHP 8 call_user_func() lanza TypeError.
+            if (!is_callable($p['access']))
+                grace_error("Access function not found: " . $p['access']);
+            else if (call_user_func($p['access'], $p['access_params']) === false)
                 return ERROR_USERS_ACCESS_DENIED;
 
             // Load the correct file

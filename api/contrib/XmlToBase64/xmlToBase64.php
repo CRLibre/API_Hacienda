@@ -19,7 +19,9 @@
 function encode()
 {
     modules_loader("files");
-    $str = file_get_contents(filesGetUrl(params_get("downloadCode")));
+    $path = filesGetUrl(params_get("downloadCode"));
+    # Con ruta vacía PHP 7 devolvía false; PHP 8 lanza ValueError.
+    $str = $path == '' ? false : file_get_contents($path);
     grace_debug($str);
     $result = base64_encode($str);
     return $result;	

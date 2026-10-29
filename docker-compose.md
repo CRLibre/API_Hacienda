@@ -2,6 +2,8 @@
 
 La implementación provista de docker y docker compose, su propósito es proveer una forma rápida de acceder al API. Por favor, nótese que estos contenedores no están optimizados para producción.
 
+La imagen usa PHP 8.4.27 sobre Apache. Los puertos (8080 del API y 4407 de MariaDB) solo escuchan en `127.0.0.1`; para exponer el API ponga delante un proxy inverso con TLS.
+
 # Instalación
 
 ## Windows
@@ -28,11 +30,11 @@ En este caso los siguientes commandos son normalmente utilizados en Ubuntu (Linu
 
 Existen varias herramientas que podrían iniciar los contenedores. Después de haber instalado los productos, normalmente se puede ejecutar comandos para arrancar la configuración de los contenedores.
 
-1. Crear un file vacío con nombre `settings.php` dentro de carpeta `www`
+1. Crear un archivo `.env` en la raíz del repositorio con la llave de cifrado del API:
 
-   Este archivo `settings.php` sera persistido con un volumen de docker para no perder las referencias ni de los files uploaded ni de la crypto key para poder usar la misma base datos sin perder ninguna data aunque reiniciemos o le hagamos down a los contenedores.
+   `echo "CRYPTO_KEY=$(openssl rand -base64 32)" > .env`
 
-   Solo se crea este `settings.php` la primera vez que vas a abrir el proyecto con docker o si eliminaste el archivo anteriormente.
+   Sin `CRYPTO_KEY` el compose no arranca. Guarde esa llave: las contraseñas de los usuarios se guardan cifradas con ella, y si cambia ningún usuario ya registrado podrá iniciar sesión. En el mismo `.env` puede cambiar `DB_USER`, `DB_PASSWORD`, `DB_ROOT_PASSWORD` y `SESSION_LIFETIME`.
 
 2. Iniciar Contenedores:
 
@@ -73,9 +75,9 @@ Por ejemplo el siguiente script de bash podría hacer la modificación :
 
 `` sudo apt install dos2unix && for i in `find .`; do dos2unix $i; done ``
 
-3. No encuentra el archivo `settings.php`
+3. `required variable CRYPTO_KEY is missing a value`
 
-Asegúrate de crear el archivo `settings.php` dentro de la carpeta `www`. Solo se hace la primera vez que vas a abrir el proyecto con docker o si eliminaste el archivo anteriormente.
+Falta el archivo `.env` con `CRYPTO_KEY` (ver el paso 1 de la ejecución).
 
 # Verificando la ejecución del contenedor
 
